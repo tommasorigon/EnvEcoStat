@@ -1,30 +1,39 @@
 ---
-title: "Statistical Models and Applications in Economics and Environmental Sciences"
-subtitle: "Unit intro: introduction to the course"
+title: "Introduction"
+subtitle: "Statistical Models and Applications - BSc Economics and Science for Environmental Sustainability"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
-lang: en
-page-layout: full
-reference-location: margin
 execute:
   cache: false
 filters:
   - remove-pause.lua
+page-layout: full
 format:
+  revealjs:
+    auto-stretch: true
+    center: true
+    html-math-method: katex
+    transition: none
+    output-file: un_intro_slides.html
+    slide-number: true
+    callout-appearance: minimal
+    code-line-numbers: true
+    theme: [default, ../template.css]
+    embed-resources: false
+    echo: false
+    fig-dpi: 150
+    logo: img/logoB.png
+    footer: "[Home page](https://tommasorigon.github.io/EnvEcoStat)"
   html:
     html-math-method: katex
-    echo: true
+    echo: false
     callout-appearance: minimal
     theme: [simplex, ../template.css]
     toc: true
     toc-title: Table of contents
     embed-resources: false
-    code-line-numbers: false
     smooth-scroll: true
-    code-fold: false
-    code-summary: "Show the code"
-    fig-dpi: 200
-    highlight-style: github
+    fig-dpi: 90
 editor:
   markdown:
     wrap: 72
@@ -32,26 +41,40 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
-
--   First topic
--   Second topic
--   Third topic
-
-::: callout-note
-#### Note
-
-The **R** exercises associated to this unit are available at
-[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_A.html).
-:::
-
-## A first section
-
-Text of the unit. Inline math such as $y_i = x_i^\top \beta + \epsilon_i$ is
-rendered with KaTeX.
+## [Homepage](../index.html)
 
 ```{r}
-# A first code chunk
+#| warning: false
+#| echo: false
+#| include: false
+#| message: false
+#| purl: false
+
+# Please ignore this chunk
+knitr::purl("un_intro.qmd", output = "../code/un_intro.R", documentation = 0)
+styler:::style_file("../code/un_intro.R")
+```
+
+-   This unit will cover the following [topics]{.orange}:
+
+    -   First topic
+    -   Second topic
+    -   Third topic
+
+# First section
+
+## A slide
+
+Text of the slide. Inline math such as $y_i = x_i^\top \beta + \epsilon_i$
+is rendered with KaTeX.
+
+. . .
+
+Content revealed after a pause (the `remove-pause.lua` filter strips the
+pause in the HTML notes).
+
+```{r}
+#| echo: true
 summary(cars)
 ```
 

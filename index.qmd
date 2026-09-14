@@ -1,10 +1,12 @@
 ---
 title: "Statistical Models and Applications in Economics and Environmental Sciences"
-subtitle: "M.Sc. in Statistics and Economics (CLAMSES), Università degli Studi di Milano-Bicocca"
+subtitle: "BSc in Economics and Science for Environmental Sustainability"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
 lang: en
-page-layout: full
 execute:
-  cache: false
+  cache: true
+page-layout: full
 format:
   html:
     html-math-method: katex
@@ -24,33 +26,45 @@ editor_options:
   chunk_output_type: console
 ---
 
-The course [Statistical Models and Applications in Economics and Environmental
-Sciences]{.orange} is taught by Tommaso Rigon at the Università degli Studi di
-Milano-Bicocca, academic year 2026/2027.
+This is the website of the **Statistical Models and Applications in
+Economics and Environmental Sciences** course (X CFU) of the B.Sc. in
+"*Economics and Science for Environmental Sustainability*", Università
+degli Studi di Milano-Bicocca.
 
 ::: callout-warning
 #### Work in progress
 
-This page is [under construction]{.blue}. Teaching material will be posted here
-as the course progresses.
+This page is [under construction]{.blue}. Teaching material will be posted
+here as the course progresses.
 :::
 
 ## Teaching material
 
-| Topics | Notes | Slides | Code |
-|--------|-------|--------|------|
-|  | **INTRODUCTION** |  |  |
-| Introduction to the course | [Unit intro](slides/un_intro.html) | — | — |
-|  | **PART I** |  |  |
-| *To be defined* | [Unit A](slides/un_A.html) | [Slides](slides/un_A_slides.html) | [Lab 1](code/lab1.R) |
+#### Required
 
-## Exercises
+- *To be defined*
 
-| Topics | Exercises |
-|--------|-----------|
+#### Optional
+
+- *To be defined*
+
+#### Slides and lecture notes
+
+The slides are meant to be used in HTML.
+
+| Topic | Notes | Slides and other material |
+|-------|-------|---------------------------|
+| **Introduction** | [Introduction](slides/un_intro.html) | [Slides Introduction](slides/un_intro_slides.html) ([pdf version](slides/un_intro_slides.pdf)) |
+| **Unit A** | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) ([pdf version](slides/un_A_slides.pdf)) |
+| Lab 1 | [`lab1.R`](code/lab1.R) | |
+
+#### Exercises
+
+| Topic | Exercises |
+|-------|-----------|
 | *To be defined* | [Exercises A](exe/exe_A.html) |
 
-## Past exams
+#### Past exams
 
 | Date | Exam |
 |------|------|
@@ -58,25 +72,9 @@ as the course progresses.
 
 ## Software
 
--   **R** is open source and can be downloaded at <https://cloud.r-project.org>.
+-   **R** is open source and can be downloaded at
+    <https://cloud.r-project.org>.
 -   The use of **RStudio** is optional but strongly recommended:
     <https://posit.co/download/rstudio-desktop/>.
--   The documentation of the **R** software is an integral part of the teaching
-    material.
-
-## Textbooks and references
-
-#### Main references
-
--   *To be defined*
-
-#### Additional references
-
--   *To be defined*
-
-```{r}
-#| echo: false
-#| eval: false
-library(knitr)
-knitr::purl("slides/un_A.qmd", "code/lab1.R")
-```
+-   The documentation of the **R** software is an integral part of the
+    teaching material.
