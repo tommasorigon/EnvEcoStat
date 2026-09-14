@@ -230,13 +230,12 @@ atan(x)
 Let us suppose that `x` and `y` are two **real numbers**. Moreover, let
 `n` and `k` be two **natural numbers**.
 
-Note the use of `;`, which can be used to separate two commands on the
-same line.
-
 ```{r}
 # ---- Further mathematical functions I ----------------------------------
-x <- 1 / 2; y <- 1 / 3 # Real numbers
-n <- 5; k <- 2 # Natural numbers
+x <- 1 / 2 # Real numbers
+y <- 1 / 3
+n <- 5 # Natural numbers
+k <- 2
 ```
 
 ```{r}
@@ -294,9 +293,10 @@ The command `? function` opens a window in which a function is described
 in detail. Example:
 
 ```{r}
-#| eval: false
 # ---- The official documentation ----------------------------------------
-? log # Documentation of the log function
+# Run the following command in the console to open the documentation
+# of the log function:
+# ? log
 ```
 
 ::: callout-tip
@@ -383,7 +383,10 @@ Other **logical functions** available (assuming that `y` is a number and
 `b` a boolean) are:
 
 ```{r}
-a <- TRUE; b <- FALSE; x <- 5; y <- 7
+a <- TRUE
+b <- FALSE
+x <- 5
+y <- 7
 x >= y # Is x greater than or equal to y? (Use "<=" for smaller or equal)
 x != y # Is x different from y?
 a & b # a AND b. Are the boolean values a and b both true?
