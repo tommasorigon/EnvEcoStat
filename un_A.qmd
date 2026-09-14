@@ -4,7 +4,7 @@ subtitle: "Programming and Data Analysis with R"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
 page-layout: full
-bibliography: ../biblio.bib
+bibliography: biblio.bib
 citeproc: true
 csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
 reference-location: margin
@@ -15,7 +15,7 @@ format:
     html-math-method: katex
     echo: true
     callout-appearance: minimal
-    theme: [simplex, ../template.css]
+    theme: [simplex, template.css]
     toc: true
     toc-title: Table of contents
     embed-resources: false
@@ -28,7 +28,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-## [Homepage](../index.html)
+## [Homepage](index.html)
 
 ```{r}
 #| warning: false
@@ -38,8 +38,8 @@ editor_options:
 #| purl: false
 
 # Please ignore this chunk
-knitr::purl("un_A.qmd", output = "../code/un_A.R", documentation = 0)
-styler:::style_file("../code/un_A.R")
+knitr::purl("un_A.qmd", output = "code/un_A.R", documentation = 0)
+styler:::style_file("code/un_A.R")
 ```
 
 ::: columns
