@@ -10,3 +10,6 @@
 
 # macOS
 .DS_Store
+
+# personal version of the scripts, with the text of the notes
+code/*_full.R
