@@ -1,13 +1,17 @@
 ---
-title: "Title of Unit A"
-subtitle: "Statistical Models and Applications - BSc Economics and Science for Environmental Sustainability"
+title: "Introduction to R: A-B-C"
+subtitle: "Programming and Data Analysis with R"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
 execute:
   cache: false
-filters:
+filters: 
   - remove-pause.lua
-page-layout: full
 format:
   revealjs:
     auto-stretch: true
@@ -18,15 +22,16 @@ format:
     slide-number: true
     callout-appearance: minimal
     code-line-numbers: true
-    theme: [default, ../template.css]
+    theme: [default, ../template.css] # alternative themes (subset): default, night, dark
     embed-resources: false
-    echo: false
+    echo: true
     fig-dpi: 150
+    # incremental: true  # Remove comment if you like incremental bullet points
     logo: img/logoB.png
     footer: "[Home page](https://tommasorigon.github.io/EnvEcoStat)"
   html:
     html-math-method: katex
-    echo: false
+    echo: true
     callout-appearance: minimal
     theme: [simplex, ../template.css]
     toc: true
@@ -34,10 +39,10 @@ format:
     embed-resources: false
     smooth-scroll: true
     fig-dpi: 90
-editor:
-  markdown:
+editor: 
+  markdown: 
     wrap: 72
-editor_options:
+editor_options: 
   chunk_output_type: console
 ---
 
@@ -55,29 +60,755 @@ knitr::purl("un_A.qmd", output = "../code/un_A.R", documentation = 0)
 styler:::style_file("../code/un_A.R")
 ```
 
+::: columns
+::: {.column width="40%"}
+![](img/ABC.png)
+
+*"Everything should be made as simple as possible, but not simpler"*
+
+Attributed to [Albert Einstein]{.grey}
+:::
+
+::: {.column width="60%"}
 -   This unit will cover the following [topics]{.orange}:
 
-    -   First topic
-    -   Second topic
-    -   Third topic
+    -   A-B-C: the **R** software as a [scientific calculator]{.blue}
+    -   Routine operations: cleaning the *workspace*, special symbols
+    -   Mathematical functions, plotting a function, logical operations
+    -   Operations with [vectors]{.blue} and [matrices]{.orange}
 
-# First section
+-   During the lectures we will work [only with the R scripts]{.orange}.
+    These notes and the slides are a [reference]{.blue} you can go back
+    to afterwards.
+:::
+:::
 
-## A slide
+::: callout-tip
+The content of this unit is covered in [Appendix A.0]{.orange} (*Basics of
+R*) of @Agresti2022. For a more extended treatment, see [Chapter 1]{.blue}
+and [Appendix A]{.grey} of @Albert2012, or @RCoreTeam.
+:::
 
-Text of the slide. Inline math such as $y_i = x_i^\top \beta + \epsilon_i$
-is rendered with KaTeX.
+# R as a scientific calculator
+
+## Scientific calculator
+
+First of all, **R** can be used as if it were a *scientific calculator*:
+
+```{r}
+
+# ======================================================================
+# R AS A SCIENTIFIC CALCULATOR
+# ======================================================================
+
+# ---- Scientific calculator ---------------------------------------------
+2 + 2
+4 * (3 + 5) # The sum within brackets is executed first
+pi / 4 # Pi over four
+```
+
+To compute the power $a^b$ one uses:
+
+```{r}
+2^5 # Alternative syntax: 2**5
+```
+
+The quantities $\sqrt{2}$ and $\sin(\pi/4)$ are instead obtained with the
+commands:
+
+```{r}
+sqrt(2)
+sin(pi / 4)
+```
+
+::: callout-note
+## Note
+
+Everything written after a hash (`#`) is treated as a **comment**.
+:::
+
+## Assigning a value
+
+A **value can be stored** by assigning it to an object through the symbol
+`<-`.
+
+```{r}
+# ---- Assigning a value -------------------------------------------------
+# Assign the value sqrt(5) to the object x
+x <- sqrt(5) # Alternative syntax (not recommended): x = sqrt(5)
+```
+
+The value contained in `x` can later be recalled, modified and saved into
+a new object, called for instance `y`.
+
+```{r}
+y <- x + pi # That is, pi plus the square root of 5
+y
+```
+
+To **remove an object** from memory one uses the command `rm`, that is,
+*remove*.
+
+```{r}
+rm(x) # x is no longer present in the "workspace"
+```
+
+::: callout-note
+## Note
+
+**R** is *case sensitive*, therefore the object `x` is different from the
+object `X`.
+:::
+
+## Cleaning the *workspace*
+
+It is good practice to keep the *workspace*, that is the working
+environment, clean.
+
+If an object is no longer needed, it can be deleted through the command
+`rm`.
+
+The list of the objects saved in memory can be displayed with the
+following command:
+
+```{r}
+# ---- Cleaning the workspace --------------------------------------------
+ls() # The object y is present in the workspace
+```
+
+Therefore, to **delete** all the saved **objects**, one can use
+
+```{r}
+rm(list = ls())
+```
+
+## Some mathematical functions I
+
+Let us suppose that `x` is a **real number**.
+
+What follows is a list of functions available in **R**:
+
+```{r}
+# ---- Some mathematical functions I -------------------------------------
+x <- 1 / 2 # Example of a real number
+```
+
+```{r}
+exp(x) # Exponential and natural logarithm
+log(x)
+```
+
+```{r}
+abs(x) # Absolute value
+sign(x) # Sign function
+```
+
+## Some mathematical functions II
+
+```{r}
+# ---- Some mathematical functions II ------------------------------------
+sin(x) # Trigonometric functions (sine, cosine, tangent)
+cos(x)
+tan(x)
+```
+
+```{r}
+asin(x) # Inverse trigonometric functions
+acos(x)
+atan(x)
+```
+
+::: callout-note
+## Note
+
+**R** functions can be combined with one another, for example
+`log(abs(x))`.
+:::
+
+## Further mathematical functions I
+
+Let us suppose that `x` and `y` are two **real numbers**. Moreover, let
+`n` and `k` be two **natural numbers**.
+
+Note the use of `;`, which can be used to separate two commands on the
+same line.
+
+```{r}
+# ---- Further mathematical functions I ----------------------------------
+x <- 1 / 2; y <- 1 / 3 # Real numbers
+n <- 5; k <- 2 # Natural numbers
+```
+
+```{r}
+factorial(n) # n!
+choose(n, k) # Binomial coefficient
+```
+
+```{r}
+round(x, digits = 2) # Rounds x using 2 decimal digits
+floor(x) # Rounds x down to the nearest integer
+ceiling(x) # Rounds x up to the nearest integer
+```
+
+## Further mathematical functions II
+
+The gamma function $\Gamma(x) = \int_0^\infty s^{x-1} e^{-s} d s$ is
+computed in **R** as follows:
+
+```{r}
+# ---- Further mathematical functions II ---------------------------------
+gamma(x) # Gamma function
+```
+
+The beta function $\mathcal{B}(x,y) = \int_0^1 s^{x-1}(1-s)^{y-1}ds$ is
+computed in **R** as follows:
+
+```{r}
+beta(x, y) # Beta function
+```
+
+## Plotting a function
+
+In **R** it is possible to **draw** any function through the command
+`curve`.
+
+If for example we consider the function $$f(x) = \frac{\sin(x)}{x},$$ then
+we can draw $f(x)$ over the interval $(0,15)$ as follows:
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5
+# ---- Plotting a function -----------------------------------------------
+curve(sin(x) / x, from = 0, to = 15)
+```
+
+## The official documentation
+
+The documentation of **R** is the main source of information.
+
+What is a function for? What is the definition of its arguments? The
+answer should always be looked for in the **official documentation** and
+not in these slides.
+
+The command `? function` opens a window in which a function is described
+in detail. Example:
+
+```{r}
+#| eval: false
+# ---- The official documentation ----------------------------------------
+? log # Documentation of the log function
+```
+
+::: callout-tip
+## A note about the exam
+
+During the exam it is legitimate --- indeed, it is strongly recommended
+--- to consult the documentation.
+:::
+
+## Special symbols
+
+Very large numbers, such as $10^{15}$, and very small ones, such as
+$10^{-15}$, are represented in **R** as follows:
+
+```{r}
+# ---- Special symbols ---------------------------------------------------
+10^15
+10^(-15)
+```
+
+Because of numerical approximation, when a number is too large **R**
+returns `Inf`, that is **infinity**. For example:
+
+```{r}
+10^1000 # A very large number, although finite
+```
+
+The symbol `NaN` means instead *Not a Number* and is obtained when some
+mathematical function has not been used in the correct way. For example:
+
+```{r}
+#| warning: true
+log(-1) # This command also generates a warning
+```
+
+## Numerical approximation errors
+
+It is well known that $\sin(\pi) = 0$. However, in **R** one obtains a
+number very close to $0$, but strictly positive. Indeed:
+
+```{r}
+# ---- Numerical approximation errors ------------------------------------
+sin(pi)
+```
+
+**R** is a numerical computing tool and therefore **numerical
+approximation errors** are always present.
 
 . . .
 
-Content revealed after a pause (the `remove-pause.lua` filter strips the
-pause in the HTML notes).
+Fortunately, in most practical cases the difference between $0$ and
+$10^{-16}$ is completely irrelevant.
+
+In other situations, numerical approximation errors may lead to
+misleading conclusions. One should therefore be careful and evaluate case
+by case.
+
+. . .
+
+In any case, the numerical approximation may also turn out to be exact.
+For example:
 
 ```{r}
-#| echo: true
-summary(cars)
+cos(pi)
+```
+
+## Logical operations
+
+In **R** it is often necessary to check whether one or more conditions
+are satisfied or not.
+
+```{r}
+# ---- Logical operations ------------------------------------------------
+x <- 5
+x < 0 # Is the value of x smaller than 0?
+a <- (x == -3) # Is the value of x equal to -3?
+a
+```
+
+The value of `a` is a **binary** or **boolean** indicator, that is, it
+can be true (`TRUE`) or false (`FALSE`).
+
+Other **logical functions** available (assuming that `y` is a number and
+`b` a boolean) are:
+
+```{r}
+a <- TRUE; b <- FALSE; x <- 5; y <- 7
+x >= y # Is x greater than or equal to y? (Use "<=" for smaller or equal)
+x != y # Is x different from y?
+a & b # a AND b. Are the boolean values a and b both true?
+a | b # a OR b. Is at least one of a and b true?
+```
+
+# Vectors
+
+## Vectors
+
+A **vector** in **R** is defined through the function `c()`, as in the
+following example:
+
+```{r}
+
+# ======================================================================
+# VECTORS
+# ======================================================================
+
+# ---- Vectors -----------------------------------------------------------
+x <- c(4, 2, 2, 8, 10)
+x
+```
+
+::: callout-note
+## Note
+
+With the generic term "**vector**" in **R** one does not refer to the
+notion of linear algebra but simply to a string of ordered values.
+:::
+
+The following object is a **vector** in **R**, even though the object `x`
+is made of both numbers and letters
+
+```{r}
+x <- c("A", "B", 2, 8, 10)
+x
+```
+
+## Creating vectors
+
+Sometimes it is convenient to create vectors whose elements are
+**consecutive numbers**
+
+```{r}
+# ---- Creating vectors --------------------------------------------------
+x <- 5:10 # Equivalent to: x <- c(5, 6, 7, 8, 9, 10)
+x
+```
+
+To create a sequence of **real numbers** one uses the command `seq`:
+
+```{r}
+x <- seq(from = 0, to = 1, by = 0.1)
+x
+```
+
+To create a vector of **repeated values** one uses the command `rep`:
+
+```{r}
+x <- rep(10, 7) # Vector in which the number 10 is repeated 7 times
+x
+```
+
+## Operations on vectors I
+
+Most of the mathematical functions of **R** are **vectorized**. In other
+words, the functions act on all the elements of a vector.
+
+```{r}
+# ---- Operations on vectors I -------------------------------------------
+exp(1:6) + (1:6) / 2 + 1 # Example 1
+```
+
+```{r}
+x <- c(10, 10^2, 10^3, 10^4, 10^5, 10^6) # Example 2
+log(x, base = 10)
+```
+
+```{r}
+1:8 > 4 # Example 3
+```
+
+Other functions are instead useful precisely when the **argument** is a
+**vector**:
+
+```{r}
+x <- c(2, 3, 1, 3, 10, 5)
+length(x) # Length of the vector
+sum(x) # Sum of the elements of the vector
+cumsum(x) # Cumulative sums
+```
+
+## Operations on vectors II
+
+Further simple operations in which the argument is a vector are listed
+below:
+
+```{r}
+# ---- Operations on vectors II ------------------------------------------
+x <- c(2, 3, 1, 3, 10, 5)
+prod(x) # Product of the elements of the vector
+cumprod(x) # Cumulative products
+sort(x, decreasing = FALSE) # Vector sorted in increasing order
+min(x) # Minimum value
+which.min(x) # Position of the value corresponding to the minimum
+```
+
+Finally, the behaviour of the following functions should be guessable
+from what we have seen so far:
+
+```{r}
+max(x) # Maximum value
+which.max(x) # Position of the value corresponding to the maximum
+range(x) # Equivalent to: c(min(x), max(x))
+```
+
+## Operations on vectors III
+
+It is possible to **select the elements** of a vector using square
+brackets, as in the following examples:
+
+```{r}
+# ---- Operations on vectors III -----------------------------------------
+# Concatenation of vectors
+x <- c(rep(pi, 2), sqrt(2), c(10, 7))
+x[3] # Extracts the third element from the vector x, that is sqrt(2)
+x[c(1, 3, 5)] # Extracts the first, the third and the fifth element
+x[-c(1, 3, 5)] # Deletes the first, the third and the fifth element
+x[x > 3.5] # Extracts the elements greater than 3.5
+```
+
+The last command suggests that the elements of a vector can be selected
+through a **condition** on the vector itself.
+
+## Operations on vectors: a warning
+
+What happens when two vectors of different length are summed?
+
+::: callout-warning
+Most programming languages return an error. **R** instead performs the
+operation anyway, by "recycling" the shorter vector.
+:::
+
+In this first example, **R** at least returns a *warning*.
+
+```{r}
+#| warning: true
+# ---- Operations on vectors: a warning ----------------------------------
+x <- 1:5
+y <- 1:6
+x + y # Equivalent to: c(x, x[1]) + y
+```
+
+. . .
+
+In this second example, instead, **R** does not return any warning, which
+makes the situation particularly dangerous
+
+```{r}
+x <- 1:3
+y <- 1:6
+x + y # Equivalent to: c(x, x) + y
+```
+
+# Matrices and lists
+
+## Matrices
+
+A **matrix** ${\bf A}$ is a collection of elements $(a)_{ij}$ for
+$i=1,\dots,n$ and $j=1,\dots,m$.
+
+For example, the square matrix of dimension $2 \times 2$
+
+$${\bf A} = \begin{pmatrix}
+5 & 2\\
+1 & 4 \\
+\end{pmatrix},$$ can be defined in **R** through the command `matrix` as
+follows:
+
+```{r}
+
+# ======================================================================
+# MATRICES AND LISTS
+# ======================================================================
+
+# ---- Matrices ----------------------------------------------------------
+A <- matrix(c(5, 1, 2, 4), nrow = 2, ncol = 2)
+A
+```
+
+It is also possible to list the elements **row by row**
+
+```{r}
+# Equivalent definition
+A <- matrix(c(5, 2, 1, 4), nrow = 2, ncol = 2, byrow = TRUE)
+```
+
+## Row vectors and column vectors
+
+A matrix with a single column is a **column vector**:
+
+```{r}
+# ---- Row vectors and column vectors ------------------------------------
+x_col <- matrix(c(1, 10, 3, 5), ncol = 1)
+x_col
+```
+
+A matrix with a single row is a **row vector**:
+
+```{r}
+x_row <- matrix(c(1, 10, 3, 5), nrow = 1)
+x_row
+```
+
+## Row vectors and **R** vectors
+
+In most cases, the **row vector** `x_row` is interchangeable with the
+vector `x`.
+
+```{r}
+# ---- Row vectors and R vectors -----------------------------------------
+x_row <- matrix(c(1, 10, 3, 5), nrow = 1)
+x <- c(1, 10, 3, 5) # Similar, but not identical, to x_row
+```
+
+For example, the functions `sum(x_row)` and `sum(x)` return the same
+result.
+
+There are however some slight distinctions. For example:
+
+```{r}
+dim(x_row)
+dim(x)
+```
+
+The symbol `NULL` means **not defined**, because the notion of dimension
+does not exist for a generic **R** vector.
+
+## Operations on matrices I
+
+It is possible to **select the elements** of a matrix in a way analogous
+to what was done with vectors.
+
+```{r}
+# ---- Operations on matrices I ------------------------------------------
+A[1, 2] # Extraction of the element in position (1,2)
+A[, 2] # Extraction of the second column
+A[1, ] # Extraction of the first row
+```
+
+Some **basic commands** to manipulate matrices are the following
+
+```{r}
+dim(A) # Returns the dimension of the matrix
+a <- c(A) # Converts the matrix into a vector
+a
+```
+
+```{r}
+diag(A) # Returns the diagonal of the matrix
+t(A) # Computes the transposed matrix A'
+sum(A) # Sum of all the elements of A
+```
+
+## Operations on matrices II
+
+As for vectors, elementary operations (sum, product, `log`, `exp`, etc.)
+are performed **element by element**.
+
+```{r}
+# ---- Operations on matrices II -----------------------------------------
+exp(A)
+```
+
+Let ${\bf A}$ and ${\bf B}$ be two matrices having the same number of
+columns and let us define
+
+$$
+{\bf C} = \begin{pmatrix}{\bf A} \\ {\bf B} \end{pmatrix}.
+$$
+
+```{r}
+B <- A # I create a matrix B identical to A, for simplicity
+C <- rbind(A, B)
+C
+```
+
+Analogously, let ${\bf A}$ and ${\bf B}$ be two matrices having the same
+number of rows and let us define
+${\bf C} = \begin{pmatrix}{\bf A} & {\bf B} \end{pmatrix}$.
+
+```{r}
+C <- cbind(A, B)
+C
+```
+
+## Operations on matrices III
+
+Let ${\bf x}$ and ${\bf y}$ be two column vectors in $\mathbb{R}^p$.
+Then, their [cross product]{.orange} is equal to
+
+$$ 
+{\bf x}^\intercal {\bf y} = \sum_{i=1}^p x_i y_i.
+$$
+
+In **R** we can use the command `crossprod`
+
+```{r}
+# ---- Operations on matrices III ----------------------------------------
+x <- matrix(c(-4, 2, 6, 10, 22), ncol = 1)
+y <- matrix(c(3, 2, 2, 7, 9), ncol = 1)
+crossprod(x, y) # Equivalent to: sum(x * y)
+```
+
+The command `crossprod` also works correctly with **R** "vectors".
+
+The command `crossprod` can be used as well to compute the following
+**matrix product** $$
+{\bf A}^\intercal {\bf B},
+$$ where ${\bf A}$ and ${\bf B}$ are two matrices of compatible
+dimensions.
+
+## Operations on matrices IV
+
+In linear algebra the **product between compatible matrices**
+${\bf A} {\bf B}$ is called the row-by-column product. In **R** one uses
+the following command
+
+```{r}
+# ---- Operations on matrices IV -----------------------------------------
+A <- rbind(c(1, 2, 3), c(4, 9, 2), c(2, 2, 2))
+B <- rbind(c(5, 2, 5), c(3, 3, 7), c(-2, -8, 10))
+
+A %*% B # Row-by-column product AB
+```
+
+**Note**. The command `A * B` denotes the element-by-element product and
+not the row-by-column product.
+
+If the matrices are not compatible **R** produces an error (try it as an
+exercise!)
+
+## Operations on matrices V
+
+Let ${\bf A}$ be a square $n \times n$ real-valued matrix. Its **inverse
+matrix** ${\bf A}^{-1}$, when it exists, is the unique matrix such that
+
+$$
+{\bf A} {\bf A}^{-1} = {\bf A}^{-1} {\bf A} =  I_n.
+$$
+
+To obtain ${\bf A}^{-1}$ one uses the command `solve`.
+
+```{r}
+# ---- Operations on matrices V ------------------------------------------
+A <- rbind(c(1, 2, 3), c(4, 9, 2), c(2, 2, 2))
+A1 <- solve(A) # Inverse matrix of A
+A1
+```
+
+```{r}
+round(A %*% A1, digits = 5) # Sanity check
+```
+
+```{r}
+det(A) # Computes the determinant of the matrix A
+```
+
+## Operations on matrices VI
+
+In case a matrix is not invertible, the **determinant** is equal to $0$.
+The command `solve` in that case produces an error.
+
+```{r}
+# ---- Operations on matrices VI -----------------------------------------
+# Example of a NON invertible matrix
+A <- rbind(c(1, 2, 3), c(2, 4, 6), c(2, 2, 2))
+det(A) # Determinant equal to 0, solve(A) produces an error
+```
+
+There are several functions for the **decomposition of matrices**, whose
+output is sometimes a **list**.
+
+```{r}
+A <- matrix(c(4, 1, 1, 8), ncol = 2)
+chol(A) # Cholesky decomposition
+qr(A) # QR decomposition
+eigen(A) # Spectral decomposition
+```
+
+## Lists
+
+A **list** is a collection of objects (numbers, vectors, matrices, etc.).
+
+To **store** or to **extract** an object from a list one uses the dollar
+symbol `$`.
+
+```{r}
+# ---- Lists -------------------------------------------------------------
+# Creation of a list
+new_list <- list(
+  A = matrix(c(4, 1, 1, 8), ncol = 2),
+  x = c(1, 2, 6, 6, 9)
+)
+
+new_list
+```
+
+## Example: the spectral decomposition
+
+The eigenvalues and eigenvectors of a matrix $\textbf{A}$ are obtained
+through the command `eigen`.
+
+The result is a **list**, containing the eigenvectors (`vectors`) and the
+eigenvalues (`values`).
+
+```{r}
+# ---- Example: the spectral decomposition -------------------------------
+Spec_A <- eigen(A) # Spectral decomposition of the matrix A
+Spec_A
+```
+
+```{r}
+Spec_A$values # Extraction of the eigenvalues
 ```
 
 ## References
-
--   *To be added*

@@ -1,6 +1,6 @@
 ---
 title: "Introduction"
-subtitle: "Statistical Models and Applications - BSc Economics and Science for Environmental Sustainability"
+subtitle: "Programming and Data Analysis with R"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
 execute:

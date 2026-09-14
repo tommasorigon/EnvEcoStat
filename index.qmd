@@ -1,6 +1,6 @@
 ---
-title: "Statistical Models and Applications in Economics and Environmental Sciences"
-subtitle: "BSc in Economics and Science for Environmental Sustainability"
+title: "Programming and Data Analysis with R"
+subtitle: "Statistical Models and Applications in Economics and Environmental Sciences"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
 lang: en
@@ -26,49 +26,93 @@ editor_options:
   chunk_output_type: console
 ---
 
-This is the website of the **Statistical Models and Applications in
-Economics and Environmental Sciences** course (X CFU) of the B.Sc. in
+This website collects the material of the **Programming and Data Analysis
+with R** module (30 hours of laboratory) of the course *Statistical Models
+and Applications in Economics and Environmental Sciences*, B.Sc. in
 "*Economics and Science for Environmental Sustainability*", Università
 degli Studi di Milano-Bicocca.
+
+The other module of the course, *Statistical Inference and Modeling*, is
+not covered here.
 
 ::: callout-warning
 #### Work in progress
 
-This page is [under construction]{.blue}. Teaching material will be posted
-here as the course progresses.
+This page is [under construction]{.blue}: the material is published as the
+module progresses.
 :::
 
 ## Teaching material
 
 #### Required
 
-- *To be defined*
+- Agresti, A. and Kateri, M. (2022), *Foundations of Statistics for Data
+  Scientists*, CRC Press.
 
 #### Optional
 
-- *To be defined*
+- Albert, J. and Rizzo, M. (2012), [*R by
+  Example*](https://link.springer.com/book/10.1007/978-1-4614-1365-3),
+  Springer.
+- Wickham, H., Çetinkaya-Rundel, M. and Grolemund, G. (2023), [*R for Data
+  Science*](https://r4ds.hadley.nz/), 2nd edition, O'Reilly.
+- R Core Team, [*An Introduction to
+  R*](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf).
 
 #### Slides and lecture notes
 
-The slides are meant to be used in HTML.
+During the lectures we work [only with the R scripts]{.orange}. The notes
+and the slides cover the same material and are meant as a reference.
 
-| Topic | Notes | Slides and other material |
-|-------|-------|---------------------------|
-| **Introduction** | [Introduction](slides/un_intro.html) | [Slides Introduction](slides/un_intro_slides.html) ([pdf version](slides/un_intro_slides.pdf)) |
-| **Unit A** | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) ([pdf version](slides/un_A_slides.pdf)) |
-| Lab 1 | [`lab1.R`](code/lab1.R) | |
+The acronym **AK** refers to the book by Agresti and Kateri, **AR** to the
+book by Albert and Rizzo.
+
+| Topic | Notes | Slides | R script | Textbook |
+|-------|-------|--------|----------|----------|
+| | **INTRODUCTION TO R** | | | |
+| A-B-C: scientific computing and linear algebra | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) ([pdf](slides/un_A_slides.pdf)) | [`un_A.R`](code/un_A.R) | **AK** §A.0; **AR** §1.1, §1.3, §A1---§A3 |
+| Data handling and descriptive statistics | | | | **AK** §1.4---§1.5, §A.1 |
+| | **INFERENCE AND SAMPLING DISTRIBUTIONS** | | | |
+| *To be defined* | | | | **AK** Ch. 2---5 |
+| | **LINEAR MODELS AND LEAST SQUARES** | | | |
+| *To be defined* | | | | **AK** Ch. 6 |
+| | **DATA ANALYSIS: CASE STUDIES** | | | |
+| *To be defined* | | | | |
 
 #### Exercises
 
 | Topic | Exercises |
 |-------|-----------|
-| *To be defined* | [Exercises A](exe/exe_A.html) |
+| A-B-C: scientific computing and linear algebra | [Exercises A](exe/exe_A.html) |
 
 #### Past exams
 
 | Date | Exam |
 |------|------|
 | *No exams yet* | — |
+
+## Program of the module
+
+- **Introduction to R**: basic programming, data handling and descriptive
+  statistics.
+- **Inference and sampling distributions**: random variables, point
+  estimation, testing and confidence intervals for notable models.
+- **Linear models and least squares**: model fitting and interpretation of
+  the results.
+- **Data analysis**: case studies in ecology, economics, and environmental
+  sciences.
+
+## Exam
+
+The exam is a written examination held in the lab, combining theoretical
+questions, exercises and exercises in **R**, covering both parts of the
+course. Students are required to execute **R** code in order to answer
+some of the questions.
+
+::: callout-tip
+During the exam it is legitimate --- indeed, strongly recommended --- to
+consult the **R** documentation.
+:::
 
 ## Software
 
