@@ -72,20 +72,20 @@ references to the other textbooks are given inside each unit.
 |------------------|------------------|------------------|------------------|
 |  | **INTRODUCTION TO R** |  |  |
 | **A-B-C** | [Unit A](un_A.html) | [`un_A.R`](code/un_A.R) | **AK** §A.0 |
+| **Programming** | [Unit B](un_B.html) | [`un_B.R`](code/un_B.R) | **AK** §A.0.3, §A.0.5 |
+| **Data frames** | [Unit C](un_C.html) | [`un_C.R`](code/un_C.R) | **AK** §A.0.3, §A.0.4 |
 | *Exercises* | [Exercises A](exe/exe_A.html) |  |  |
-| **Data handling** | \[Unit B\] |  | **AK** §1.4---§1.5, §A.1 |
+|  | **DESCRIPTIVE STATISTICS** |  |  |
+| **The `dde` data** | [Unit D](un_D.html) | [`un_D.R`](code/un_D.R) | **AK** §1.4, §A.1 |
+| **The `hemoglobin` data** | [Unit E](un_E.html) | [`un_E.R`](code/un_E.R) | **AK** §1.4, §A.1 |
+| **The `forbes` data** | [Unit F](un_F.html) | [`un_F.R`](code/un_F.R) | **AK** §1.5, §6.1 |
+| **The `titanic` data** | [Unit G](un_G.html) | [`un_G.R`](code/un_G.R) | **AK** §1.5, §A.1 |
 |  | **INFERENCE AND SAMPLING DISTRIBUTIONS** |  |  |
 | *To be defined* |  |  | **AK** Ch. 2---5 |
 |  | **LINEAR MODELS AND LEAST SQUARES** |  |  |
 | *To be defined* |  |  | **AK** Ch. 6 |
 |  | **DATA ANALYSIS: CASE STUDIES** |  |  |
 | *To be defined* |  |  |  |
-
-#### Past exams
-
-| Date             | Exam                          |
-|------------------|-------------------------------|
-| *No exams yet*   |                               |
 
 ## Exam
 
@@ -98,6 +98,11 @@ some of the questions.
 During the exam it is legitimate --- indeed, strongly recommended --- to
 consult the **R** documentation.
 :::
+
+| Date             | Exam                          |
+|------------------|-------------------------------|
+| *No exams yet*   |                               |
+
 
 ## Software
 

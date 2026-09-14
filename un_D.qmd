@@ -1,0 +1,608 @@
+---
+title: "Descriptive analysis of the dde data"
+subtitle: "Programming and Data Analysis with R"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    smooth-scroll: true
+    fig-dpi: 90
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+## [Homepage](index.html)
+
+```{r}
+#| warning: false
+#| echo: false
+#| include: false
+#| message: false
+#| purl: false
+
+# Please ignore this chunk.
+# A single purl() call: calling it twice in the same knit would clash on the
+# chunk labels. The clean script is derived from the full one, so the two
+# cannot go out of sync.
+
+# 1. Full script, for personal use: code plus the text of the notes as
+#    comments. Not linked from the website (and ignored by git).
+knitr::purl("un_D.qmd", output = "code/un_D_full.R", documentation = 2)
+full <- readLines("code/un_D_full.R")
+# strip the Quarto markup that is only meaningful in the rendered page
+full <- full[!grepl("^#' *:::", full)]
+full <- gsub("\\[([^]]*)\\]\\{[^}]*\\}", "\\1", full)
+squeeze <- function(x) x[!(x == "" & c(FALSE, head(x == "", -1)))]
+writeLines(squeeze(full), "code/un_D_full.R")
+
+# 2. Clean script, linked from the website: code only, obtained by dropping
+#    the text (#') and the chunk headers (#+).
+clean <- squeeze(full[!grepl("^#'|^#\\+", full)])
+writeLines(clean, "code/un_D.R")
+styler:::style_file("code/un_D.R")
+```
+
+## Topics covered
+
+-   Absolute and relative frequencies
+-   The cumulative distribution function
+-   Graphical representations (boxplots, histograms)
+-   Location indices (mean, median, quantiles)
+
+## The epidemiological problem
+
+`DDT` is extremely effective against malaria mosquitoes and is therefore widely
+used in areas where malaria is endemic.
+
+At the same time, `DDT` could represent a [health risk]{.orange}, especially in the
+case of [pregnant women]{.blue}.
+
+For a sample of $n = 2312$ pregnant women, `DDE` is measured, that is a
+substance related to `DDT`, present in the maternal serum during the third
+trimester of pregnancy.
+
+The variable `GAD` (Gestational Age at Delivery) measures instead on which day
+of the pregnancy the delivery took place.
+
+::: callout-note
+#### Research question
+
+Is the quantity of `DDE` higher among women who delivered prematurely?
+:::
+
+## Importing the `dde` data
+
+To be able to run the next commands, you need to download the file `dde.csv` and
+save it on your computer. [Link to the file](data/dde.csv)
+
+```{r}
+dde <- read.table("data/dde.csv", header = TRUE, sep = ",")
+```
+
+Alternatively, we can simply obtain them using the link:
+
+```{r}
+#| eval: false
+dde <- read.table("https://tommasorigon.github.io/EnvEcoStat/data/dde.csv",
+  header = TRUE, sep = ","
+) # Downloads the file from the internet
+```
+
+```{r}
+str(dde)
+```
+
+Note the presence of a new [type of variable]{.orange}, that is `integer`, namely
+[integer numbers]{.blue}.
+
+## Preliminary operations
+
+A total of $361$ women [delivered prematurely]{.orange}, that is before the end of the
+37th week.
+
+To check this, we split the variable `DDE` into two groups.
+
+```{r}
+dde_preterm <- dde$DDE[dde$GAD < 37 * 7] # Preterm delivery group
+dde_non_preterm <- dde$DDE[dde$GAD >= 37 * 7] # Non-preterm delivery group
+
+length(dde_preterm) # Sample size of group 1
+length(dde_non_preterm) # Sample size of group 2
+```
+
+The first group (variable `dde_preterm`) refers to preterm deliveries and
+comprises $361$ observations.
+
+The second group (variable `dde_non_preterm`) considers non-preterm deliveries
+and comprises the remaining $1951$ observations.
+
+## Splitting into intervals
+
+To summarise the data through [frequencies]{.blue}, we can split the interval that
+contains all the observed values (that is $(0,180]$) into a certain number of
+[sub-intervals]{.orange}.
+
+First of all, we define the $10$ sub-intervals of length $18$, closed on the
+right, through the command `cut`:
+
+```{r}
+breaks <- 18 * (0:10) # Definition of the intervals: 10 intervals of length 18
+
+dde_preterm_class <- cut(dde_preterm, breaks = breaks)
+dde_non_preterm_class <- cut(dde_non_preterm, breaks = breaks)
+
+head(dde_preterm_class)
+```
+
+In this way, we have transformed a `numeric` variable into a `factor` variable.
+
+## Absolute frequencies
+
+The [absolute frequencies]{.blue} $n_1,\dots, n_k$ are obtained through the command
+`table`, which makes sense to apply to variables of type `factor`.
+
+The function `table` [counts]{.orange} how many times a given category appears in the
+vector.
+
+We perform this operation for both groups of data:
+
+```{r}
+freq_abs_preterm <- table(dde_preterm_class)
+freq_abs_preterm
+
+freq_abs_non_preterm <- table(dde_non_preterm_class)
+freq_abs_non_preterm
+```
+
+## Relative frequencies
+
+Once the absolute frequencies have been obtained, it is possible to compute the
+[relative frequencies]{.blue}.
+
+Although it is possible to use the command `prop.table` (we will meet it again
+later), here we follow a more direct route.
+
+Recall indeed that $n = n_1 + \cdots + n_k$, therefore we can obtain the
+relative frequencies $f_j = n_j / n$ as follows:
+
+```{r}
+freq_rel_preterm <- freq_abs_preterm / sum(freq_abs_preterm)
+round(freq_rel_preterm, digits = 3)
+
+freq_rel_non_preterm <- freq_abs_non_preterm / sum(freq_abs_non_preterm)
+round(freq_rel_non_preterm, digits = 3)
+```
+
+## Organising the results
+
+We then collect the results just obtained inside a matrix, to display them
+better.
+
+```{r}
+tab_summary <- cbind(
+  freq_abs_preterm, freq_abs_non_preterm,
+  freq_rel_preterm, freq_rel_non_preterm
+)
+
+colnames(tab_summary) <- c(
+  "n_j preterm",
+  "n_j non-preterm",
+  "f_j preterm",
+  "f_j non-preterm"
+)
+
+round(tab_summary, 3) # Display of the results
+```
+
+## Histograms I
+
+The [histogram]{.orange} makes it possible to represent a frequency distribution
+graphically. To refresh your memory, recall that in its simplest version one
+sets:
+
+$$
+\begin{aligned}
+(\text{base of the rectangles}) &= (\text{length of the intervals}) \\
+(\text{height of the rectangles}) &= (\text{absolute frequencies}) 
+\end{aligned}
+$$
+
+This definition is [not appropriate]{.blue} if the [intervals]{.orange} have **different
+sizes**.
+
+In that case, the heights of the rectangles must be [proportional]{.blue} to the
+[density]{.orange} of the observations in the individual classes.
+
+To sum up, we will build the histograms setting
+
+$$
+\begin{aligned}
+(\text{base of the rectangles}) &= (\text{length of the intervals}) \\
+(\text{height of the rectangles}) &= \lambda \times (\text{density}) = \lambda \times \frac{(\text{absolute frequencies}) }{(\text{length of the intervals})} 
+\end{aligned}
+$$
+
+where one typically sets $\lambda = 1/n$.
+
+## Histograms II
+
+Let us initially focus only on the group of [non-preterm births]{.blue}, to
+understand how the **R** syntax works.
+
+```{r}
+par(mfrow = c(1, 2)) # Splits the plot into two parts
+
+# First plot, absolute frequencies
+hist(dde_non_preterm,
+  freq = TRUE,
+  breaks = 10, # We use 10 sub-intervals
+  # From here on we are only adding aesthetic details
+  main = "Non-preterm births",
+  xlab = "DDE",
+  ylab = "Absolute frequencies"
+)
+
+# Second plot, density
+hist(dde_non_preterm,
+  freq = FALSE, # Frequencies are NOT used
+  breaks = 10, # We use 10 sub-intervals
+  # From here on we are only adding aesthetic details
+  main = "Non-preterm births",
+  xlab = "DDE",
+  ylab = "Density"
+)
+```
+
+Histogram based on the [absolute frequencies]{.orange} (left) and on the [density]{.blue}
+(right), only for the group of non-preterm births.
+
+## Histograms III
+
+::: callout-warning
+In the case of [unequally spaced]{.orange} intervals, it is mandatory to use the option
+`freq = FALSE`, otherwise the resulting plot is meaningless.
+:::
+
+```{r}
+# Definition of UNEQUALLY spaced intervals
+breaks <- c(5 * 0:10, 70, 90, 110, 130, 150, 170, 190)
+
+# CORRECT PLOT
+hist(dde_non_preterm,
+  freq = FALSE,
+  breaks = breaks,
+  # From here on we are only adding aesthetic details
+  main = "CORRECT PLOT", xlab = "DDE", ylab = "Density"
+)
+
+# WRONG PLOT
+hist(dde_non_preterm,
+  freq = TRUE, # Frequencies are used
+  breaks = breaks,
+  # From here on we are only adding aesthetic details
+  main = "WRONG PLOT", xlab = "DDE", ylab = "Absolute frequencies"
+)
+```
+
+The plot on the left is correct and makes use of the notion of [density]{.blue}
+explained above. The plot on the right is [wrong]{.orange}.
+
+Fortunately **R** warns us through a `warning` that this procedure is incorrect.
+
+## The number of intervals
+
+A number of intervals that is [too low]{.blue} entails a [loss of information]{.orange}.
+
+Conversely, a number of intervals that is [too high]{.blue} entails a **loss of
+synthesis**.
+
+Keep in mind that the [number of intervals]{.orange} must depend on the **number of
+data points**.
+
+Various formulas have been proposed to identify the "optimal number" of
+intervals. They should however be taken as suggestions and not used
+automatically.
+
+[Sturges]{.blue}. The number of intervals, rounded to the nearest integer, is $$ 
+(\text{number of intervals}) = 1 + \log_2{n}. 
+$$
+
+[Freedman & Diaconis]{.orange}. The number of intervals, rounded to the nearest
+integer, is $$ 
+(\text{number of intervals})  = \frac{x_{(n)} - x_{(1)}}{2(\mathcal{Q}_{0.75} - \mathcal{Q}_{0.25})}n^{1/3}. 
+$$
+
+## The number of intervals II
+
+The "optimal" number of intervals can be obtained through the following
+commands:
+
+```{r}
+nclass.Sturges(dde_non_preterm) # Sturges' rule
+nclass.FD(dde_non_preterm) # Freedman and Diaconis' rule
+```
+
+::: callout-note
+#### Note
+
+The **R** command `hist`, unless specified otherwise through the option
+`breaks`, automatically selects [equally spaced]{.blue} intervals through the rule of
+[Sturges]{.orange}.
+:::
+
+## Comparison between the two distributions
+
+This final plot finally makes it possible to compare the two distributions.
+
+```{r}
+hist(dde_non_preterm, # Non-preterm births group
+  freq = FALSE,
+  main = "Non-preterm births"
+)
+
+hist(dde_preterm, # Preterm births group
+  freq = FALSE,
+  main = "Preterm births"
+)
+```
+
+Possibly, it is possible to select a different rule by setting `breaks = "FD"`.
+
+The distribution of "preterm births" turns out to be shifted further to the
+right.
+
+## The empirical cumulative distribution function I
+
+A second graphical representation of frequent use is the so-called **empirical
+cumulative distribution function** $F(x)$.
+
+Let $x_1,\dots,x_n$ be a collection of data, then we define $$
+F(x) = \frac{1}{n} \sum_{i=1}^n \mathbb{1}(x_i \le x),
+$$ where $\mathbb{1}(x_i \le x)$ is the [indicator function]{.blue} and equals $1$ if
+$x_i \le x$ and $0$ if $x_i > x$.
+
+In **R**, one uses the command `ecdf` (*empirical cumulative distribution
+function*), for example:
+
+```{r}
+ecdf(dde_non_preterm)
+```
+
+## The empirical cumulative distribution function II
+
+The command `ecdf` returns as an object an actual [function]{.orange}. Indeed:
+
+```{r}
+F_non_preterm <- ecdf(dde_non_preterm)
+F_non_preterm(c(20, 40, 60)) # Evaluates the empirical cdf at 20, 40 and 60
+sum(dde_non_preterm <= 40) / length(dde_non_preterm) # Alternative "manual" command
+```
+
+To draw a plot of it, it is moreover enough to use the command `plot`:
+
+```{r}
+par(mfrow = c(1, 1))
+plot(ecdf(dde_non_preterm))
+```
+
+## The empirical cumulative distribution function III
+
+To be able to compare the cumulative distribution functions of the two groups,
+the syntax is slightly more elaborate:
+
+```{r}
+plot(ecdf(dde_preterm),
+  do.points = FALSE, col = "blue",
+  main = "Blue: preterm delivery. Red: non-preterm delivery",
+  xlab = "DDE",
+  ylab = "F(DDE)"
+)
+
+plot(ecdf(dde_non_preterm), col = "red", add = TRUE) # Add a second group
+```
+
+The option `do.points = FALSE` omits the "dots" in the plot and has been added
+for purely [aesthetic]{.blue} reasons.
+
+## Location indices: the mean
+
+To quantify the difference between the two distributions, we want to find the
+[arithmetic means]{.orange} of the variables `dde_preterm` and `dde_non_preterm`.
+
+In **R** there is of course a dedicated command:
+
+```{r}
+mean(dde_preterm) # Arithmetic mean of DDE for women with preterm delivery
+mean(dde_non_preterm) # Arithmetic mean of DDE for women with regular delivery
+```
+
+As already widely noted, we observe that DDE is present in larger quantities
+among the women who delivered prematurely.
+
+The arithmetic mean could also have been obtained starting from the commands we
+met in the previous units:
+
+```{r}
+n <- length(dde_preterm) # Sample size of dde_preterm (= 361)
+sum(dde_preterm) / n # Arithmetic mean of the variable dde_preterm
+```
+
+## Location indices: the median I
+
+The median (Me) of a variable is the [central value]{.blue} of the distribution, that
+is:
+
+$$
+\text{Me} = \begin{cases}x_{\left(\frac{n+1}{2}\right)}, &\qquad \text{ if } n \text{ is odd},  \\[10pt] \left(x_{(n/2)} + x_{(n/2+1)}\right)/2,&\qquad \text{ if } n \text{ is even},\end{cases}
+$$ where $x_{(1)},\dots,x_{(n)}$ represents the ordered sample.
+
+In **R** there is a dedicated command:
+
+```{r}
+median(dde_preterm) # Median of DDE for women with preterm delivery
+median(dde_non_preterm) # Median of DDE for women with regular delivery
+```
+
+Note (why?) that the empirical cumulative distribution function, evaluated at
+the median, is approximately equal to `0.5`.
+
+```{r}
+F_non_preterm(median(dde_non_preterm))
+```
+
+## Location indices: the median II
+
+The median of a numerical variable can also be obtained "manually".
+
+```{r}
+x <- c(10, 20, 25, 3.5, 28, 62)
+n <- length(x) # Sample size
+n # Note that n = 6 is even
+
+x_sort <- sort(x) # Ordered vector of the values of x
+x_sort
+
+pos_med_1 <- n / 2 # Element in position n/2
+pos_med_2 <- n / 2 + 1 # Element in position n/2+1
+
+(x_sort[pos_med_1] + x_sort[pos_med_2]) / 2 # Median of x
+
+median(x) # Of course, the result must coincide with:
+```
+
+::: callout-note
+#### Exercise
+
+Obtain the median "manually" in the case in which the vector `x` has an odd
+number of elements.
+:::
+
+## Location indices: the quantiles I
+
+Let $x_1,\dots,x_n$ be a set of data, let $p \in (0,1)$ and let $F(x)$ be the
+empirical cumulative distribution function. The [$p$-quantile]{.orange} is then equal
+to
+
+$$
+\mathcal{Q}_p = \inf\{ x : F(x) \ge p \}.
+$$
+
+In **R**, considering $p = (0.1,0.25,0.75,0.9)$, that is the first decile, the
+first quartile, the third quartile and the ninth decile, we can use the command
+`quantile`
+
+```{r}
+quantile(dde_preterm, probs = c(0.1, 0.25, 0.75, 0.9), type = 1)
+quantile(dde_non_preterm, probs = c(0.1, 0.25, 0.75, 0.9), type = 1)
+```
+
+::: callout-note
+#### Exercise
+
+Convince yourself that the "manual" implementation of the command `quantile` is
+the following:
+
+```{r}
+min(dde_non_preterm[F_non_preterm(dde_non_preterm) >= 0.25])
+min(dde_non_preterm[F_non_preterm(dde_non_preterm) >= 0.75])
+```
+:::
+
+## Location indices: the quantiles II
+
+::: callout-note
+#### Note
+
+The definition of quantile we have given is the usual one, but it is not the
+only possible one.
+:::
+
+That definition is obtained with the option `type = 1`, which however is **not
+the default**. The default value is instead `type = 7`.
+
+If you are curious to know the various definitions of quantile, remember that
+the [documentation]{.blue} can be consulted through the command: `? quantile`.
+
+::: callout-note
+#### Note
+
+A drawback of the `type = 1` quantile is that the median does not always
+coincide with the quantile $\mathcal{Q}_{0.5}$. Find an example in which this
+happens and check that the problem is instead solved in the `type = 7` case.
+:::
+
+## Location indices: the quantiles III
+
+In **R** there are in total as many as [9 ways]{.orange} of computing the quantiles.
+
+Fortunately, for large sample sizes the [differences]{.blue} tend to be
+[negligible]{.orange}.
+
+We list below some examples for the variable `dde_preterm`:
+
+```{r}
+tab <- rbind(
+  quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 1),
+  quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 6),
+  quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 7),
+  quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 9)
+)
+rownames(tab) <- c(1, 6, 7, 9) # Changes the names of the rows of the table
+tab
+```
+
+::: callout-tip
+#### Hint
+
+What does `rbind` do? We met it in Unit A.
+:::
+
+## The `summary` command
+
+To obtain quickly the [main descriptive statistics]{.blue} of a distribution
+(minimum, maximum, mean, median and quartiles), one often uses the command
+`summary`:
+
+```{r}
+summary(dde_preterm)
+summary(dde_non_preterm)
+```
+
+The command `summary` can also be used directly on an object of type
+`data.frame`, producing the following output:
+
+```{r}
+summary(dde)
+```
+
+## Boxplots
+
+An alternative graphical representation to histograms are [boxplots]{.orange}.
+
+The [descriptive statistics]{.blue} on which boxplots are based can be obtained
+through the command `boxplot.stats`, that is:
+
+```{r}
+boxplot.stats(dde_preterm)
+```
+
+```{r}
+boxplot(dde_preterm, dde_non_preterm) # Produces the plot
+```

@@ -1,0 +1,422 @@
+---
+title: "Descriptive analysis of the forbes data"
+subtitle: "Programming and Data Analysis with R"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    smooth-scroll: true
+    fig-dpi: 90
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+## [Homepage](index.html)
+
+```{r}
+#| warning: false
+#| echo: false
+#| include: false
+#| message: false
+#| purl: false
+
+# Please ignore this chunk.
+# A single purl() call: calling it twice in the same knit would clash on the
+# chunk labels. The clean script is derived from the full one, so the two
+# cannot go out of sync.
+
+# 1. Full script, for personal use: code plus the text of the notes as
+#    comments. Not linked from the website (and ignored by git).
+knitr::purl("un_F.qmd", output = "code/un_F_full.R", documentation = 2)
+full <- readLines("code/un_F_full.R")
+# strip the Quarto markup that is only meaningful in the rendered page
+full <- full[!grepl("^#' *:::", full)]
+full <- gsub("\\[([^]]*)\\]\\{[^}]*\\}", "\\1", full)
+squeeze <- function(x) x[!(x == "" & c(FALSE, head(x == "", -1)))]
+writeLines(squeeze(full), "code/un_F_full.R")
+
+# 2. Clean script, linked from the website: code only, obtained by dropping
+#    the text (#') and the chunk headers (#+).
+clean <- squeeze(full[!grepl("^#'|^#\\+", full)])
+writeLines(clean, "code/un_F.R")
+styler:::style_file("code/un_F.R")
+```
+
+## Topics covered
+
+-   Covariance and correlation
+-   The simple linear regression model
+-   Least squares and goodness of fit
+
+## Description of the problem
+
+For $n = 17$ locations in the Alps, the [atmospheric pressure]{.orange} (inHg, that is
+"*inches of mercury*") and the [boiling temperature]{.blue} of water (in degrees
+Fahrenheit) are measured.
+
+The data come from an experiment carried out by the **Scottish physicist
+Forbes** in 1857.
+
+Forbes was interested in estimating the altitude through the pressure. However,
+at the time the barometer was a heavy and expensive instrument.
+
+In the mountains water boils at a different temperature, so that one can try to
+estimate the pressure starting from the boiling temperature.
+
+## Importing the `forbes` data
+
+As done previously, first of all you need to download the file `forbes.csv` and
+save it on your computer. [Link to the file](data/forbes.csv)
+
+```{r}
+forbes <- read.table("data/forbes.csv", header = TRUE, sep = ",")
+```
+
+Alternatively, we can simply obtain them using the link:
+
+```{r}
+#| eval: false
+path <- "https://tommasorigon.github.io/EnvEcoStat/data/forbes.csv"
+forbes <- read.table(path, header = TRUE, sep = ",")
+```
+
+```{r}
+str(forbes)
+```
+
+## Preliminary operations
+
+For [interpretative]{.orange} reasons, we convert the temperature from degrees
+Fahrenheit to degrees Celsius, recalling that
+
+$$
+(\text{``Fahrenheit''}) = 32 + \frac{9}{5}(\text{``Celsius''}).
+$$
+
+```{r}
+colnames(forbes) <- c("TempF", "Pressure") # Change the names of the variables
+
+forbes$TempC <- round((forbes$TempF - 32) * 5 / 9, 2) # From Fahrenheit to Celsius
+summary(forbes)
+```
+
+Why do we round the values using `round`? For [aesthetic]{.blue} reasons only.
+
+## Histogram
+
+::: callout-warning
+#### Question 1
+
+Draw a histogram of the temperature variable, choosing an appropriate number of
+equally spaced classes and justifying the choice.
+
+Add to these plots the graphical "embellishments" deemed necessary (names of the
+variables, title, and so on).
+:::
+
+#### Solution
+
+We can decide to specify the intervals of the classes ourselves, or to leave
+this choice to **R**.
+
+```{r}
+par(mfrow = c(1, 2)) # Split the graphical window into 2 parts
+
+# Option 1, for a total of 6 equally spaced classes
+hist(forbes$TempC) # Equivalent to: hist(forbes$TempC, breaks = "sturges")
+
+# Option 2, we define manually 5 equally spaced classes
+breaks <- c(90, 92.5, 95, 97.5, 100, 102.5)
+hist(forbes$TempC, breaks = breaks)
+```
+
+The solution on the left uses $6$ classes. The one on the right uses $5$
+classes.
+
+## Location indices
+
+::: callout-warning
+#### Question 2
+
+Obtain the arithmetic mean of both variables `TempC` and `Pressure`. What is the
+average boiling temperature expressed in degrees Fahrenheit? Answer without
+computing all the values of the variable `TempF`.
+:::
+
+#### Solution
+
+We have already computed the means through the command `summary`; for
+completeness:
+
+```{r}
+# First part of the question
+mean(forbes$TempC)
+mean(forbes$Pressure)
+```
+
+```{r}
+# Second part of the question
+32 + 9 / 5 * mean(forbes$TempC) # Using the properties of the mean
+mean(forbes$TempF) # Not required: computes the mean from the original data
+```
+
+::: callout-note
+#### Exercise
+
+Why do the means computed in the second part differ slightly? What can this be
+due to?
+:::
+
+## Variability indices
+
+::: callout-warning
+#### Question 3
+
+Obtain the variance of the variables `TempC` and `Pressure`.
+:::
+
+#### Solution
+
+Since it will turn out to be useful later, we define the function `my_var` that
+computes the [variance]{.orange}.
+
+```{r}
+# Yes, the function is defined on a single line and there is nothing wrong with it
+my_var <- function(x) mean(x^2) - mean(x)^2
+
+# Computation of the two variances
+my_var(forbes$TempC)
+my_var(forbes$Pressure)
+```
+
+::: callout-note
+#### Exercise
+
+Obtain the second moments of the variables `TempC` and `Pressure`.
+:::
+
+## Covariance and correlation
+
+::: callout-warning
+## Question 4
+
+Draw a suitable plot that helps to understand the relationship between the two
+variables. Then compute the correlation.
+:::
+
+#### Solution
+
+For the first part of the question, we need the new command `plot`, which can be
+used (among other things!) to build a [scatterplot]{.blue}.
+
+We provide two versions of the same plot; the second one contains aesthetic
+improvements.
+
+```{r}
+par(mfrow = c(1, 1)) # We want to show one plot at a time
+plot(forbes$TempC, forbes$Pressure)
+plot(forbes$TempC, forbes$Pressure,
+  pch = 16,
+  xlab = "Temperature", ylab = "Pressure"
+)
+```
+
+It is therefore evident that the data are approximately (although not perfectly)
+aligned.
+
+For the second part of the question (correlation), we first have to obtain the
+[covariance]{.orange} between two variables.
+
+The [covariance]{.blue} between two sets of data $x_1,\dots,x_n$ and $y_1,\dots,y_n$
+is defined as
+
+$$
+\text{cov}(x,y) = \frac{1}{n}\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y}) = \frac{1}{n}\sum_{i=1}^nx_i y_i - \bar{x}\bar{y}.
+$$
+
+We therefore define the function `my_cov`, which computes precisely the
+covariance:
+
+```{r}
+my_cov <- function(x, y) mean(x * y) - mean(x) * mean(y)
+my_cov(forbes$TempC, forbes$Pressure) # = my_cov(forbes$Pressure, forbes$TempC)
+```
+
+In **R** there is also the command `cov` which, as in the case of the variance,
+divides the sum by $(n - 1)$ and not by $n$, for reasons related to
+[statistical inference]{.orange}:
+
+```{r}
+cov(forbes$Pressure, forbes$TempC) # = 17 / 16 * my_cov(forbes$TempC, forbes$Pressure)
+```
+
+The [correlation]{.blue} index is defined as: $$
+\rho = \frac{\text{cov}(x,y)}{\sqrt{\text{var}(x) \text{var}(y)}}.
+$$
+
+Therefore, we can compute the correlation as follows:
+
+```{r}
+my_cov(forbes$TempC, forbes$Pressure) /
+  sqrt(my_var(forbes$TempC) * my_var(forbes$Pressure))
+
+cov(forbes$TempC, forbes$Pressure) /
+  sqrt(var(forbes$TempC) * var(forbes$Pressure))
+```
+
+::: callout-note
+#### Exercise
+
+Why do the results of the two commands coincide? Check this fact by carrying out
+the computations [analytically]{.orange} (pen and paper).
+:::
+
+In **R** there is also the command `cor`, which returns the correlation
+
+```{r}
+correlation <- cor(forbes$TempC, forbes$Pressure)
+correlation
+```
+
+## The linear regression model
+
+::: callout-warning
+## Question 5
+
+Obtain the least squares line for the relationship between `TempC` and
+`Pressure` and draw it in the plot obtained previously.
+:::
+
+#### Solution
+
+First of all recall that in a [linear model]{.blue} of the form
+$y_i = \alpha + \beta x_i + \epsilon_i$, the [least squares]{.orange} estimates are
+equal to $$
+\hat{\alpha} = \bar{y} - \hat{\beta}\:\bar{x}, \qquad \hat{\beta}  = \frac{\text{cov}(x,y)}{\text{var}(x)}.
+$$
+
+Therefore, we can compute them as follows:
+
+```{r}
+# Slope
+beta_hat <- my_cov(forbes$TempC, forbes$Pressure) / my_var(forbes$TempC)
+# Intercept
+alpha_hat <- mean(forbes$Pressure) - mean(forbes$TempC) * beta_hat
+
+c(alpha_hat, beta_hat)
+```
+
+```{r}
+plot(forbes$TempC, forbes$Pressure,
+  pch = 16,
+  xlab = "Temperature", ylab = "Pressure"
+)
+abline(a = alpha_hat, b = beta_hat)
+```
+
+::: callout-note
+#### Note
+
+The same estimates are obtained with the command `lm`, which we will meet again
+in the part of the course devoted to linear models:
+
+```{r}
+lm(Pressure ~ TempC, data = forbes)
+```
+:::
+
+::: callout-warning
+## Question 6
+
+According to the estimated model, if the boiling temperature of water is equal
+to 97 degrees Celsius, what is the pressure?
+:::
+
+#### Solution
+
+Using the estimates obtained, we can quickly compute the fitted values:
+
+```{r}
+x <- seq(from = 90, to = 100, length = 20)
+alpha_hat + beta_hat * x
+```
+
+In particular, when `TempC = 97` we have that:
+
+```{r}
+alpha_hat + beta_hat * 97
+```
+
+::: callout-warning
+## Question 7
+
+Obtain an index of goodness of fit of the curve to the data.
+:::
+
+#### Solution
+
+The coefficient $R^2$ for a simple linear regression model is defined as: $$
+R^2 = 1 - \frac{\text{var}(r)}{\text{var}(y)} = \rho^2,
+$$ where $r_1,\dots,r_n$ are the [residuals]{.blue}.
+
+First of all we therefore compute the residuals:
+
+```{r}
+residuals <- forbes$Pressure - (alpha_hat + beta_hat * forbes$TempC)
+```
+
+The coefficient $R^2$ can then be obtained in two different ways:
+
+```{r}
+correlation^2
+1 - my_var(residuals) / my_var(forbes$Pressure)
+```
+
+## Summary exercise
+
+The following [synthetic]{.orange} data report, for $10$ hypothetical countries,
+the per capita income (thousands of €, `income`) and the per capita electricity
+consumption (MWh, `consumption`) in a given year. They are made up for the
+purpose of this exercise and are not real statistics.
+
+```{r}
+income <- c(18.2, 21.4, 25.0, 27.6, 30.1, 33.4, 36.8, 41.2, 45.9, 52.3)
+consumption <- c(3.1, 3.6, 4.0, 4.2, 4.9, 5.1, 5.8, 6.0, 6.9, 7.4)
+```
+
+-   Draw a scatterplot of the two variables and comment on it.
+
+-   Compute the covariance and the correlation between `income` and
+    `consumption`.
+
+-   Obtain the least squares line that explains the consumption as a function of
+    the income, and add it to the plot.
+
+-   Compute the $R^2$ and comment on the goodness of fit.
+
+-   According to the estimated model, what is the expected consumption for a
+    country with a per capita income of $40$ thousand €?
+
+::: callout-tip
+#### Hint
+
+To import small amounts of data into **R**, it is also possible to use the
+command `scan`.
+:::

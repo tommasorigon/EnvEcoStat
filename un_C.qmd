@@ -1,0 +1,521 @@
+---
+title: "Data frames"
+subtitle: "Programming and Data Analysis with R"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    smooth-scroll: true
+    fig-dpi: 90
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+## [Homepage](index.html)
+
+```{r}
+#| warning: false
+#| echo: false
+#| include: false
+#| message: false
+#| purl: false
+
+# Please ignore this chunk.
+# A single purl() call: calling it twice in the same knit would clash on the
+# chunk labels. The clean script is derived from the full one, so the two
+# cannot go out of sync.
+
+# 1. Full script, for personal use: code plus the text of the notes as
+#    comments. Not linked from the website (and ignored by git).
+knitr::purl("un_C.qmd", output = "code/un_C_full.R", documentation = 2)
+full <- readLines("code/un_C_full.R")
+# strip the Quarto markup that is only meaningful in the rendered page
+full <- full[!grepl("^#' *:::", full)]
+full <- gsub("\\[([^]]*)\\]\\{[^}]*\\}", "\\1", full)
+squeeze <- function(x) x[!(x == "" & c(FALSE, head(x == "", -1)))]
+writeLines(squeeze(full), "code/un_C_full.R")
+
+# 2. Clean script, linked from the website: code only, obtained by dropping
+#    the text (#') and the chunk headers (#+).
+clean <- squeeze(full[!grepl("^#'|^#\\+", full)])
+writeLines(clean, "code/un_C.R")
+styler:::style_file("code/un_C.R")
+```
+
+## Unit C
+
+-   The `data.frame` object
+-   Importing a dataset into memory
+-   Exploring and manipulating a dataset
+-   Types of variables
+-   Missing values
+
+::: callout-note
+#### Note
+
+The exercises associated with this unit are available at
+[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_A.html).
+:::
+
+## Objects of type `data.frame`
+
+An **R** object called `data.frame` corresponds to the [data matrix]{.orange}.
+
+Each row therefore represents a [statistical unit]{.blue}, whereas each column
+represents a [variable]{.orange}.
+
+A `data.frame` looks like a matrix (`matrix`), but it is meant for data
+analysis.
+
+For example, a `data.frame` can also contain non-numerical values, such as
+[qualitative variables]{.blue} or [missing values]{.orange}.
+
+As we will see, the `data.frame` is generally loaded into **R** using, for
+instance, the function `read.table`.
+
+## Importing a dataset
+
+The most frequent way of loading a dataset into memory is to import it from an
+[external file]{.blue}.
+
+If the data are of small / medium size (file size $<$ 3-4 Gb), they are often
+saved in `.csv` or `.txt` format.
+
+In real and more complex settings, it is possible to import the data directly
+from relational databases such as [SQL]{.orange}.
+
+It is not advisable to import data into **R** from an Excel file. More
+generally, there are several reasons to avoid Excel if the goal is to carry out
+a rigorous data analysis.
+
+::: callout-note
+#### Note
+
+To be able to run the next commands, you need to download the file `calcio.csv`
+and save it on your computer. [Link to the file](data/calcio.csv).
+:::
+
+## The raw data (text editor)
+
+![](img/data.png)
+
+## The working directory
+
+The active **R** session is open in a specific [working directory]{.blue}, identified
+by the command `getwd`.
+
+For example, the directory in which this code was executed is the following
+
+```{r}
+getwd() # Identifies the working directory (get working directory)
+```
+
+To open the file `calcio.csv`, you must provide **R** with the **path of the
+file**, which depends on where it has been saved (on the Desktop, in the
+downloads folder, and so on).
+
+```{r}
+# THE PATH VARIABLE MUST BE CHANGED DEPENDING ON WHERE THE .csv FILE IS SAVED
+path <- "data/calcio.csv" # This is the path of the file, relative to getwd()
+```
+
+The path of the file can also be a [link]{.orange}, as in this case:
+
+```{r}
+#| eval: false
+path <- "https://tommasorigon.github.io/EnvEcoStat/data/calcio.csv"
+```
+
+## Importing the dataset
+
+It is also possible to [change the working directory]{.blue} through the command
+`setwd`.
+
+In RStudio, you can use the option *More -\> Set as working directory* in the
+*Files* window, selecting the directory of interest.
+
+Once the correct *path* of the file has been identified, to **import the
+dataset** into memory one uses, for instance, the command `read.table`.
+Therefore:
+
+```{r}
+calcio <- read.table(path, header = TRUE, sep = ",")
+```
+
+::: callout-note
+#### Note
+
+-   The option `header = TRUE` means that the first row contains the names of
+    the variables.
+-   The option `sep = ","` indicates that the values of each variable are
+    separated by a comma.
+:::
+
+Finally, note that if the file is contained in the working directory, it is then
+enough to use:
+
+```{r}
+#| eval: false
+calcio <- read.table("calcio.csv", header = TRUE, sep = ",")
+```
+
+## Exploring a `data.frame`
+
+First of all, we are interested in understanding how many [variables]{.orange} and how
+many [observations]{.blue} are contained in the `data.frame`:
+
+```{r}
+dim(calcio) # Equivalent to c(nrow(calcio), ncol(calcio))
+```
+
+To check that we have not made gross mistakes in importing the `data.frame`, we
+can display the first $6$ observations with the command `head`:
+
+```{r}
+head(calcio) # Equivalent command: calcio[1:6, ]
+```
+
+The command `tail` can be used to show the last $6$ observations:
+
+```{r}
+tail(calcio) # Equivalent command: calcio[1895:1900, ]
+```
+
+## The `calcio` dataset
+
+The `calcio` dataset therefore contains a total of $7$ variables. Each
+observation is a [football match]{.orange} played in the Italian [Serie A]{.blue}
+championship from 2008 to 2015.
+
+-   The variable `Date` indicates the date of the match.
+-   The variables `HomeTeam`, `AwayTeam` indicate the team that played at home
+    and away, respectively.
+-   The variable `FTR` ("*Full Time Result*") indicates whether the match was
+    won by the home team (`H`), by the away team (`A`), or ended in a draw
+    (`D`).
+-   The variables `B365H`, `B365D` and `B365A` indicate the odds of the betting
+    company *Bet365 Group Ltd* for the 3 events, before the beginning of the
+    match.
+
+To [access]{.orange} and [modify]{.blue} the names of the variables, one uses the command
+`colnames`.
+
+```{r}
+colnames(calcio) # To access the names of the variables
+```
+
+## Types of variables
+
+A dataset contains different [types of variables]{.orange}.
+
+Discrete and continuous quantitative variables are coded in **R** as objects of
+type `integer` and `numeric`, respectively.
+
+Qualitative variables are coded in **R** as objects of type `character` or of
+type `factor`; the difference between these types will be clarified in the next
+sections.
+
+Finally, dates are coded in **R** with the type `Date`.
+
+::: callout-note
+#### Note
+
+**R** does not always recognise the type of the variables correctly, as
+highlighted by the command `str`, which provides a summary of the `data.frame`.
+
+```{r}
+str(calcio)
+```
+:::
+
+## Quantitative variables
+
+To [extract a variable]{.blue} from a `data.frame` one proceeds as in the case of
+lists, that is through the symbol `$`. The variables can be saved under any
+name.
+
+A numerical variable is an **R** vector to all intents and purposes, therefore
+we can apply the functions we have already met so far
+
+```{r}
+is.numeric(calcio$B365H) # Check that it is a variable of type numeric
+class(calcio$B365H)
+calcio$B365H[1:10] # First 10 elements of an R vector
+```
+
+The [descriptive analyses]{.orange} of a numerical variable will be addressed in the
+next units; for now we limit ourselves to the manipulation of the `data.frame`.
+
+## Qualitative variables I
+
+Variables of type `character` are appropriate for text strings, that is when
+each field corresponds to a short text, such as a *Tweet*.
+
+Qualitative variables with repeated values should instead be coded as `factor`.
+
+We therefore have to [convert]{.blue} the $3$ variables `HomeTeam`, `AwayTeam` and
+`FTR` as follows:
+
+```{r}
+calcio$HomeTeam <- factor(calcio$HomeTeam)
+calcio$AwayTeam <- factor(calcio$AwayTeam)
+calcio$FTR <- factor(calcio$FTR)
+```
+
+Alternatively, we can perform this operation while reading the data, through the
+option `stringsAsFactors`. Hence:
+
+```{r}
+calcio <- read.table(path, header = TRUE, sep = ",", stringsAsFactors = TRUE)
+```
+
+## Qualitative variables II
+
+First of all, let us check that the conversion was carried out correctly and let
+us explore the content of the variable `HomeTeam`.
+
+In variables of type `factor` the various [categories]{.orange} are listed, called
+`levels` in **R**.
+
+To access the categories one uses the command `levels`, which lists the
+categories of the variable in alphabetical order:
+
+```{r}
+levels(calcio$HomeTeam)
+```
+
+## Qualitative variables III
+
+The command `levels` makes it possible to [rename the categories]{.blue}, for
+example:
+
+```{r}
+calcio$FTR[1:10]
+levels(calcio$FTR) <- c("Away", "Draw", "Home") # Rename the categories
+calcio$FTR[1:10]
+```
+
+The command `levels` also makes it possible to [merge]{.orange} the categories of a
+qualitative variable:
+
+```{r}
+calcio$Draw <- calcio$FTR # Create a copy of the variable FTR called Draw
+levels(calcio$Draw) <- c("Not_Draw", "Draw", "Not_Draw") # Merging of categories
+
+calcio$Draw[1:10]
+```
+
+## Variables of type `date`
+
+The variable `Date` of the `calcio` dataset represents a date and must therefore
+be coded as such.
+
+In **R** the conversion is performed by the command `as.Date`, followed by the
+[format]{.blue} in which the date is expressed:
+
+```{r}
+calcio$Date <- as.Date(calcio$Date, format = "%Y-%m-%d")
+class(calcio$Date)
+calcio$Date[1:10]
+```
+
+Once converted into `Date` format, it is possible to carry out some additional
+operations. For example:
+
+```{r}
+min(calcio$Date) # First match played
+max(calcio$Date) # Last match played
+```
+
+## Manipulating a dataset
+
+To [select the rows]{.orange} of a dataset one proceeds as in the case of matrices:
+
+```{r}
+calcio[c(1806, 501, 109), ]
+```
+
+It is of course possible (and typically much more useful) to select the
+observations that satisfy a given [condition]{.blue}.
+
+Suppose for example that we want to identify the matches that ended in a draw:
+
+```{r}
+calcio_draw <- calcio[calcio$FTR == "Draw", ]
+head(calcio_draw)
+```
+
+## Missing values
+
+Suppose we want to identify the matches in which the home team has a low
+probability of winning according to *Bet365*:
+
+```{r}
+calcio_home <- calcio[calcio$B365H > 9, ]
+calcio_home
+```
+
+::: callout-important
+Something went wrong: there are symbols (`NA`) that we had not met so far.
+:::
+
+The reason why the command produces apparently strange results is due to the
+presence of some [missing data]{.orange}, coded as `NA` (*Not Available*).
+
+In particular, there are $3$ observations (the $1501$st, $1846$th and $1848$th)
+whose values relative to *Bet365* are not available.
+
+```{r}
+calcio[rowSums(is.na(calcio)) > 0, ] # Identifies the rows with missing values
+```
+
+The function `is.na` produces a [logical]{.blue} matrix of the same dimension as
+`calcio`, containing `TRUE` if the value is missing and `FALSE` otherwise.
+
+The function `rowSums(matrix)` produces a vector whose values are the sum of the
+elements of each row of the `matrix`.
+
+As a consequence, `rowSums(is.na(calcio))` indicates how many missing values are
+present in each row.
+
+## Handling missing data
+
+The statistical treatment of missing data is not among the objectives of this
+course.
+
+The easiest solution, although a potentially very dangerous one, consists simply
+in [removing]{.orange} the incomplete rows through the command `na.omit`:
+
+```{r}
+calcio_no_na <- na.omit(calcio)
+dim(calcio_no_na)
+```
+
+To solve the original problem, that is identifying the matches in which the home
+team has a low probability of winning, one can use `subset`:
+
+```{r}
+calcio_home <- subset(calcio, subset = B365H > 9)
+calcio_home
+```
+
+## Selecting the variables
+
+The command `subset` can be used both to [select the rows]{.blue} (observations) and
+to [select the columns]{.orange} (variables).
+
+In the second case, one can proceed through the option `select`:
+
+```{r}
+calcio_B365 <- subset(calcio, select = c(B365H, B365D, B365A))
+head(calcio_B365)
+```
+
+Of course it is also possible to select [simultaneously]{.blue} both the rows and the
+columns.
+
+## The `attach` command
+
+In **R** there exists a command called `attach`. Although used by many, this
+command is [diabolical]{.orange} and it would be better to avoid using it.
+
+The command `attach(dataframe)` makes it possible to use the variables of a
+`data.frame` as if they were present in the workspace.
+
+This practice, however, makes the code much less readable and often leads to
+errors of various kinds.
+
+Despite several protests in favour of the removal of `attach` by some, this
+command keeps (r)existing and is still used by many.
+
+In this course no examples of use of `attach` will be provided, to avoid leading
+the student into temptation.
+
+## Summary
+
+After all these operations, the dataset turns out to be much modified with
+respect to its initial version.
+
+Running the command `str` again we indeed obtain that
+
+```{r}
+str(calcio)
+```
+
+## The house always wins
+
+In football betting the [odds]{.blue} represent the inverse of the probability of an
+event, so that $$
+    (\text{Probability of the event}) = \frac{1}{(\text{Odds of the event})}
+    $$
+
+The odds also represent the amount in € that the winner receives against the
+payment of the unit amount of $1$€.
+
+For example, betting $10$€ on the victory of Juventus in the match against
+Chievo of 30 August 2014, one would have obtained $15$€, since the odds were
+$1.50$.
+
+If the bet were fair, the probabilities of victory, draw and defeat should sum
+to $1$.
+
+However, this does not happen: the resulting probabilities sum to a value $>1$.
+This discrepancy is called the [overround]{.orange} and guarantees a profit to the
+house.
+
+## Summary exercise
+
+-   Obtain the variable `overround`, defined as the difference between the sum
+    of the "probabilities" of the $3$ events (victory, draw, defeat) and $1$,
+    that is the fair case.
+
+-   Say what is the overround associated with the match Udinese-Parma of 1
+    September 2013.
+
+-   Say in which matches the lowest and the highest overround was applied, and
+    identify those values.
+
+-   In which match was the highest overround applied in the Serie A championship
+    of 2009/2010?
+
+::: callout-tip
+#### Hint
+
+Use the commands `which.min` and `which.max`. Consult the documentation to
+understand how they work.
+:::
+
+#### Solution
+
+```{r}
+# Computation of the overround
+calcio$overround <- 1 / calcio$B365H + 1 / calcio$B365D + 1 / calcio$B365A - 1
+
+# Overround associated with Udinese-Parma of 1 September 2013
+subset(calcio, Date == "2013-09-01" & HomeTeam == "Udinese")
+
+# Minimum and maximum overround
+calcio[which.min(calcio$overround), ]
+calcio[which.max(calcio$overround), ]
+
+# The Serie A championship starts at the end of August and ends at the end of May
+calcio2009_2010 <- subset(calcio, Date >= "2009-08-15" & Date <= "2010-06-15")
+calcio2009_2010[which.max(calcio2009_2010$overround), ]
+```

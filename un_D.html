@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tommaso Rigon">
+
+<title>Descriptive analysis of the dde data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="un_D_files/libs/clipboard/clipboard.min.js"></script>
+<script src="un_D_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="un_D_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="un_D_files/libs/quarto-html/popper.min.js"></script>
+<script src="un_D_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="un_D_files/libs/quarto-html/anchor.min.js"></script>
+<link href="un_D_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="un_D_files/libs/quarto-html/quarto-syntax-highlighting-2dd8675203c32411a5a6bac4cfca86ce.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="un_D_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="un_D_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="un_D_files/libs/bootstrap/bootstrap-abca03668476d56ad8e58af0d59d28d0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a></li>
+  <li><a href="#topics-covered" id="toc-topics-covered" class="nav-link" data-scroll-target="#topics-covered">Topics covered</a></li>
+  <li><a href="#the-epidemiological-problem" id="toc-the-epidemiological-problem" class="nav-link" data-scroll-target="#the-epidemiological-problem">The epidemiological problem</a></li>
+  <li><a href="#importing-the-dde-data" id="toc-importing-the-dde-data" class="nav-link" data-scroll-target="#importing-the-dde-data">Importing the <code>dde</code> data</a></li>
+  <li><a href="#preliminary-operations" id="toc-preliminary-operations" class="nav-link" data-scroll-target="#preliminary-operations">Preliminary operations</a></li>
+  <li><a href="#splitting-into-intervals" id="toc-splitting-into-intervals" class="nav-link" data-scroll-target="#splitting-into-intervals">Splitting into intervals</a></li>
+  <li><a href="#absolute-frequencies" id="toc-absolute-frequencies" class="nav-link" data-scroll-target="#absolute-frequencies">Absolute frequencies</a></li>
+  <li><a href="#relative-frequencies" id="toc-relative-frequencies" class="nav-link" data-scroll-target="#relative-frequencies">Relative frequencies</a></li>
+  <li><a href="#organising-the-results" id="toc-organising-the-results" class="nav-link" data-scroll-target="#organising-the-results">Organising the results</a></li>
+  <li><a href="#histograms-i" id="toc-histograms-i" class="nav-link" data-scroll-target="#histograms-i">Histograms I</a></li>
+  <li><a href="#histograms-ii" id="toc-histograms-ii" class="nav-link" data-scroll-target="#histograms-ii">Histograms II</a></li>
+  <li><a href="#histograms-iii" id="toc-histograms-iii" class="nav-link" data-scroll-target="#histograms-iii">Histograms III</a></li>
+  <li><a href="#the-number-of-intervals" id="toc-the-number-of-intervals" class="nav-link" data-scroll-target="#the-number-of-intervals">The number of intervals</a></li>
+  <li><a href="#the-number-of-intervals-ii" id="toc-the-number-of-intervals-ii" class="nav-link" data-scroll-target="#the-number-of-intervals-ii">The number of intervals II</a></li>
+  <li><a href="#comparison-between-the-two-distributions" id="toc-comparison-between-the-two-distributions" class="nav-link" data-scroll-target="#comparison-between-the-two-distributions">Comparison between the two distributions</a></li>
+  <li><a href="#the-empirical-cumulative-distribution-function-i" id="toc-the-empirical-cumulative-distribution-function-i" class="nav-link" data-scroll-target="#the-empirical-cumulative-distribution-function-i">The empirical cumulative distribution function I</a></li>
+  <li><a href="#the-empirical-cumulative-distribution-function-ii" id="toc-the-empirical-cumulative-distribution-function-ii" class="nav-link" data-scroll-target="#the-empirical-cumulative-distribution-function-ii">The empirical cumulative distribution function II</a></li>
+  <li><a href="#the-empirical-cumulative-distribution-function-iii" id="toc-the-empirical-cumulative-distribution-function-iii" class="nav-link" data-scroll-target="#the-empirical-cumulative-distribution-function-iii">The empirical cumulative distribution function III</a></li>
+  <li><a href="#location-indices-the-mean" id="toc-location-indices-the-mean" class="nav-link" data-scroll-target="#location-indices-the-mean">Location indices: the mean</a></li>
+  <li><a href="#location-indices-the-median-i" id="toc-location-indices-the-median-i" class="nav-link" data-scroll-target="#location-indices-the-median-i">Location indices: the median I</a></li>
+  <li><a href="#location-indices-the-median-ii" id="toc-location-indices-the-median-ii" class="nav-link" data-scroll-target="#location-indices-the-median-ii">Location indices: the median II</a></li>
+  <li><a href="#location-indices-the-quantiles-i" id="toc-location-indices-the-quantiles-i" class="nav-link" data-scroll-target="#location-indices-the-quantiles-i">Location indices: the quantiles I</a></li>
+  <li><a href="#location-indices-the-quantiles-ii" id="toc-location-indices-the-quantiles-ii" class="nav-link" data-scroll-target="#location-indices-the-quantiles-ii">Location indices: the quantiles II</a></li>
+  <li><a href="#location-indices-the-quantiles-iii" id="toc-location-indices-the-quantiles-iii" class="nav-link" data-scroll-target="#location-indices-the-quantiles-iii">Location indices: the quantiles III</a></li>
+  <li><a href="#the-summary-command" id="toc-the-summary-command" class="nav-link" data-scroll-target="#the-summary-command">The <code>summary</code> command</a></li>
+  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots">Boxplots</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Descriptive analysis of the dde data</h1>
+<p class="subtitle lead">Programming and Data Analysis with R</p>
+</div>
+
+
+<div class="quarto-title-meta-author column-page-left">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><span class="orange">Tommaso Rigon</span> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <em>Università degli Studi di Milano-Bicocca</em>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta column-page-left">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="homepage" class="level2">
+<h2 class="anchored" data-anchor-id="homepage"><a href="index.html">Homepage</a></h2>
+</section>
+<section id="topics-covered" class="level2">
+<h2 class="anchored" data-anchor-id="topics-covered">Topics covered</h2>
+<ul>
+<li>Absolute and relative frequencies</li>
+<li>The cumulative distribution function</li>
+<li>Graphical representations (boxplots, histograms)</li>
+<li>Location indices (mean, median, quantiles)</li>
+</ul>
+</section>
+<section id="the-epidemiological-problem" class="level2">
+<h2 class="anchored" data-anchor-id="the-epidemiological-problem">The epidemiological problem</h2>
+<p><code>DDT</code> is extremely effective against malaria mosquitoes and is therefore widely used in areas where malaria is endemic.</p>
+<p>At the same time, <code>DDT</code> could represent a <span class="orange">health risk</span>, especially in the case of <span class="blue">pregnant women</span>.</p>
+<p>For a sample of <span class="math inline">n = 2312</span> pregnant women, <code>DDE</code> is measured, that is a substance related to <code>DDT</code>, present in the maternal serum during the third trimester of pregnancy.</p>
+<p>The variable <code>GAD</code> (Gestational Age at Delivery) measures instead on which day of the pregnancy the delivery took place.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Research question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Is the quantity of <code>DDE</code> higher among women who delivered prematurely?</p>
+</div>
+</div>
+</section>
+<section id="importing-the-dde-data" class="level2">
+<h2 class="anchored" data-anchor-id="importing-the-dde-data">Importing the <code>dde</code> data</h2>
+<p>To be able to run the next commands, you need to download the file <code>dde.csv</code> and save it on your computer. <a href="data/dde.csv">Link to the file</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dde <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/dde.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Alternatively, we can simply obtain them using the link:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dde <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"https://tommasorigon.github.io/EnvEcoStat/data/dde.csv"</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>) <span class="co"># Downloads the file from the internet</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dde)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   2312 obs. of  2 variables:
+ $ DDE: num  24.6 15.6 54.8 15 33.5 ...
+ $ GAD: int  292 289 252 285 281 283 277 284 293 277 ...</code></pre>
+</div>
+</div>
+<p>Note the presence of a new <span class="orange">type of variable</span>, that is <code>integer</code>, namely <span class="blue">integer numbers</span>.</p>
+</section>
+<section id="preliminary-operations" class="level2">
+<h2 class="anchored" data-anchor-id="preliminary-operations">Preliminary operations</h2>
+<p>A total of <span class="math inline">361</span> women <span class="orange">delivered prematurely</span>, that is before the end of the 37th week.</p>
+<p>To check this, we split the variable <code>DDE</code> into two groups.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dde_preterm <span class="ot">&lt;-</span> dde<span class="sc">$</span>DDE[dde<span class="sc">$</span>GAD <span class="sc">&lt;</span> <span class="dv">37</span> <span class="sc">*</span> <span class="dv">7</span>] <span class="co"># Preterm delivery group</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dde_non_preterm <span class="ot">&lt;-</span> dde<span class="sc">$</span>DDE[dde<span class="sc">$</span>GAD <span class="sc">&gt;=</span> <span class="dv">37</span> <span class="sc">*</span> <span class="dv">7</span>] <span class="co"># Non-preterm delivery group</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(dde_preterm) <span class="co"># Sample size of group 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 361</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(dde_non_preterm) <span class="co"># Sample size of group 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1951</code></pre>
+</div>
+</div>
+<p>The first group (variable <code>dde_preterm</code>) refers to preterm deliveries and comprises <span class="math inline">361</span> observations.</p>
+<p>The second group (variable <code>dde_non_preterm</code>) considers non-preterm deliveries and comprises the remaining <span class="math inline">1951</span> observations.</p>
+</section>
+<section id="splitting-into-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="splitting-into-intervals">Splitting into intervals</h2>
+<p>To summarise the data through <span class="blue">frequencies</span>, we can split the interval that contains all the observed values (that is <span class="math inline">(0,180]</span>) into a certain number of <span class="orange">sub-intervals</span>.</p>
+<p>First of all, we define the <span class="math inline">10</span> sub-intervals of length <span class="math inline">18</span>, closed on the right, through the command <code>cut</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">&lt;-</span> <span class="dv">18</span> <span class="sc">*</span> (<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># Definition of the intervals: 10 intervals of length 18</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>dde_preterm_class <span class="ot">&lt;-</span> <span class="fu">cut</span>(dde_preterm, <span class="at">breaks =</span> breaks)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>dde_non_preterm_class <span class="ot">&lt;-</span> <span class="fu">cut</span>(dde_non_preterm, <span class="at">breaks =</span> breaks)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dde_preterm_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] (54,72] (18,36] (18,36] (0,18]  (0,18]  (18,36]
+10 Levels: (0,18] (18,36] (36,54] (54,72] (72,90] (90,108] ... (162,180]</code></pre>
+</div>
+</div>
+<p>In this way, we have transformed a <code>numeric</code> variable into a <code>factor</code> variable.</p>
+</section>
+<section id="absolute-frequencies" class="level2">
+<h2 class="anchored" data-anchor-id="absolute-frequencies">Absolute frequencies</h2>
+<p>The <span class="blue">absolute frequencies</span> <span class="math inline">n_1,\dots, n_k</span> are obtained through the command <code>table</code>, which makes sense to apply to variables of type <code>factor</code>.</p>
+<p>The function <code>table</code> <span class="orange">counts</span> how many times a given category appears in the vector.</p>
+<p>We perform this operation for both groups of data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>freq_abs_preterm <span class="ot">&lt;-</span> <span class="fu">table</span>(dde_preterm_class)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>freq_abs_preterm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>dde_preterm_class
+   (0,18]   (18,36]   (36,54]   (54,72]   (72,90]  (90,108] (108,126] (126,144] 
+       68       164        65        34        14        10         3         1 
+(144,162] (162,180] 
+        1         1 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>freq_abs_non_preterm <span class="ot">&lt;-</span> <span class="fu">table</span>(dde_non_preterm_class)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>freq_abs_non_preterm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>dde_non_preterm_class
+   (0,18]   (18,36]   (36,54]   (54,72]   (72,90]  (90,108] (108,126] (126,144] 
+      573       906       308        91        40        19         6         5 
+(144,162] (162,180] 
+        2         1 </code></pre>
+</div>
+</div>
+</section>
+<section id="relative-frequencies" class="level2">
+<h2 class="anchored" data-anchor-id="relative-frequencies">Relative frequencies</h2>
+<p>Once the absolute frequencies have been obtained, it is possible to compute the <span class="blue">relative frequencies</span>.</p>
+<p>Although it is possible to use the command <code>prop.table</code> (we will meet it again later), here we follow a more direct route.</p>
+<p>Recall indeed that <span class="math inline">n = n_1 + \cdots + n_k</span>, therefore we can obtain the relative frequencies <span class="math inline">f_j = n_j / n</span> as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>freq_rel_preterm <span class="ot">&lt;-</span> freq_abs_preterm <span class="sc">/</span> <span class="fu">sum</span>(freq_abs_preterm)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(freq_rel_preterm, <span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>dde_preterm_class
+   (0,18]   (18,36]   (36,54]   (54,72]   (72,90]  (90,108] (108,126] (126,144] 
+    0.188     0.454     0.180     0.094     0.039     0.028     0.008     0.003 
+(144,162] (162,180] 
+    0.003     0.003 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>freq_rel_non_preterm <span class="ot">&lt;-</span> freq_abs_non_preterm <span class="sc">/</span> <span class="fu">sum</span>(freq_abs_non_preterm)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(freq_rel_non_preterm, <span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>dde_non_preterm_class
+   (0,18]   (18,36]   (36,54]   (54,72]   (72,90]  (90,108] (108,126] (126,144] 
+    0.294     0.464     0.158     0.047     0.021     0.010     0.003     0.003 
+(144,162] (162,180] 
+    0.001     0.001 </code></pre>
+</div>
+</div>
+</section>
+<section id="organising-the-results" class="level2">
+<h2 class="anchored" data-anchor-id="organising-the-results">Organising the results</h2>
+<p>We then collect the results just obtained inside a matrix, to display them better.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tab_summary <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  freq_abs_preterm, freq_abs_non_preterm,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  freq_rel_preterm, freq_rel_non_preterm</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tab_summary) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"n_j preterm"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"n_j non-preterm"</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"f_j preterm"</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"f_j non-preterm"</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(tab_summary, <span class="dv">3</span>) <span class="co"># Display of the results</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          n_j preterm n_j non-preterm f_j preterm f_j non-preterm
+(0,18]             68             573       0.188           0.294
+(18,36]           164             906       0.454           0.464
+(36,54]            65             308       0.180           0.158
+(54,72]            34              91       0.094           0.047
+(72,90]            14              40       0.039           0.021
+(90,108]           10              19       0.028           0.010
+(108,126]           3               6       0.008           0.003
+(126,144]           1               5       0.003           0.003
+(144,162]           1               2       0.003           0.001
+(162,180]           1               1       0.003           0.001</code></pre>
+</div>
+</div>
+</section>
+<section id="histograms-i" class="level2">
+<h2 class="anchored" data-anchor-id="histograms-i">Histograms I</h2>
+<p>The <span class="orange">histogram</span> makes it possible to represent a frequency distribution graphically. To refresh your memory, recall that in its simplest version one sets:</p>
+<p><span class="math display">
+\begin{aligned}
+(\text{base of the rectangles}) &amp;= (\text{length of the intervals}) \\
+(\text{height of the rectangles}) &amp;= (\text{absolute frequencies})
+\end{aligned}
+</span></p>
+<p>This definition is <span class="blue">not appropriate</span> if the <span class="orange">intervals</span> have <strong>different sizes</strong>.</p>
+<p>In that case, the heights of the rectangles must be <span class="blue">proportional</span> to the <span class="orange">density</span> of the observations in the individual classes.</p>
+<p>To sum up, we will build the histograms setting</p>
+<p><span class="math display">
+\begin{aligned}
+(\text{base of the rectangles}) &amp;= (\text{length of the intervals}) \\
+(\text{height of the rectangles}) &amp;= \lambda \times (\text{density}) = \lambda \times \frac{(\text{absolute frequencies}) }{(\text{length of the intervals})}
+\end{aligned}
+</span></p>
+<p>where one typically sets <span class="math inline">\lambda = 1/n</span>.</p>
+</section>
+<section id="histograms-ii" class="level2">
+<h2 class="anchored" data-anchor-id="histograms-ii">Histograms II</h2>
+<p>Let us initially focus only on the group of <span class="blue">non-preterm births</span>, to understand how the <strong>R</strong> syntax works.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># Splits the plot into two parts</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># First plot, absolute frequencies</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dde_non_preterm,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="dv">10</span>, <span class="co"># We use 10 sub-intervals</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># From here on we are only adding aesthetic details</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Non-preterm births"</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"DDE"</span>,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Absolute frequencies"</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Second plot, density</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dde_non_preterm,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="co"># Frequencies are NOT used</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="dv">10</span>, <span class="co"># We use 10 sub-intervals</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># From here on we are only adding aesthetic details</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Non-preterm births"</span>,</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"DDE"</span>,</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Density"</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_D_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Histogram based on the <span class="orange">absolute frequencies</span> (left) and on the <span class="blue">density</span> (right), only for the group of non-preterm births.</p>
+</section>
+<section id="histograms-iii" class="level2">
+<h2 class="anchored" data-anchor-id="histograms-iii">Histograms III</h2>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In the case of <span class="orange">unequally spaced</span> intervals, it is mandatory to use the option <code>freq = FALSE</code>, otherwise the resulting plot is meaningless.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definition of UNEQUALLY spaced intervals</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span> <span class="sc">*</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">70</span>, <span class="dv">90</span>, <span class="dv">110</span>, <span class="dv">130</span>, <span class="dv">150</span>, <span class="dv">170</span>, <span class="dv">190</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># CORRECT PLOT</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dde_non_preterm,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> breaks,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># From here on we are only adding aesthetic details</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"CORRECT PLOT"</span>, <span class="at">xlab =</span> <span class="st">"DDE"</span>, <span class="at">ylab =</span> <span class="st">"Density"</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_D_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># WRONG PLOT</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dde_non_preterm,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="cn">TRUE</span>, <span class="co"># Frequencies are used</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> breaks,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># From here on we are only adding aesthetic details</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"WRONG PLOT"</span>, <span class="at">xlab =</span> <span class="st">"DDE"</span>, <span class="at">ylab =</span> <span class="st">"Absolute frequencies"</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in plot.histogram(r, freq = freq1, col = col, border = border, angle =
+angle, : the AREAS in the plot are wrong -- rather use 'freq = FALSE'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_D_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot on the left is correct and makes use of the notion of <span class="blue">density</span> explained above. The plot on the right is <span class="orange">wrong</span>.</p>
+<p>Fortunately <strong>R</strong> warns us through a <code>warning</code> that this procedure is incorrect.</p>
+</section>
+<section id="the-number-of-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="the-number-of-intervals">The number of intervals</h2>
+<p>A number of intervals that is <span class="blue">too low</span> entails a <span class="orange">loss of information</span>.</p>
+<p>Conversely, a number of intervals that is <span class="blue">too high</span> entails a <strong>loss of synthesis</strong>.</p>
+<p>Keep in mind that the <span class="orange">number of intervals</span> must depend on the <strong>number of data points</strong>.</p>
+<p>Various formulas have been proposed to identify the “optimal number” of intervals. They should however be taken as suggestions and not used automatically.</p>
+<p><span class="blue">Sturges</span>. The number of intervals, rounded to the nearest integer, is <span class="math display">
+(\text{number of intervals}) = 1 + \log_2{n}.
+</span></p>
+<p><span class="orange">Freedman &amp; Diaconis</span>. The number of intervals, rounded to the nearest integer, is <span class="math display">
+(\text{number of intervals})  = \frac{x_{(n)} - x_{(1)}}{2(\mathcal{Q}_{0.75} - \mathcal{Q}_{0.25})}n^{1/3}.
+</span></p>
+</section>
+<section id="the-number-of-intervals-ii" class="level2">
+<h2 class="anchored" data-anchor-id="the-number-of-intervals-ii">The number of intervals II</h2>
+<p>The “optimal” number of intervals can be obtained through the following commands:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nclass.Sturges</span>(dde_non_preterm) <span class="co"># Sturges' rule</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nclass.FD</span>(dde_non_preterm) <span class="co"># Freedman and Diaconis' rule</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 54</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <strong>R</strong> command <code>hist</code>, unless specified otherwise through the option <code>breaks</code>, automatically selects <span class="blue">equally spaced</span> intervals through the rule of <span class="orange">Sturges</span>.</p>
+</div>
+</div>
+</section>
+<section id="comparison-between-the-two-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-between-the-two-distributions">Comparison between the two distributions</h2>
+<p>This final plot finally makes it possible to compare the two distributions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dde_non_preterm, <span class="co"># Non-preterm births group</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Non-preterm births"</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_D_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dde_preterm, <span class="co"># Preterm births group</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Preterm births"</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_D_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Possibly, it is possible to select a different rule by setting <code>breaks = "FD"</code>.</p>
+<p>The distribution of “preterm births” turns out to be shifted further to the right.</p>
+</section>
+<section id="the-empirical-cumulative-distribution-function-i" class="level2">
+<h2 class="anchored" data-anchor-id="the-empirical-cumulative-distribution-function-i">The empirical cumulative distribution function I</h2>
+<p>A second graphical representation of frequent use is the so-called <strong>empirical cumulative distribution function</strong> <span class="math inline">F(x)</span>.</p>
+<p>Let <span class="math inline">x_1,\dots,x_n</span> be a collection of data, then we define <span class="math display">
+F(x) = \frac{1}{n} \sum_{i=1}^n \mathbb{1}(x_i \le x),
+</span> where <span class="math inline">\mathbb{1}(x_i \le x)</span> is the <span class="blue">indicator function</span> and equals <span class="math inline">1</span> if <span class="math inline">x_i \le x</span> and <span class="math inline">0</span> if <span class="math inline">x_i &gt; x</span>.</p>
+<p>In <strong>R</strong>, one uses the command <code>ecdf</code> (<em>empirical cumulative distribution function</em>), for example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ecdf</span>(dde_non_preterm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Empirical CDF 
+Call: ecdf(dde_non_preterm)
+ x[1:1585] =    2.5,   2.95,   3.14,  ..., 161.11, 162.29</code></pre>
+</div>
+</div>
+</section>
+<section id="the-empirical-cumulative-distribution-function-ii" class="level2">
+<h2 class="anchored" data-anchor-id="the-empirical-cumulative-distribution-function-ii">The empirical cumulative distribution function II</h2>
+<p>The command <code>ecdf</code> returns as an object an actual <span class="orange">function</span>. Indeed:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>F_non_preterm <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(dde_non_preterm)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">F_non_preterm</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>)) <span class="co"># Evaluates the empirical cdf at 20, 40 and 60</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3618657 0.8077909 0.9390056</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(dde_non_preterm <span class="sc">&lt;=</span> <span class="dv">40</span>) <span class="sc">/</span> <span class="fu">length</span>(dde_non_preterm) <span class="co"># Alternative "manual" command</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8077909</code></pre>
+</div>
+</div>
+<p>To draw a plot of it, it is moreover enough to use the command <code>plot</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(dde_non_preterm))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_D_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-empirical-cumulative-distribution-function-iii" class="level2">
+<h2 class="anchored" data-anchor-id="the-empirical-cumulative-distribution-function-iii">The empirical cumulative distribution function III</h2>
+<p>To be able to compare the cumulative distribution functions of the two groups, the syntax is slightly more elaborate:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(dde_preterm),</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">do.points =</span> <span class="cn">FALSE</span>, <span class="at">col =</span> <span class="st">"blue"</span>,</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Blue: preterm delivery. Red: non-preterm delivery"</span>,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"DDE"</span>,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"F(DDE)"</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(dde_non_preterm), <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>) <span class="co"># Add a second group</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_D_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The option <code>do.points = FALSE</code> omits the “dots” in the plot and has been added for purely <span class="blue">aesthetic</span> reasons.</p>
+</section>
+<section id="location-indices-the-mean" class="level2">
+<h2 class="anchored" data-anchor-id="location-indices-the-mean">Location indices: the mean</h2>
+<p>To quantify the difference between the two distributions, we want to find the <span class="orange">arithmetic means</span> of the variables <code>dde_preterm</code> and <code>dde_non_preterm</code>.</p>
+<p>In <strong>R</strong> there is of course a dedicated command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dde_preterm) <span class="co"># Arithmetic mean of DDE for women with preterm delivery</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 36.20299</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dde_non_preterm) <span class="co"># Arithmetic mean of DDE for women with regular delivery</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 29.14199</code></pre>
+</div>
+</div>
+<p>As already widely noted, we observe that DDE is present in larger quantities among the women who delivered prematurely.</p>
+<p>The arithmetic mean could also have been obtained starting from the commands we met in the previous units:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(dde_preterm) <span class="co"># Sample size of dde_preterm (= 361)</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(dde_preterm) <span class="sc">/</span> n <span class="co"># Arithmetic mean of the variable dde_preterm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 36.20299</code></pre>
+</div>
+</div>
+</section>
+<section id="location-indices-the-median-i" class="level2">
+<h2 class="anchored" data-anchor-id="location-indices-the-median-i">Location indices: the median I</h2>
+<p>The median (Me) of a variable is the <span class="blue">central value</span> of the distribution, that is:</p>
+<p><span class="math display">
+\text{Me} = \begin{cases}x_{\left(\frac{n+1}{2}\right)}, &amp;\qquad \text{ if } n \text{ is odd},  \\[10pt] \left(x_{(n/2)} + x_{(n/2+1)}\right)/2,&amp;\qquad \text{ if } n \text{ is even},\end{cases}
+</span> where <span class="math inline">x_{(1)},\dots,x_{(n)}</span> represents the ordered sample.</p>
+<p>In <strong>R</strong> there is a dedicated command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(dde_preterm) <span class="co"># Median of DDE for women with preterm delivery</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 29.46</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(dde_non_preterm) <span class="co"># Median of DDE for women with regular delivery</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 24.04</code></pre>
+</div>
+</div>
+<p>Note (why?) that the empirical cumulative distribution function, evaluated at the median, is approximately equal to <code>0.5</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">F_non_preterm</span>(<span class="fu">median</span>(dde_non_preterm))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5002563</code></pre>
+</div>
+</div>
+</section>
+<section id="location-indices-the-median-ii" class="level2">
+<h2 class="anchored" data-anchor-id="location-indices-the-median-ii">Location indices: the median II</h2>
+<p>The median of a numerical variable can also be obtained “manually”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="fl">3.5</span>, <span class="dv">28</span>, <span class="dv">62</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x) <span class="co"># Sample size</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>n <span class="co"># Note that n = 6 is even</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>x_sort <span class="ot">&lt;-</span> <span class="fu">sort</span>(x) <span class="co"># Ordered vector of the values of x</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>x_sort</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  3.5 10.0 20.0 25.0 28.0 62.0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>pos_med_1 <span class="ot">&lt;-</span> n <span class="sc">/</span> <span class="dv">2</span> <span class="co"># Element in position n/2</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>pos_med_2 <span class="ot">&lt;-</span> n <span class="sc">/</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span> <span class="co"># Element in position n/2+1</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>(x_sort[pos_med_1] <span class="sc">+</span> x_sort[pos_med_2]) <span class="sc">/</span> <span class="dv">2</span> <span class="co"># Median of x</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 22.5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(x) <span class="co"># Of course, the result must coincide with:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 22.5</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Obtain the median “manually” in the case in which the vector <code>x</code> has an odd number of elements.</p>
+</div>
+</div>
+</section>
+<section id="location-indices-the-quantiles-i" class="level2">
+<h2 class="anchored" data-anchor-id="location-indices-the-quantiles-i">Location indices: the quantiles I</h2>
+<p>Let <span class="math inline">x_1,\dots,x_n</span> be a set of data, let <span class="math inline">p \in (0,1)</span> and let <span class="math inline">F(x)</span> be the empirical cumulative distribution function. The <span class="orange"><span class="math inline">p</span>-quantile</span> is then equal to</p>
+<p><span class="math display">
+\mathcal{Q}_p = \inf\{ x : F(x) \ge p \}.
+</span></p>
+<p>In <strong>R</strong>, considering <span class="math inline">p = (0.1,0.25,0.75,0.9)</span>, that is the first decile, the first quartile, the third quartile and the ninth decile, we can use the command <code>quantile</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(dde_preterm, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>), <span class="at">type =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  10%   25%   75%   90% 
+15.07 19.94 45.30 68.01 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(dde_non_preterm, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>), <span class="at">type =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  10%   25%   75%   90% 
+12.23 16.73 35.45 50.72 </code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Convince yourself that the “manual” implementation of the command <code>quantile</code> is the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(dde_non_preterm[<span class="fu">F_non_preterm</span>(dde_non_preterm) <span class="sc">&gt;=</span> <span class="fl">0.25</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16.73</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(dde_non_preterm[<span class="fu">F_non_preterm</span>(dde_non_preterm) <span class="sc">&gt;=</span> <span class="fl">0.75</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 35.45</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="location-indices-the-quantiles-ii" class="level2">
+<h2 class="anchored" data-anchor-id="location-indices-the-quantiles-ii">Location indices: the quantiles II</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The definition of quantile we have given is the usual one, but it is not the only possible one.</p>
+</div>
+</div>
+<p>That definition is obtained with the option <code>type = 1</code>, which however is <strong>not the default</strong>. The default value is instead <code>type = 7</code>.</p>
+<p>If you are curious to know the various definitions of quantile, remember that the <span class="blue">documentation</span> can be consulted through the command: <code>? quantile</code>.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A drawback of the <code>type = 1</code> quantile is that the median does not always coincide with the quantile <span class="math inline">\mathcal{Q}_{0.5}</span>. Find an example in which this happens and check that the problem is instead solved in the <code>type = 7</code> case.</p>
+</div>
+</div>
+</section>
+<section id="location-indices-the-quantiles-iii" class="level2">
+<h2 class="anchored" data-anchor-id="location-indices-the-quantiles-iii">Location indices: the quantiles III</h2>
+<p>In <strong>R</strong> there are in total as many as <span class="orange">9 ways</span> of computing the quantiles.</p>
+<p>Fortunately, for large sample sizes the <span class="blue">differences</span> tend to be <span class="orange">negligible</span>.</p>
+<p>We list below some examples for the variable <code>dde_preterm</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quantile</span>(dde_preterm, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>), <span class="at">type =</span> <span class="dv">1</span>),</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quantile</span>(dde_preterm, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>), <span class="at">type =</span> <span class="dv">6</span>),</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quantile</span>(dde_preterm, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>), <span class="at">type =</span> <span class="dv">7</span>),</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quantile</span>(dde_preterm, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>), <span class="at">type =</span> <span class="dv">9</span>)</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(tab) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">9</span>) <span class="co"># Changes the names of the rows of the table</span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     10%   25%   50%      75%    90%
+1 15.070 19.94 29.46 45.30000 68.010
+6 15.054 19.94 29.46 45.49000 68.738
+7 15.070 19.94 29.46 45.30000 68.010
+9 15.060 19.94 29.46 45.41875 68.465</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What does <code>rbind</code> do? We met it in Unit A.</p>
+</div>
+</div>
+</section>
+<section id="the-summary-command" class="level2">
+<h2 class="anchored" data-anchor-id="the-summary-command">The <code>summary</code> command</h2>
+<p>To obtain quickly the <span class="blue">main descriptive statistics</span> of a distribution (minimum, maximum, mean, median and quartiles), one often uses the command <code>summary</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dde_preterm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   3.17   19.94   29.46   36.20   45.30  178.06 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dde_non_preterm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   2.50   16.73   24.04   29.14   35.40  162.29 </code></pre>
+</div>
+</div>
+<p>The command <code>summary</code> can also be used directly on an object of type <code>data.frame</code>, producing the following output:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dde)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      DDE              GAD       
+ Min.   :  2.50   Min.   :194.0  
+ 1st Qu.: 17.13   1st Qu.:267.0  
+ Median : 24.68   Median :277.0  
+ Mean   : 30.24   Mean   :274.9  
+ 3rd Qu.: 36.52   3rd Qu.:286.0  
+ Max.   :178.06   Max.   :315.0  </code></pre>
+</div>
+</div>
+</section>
+<section id="boxplots" class="level2">
+<h2 class="anchored" data-anchor-id="boxplots">Boxplots</h2>
+<p>An alternative graphical representation to histograms are <span class="orange">boxplots</span>.</p>
+<p>The <span class="blue">descriptive statistics</span> on which boxplots are based can be obtained through the command <code>boxplot.stats</code>, that is:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot.stats</span>(dde_preterm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$stats
+[1]  3.17 19.94 29.46 45.30 83.25
+
+$n
+[1] 361
+
+$conf
+[1] 27.35112 31.56888
+
+$out
+ [1]  94.60  99.42 144.86 105.83  90.73 128.47  91.23 102.50 178.06  88.72
+[11] 117.54 108.90 106.70 105.48 109.55 103.88 103.77</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(dde_preterm, dde_non_preterm) <span class="co"># Produces the plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_D_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="un_D_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

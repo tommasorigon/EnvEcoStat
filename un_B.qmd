@@ -1,0 +1,397 @@
+---
+title: "Elements of programming"
+subtitle: "Programming and Data Analysis with R"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    smooth-scroll: true
+    fig-dpi: 90
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+## [Homepage](index.html)
+
+```{r}
+#| warning: false
+#| echo: false
+#| include: false
+#| message: false
+#| purl: false
+
+# Please ignore this chunk.
+# A single purl() call: calling it twice in the same knit would clash on the
+# chunk labels. The clean script is derived from the full one, so the two
+# cannot go out of sync.
+
+# 1. Full script, for personal use: code plus the text of the notes as
+#    comments. Not linked from the website (and ignored by git).
+knitr::purl("un_B.qmd", output = "code/un_B_full.R", documentation = 2)
+full <- readLines("code/un_B_full.R")
+# strip the Quarto markup that is only meaningful in the rendered page
+full <- full[!grepl("^#' *:::", full)]
+full <- gsub("\\[([^]]*)\\]\\{[^}]*\\}", "\\1", full)
+squeeze <- function(x) x[!(x == "" & c(FALSE, head(x == "", -1)))]
+writeLines(squeeze(full), "code/un_B_full.R")
+
+# 2. Clean script, linked from the website: code only, obtained by dropping
+#    the text (#') and the chunk headers (#+).
+clean <- squeeze(full[!grepl("^#'|^#\\+", full)])
+writeLines(clean, "code/un_B.R")
+styler:::style_file("code/un_B.R")
+```
+
+## Unit B
+
+-   Defining a new function
+-   Control statements: `if`, `else`
+-   `for` loops, `while` loops
+-   An outline of the `*apply` functions
+-   **R** packages
+
+::: callout-note
+#### Note
+
+The exercises associated with this unit are available at
+[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_A.html).
+:::
+
+## Functions I
+
+Besides being a statistical software, **R** is a [programming language]{.orange}.
+
+Most **R** objects are functions. Indeed:
+
+```{r}
+class(sum) # Identifies the type of object
+```
+
+```{r}
+class(log) # Second example
+```
+
+It is therefore possible to define [new functions]{.blue}, in addition to the ones
+that already exist.
+
+Once created, functions can be used exactly like all the others.
+
+## Functions II
+
+To create a new function, one uses the command `function`.
+
+The [new function]{.orange} `cube` computes the cube of the number it receives as
+input:
+
+```{r}
+cube <- function(x) {
+  out <- x^3
+  out
+}
+```
+
+The [last object]{.blue} (in this case called `out`) is returned as the result:
+
+```{r}
+cube(4) # Computes the cube of the value 4
+```
+
+Alternatively, we can also use the command `return` to return the result:
+
+```{r}
+cube <- function(x) {
+  out <- x^3
+  return(out) # Makes it explicit that the value to be returned is out
+}
+cube(8) # Computes the cube of the value 8
+```
+
+## Functions III
+
+It is possible to define new functions with [multiple arguments]{.orange}, also
+choosing their [default values]{.blue}
+
+```{r}
+power <- function(x, p = 2) {
+  out <- x^p
+  out
+}
+```
+
+The default value for the argument `p` is the square (`p = 2`), indeed:
+
+```{r}
+power(x = 4) # Computes the square of the value 4
+```
+
+```{r}
+power(4) # Alternative syntax: the argument names need not be specified
+```
+
+However, we can select a different power as follows:
+
+```{r}
+power(x = 4, p = 3) # Computes the cube of the value 4
+power(4, 3) # Alternative syntax: the argument names need not be specified
+```
+
+## Control statements I
+
+The control statement `if` makes it possible to perform a given operation only
+if a certain [condition]{.orange} is satisfied (`TRUE` or `FALSE`).
+
+The (optional) control statement `else` makes it possible to perform an
+[alternative operation]{.blue} if the previous condition is not satisfied.
+
+For example, the following code prints on screen (function `print`) a different
+sentence depending on whether the condition is true or false:
+
+```{r}
+condition <- pi^2 < 10 # Boolean value (in this case the condition is TRUE)
+
+if (condition) {
+  print("The condition is true")
+  # Some commands to be executed
+  # ...
+} else {
+  print("The condition is false")
+  # Other commands to be executed
+  # ...
+}
+```
+
+## Control statements II
+
+The following function `square_root` is a more concrete example concerning `if`
+and `else`.
+
+If the number provided as input is negative, a `NaN` is returned:
+
+```{r}
+square_root <- function(x) {
+  if (x < 0) {
+    # Warning message; it would actually be more appropriate to use "warning"
+    print("The value of x must be positive")
+    out <- NaN # Return Not A Number
+  } else {
+    out <- sqrt(x)
+  }
+  out
+}
+
+square_root(-2) # The condition x < 0 is satisfied
+square_root(36) # The condition x < 0 is NOT satisfied
+```
+
+## `while` and `for` loops I
+
+`for` loops and `while` loops repeat the operation contained between the curly
+brackets `{ }` until a given condition is satisfied.
+
+Let us start with a simple example concerning the `while` function:
+
+```{r}
+i <- 5 # We start with i = 5
+
+while (i <= 25) { # Repeats the operation as long as i is smaller or equal to 25
+  print(i) # Prints on screen the value of i
+  i <- i + 5 # Increases the value of i
+
+  # In real settings, here there are of course other operations to be executed
+  # ...
+}
+```
+
+## `while` and `for` loops II
+
+::: callout-warning
+Be careful not to create [endless loops]{.orange}!
+:::
+
+The following code requires a forced interruption of the **R** session or, in
+the worst case, a restart of the computer:
+
+```{r}
+#| eval: false
+# DO NOT RUN THE FOLLOWING CODE!
+#
+# The condition i <= 25 is always true because i is never updated
+i <- 5
+while (i <= 25) {
+  print(i)
+
+  # Other operations to be executed
+  # ...
+}
+```
+
+## `while` and `for` loops III
+
+As an alternative to `while` loops, one can use the more explicit syntax of
+`for` loops.
+
+The `for` loop executes the content of the curly brackets considering, one at a
+time, the values contained for instance in a vector:
+
+```{r}
+values <- seq(from = 5, to = 25, by = 5)
+values
+
+for (i in values) {
+  print(i + 2) # Prints on screen the value of i + 2
+
+  # Other operations to be executed
+  # ...
+}
+```
+
+## Summary exercise I
+
+Compute the elements of a square matrix ${\bf D}$ of dimension $n \times n$,
+whose elements are equal to $$
+d_{ij} = (x_i - x_j)^2, \qquad  i,j \in \{1,\dots,n\},
+$$ where ${\bf x} = (x_1,\dots,x_n)^\intercal$ is a generic vector in
+$\mathbb{R}^n$.
+
+In other words, define a function `distances(x)` that, starting from a generic
+vector `x`, returns a matrix `D`.
+
+::: callout-tip
+## Outline of the solution
+
+First create a matrix `D` whose elements are all equal to `0`, using the command
+`matrix`.
+
+Then use two "nested" `for` loops, that is one inside the other, to compute each
+of the values `D[i, j]`.
+:::
+
+#### Solution of summary exercise I
+
+```{r}
+distances <- function(x) {
+  n <- length(x) # Get the length of the vector x
+  D <- matrix(0, nrow = n, ncol = n) # Creation of an empty matrix
+
+  for (i in 1:n) {
+    for (j in 1:n) {
+      D[i, j] <- (x[i] - x[j])^2
+    }
+  }
+  D # Value to be returned
+}
+
+x <- c(5, 2, 1, 24) # Example to check that it is correct
+distances(x)
+```
+
+::: callout-note
+## Note
+
+There are many different (but correct) ways of implementing this function.
+Incidentally, this solution is by no means the most efficient one.
+:::
+
+## Summary exercise II
+
+`Fizzbuzz` is a simple programming exercise often used in job interviews to
+check basic programming skills.
+
+The task is the following: for all the numbers from $1$ to $100$ print on
+screen:
+
+-   the word `fizz` if the number is a multiple of $3$,
+
+-   the word `buzz` if it is a multiple of $5$,
+
+-   the word `fizzbuzz` if the number is a multiple of both $3$ and $5$,
+
+-   the number itself otherwise.
+
+::: callout-tip
+## Hint
+
+Use the function `print` and the remainder function `%%` of **R**. Moreover, to
+make the code leaner it is possible to use the control statement called
+`else if`.
+:::
+
+#### Solution of summary exercise II
+
+The solution below makes use of the `else if` construct.
+
+```{r}
+#| eval: false
+for (i in 1:100) {
+  condA <- (i %% 3) == 0 # Is the number a multiple of 3?
+  condB <- (i %% 5) == 0 # Is the number a multiple of 5?
+
+  if (condA & condB) {
+    print("fizzbuzz")
+  } else if (condA) {
+    print("fizz")
+  } else if (condB) {
+    print("buzz")
+  } else {
+    print(i)
+  }
+}
+```
+
+## The `*apply` family of functions
+
+When possible, it would be better to [avoid]{.blue} using `for` loops, because they
+tend to be slow in **R** (unlike other languages, such as C++).
+
+A more elegant alternative, although not necessarily a more efficient one, is
+the `*apply` family of functions, that is: `apply`, `tapply`, `sapply`,
+`mapply`, `lapply`.
+
+The simplest one, `apply`, executes a given function for each row / column of a
+matrix.
+
+::: callout-note
+## Exercise
+
+Consult the documentation of the `*apply` functions to get a first idea of how
+they work.
+:::
+
+## **R** packages
+
+**R** is organised in [packages]{.orange}.
+
+If we want to use the functions of a package, it can be loaded using the
+function `library`, that is:
+
+```{r}
+library(MASS) # Loads the MASS package into memory
+library(knitr) # Loads the knitr package into memory
+```
+
+If a package is not available on the computer, it has to be installed.
+
+One can use the following command, or use the "Packages" window available in
+RStudio.
+
+```{r}
+#| eval: false
+install.packages("knitr") # Installs the knitr package
+```

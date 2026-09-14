@@ -1,0 +1,349 @@
+---
+title: "Descriptive analysis of the hemoglobin data"
+subtitle: "Programming and Data Analysis with R"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    smooth-scroll: true
+    fig-dpi: 90
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+## [Homepage](index.html)
+
+```{r}
+#| warning: false
+#| echo: false
+#| include: false
+#| message: false
+#| purl: false
+
+# Please ignore this chunk.
+# A single purl() call: calling it twice in the same knit would clash on the
+# chunk labels. The clean script is derived from the full one, so the two
+# cannot go out of sync.
+
+# 1. Full script, for personal use: code plus the text of the notes as
+#    comments. Not linked from the website (and ignored by git).
+knitr::purl("un_E.qmd", output = "code/un_E_full.R", documentation = 2)
+full <- readLines("code/un_E_full.R")
+# strip the Quarto markup that is only meaningful in the rendered page
+full <- full[!grepl("^#' *:::", full)]
+full <- gsub("\\[([^]]*)\\]\\{[^}]*\\}", "\\1", full)
+squeeze <- function(x) x[!(x == "" & c(FALSE, head(x == "", -1)))]
+writeLines(squeeze(full), "code/un_E_full.R")
+
+# 2. Clean script, linked from the website: code only, obtained by dropping
+#    the text (#') and the chunk headers (#+).
+clean <- squeeze(full[!grepl("^#'|^#\\+", full)])
+writeLines(clean, "code/un_E.R")
+styler:::style_file("code/un_E.R")
+```
+
+## Topics covered
+
+-   Variance and standard deviation
+-   Other measures of variability (range, interquartile range, MAD)
+
+## Description of the problem
+
+We are interested in comparing the effectiveness of two different methods,
+called A and B, for the [measurement of haemoglobin]{.orange} in blood.
+
+[Artificial blood]{.blue} containing 15 grams of haemoglobin every
+$100 \text{cm}^3$ has been created in the laboratory.
+
+A total of $n = 360$ samples were drawn from the compound.
+
+Of these, in $n_A = 180$ samples the haemoglobin was measured using method A,
+whereas for the remaining $n_B = 180$ samples method B was used.
+
+The differences between the various measurements are largely to be attributed to
+the measurement errors of the two different methods.
+
+## Importing the `hemoglobin` data
+
+As done previously, first of all you need to download the file `hemoglobin.csv`
+and save it on your computer. [Link to the file](data/hemoglobin.csv)
+
+```{r}
+hemoglobin <- read.table("data/hemoglobin.csv",
+  header = TRUE, sep = ",", stringsAsFactors = TRUE
+)
+```
+
+Alternatively, we can simply obtain them using the link:
+
+```{r}
+#| eval: false
+path <- "https://tommasorigon.github.io/EnvEcoStat/data/hemoglobin.csv"
+hemoglobin <- read.table(path, header = TRUE, sep = ",", stringsAsFactors = TRUE)
+```
+
+```{r}
+str(hemoglobin)
+```
+
+The option `stringsAsFactors = TRUE` implies that the variable `method` is coded
+as a `factor` and not as a `character`.
+
+## Preliminary operations
+
+In this format the data are [hard to analyse]{.orange}, at least without using the
+advanced `*apply` functions or the tools of the so-called `tidyverse`.
+
+Therefore, we create the two variables `hemo_A` and `hemo_B`, containing the
+haemoglobin values for the two methods.
+
+```{r}
+hemo_A <- hemoglobin$hemoglobin[hemoglobin$method == "A"] # Group A
+hemo_B <- hemoglobin$hemoglobin[hemoglobin$method == "B"] # Group B
+
+summary(hemo_A)
+summary(hemo_B)
+```
+
+```{r}
+boxplot(hemoglobin$hemoglobin ~ hemoglobin$method,
+  ylab = "Haemoglobin",
+  xlab = "Method"
+)
+```
+
+From these first descriptive analyses it emerges that both methods are, at least
+on average, [well calibrated]{.blue}. Which of the two is preferable?
+
+## The variance I
+
+Recall that the [variance]{.orange} of the data $x_1,\dots,x_n$ is equal to
+
+$$
+\sigma^2  = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2 = \left(\frac{1}{n}\sum_{i=1}^n x_i^2\right) - \bar{x}^2.
+$$
+
+We can therefore compute the variances of the two groups "manually":
+
+```{r}
+mean((hemo_A - mean(hemo_A))^2) # Variance of group A
+mean((hemo_B - mean(hemo_B))^2) # Variance of group B
+
+mean(hemo_A^2) - mean(hemo_A)^2 # Variance of group A, alternative formula
+mean(hemo_B^2) - mean(hemo_B)^2 # Variance of group B, alternative formula
+```
+
+Method B is therefore characterised by a larger [variability]{.blue}.
+
+## The variance II
+
+For convenience, we create a [new function]{.orange} called `my_var` that computes the
+[variance]{.blue} of a generic vector `x`. We will therefore have:
+
+```{r}
+my_var <- function(x) {
+  mean(x^2) - mean(x)^2
+}
+
+my_var(hemo_A)
+my_var(hemo_B)
+```
+
+In **R** the function `var` is available, however this computes a slightly
+[different quantity]{.orange}, that is $$
+\texttt{var(x)} = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2,
+$$ that is the [unbiased estimator]{.blue} of the variance.
+
+[Not clear why?]{.orange} It will be addressed in the part of the course devoted to
+statistical inference.
+
+## The variance III
+
+The difference between `my_var` and `var` is, in practice, essentially
+[negligible]{.blue} in this case, indeed:
+
+```{r}
+var(hemo_A)
+var(hemo_B)
+```
+
+::: callout-note
+#### Exercise
+
+Obtain the same output as `my_var` using the function `var`.
+:::
+
+## Standard deviation
+
+The [standard deviation]{.orange} is the square root of the variance, that is $$
+\text{sd}(x) = \sigma = \sqrt{\sigma^2}.
+$$
+
+We therefore create a suitable **R** function called `my_sd` to compute it.
+
+Also in this case, be careful that the **R** command `sd` computes instead the
+value of $$
+\texttt{sd(x)} = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2}.
+$$
+
+```{r}
+my_sd <- function(x) {
+  sqrt(my_var(x))
+}
+
+my_sd(hemo_A)
+my_sd(hemo_B)
+
+sd(hemo_A)
+sd(hemo_B)
+```
+
+## Range
+
+The [range]{.blue} is the difference between the minimum and the maximum of the
+distribution, that is $$
+(\text{``Range''}) = x_{(n)} - x_{(1)},
+$$ where $x_{(1)}$ and $x_{(n)}$ represent respectively the minimum and the
+maximum of the data.
+
+Although a specific function to compute it does not exist, we can use the
+following commands
+
+```{r}
+max(hemo_A) - min(hemo_A)
+max(hemo_B) - min(hemo_B)
+
+diff(range(hemo_A))
+diff(range(hemo_B))
+```
+
+::: callout-note
+#### Exercise
+
+Define a suitable **R** function that computes the [range]{.orange}.
+:::
+
+## Interquartile range
+
+The [interquartile range]{.blue} is the difference between the third and the first
+quartile, that is $$
+(\text{``Interquartile range''}) = \mathcal{Q}_{0.75} - \mathcal{Q}_{0.25}.
+$$
+
+It is much more [resistant]{.orange} than the variance in the presence of a few extreme
+observations.
+
+Its implementation in **R** is the following:
+
+```{r}
+interquartile_range <- function(x) {
+  diff(quantile(x, probs = c(0.25, 0.75)))
+}
+
+interquartile_range(hemo_A)
+interquartile_range(hemo_B)
+```
+
+## Median absolute deviation (MAD)
+
+The variability index [MAD]{.blue} (*Median Absolute Deviation*) is defined as
+follows $$
+\text{MAD} = \text{Median}(|x_1 - \text{Me}_x|, \dots, |x_n - \text{Me}_x|), \qquad \text{Me}_x = \text{Median}(x_1,\dots,x_n).
+$$
+
+To compute it, we create an appropriate function:
+
+```{r}
+MAD <- function(x) {
+  median(abs(x - median(x)))
+}
+```
+
+The MAD of the variables `hemo_A` and `hemo_B` is therefore equal to
+
+```{r}
+MAD(hemo_A)
+MAD(hemo_B)
+```
+
+## The `tapply` function I
+
+There exists a more [elegant]{.orange} and [fast]{.blue} method to obtain these results,
+based on the function `tapply`.
+
+The function `tapply(x, group, fun)` applies a certain function `fun` to a set
+of data `x`, for each [group]{.orange} `group`.
+
+For example, the arithmetic mean of `hemo_A` and `hemo_B` is obtained as
+follows:
+
+```{r}
+tapply(hemoglobin$hemoglobin, hemoglobin$method, mean)
+with(hemoglobin, tapply(hemoglobin, method, mean)) # Even more compactly
+```
+
+## The `tapply` function II
+
+Therefore, we can obtain the various variability indices as follows:
+
+```{r}
+tab <- rbind(
+  with(hemoglobin, tapply(hemoglobin, method, my_var)),
+  with(hemoglobin, tapply(hemoglobin, method, my_sd)),
+  with(hemoglobin, tapply(hemoglobin, method, interquartile_range)),
+  with(hemoglobin, tapply(hemoglobin, method, MAD))
+)
+rownames(tab) <- c("Variance", "Standard deviation", "Interquartile range", "MAD")
+tab
+```
+
+::: callout-note
+#### Exercise
+
+Try to use the function `aggregate` to obtain the same result.
+:::
+
+## Summary exercise
+
+The most commonly used measure of skewness is the so-called standardised
+[skewness index]{.blue} of [Pearson]{.orange}, defined as $$
+\gamma = \frac{1}{\text{sd}(x)^3} \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^3 = \frac{1}{n} \sum_{i=1}^n \left(\frac{x_i - \bar{x}}{\sigma}\right)^3.
+$$
+
+-   Create a suitable function to compute it.
+
+#### Solution of the summary exercise
+
+```{r}
+# First possible implementation
+asym <- function(x) {
+  sdev <- sqrt(mean(x^2) - mean(x)^2)
+  mean((x - mean(x))^3) / sdev^3
+}
+
+# (Slightly) alternative implementation
+asym <- function(x) {
+  sdev <- sqrt(mean(x^2) - mean(x)^2)
+  z <- (x - mean(x)) / sdev
+  mean(z^3)
+}
+
+asym(hemo_A)
+```
