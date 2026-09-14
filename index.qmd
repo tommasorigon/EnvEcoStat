@@ -1,0 +1,82 @@
+---
+title: "Statistical Models and Applications in Economics and Environmental Sciences"
+subtitle: "M.Sc. in Statistics and Economics (CLAMSES), Università degli Studi di Milano-Bicocca"
+lang: en
+page-layout: full
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    fig-dpi: 250
+editor:
+  markdown:
+    wrap: 72
+editor_options:
+  chunk_output_type: console
+---
+
+The course [Statistical Models and Applications in Economics and Environmental
+Sciences]{.orange} is taught by Tommaso Rigon at the Università degli Studi di
+Milano-Bicocca, academic year 2026/2027.
+
+::: callout-warning
+#### Work in progress
+
+This page is [under construction]{.blue}. Teaching material will be posted here
+as the course progresses.
+:::
+
+## Teaching material
+
+| Topics | Notes | Slides | Code |
+|--------|-------|--------|------|
+|  | **INTRODUCTION** |  |  |
+| Introduction to the course | [Unit intro](slides/un_intro.html) | — | — |
+|  | **PART I** |  |  |
+| *To be defined* | [Unit A](slides/un_A.html) | [Slides](slides/un_A_slides.html) | [Lab 1](code/lab1.R) |
+
+## Exercises
+
+| Topics | Exercises |
+|--------|-----------|
+| *To be defined* | [Exercises A](exe/exe_A.html) |
+
+## Past exams
+
+| Date | Exam |
+|------|------|
+| *No exams yet* | — |
+
+## Software
+
+-   **R** is open source and can be downloaded at <https://cloud.r-project.org>.
+-   The use of **RStudio** is optional but strongly recommended:
+    <https://posit.co/download/rstudio-desktop/>.
+-   The documentation of the **R** software is an integral part of the teaching
+    material.
+
+## Textbooks and references
+
+#### Main references
+
+-   *To be defined*
+
+#### Additional references
+
+-   *To be defined*
+
+```{r}
+#| echo: false
+#| eval: false
+library(knitr)
+knitr::purl("slides/un_A.qmd", "code/lab1.R")
+```

@@ -1,0 +1,60 @@
+---
+title: "Statistical Models and Applications in Economics and Environmental Sciences"
+subtitle: "Unit intro: introduction to the course"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+lang: en
+page-layout: full
+reference-location: margin
+execute:
+  cache: false
+filters:
+  - remove-pause.lua
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: false
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 200
+    highlight-style: github
+editor:
+  markdown:
+    wrap: 72
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+-   First topic
+-   Second topic
+-   Third topic
+
+::: callout-note
+#### Note
+
+The **R** exercises associated to this unit are available at
+[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_A.html).
+:::
+
+## A first section
+
+Text of the unit. Inline math such as $y_i = x_i^\top \beta + \epsilon_i$ is
+rendered with KaTeX.
+
+```{r}
+# A first code chunk
+summary(cars)
+```
+
+## References
+
+-   *To be added*
