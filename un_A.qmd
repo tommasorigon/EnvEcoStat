@@ -57,6 +57,8 @@ writeLines(squeeze(full), "code/un_A_full.R")
 clean <- squeeze(full[!grepl("^#'|^#\\+", full)])
 writeLines(clean, "code/un_A.R")
 styler:::style_file("code/un_A.R")
+
+rm(clean, squeeze, full)
 ```
 
 ::: columns

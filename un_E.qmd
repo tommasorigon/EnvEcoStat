@@ -64,6 +64,13 @@ styler:::style_file("code/un_E.R")
 -   Variance and standard deviation
 -   Other measures of variability (range, interquartile range, MAD)
 
+::: callout-note
+#### Note
+
+The exercises associated with this unit are available at
+[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_B.html).
+:::
+
 ## Description of the problem
 
 We are interested in comparing the effectiveness of two different methods,

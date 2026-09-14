@@ -54,8 +54,6 @@ module progresses.
 - Albert, J. and Rizzo, M. (2012), [*R by
   Example*](https://link.springer.com/book/10.1007/978-1-4614-1365-3),
   Springer.
-- Wickham, H., Çetinkaya-Rundel, M. and Grolemund, G. (2023), [*R for Data
-  Science*](https://r4ds.hadley.nz/), 2nd edition, O'Reilly.
 - R Core Team, [*An Introduction to
   R*](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf).
 
@@ -80,6 +78,7 @@ references to the other textbooks are given inside each unit.
 | **The `hemoglobin` data** | [Unit E](un_E.html) | [`un_E.R`](code/un_E.R) | **AK** §1.4, §A.1 |
 | **The `forbes` data** | [Unit F](un_F.html) | [`un_F.R`](code/un_F.R) | **AK** §1.5, §6.1 |
 | **The `titanic` data** | [Unit G](un_G.html) | [`un_G.R`](code/un_G.R) | **AK** §1.5, §A.1 |
+| *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
 |  | **INFERENCE AND SAMPLING DISTRIBUTIONS** |  |  |
 | *To be defined* |  |  | **AK** Ch. 2---5 |
 |  | **LINEAR MODELS AND LEAST SQUARES** |  |  |

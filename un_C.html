@@ -134,7 +134,7 @@ window.Quarto = {
   <li><a href="#the-working-directory" id="toc-the-working-directory" class="nav-link" data-scroll-target="#the-working-directory">The working directory</a></li>
   <li><a href="#importing-the-dataset" id="toc-importing-the-dataset" class="nav-link" data-scroll-target="#importing-the-dataset">Importing the dataset</a></li>
   <li><a href="#exploring-a-data.frame" id="toc-exploring-a-data.frame" class="nav-link" data-scroll-target="#exploring-a-data.frame">Exploring a <code>data.frame</code></a></li>
-  <li><a href="#the-calcio-dataset" id="toc-the-calcio-dataset" class="nav-link" data-scroll-target="#the-calcio-dataset">The <code>calcio</code> dataset</a></li>
+  <li><a href="#the-football-dataset" id="toc-the-football-dataset" class="nav-link" data-scroll-target="#the-football-dataset">The <code>football</code> dataset</a></li>
   <li><a href="#types-of-variables" id="toc-types-of-variables" class="nav-link" data-scroll-target="#types-of-variables">Types of variables</a></li>
   <li><a href="#quantitative-variables" id="toc-quantitative-variables" class="nav-link" data-scroll-target="#quantitative-variables">Quantitative variables</a></li>
   <li><a href="#qualitative-variables-i" id="toc-qualitative-variables-i" class="nav-link" data-scroll-target="#qualitative-variables-i">Qualitative variables I</a></li>
@@ -237,7 +237,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>To be able to run the next commands, you need to download the file <code>calcio.csv</code> and save it on your computer. <a href="data/calcio.csv">Link to the file</a>.</p>
+<p>To be able to run the next commands, you need to download the file <code>football.csv</code> and save it on your computer. <a href="data/football.csv">Link to the file</a>.</p>
 </div>
 </div>
 </section>
@@ -255,14 +255,14 @@ Note
 <pre><code>[1] "/Users/tommaso/Repositories/EnvEcoStat"</code></pre>
 </div>
 </div>
-<p>To open the file <code>calcio.csv</code>, you must provide <strong>R</strong> with the <strong>path of the file</strong>, which depends on where it has been saved (on the Desktop, in the downloads folder, and so on).</p>
+<p>To open the file <code>football.csv</code>, you must provide <strong>R</strong> with the <strong>path of the file</strong>, which depends on where it has been saved (on the Desktop, in the downloads folder, and so on).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># THE PATH VARIABLE MUST BE CHANGED DEPENDING ON WHERE THE .csv FILE IS SAVED</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"data/calcio.csv"</span> <span class="co"># This is the path of the file, relative to getwd()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"data/football.csv"</span> <span class="co"># This is the path of the file, relative to getwd()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The path of the file can also be a <span class="orange">link</span>, as in this case:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://tommasorigon.github.io/EnvEcoStat/data/calcio.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://tommasorigon.github.io/EnvEcoStat/data/football.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="importing-the-dataset" class="level2">
@@ -271,7 +271,7 @@ Note
 <p>In RStudio, you can use the option <em>More -&gt; Set as working directory</em> in the <em>Files</em> window, selecting the directory of interest.</p>
 <p>Once the correct <em>path</em> of the file has been identified, to <strong>import the dataset</strong> into memory one uses, for instance, the command <code>read.table</code>. Therefore:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>calcio <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>football <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -291,21 +291,21 @@ Note
 </div>
 <p>Finally, note that if the file is contained in the working directory, it is then enough to use:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>calcio <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"calcio.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>football <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"football.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exploring-a-data.frame" class="level2">
 <h2 class="anchored" data-anchor-id="exploring-a-data.frame">Exploring a <code>data.frame</code></h2>
 <p>First of all, we are interested in understanding how many <span class="orange">variables</span> and how many <span class="blue">observations</span> are contained in the <code>data.frame</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(calcio) <span class="co"># Equivalent to c(nrow(calcio), ncol(calcio))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(football) <span class="co"># Equivalent to c(nrow(football), ncol(football))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1900    7</code></pre>
 </div>
 </div>
 <p>To check that we have not made gross mistakes in importing the <code>data.frame</code>, we can display the first <span class="math inline">6</span> observations with the command <code>head</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(calcio) <span class="co"># Equivalent command: calcio[1:6, ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(football) <span class="co"># Equivalent command: football[1:6, ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        Date HomeTeam   AwayTeam FTR B365H B365D B365A
 1 2014-08-30   Chievo   Juventus   A  7.00   4.0  1.50
@@ -318,7 +318,7 @@ Note
 </div>
 <p>The command <code>tail</code> can be used to show the last <span class="math inline">6</span> observations:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(calcio) <span class="co"># Equivalent command: calcio[1895:1900, ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(football) <span class="co"># Equivalent command: football[1895:1900, ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Date HomeTeam  AwayTeam FTR B365H B365D B365A
 1895 2011-05-22    Inter   Catania   H  1.53  3.75  7.00
@@ -330,9 +330,9 @@ Note
 </div>
 </div>
 </section>
-<section id="the-calcio-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="the-calcio-dataset">The <code>calcio</code> dataset</h2>
-<p>The <code>calcio</code> dataset therefore contains a total of <span class="math inline">7</span> variables. Each observation is a <span class="orange">football match</span> played in the Italian <span class="blue">Serie A</span> championship from 2008 to 2015.</p>
+<section id="the-football-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="the-football-dataset">The <code>football</code> dataset</h2>
+<p>The <code>football</code> dataset therefore contains a total of <span class="math inline">7</span> variables. Each observation is a <span class="orange">football match</span> played in the Italian <span class="blue">Serie A</span> championship from 2008 to 2015.</p>
 <ul>
 <li>The variable <code>Date</code> indicates the date of the match.</li>
 <li>The variables <code>HomeTeam</code>, <code>AwayTeam</code> indicate the team that played at home and away, respectively.</li>
@@ -341,7 +341,7 @@ Note
 </ul>
 <p>To <span class="orange">access</span> and <span class="blue">modify</span> the names of the variables, one uses the command <code>colnames</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(calcio) <span class="co"># To access the names of the variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(football) <span class="co"># To access the names of the variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Date"     "HomeTeam" "AwayTeam" "FTR"      "B365H"    "B365D"    "B365A"   </code></pre>
 </div>
@@ -365,7 +365,7 @@ Note
 <div class="callout-body-container callout-body">
 <p><strong>R</strong> does not always recognise the type of the variables correctly, as highlighted by the command <code>str</code>, which provides a summary of the <code>data.frame</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(calcio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(football)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   1900 obs. of  7 variables:
  $ Date    : chr  "2014-08-30" "2014-08-30" "2014-08-31" "2014-08-31" ...
@@ -385,15 +385,15 @@ Note
 <p>To <span class="blue">extract a variable</span> from a <code>data.frame</code> one proceeds as in the case of lists, that is through the symbol <code>$</code>. The variables can be saved under any name.</p>
 <p>A numerical variable is an <strong>R</strong> vector to all intents and purposes, therefore we can apply the functions we have already met so far</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(calcio<span class="sc">$</span>B365H) <span class="co"># Check that it is a variable of type numeric</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(football<span class="sc">$</span>B365H) <span class="co"># Check that it is a variable of type numeric</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(calcio<span class="sc">$</span>B365H)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(football<span class="sc">$</span>B365H)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>calcio<span class="sc">$</span>B365H[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="co"># First 10 elements of an R vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>B365H[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="co"># First 10 elements of an R vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 7.00 1.67 2.05 3.10 3.90 2.00 2.20 2.30 3.10 1.80</code></pre>
 </div>
@@ -406,13 +406,13 @@ Note
 <p>Qualitative variables with repeated values should instead be coded as <code>factor</code>.</p>
 <p>We therefore have to <span class="blue">convert</span> the <span class="math inline">3</span> variables <code>HomeTeam</code>, <code>AwayTeam</code> and <code>FTR</code> as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>calcio<span class="sc">$</span>HomeTeam <span class="ot">&lt;-</span> <span class="fu">factor</span>(calcio<span class="sc">$</span>HomeTeam)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>calcio<span class="sc">$</span>AwayTeam <span class="ot">&lt;-</span> <span class="fu">factor</span>(calcio<span class="sc">$</span>AwayTeam)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>calcio<span class="sc">$</span>FTR <span class="ot">&lt;-</span> <span class="fu">factor</span>(calcio<span class="sc">$</span>FTR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>HomeTeam <span class="ot">&lt;-</span> <span class="fu">factor</span>(football<span class="sc">$</span>HomeTeam)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>AwayTeam <span class="ot">&lt;-</span> <span class="fu">factor</span>(football<span class="sc">$</span>AwayTeam)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>FTR <span class="ot">&lt;-</span> <span class="fu">factor</span>(football<span class="sc">$</span>FTR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Alternatively, we can perform this operation while reading the data, through the option <code>stringsAsFactors</code>. Hence:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>calcio <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>football <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="qualitative-variables-ii" class="level2">
@@ -421,7 +421,7 @@ Note
 <p>In variables of type <code>factor</code> the various <span class="orange">categories</span> are listed, called <code>levels</code> in <strong>R</strong>.</p>
 <p>To access the categories one uses the command <code>levels</code>, which lists the categories of the variable in alphabetical order:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(calcio<span class="sc">$</span>HomeTeam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(football<span class="sc">$</span>HomeTeam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Atalanta"   "Bari"       "Bologna"    "Brescia"    "Cagliari"  
  [6] "Catania"    "Cesena"     "Chievo"     "Empoli"     "Fiorentina"
@@ -436,13 +436,13 @@ Note
 <h2 class="anchored" data-anchor-id="qualitative-variables-iii">Qualitative variables III</h2>
 <p>The command <code>levels</code> makes it possible to <span class="blue">rename the categories</span>, for example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>calcio<span class="sc">$</span>FTR[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>FTR[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] A H D H A H D D D H
 Levels: A D H</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(calcio<span class="sc">$</span>FTR) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Away"</span>, <span class="st">"Draw"</span>, <span class="st">"Home"</span>) <span class="co"># Rename the categories</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>calcio<span class="sc">$</span>FTR[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(football<span class="sc">$</span>FTR) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Away"</span>, <span class="st">"Draw"</span>, <span class="st">"Home"</span>) <span class="co"># Rename the categories</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>FTR[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] Away Home Draw Home Away Home Draw Draw Draw Home
 Levels: Away Draw Home</code></pre>
@@ -450,10 +450,10 @@ Levels: Away Draw Home</code></pre>
 </div>
 <p>The command <code>levels</code> also makes it possible to <span class="orange">merge</span> the categories of a qualitative variable:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>calcio<span class="sc">$</span>Draw <span class="ot">&lt;-</span> calcio<span class="sc">$</span>FTR <span class="co"># Create a copy of the variable FTR called Draw</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(calcio<span class="sc">$</span>Draw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Not_Draw"</span>, <span class="st">"Draw"</span>, <span class="st">"Not_Draw"</span>) <span class="co"># Merging of categories</span></span>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>Draw <span class="ot">&lt;-</span> football<span class="sc">$</span>FTR <span class="co"># Create a copy of the variable FTR called Draw</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(football<span class="sc">$</span>Draw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Not_Draw"</span>, <span class="st">"Draw"</span>, <span class="st">"Not_Draw"</span>) <span class="co"># Merging of categories</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>calcio<span class="sc">$</span>Draw[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>Draw[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] Not_Draw Not_Draw Draw     Not_Draw Not_Draw Not_Draw Draw     Draw    
  [9] Draw     Not_Draw
@@ -463,15 +463,15 @@ Levels: Not_Draw Draw</code></pre>
 </section>
 <section id="variables-of-type-date" class="level2">
 <h2 class="anchored" data-anchor-id="variables-of-type-date">Variables of type <code>date</code></h2>
-<p>The variable <code>Date</code> of the <code>calcio</code> dataset represents a date and must therefore be coded as such.</p>
+<p>The variable <code>Date</code> of the <code>football</code> dataset represents a date and must therefore be coded as such.</p>
 <p>In <strong>R</strong> the conversion is performed by the command <code>as.Date</code>, followed by the <span class="blue">format</span> in which the date is expressed:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>calcio<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(calcio<span class="sc">$</span>Date, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(calcio<span class="sc">$</span>Date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(football<span class="sc">$</span>Date, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(football<span class="sc">$</span>Date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Date"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>calcio<span class="sc">$</span>Date[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>Date[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "2014-08-30" "2014-08-30" "2014-08-31" "2014-08-31" "2014-08-31"
  [6] "2014-08-31" "2014-08-31" "2014-08-31" "2014-08-31" "2014-08-31"</code></pre>
@@ -479,11 +479,11 @@ Levels: Not_Draw Draw</code></pre>
 </div>
 <p>Once converted into <code>Date</code> format, it is possible to carry out some additional operations. For example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(calcio<span class="sc">$</span>Date) <span class="co"># First match played</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(football<span class="sc">$</span>Date) <span class="co"># First match played</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2008-08-30"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(calcio<span class="sc">$</span>Date) <span class="co"># Last match played</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(football<span class="sc">$</span>Date) <span class="co"># Last match played</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2015-05-31"</code></pre>
 </div>
@@ -493,7 +493,7 @@ Levels: Not_Draw Draw</code></pre>
 <h2 class="anchored" data-anchor-id="manipulating-a-dataset">Manipulating a dataset</h2>
 <p>To <span class="orange">select the rows</span> of a dataset one proceeds as in the case of matrices:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>calcio[<span class="fu">c</span>(<span class="dv">1806</span>, <span class="dv">501</span>, <span class="dv">109</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>football[<span class="fu">c</span>(<span class="dv">1806</span>, <span class="dv">501</span>, <span class="dv">109</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw
 1806 2011-03-13    Genoa  Palermo Home  1.91  3.25   4.2 Not_Draw
@@ -504,8 +504,8 @@ Levels: Not_Draw Draw</code></pre>
 <p>It is of course possible (and typically much more useful) to select the observations that satisfy a given <span class="blue">condition</span>.</p>
 <p>Suppose for example that we want to identify the matches that ended in a draw:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>calcio_draw <span class="ot">&lt;-</span> calcio[calcio<span class="sc">$</span>FTR <span class="sc">==</span> <span class="st">"Draw"</span>, ]</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(calcio_draw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>football_draw <span class="ot">&lt;-</span> football[football<span class="sc">$</span>FTR <span class="sc">==</span> <span class="st">"Draw"</span>, ]</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(football_draw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         Date   HomeTeam  AwayTeam  FTR B365H B365D B365A Draw
 3  2014-08-31   Atalanta    Verona Draw  2.05  3.40   3.6 Draw
@@ -521,8 +521,8 @@ Levels: Not_Draw Draw</code></pre>
 <h2 class="anchored" data-anchor-id="missing-values">Missing values</h2>
 <p>Suppose we want to identify the matches in which the home team has a low probability of winning according to <em>Bet365</em>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>calcio_home <span class="ot">&lt;-</span> calcio[calcio<span class="sc">$</span>B365H <span class="sc">&gt;</span> <span class="dv">9</span>, ]</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>calcio_home</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>football_home <span class="ot">&lt;-</span> football[football<span class="sc">$</span>B365H <span class="sc">&gt;</span> <span class="dv">9</span>, ]</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>football_home</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw
 162  2015-01-06   Cesena   Napoli Away   9.5  4.75  1.36 Not_Draw
@@ -546,7 +546,7 @@ NA.2       &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;    NA    NA    NA
 <p>The reason why the command produces apparently strange results is due to the presence of some <span class="orange">missing data</span>, coded as <code>NA</code> (<em>Not Available</em>).</p>
 <p>In particular, there are <span class="math inline">3</span> observations (the <span class="math inline">1501</span>st, <span class="math inline">1846</span>th and <span class="math inline">1848</span>th) whose values relative to <em>Bet365</em> are not available.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>calcio[<span class="fu">rowSums</span>(<span class="fu">is.na</span>(calcio)) <span class="sc">&gt;</span> <span class="dv">0</span>, ] <span class="co"># Identifies the rows with missing values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>football[<span class="fu">rowSums</span>(<span class="fu">is.na</span>(football)) <span class="sc">&gt;</span> <span class="dv">0</span>, ] <span class="co"># Identifies the rows with missing values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw
 1501 2010-05-09  Bologna  Catania Draw    NA    NA    NA     Draw
@@ -554,25 +554,25 @@ NA.2       &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;    NA    NA    NA
 1848 2011-04-17    Genoa  Brescia Home    NA    NA    NA Not_Draw</code></pre>
 </div>
 </div>
-<p>The function <code>is.na</code> produces a <span class="blue">logical</span> matrix of the same dimension as <code>calcio</code>, containing <code>TRUE</code> if the value is missing and <code>FALSE</code> otherwise.</p>
+<p>The function <code>is.na</code> produces a <span class="blue">logical</span> matrix of the same dimension as <code>football</code>, containing <code>TRUE</code> if the value is missing and <code>FALSE</code> otherwise.</p>
 <p>The function <code>rowSums(matrix)</code> produces a vector whose values are the sum of the elements of each row of the <code>matrix</code>.</p>
-<p>As a consequence, <code>rowSums(is.na(calcio))</code> indicates how many missing values are present in each row.</p>
+<p>As a consequence, <code>rowSums(is.na(football))</code> indicates how many missing values are present in each row.</p>
 </section>
 <section id="handling-missing-data" class="level2">
 <h2 class="anchored" data-anchor-id="handling-missing-data">Handling missing data</h2>
 <p>The statistical treatment of missing data is not among the objectives of this course.</p>
 <p>The easiest solution, although a potentially very dangerous one, consists simply in <span class="orange">removing</span> the incomplete rows through the command <code>na.omit</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>calcio_no_na <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(calcio)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(calcio_no_na)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>football_no_na <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(football)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(football_no_na)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1897    8</code></pre>
 </div>
 </div>
 <p>To solve the original problem, that is identifying the matches in which the home team has a low probability of winning, one can use <code>subset</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>calcio_home <span class="ot">&lt;-</span> <span class="fu">subset</span>(calcio, <span class="at">subset =</span> B365H <span class="sc">&gt;</span> <span class="dv">9</span>)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>calcio_home</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>football_home <span class="ot">&lt;-</span> <span class="fu">subset</span>(football, <span class="at">subset =</span> B365H <span class="sc">&gt;</span> <span class="dv">9</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>football_home</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw
 162  2015-01-06   Cesena   Napoli Away   9.5  4.75  1.36 Not_Draw
@@ -586,8 +586,8 @@ NA.2       &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;    NA    NA    NA
 <p>The command <code>subset</code> can be used both to <span class="blue">select the rows</span> (observations) and to <span class="orange">select the columns</span> (variables).</p>
 <p>In the second case, one can proceed through the option <code>select</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>calcio_B365 <span class="ot">&lt;-</span> <span class="fu">subset</span>(calcio, <span class="at">select =</span> <span class="fu">c</span>(B365H, B365D, B365A))</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(calcio_B365)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>football_B365 <span class="ot">&lt;-</span> <span class="fu">subset</span>(football, <span class="at">select =</span> <span class="fu">c</span>(B365H, B365D, B365A))</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(football_B365)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  B365H B365D B365A
 1  7.00   4.0  1.50
@@ -613,7 +613,7 @@ NA.2       &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;    NA    NA    NA
 <p>After all these operations, the dataset turns out to be much modified with respect to its initial version.</p>
 <p>Running the command <code>str</code> again we indeed obtain that</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(calcio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(football)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   1900 obs. of  8 variables:
  $ Date    : Date, format: "2014-08-30" "2014-08-30" ...
@@ -662,28 +662,28 @@ Hint
 <h4 class="anchored" data-anchor-id="solution">Solution</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computation of the overround</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>calcio<span class="sc">$</span>overround <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> calcio<span class="sc">$</span>B365H <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> calcio<span class="sc">$</span>B365D <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> calcio<span class="sc">$</span>B365A <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>overround <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> football<span class="sc">$</span>B365H <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> football<span class="sc">$</span>B365D <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> football<span class="sc">$</span>B365A <span class="sc">-</span> <span class="dv">1</span></span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Overround associated with Udinese-Parma of 1 September 2013</span></span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(calcio, Date <span class="sc">==</span> <span class="st">"2013-09-01"</span> <span class="sc">&amp;</span> HomeTeam <span class="sc">==</span> <span class="st">"Udinese"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(football, Date <span class="sc">==</span> <span class="st">"2013-09-01"</span> <span class="sc">&amp;</span> HomeTeam <span class="sc">==</span> <span class="st">"Udinese"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw  overround
 400 2013-09-01  Udinese    Parma Home   2.1  3.25   3.6 Not_Draw 0.06166056</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Minimum and maximum overround</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>calcio[<span class="fu">which.min</span>(calcio<span class="sc">$</span>overround), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>football[<span class="fu">which.min</span>(football<span class="sc">$</span>overround), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw  overround
 301 2015-04-18 Juventus    Lazio Home  1.95   3.4  4.33 Not_Draw 0.03788504</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>calcio[<span class="fu">which.max</span>(calcio<span class="sc">$</span>overround), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>football[<span class="fu">which.max</span>(football<span class="sc">$</span>overround), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Date HomeTeam AwayTeam  FTR B365H B365D B365A Draw overround
 1839 2011-04-10  Palermo   Cesena Draw   2.1   2.1     6 Draw 0.1190476</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The Serie A championship starts at the end of August and ends at the end of May</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>calcio2009_2010 <span class="ot">&lt;-</span> <span class="fu">subset</span>(calcio, Date <span class="sc">&gt;=</span> <span class="st">"2009-08-15"</span> <span class="sc">&amp;</span> Date <span class="sc">&lt;=</span> <span class="st">"2010-06-15"</span>)</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>calcio2009_2010[<span class="fu">which.max</span>(calcio2009_2010<span class="sc">$</span>overround), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>football2009_2010 <span class="ot">&lt;-</span> <span class="fu">subset</span>(football, Date <span class="sc">&gt;=</span> <span class="st">"2009-08-15"</span> <span class="sc">&amp;</span> Date <span class="sc">&lt;=</span> <span class="st">"2010-06-15"</span>)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>football2009_2010[<span class="fu">which.max</span>(football2009_2010<span class="sc">$</span>overround), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw overround
 1483 2010-04-25  Bologna    Parma Home   1.5  3.75     6 Not_Draw       0.1</code></pre>

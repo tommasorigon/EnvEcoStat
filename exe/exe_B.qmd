@@ -1,0 +1,436 @@
+---
+title: "Exercises B"
+subtitle: "Programming and Data Analysis with R"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+lang: en
+page-layout: full
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: false
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 200
+    highlight-style: github
+editor:
+  markdown:
+    wrap: 72
+editor_options:
+  chunk_output_type: console
+---
+
+## [Homepage](../index.html)
+
+These exercises accompany Units [D](../un_D.html), [E](../un_E.html),
+[F](../un_F.html) and [G](../un_G.html).
+
+## Exercise A
+
+The sample variance of the data ${\bf x} = (x_1,\dots,x_n)$ is defined as
+
+$$
+\text{var}({\bf x}) = \frac{1}{n}\sum_{i=1}^n(x_i - \bar{x})^2,
+$$ where $\bar{x}$ is the sample mean. Note that $\text{var}({\bf x})$ admits
+the alternative representation
+
+$$\text{var}({\bf x}) = \frac{1}{2 n^2} \sum_{i=1}^n \sum_{j = 1}^n (x_i - x_j)^2.$$
+
+------------------------------------------------------------------------
+
+1.  Write a function `var2(x)` that computes the variance of ${\bf x}$ using the
+    definition.
+
+2.  Write a function `var3(x)` that computes the variance of ${\bf x}$ using the
+    formula based on the distances between pairs of elements.
+
+3.  Suppose that `x = c(1, 4, 2, 2, 10)`. Check that the two functions `var2(x)`
+    and `var3(x)` return the same result.
+
+4.  Suppose now that `x <- 1:3000`. Do you notice any difference with respect to
+    the previous point?
+
+5.  Compare the functions `var2` and `var3` with the function `var` implemented
+    in **R**, using the data of point 3. Why do the results differ, even if only
+    slightly? Consult the documentation to answer.
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# A.1
+var2 <- function(x) {
+  mean((x - mean(x))^2)
+}
+
+# A.2
+var3 <- function(x) {
+  n <- length(x) # Get the length of the vector x
+  D <- matrix(0, nrow = n, ncol = n) # Creation of an empty matrix
+  for (i in 1:n) {
+    for (j in 1:n) {
+      D[i, j] <- (x[i] - x[j])^2
+    }
+  }
+  sum(D) / (2 * n^2)
+}
+
+# A.3
+x <- c(1, 4, 2, 2, 10)
+c(var2(x), var3(x))
+
+# A.4
+x <- 1:3000
+var2(x)
+var3(x) # Much slower than var2(x)
+
+# A.5
+var(x) # It divides by n - 1 and not by n
+```
+:::
+
+## Exercise B
+
+At [this link](../data/elections.RData) the data of the 2016 municipal elections
+in the city of Milan are available. Each statistical unit is a single vote; the
+variable `party` reports the list the vote was cast for, and the variable
+`district` the borough (*Municipio*) in which it was cast.
+
+------------------------------------------------------------------------
+
+1.  Load the data into memory.
+
+2.  Which variables does the dataset `elections` contain? Of which type are
+    they?
+
+3.  Obtain the number of votes obtained by each party in the different districts
+    of Milan.
+
+4.  Obtain the number of votes obtained by each party and draw a plot of it.
+    Obtain moreover the percentage of votes obtained by each party.
+
+5.  Write the function `Gini(x)` that computes the Gini index for a qualitative
+    variable. The Gini index is defined as $$
+    G = 1 - \sum_{j=1}^k f_j^2,
+    $$ where $f_1,\dots,f_k$ are the relative frequencies of the $k$ categories.
+
+6.  Write a function `Gini_norm(x)` that computes the normalised Gini index,
+    that is $$G_\text{norm} = \frac{k}{k-1} G.$$
+
+7.  Evaluate the fragmentation of the votes among the parties in the different
+    districts using the normalised Gini index. Organise the results in a table
+    and say which district is the most fragmented and which one is the most
+    concentrated, that is the one in which the votes are polarised towards a few
+    parties. Pay attention to the direction of the index: a Gini index close to
+    $1$ means that the votes are spread evenly across the parties.
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# B.1
+# Assuming the file has been downloaded and the "path" is the correct one:
+load("data/elections.RData")
+
+# B.2
+str(elections) # Two variables of type "factor", "party" and "district"
+
+# B.3
+table(elections$party, elections$district)
+
+# B.4
+# Number of votes
+table(elections$party)
+
+# Barplot (the names may not appear, depending on the size of the plot window)
+barplot(table(elections$party))
+
+# Percentage of votes (rounded)
+round(100 * table(elections$party) / nrow(elections), 2)
+
+# B.5
+Gini <- function(x) {
+  freq <- as.numeric(table(x))
+  freq_rel <- freq / sum(freq)
+  1 - sum(freq_rel^2)
+}
+
+# B.6
+Gini_norm <- function(x) {
+  freq <- as.numeric(table(x))
+  freq_rel <- freq / sum(freq)
+  k <- length(freq)
+  k / (k - 1) * (1 - sum(freq_rel^2))
+}
+
+# B.7
+G <- tapply(elections$party, elections$district, Gini_norm)
+round(G, 4)
+names(which.max(G)) # District 9: the most fragmented
+names(which.min(G)) # District 1: the most concentrated (polarised)
+```
+:::
+
+## Exercise C
+
+The data available at [this link](../data/swiss.csv) refer to $47$
+French-speaking provinces of Switzerland around 1888. For each province three
+variables are reported: `fertility`, a standardised fertility measure;
+`agriculture`, the percentage of males employed in agriculture; and `education`,
+the logarithm of the percentage of people with education beyond primary school.
+
+------------------------------------------------------------------------
+
+1.  Load the data into memory and save the dataset in the object `swiss_data`.
+
+2.  Which variables does the dataset contain? Of which type are they?
+
+3.  Represent the variable `education` graphically through a histogram. Then
+    compute the mean, the median and the variance.
+
+4.  Represent graphically the cumulative distribution function of the variable
+    `agriculture`.
+
+5.  Draw the scatterplot of the variables `agriculture` and `education`. Can you
+    notice any relationship?
+
+6.  Obtain the variance-covariance matrix.
+
+7.  Obtain the correlation matrix. Comment on the relationship between
+    `agriculture` and `education`.
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# C.1
+swiss_data <- read.table("data/swiss.csv", header = TRUE)
+
+# C.2
+str(swiss_data) # Three numerical variables
+
+# C.3
+hist(swiss_data$education)
+summary(swiss_data$education)
+var(swiss_data$education) # Leaving aside the n vs n-1 denominator
+
+# C.4
+plot(ecdf(swiss_data$agriculture))
+
+# C.5
+plot(swiss_data$agriculture, swiss_data$education)
+
+# C.6
+cov(swiss_data) # Leaving aside the n vs n-1 denominator
+
+# C.7
+cor(swiss_data)
+# Between agriculture and education there is a fairly marked negative relationship
+```
+:::
+
+## Exercise D
+
+In the dataset `football` available at [this link](../data/football.csv), each
+statistical unit represents a football match of the Italian Serie A, for the
+2008-2015 championships. The dataset is made of the following variables:
+
+-   `Date` indicates the date of the match.
+
+-   `HomeTeam` and `AwayTeam` indicate, respectively, the team playing at home
+    and the visiting team for each match.
+
+-   `FTR` indicates whether the team playing at home won (H), drew (D), or lost
+    (A).
+
+-   The variables `B365H`, `B365D`, `B365A` are the odds for the victory, draw
+    and defeat of the home team.
+
+Supposing to bet on the victory of the home team, betting one euro on it one
+would obtain `B365H` euros in case of victory.
+
+------------------------------------------------------------------------
+
+1.  Load the dataset into memory.
+
+2.  Check the types of the variables present in the dataset `football`.
+
+3.  Check whether there are missing data in the dataset. If present, exclude the
+    rows containing missing values from the analysis. **Hint**: use the function
+    `na.omit`.
+
+4.  Compute the main descriptive indices for the variable `B365H`. Then
+    represent it through a histogram and a boxplot. Are there outliers? How can
+    one tell?
+
+5.  Carry out the analysis of the previous point on the logarithmic
+    transformation of `B365H`. Are there outliers?
+
+6.  Evaluate the correlation between `B365H` and `B365A`. Could one have
+    expected a similar result? What would a positive correlation imply?
+
+7.  Represent with a suitable plot the relationship between the logarithmic
+    transformations of the variables `B365H` and `B365A`. Comment on the result.
+
+8.  Evaluate the average odds `B365H` for each category of the variable `FTR`.
+    How is this result interpreted?
+
+9.  Represent through a boxplot the variable `B365H` for each category of the
+    variable `FTR`. Comment on the result.
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# D.1
+football <- read.table("data/football.csv",
+  header = TRUE, sep = ",", stringsAsFactors = TRUE
+)
+
+# D.2
+str(football)
+
+# D.3
+summary(football) # There are 3 missing values
+football <- na.omit(football) # Missing data are excluded and the dataset overwritten
+
+# D.4
+summary(football$B365H)
+
+par(mfrow = c(1, 2))
+hist(football$B365H, breaks = 20)
+boxplot(football$B365H) # The plot shows that there are several outliers
+
+# D.5
+summary(log(football$B365H))
+par(mfrow = c(1, 2))
+hist(log(football$B365H), breaks = 20)
+boxplot(log(football$B365H)) # Outliers are still present, but the effect is reduced
+
+# D.6
+cor(football$B365H, football$B365A) # The comment is left to the student
+
+# D.7
+par(mfrow = c(1, 1))
+plot(log(football$B365H), log(football$B365A)) # The comment is left to the student
+
+# D.8
+tapply(football$B365H, football$FTR, mean) # The comment is left to the student
+
+# D.9
+plot(football$B365H ~ football$FTR) # The comment is left to the student
+```
+:::
+
+## Exercise E
+
+In the dataset `imdb` available at [this link](../data/imdb.RData), each
+statistical unit is a film extracted from the website http://www.imdb.com/
+(Internet Movie Data Base). For each film, the following variables are
+available:
+
+-   `movie_title` is the title of the film.
+
+-   `duration` is the duration of the film expressed in minutes.
+
+-   `lgross` is the logarithmic transformation of the gross revenue, expressed
+    in dollars.
+
+-   `lbudget` is the logarithmic transformation of the budget, expressed in
+    dollars.
+
+-   `Action, Adventure, Animation, Comedy, Crime, Documentary, Drama, Family, Fantasy, History, Horror, Music, Romance, SciFi, Thriller, War, Western`
+    are qualitative variables indicating whether the film belongs to the genre
+    or not. Each film can belong to several genres at the same time.
+
+------------------------------------------------------------------------
+
+1.  Load the dataset into memory. Check the type of the variables.
+
+2.  How many statistical units are there?
+
+3.  What is the average duration of the films in the dataset? And the average
+    gross revenue?
+
+4.  Are there differences between the distribution of the duration (`duration`)
+    of dramatic films (`Drama`) and non-dramatic ones? Answer through suitable
+    descriptive indices and graphical analyses.
+
+5.  Which are the 5 films with the highest gross revenue within the dataset?
+    **Hint**: use the function `order`.
+
+6.  Represent with appropriate plots the marginal distributions and the joint
+    distribution of the variables `lbudget` and `lgross`. What kind of
+    relationship seems to be there between the two variables?
+
+7.  Compute the correlation between `lbudget` and `lgross` and comment on the
+    result.
+
+8.  Compute the correlation between `duration` and `lgross` and comment on the
+    result. Can we therefore conclude that, in order to earn a lot, it is enough
+    to produce a film lasting 12 hours?
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# E.1
+load("data/imdb.RData")
+str(imdb)
+
+# E.2
+nrow(imdb)
+
+# E.3
+mean(imdb$duration)
+mean(exp(imdb$lgross))
+
+# E.4
+tapply(imdb$duration, imdb$Drama, mean)
+tapply(imdb$duration, imdb$Drama, median)
+plot(imdb$duration ~ imdb$Drama) # Boxplot
+
+# E.5
+imdb$movie_title[order(imdb$lgross, decreasing = TRUE)][1:5]
+
+# E.6
+par(mfrow = c(1, 3))
+hist(imdb$lbudget)
+hist(imdb$lgross)
+plot(imdb$lbudget, imdb$lgross)
+par(mfrow = c(1, 1))
+
+# E.7
+cor(imdb$lbudget, imdb$lgross) # The comment is left to the student
+
+# E.8
+cor(imdb$duration, imdb$lgross) # The comment is left to the student
+```
+:::
+
+## Exercises from the textbook Albert & Rizzo (**AR**)
+
+-   Exercise 1.14, p. 41.
+-   Exercises 2.1, 2.2, 2.3, pp. 75.
+-   Exercises 2.4 and 2.5, pp. 75-76.
+-   Exercises 2.10 and 2.12, p. 77.
+-   Exercise 3.1, p. 96.
+-   Exercise 3.4, p. 98.

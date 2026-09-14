@@ -108,8 +108,8 @@ a rigorous data analysis.
 ::: callout-note
 #### Note
 
-To be able to run the next commands, you need to download the file `calcio.csv`
-and save it on your computer. [Link to the file](data/calcio.csv).
+To be able to run the next commands, you need to download the file `football.csv`
+and save it on your computer. [Link to the file](data/football.csv).
 :::
 
 ## The raw data (text editor)
@@ -127,20 +127,20 @@ For example, the directory in which this code was executed is the following
 getwd() # Identifies the working directory (get working directory)
 ```
 
-To open the file `calcio.csv`, you must provide **R** with the **path of the
+To open the file `football.csv`, you must provide **R** with the **path of the
 file**, which depends on where it has been saved (on the Desktop, in the
 downloads folder, and so on).
 
 ```{r}
 # THE PATH VARIABLE MUST BE CHANGED DEPENDING ON WHERE THE .csv FILE IS SAVED
-path <- "data/calcio.csv" # This is the path of the file, relative to getwd()
+path <- "data/football.csv" # This is the path of the file, relative to getwd()
 ```
 
 The path of the file can also be a [link]{.orange}, as in this case:
 
 ```{r}
 #| eval: false
-path <- "https://tommasorigon.github.io/EnvEcoStat/data/calcio.csv"
+path <- "https://tommasorigon.github.io/EnvEcoStat/data/football.csv"
 ```
 
 ## Importing the dataset
@@ -156,7 +156,7 @@ dataset** into memory one uses, for instance, the command `read.table`.
 Therefore:
 
 ```{r}
-calcio <- read.table(path, header = TRUE, sep = ",")
+football <- read.table(path, header = TRUE, sep = ",")
 ```
 
 ::: callout-note
@@ -173,7 +173,7 @@ enough to use:
 
 ```{r}
 #| eval: false
-calcio <- read.table("calcio.csv", header = TRUE, sep = ",")
+football <- read.table("football.csv", header = TRUE, sep = ",")
 ```
 
 ## Exploring a `data.frame`
@@ -182,25 +182,25 @@ First of all, we are interested in understanding how many [variables]{.orange} a
 many [observations]{.blue} are contained in the `data.frame`:
 
 ```{r}
-dim(calcio) # Equivalent to c(nrow(calcio), ncol(calcio))
+dim(football) # Equivalent to c(nrow(football), ncol(football))
 ```
 
 To check that we have not made gross mistakes in importing the `data.frame`, we
 can display the first $6$ observations with the command `head`:
 
 ```{r}
-head(calcio) # Equivalent command: calcio[1:6, ]
+head(football) # Equivalent command: football[1:6, ]
 ```
 
 The command `tail` can be used to show the last $6$ observations:
 
 ```{r}
-tail(calcio) # Equivalent command: calcio[1895:1900, ]
+tail(football) # Equivalent command: football[1895:1900, ]
 ```
 
-## The `calcio` dataset
+## The `football` dataset
 
-The `calcio` dataset therefore contains a total of $7$ variables. Each
+The `football` dataset therefore contains a total of $7$ variables. Each
 observation is a [football match]{.orange} played in the Italian [Serie A]{.blue}
 championship from 2008 to 2015.
 
@@ -218,7 +218,7 @@ To [access]{.orange} and [modify]{.blue} the names of the variables, one uses th
 `colnames`.
 
 ```{r}
-colnames(calcio) # To access the names of the variables
+colnames(football) # To access the names of the variables
 ```
 
 ## Types of variables
@@ -241,7 +241,7 @@ Finally, dates are coded in **R** with the type `Date`.
 highlighted by the command `str`, which provides a summary of the `data.frame`.
 
 ```{r}
-str(calcio)
+str(football)
 ```
 :::
 
@@ -255,9 +255,9 @@ A numerical variable is an **R** vector to all intents and purposes, therefore
 we can apply the functions we have already met so far
 
 ```{r}
-is.numeric(calcio$B365H) # Check that it is a variable of type numeric
-class(calcio$B365H)
-calcio$B365H[1:10] # First 10 elements of an R vector
+is.numeric(football$B365H) # Check that it is a variable of type numeric
+class(football$B365H)
+football$B365H[1:10] # First 10 elements of an R vector
 ```
 
 The [descriptive analyses]{.orange} of a numerical variable will be addressed in the
@@ -274,16 +274,16 @@ We therefore have to [convert]{.blue} the $3$ variables `HomeTeam`, `AwayTeam` a
 `FTR` as follows:
 
 ```{r}
-calcio$HomeTeam <- factor(calcio$HomeTeam)
-calcio$AwayTeam <- factor(calcio$AwayTeam)
-calcio$FTR <- factor(calcio$FTR)
+football$HomeTeam <- factor(football$HomeTeam)
+football$AwayTeam <- factor(football$AwayTeam)
+football$FTR <- factor(football$FTR)
 ```
 
 Alternatively, we can perform this operation while reading the data, through the
 option `stringsAsFactors`. Hence:
 
 ```{r}
-calcio <- read.table(path, header = TRUE, sep = ",", stringsAsFactors = TRUE)
+football <- read.table(path, header = TRUE, sep = ",", stringsAsFactors = TRUE)
 ```
 
 ## Qualitative variables II
@@ -298,7 +298,7 @@ To access the categories one uses the command `levels`, which lists the
 categories of the variable in alphabetical order:
 
 ```{r}
-levels(calcio$HomeTeam)
+levels(football$HomeTeam)
 ```
 
 ## Qualitative variables III
@@ -307,41 +307,41 @@ The command `levels` makes it possible to [rename the categories]{.blue}, for
 example:
 
 ```{r}
-calcio$FTR[1:10]
-levels(calcio$FTR) <- c("Away", "Draw", "Home") # Rename the categories
-calcio$FTR[1:10]
+football$FTR[1:10]
+levels(football$FTR) <- c("Away", "Draw", "Home") # Rename the categories
+football$FTR[1:10]
 ```
 
 The command `levels` also makes it possible to [merge]{.orange} the categories of a
 qualitative variable:
 
 ```{r}
-calcio$Draw <- calcio$FTR # Create a copy of the variable FTR called Draw
-levels(calcio$Draw) <- c("Not_Draw", "Draw", "Not_Draw") # Merging of categories
+football$Draw <- football$FTR # Create a copy of the variable FTR called Draw
+levels(football$Draw) <- c("Not_Draw", "Draw", "Not_Draw") # Merging of categories
 
-calcio$Draw[1:10]
+football$Draw[1:10]
 ```
 
 ## Variables of type `date`
 
-The variable `Date` of the `calcio` dataset represents a date and must therefore
+The variable `Date` of the `football` dataset represents a date and must therefore
 be coded as such.
 
 In **R** the conversion is performed by the command `as.Date`, followed by the
 [format]{.blue} in which the date is expressed:
 
 ```{r}
-calcio$Date <- as.Date(calcio$Date, format = "%Y-%m-%d")
-class(calcio$Date)
-calcio$Date[1:10]
+football$Date <- as.Date(football$Date, format = "%Y-%m-%d")
+class(football$Date)
+football$Date[1:10]
 ```
 
 Once converted into `Date` format, it is possible to carry out some additional
 operations. For example:
 
 ```{r}
-min(calcio$Date) # First match played
-max(calcio$Date) # Last match played
+min(football$Date) # First match played
+max(football$Date) # Last match played
 ```
 
 ## Manipulating a dataset
@@ -349,7 +349,7 @@ max(calcio$Date) # Last match played
 To [select the rows]{.orange} of a dataset one proceeds as in the case of matrices:
 
 ```{r}
-calcio[c(1806, 501, 109), ]
+football[c(1806, 501, 109), ]
 ```
 
 It is of course possible (and typically much more useful) to select the
@@ -358,8 +358,8 @@ observations that satisfy a given [condition]{.blue}.
 Suppose for example that we want to identify the matches that ended in a draw:
 
 ```{r}
-calcio_draw <- calcio[calcio$FTR == "Draw", ]
-head(calcio_draw)
+football_draw <- football[football$FTR == "Draw", ]
+head(football_draw)
 ```
 
 ## Missing values
@@ -368,8 +368,8 @@ Suppose we want to identify the matches in which the home team has a low
 probability of winning according to *Bet365*:
 
 ```{r}
-calcio_home <- calcio[calcio$B365H > 9, ]
-calcio_home
+football_home <- football[football$B365H > 9, ]
+football_home
 ```
 
 ::: callout-important
@@ -383,16 +383,16 @@ In particular, there are $3$ observations (the $1501$st, $1846$th and $1848$th)
 whose values relative to *Bet365* are not available.
 
 ```{r}
-calcio[rowSums(is.na(calcio)) > 0, ] # Identifies the rows with missing values
+football[rowSums(is.na(football)) > 0, ] # Identifies the rows with missing values
 ```
 
 The function `is.na` produces a [logical]{.blue} matrix of the same dimension as
-`calcio`, containing `TRUE` if the value is missing and `FALSE` otherwise.
+`football`, containing `TRUE` if the value is missing and `FALSE` otherwise.
 
 The function `rowSums(matrix)` produces a vector whose values are the sum of the
 elements of each row of the `matrix`.
 
-As a consequence, `rowSums(is.na(calcio))` indicates how many missing values are
+As a consequence, `rowSums(is.na(football))` indicates how many missing values are
 present in each row.
 
 ## Handling missing data
@@ -404,16 +404,16 @@ The easiest solution, although a potentially very dangerous one, consists simply
 in [removing]{.orange} the incomplete rows through the command `na.omit`:
 
 ```{r}
-calcio_no_na <- na.omit(calcio)
-dim(calcio_no_na)
+football_no_na <- na.omit(football)
+dim(football_no_na)
 ```
 
 To solve the original problem, that is identifying the matches in which the home
 team has a low probability of winning, one can use `subset`:
 
 ```{r}
-calcio_home <- subset(calcio, subset = B365H > 9)
-calcio_home
+football_home <- subset(football, subset = B365H > 9)
+football_home
 ```
 
 ## Selecting the variables
@@ -424,8 +424,8 @@ to [select the columns]{.orange} (variables).
 In the second case, one can proceed through the option `select`:
 
 ```{r}
-calcio_B365 <- subset(calcio, select = c(B365H, B365D, B365A))
-head(calcio_B365)
+football_B365 <- subset(football, select = c(B365H, B365D, B365A))
+head(football_B365)
 ```
 
 Of course it is also possible to select [simultaneously]{.blue} both the rows and the
@@ -456,7 +456,7 @@ respect to its initial version.
 Running the command `str` again we indeed obtain that
 
 ```{r}
-str(calcio)
+str(football)
 ```
 
 ## The house always wins
@@ -506,16 +506,16 @@ understand how they work.
 
 ```{r}
 # Computation of the overround
-calcio$overround <- 1 / calcio$B365H + 1 / calcio$B365D + 1 / calcio$B365A - 1
+football$overround <- 1 / football$B365H + 1 / football$B365D + 1 / football$B365A - 1
 
 # Overround associated with Udinese-Parma of 1 September 2013
-subset(calcio, Date == "2013-09-01" & HomeTeam == "Udinese")
+subset(football, Date == "2013-09-01" & HomeTeam == "Udinese")
 
 # Minimum and maximum overround
-calcio[which.min(calcio$overround), ]
-calcio[which.max(calcio$overround), ]
+football[which.min(football$overround), ]
+football[which.max(football$overround), ]
 
 # The Serie A championship starts at the end of August and ends at the end of May
-calcio2009_2010 <- subset(calcio, Date >= "2009-08-15" & Date <= "2010-06-15")
-calcio2009_2010[which.max(calcio2009_2010$overround), ]
+football2009_2010 <- subset(football, Date >= "2009-08-15" & Date <= "2010-06-15")
+football2009_2010[which.max(football2009_2010$overround), ]
 ```

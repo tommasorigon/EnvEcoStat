@@ -65,6 +65,13 @@ styler:::style_file("code/un_F.R")
 -   The simple linear regression model
 -   Least squares and goodness of fit
 
+::: callout-note
+#### Note
+
+The exercises associated with this unit are available at
+[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_B.html).
+:::
+
 ## Description of the problem
 
 For $n = 17$ locations in the Alps, the [atmospheric pressure]{.orange} (inHg, that is

@@ -66,6 +66,13 @@ styler:::style_file("code/un_G.R")
 -   Conditional distributions
 -   Independence and the $\chi^2$ index of association
 
+::: callout-note
+#### Note
+
+The exercises associated with this unit are available at
+[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_B.html).
+:::
+
 ## Description of the problem
 
 After the [Titanic disaster]{.orange}, a commission of inquiry of the *British Board of

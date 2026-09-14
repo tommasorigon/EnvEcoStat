@@ -66,6 +66,13 @@ styler:::style_file("code/un_D.R")
 -   Graphical representations (boxplots, histograms)
 -   Location indices (mean, median, quantiles)
 
+::: callout-note
+#### Note
+
+The exercises associated with this unit are available at
+[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_B.html).
+:::
+
 ## The epidemiological problem
 
 `DDT` is extremely effective against malaria mosquitoes and is therefore widely
