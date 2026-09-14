@@ -10,25 +10,7 @@ csl: https://www.zotero.org/styles/journal-of-the-american-statistical-associati
 reference-location: margin
 execute:
   cache: false
-filters: 
-  - remove-pause.lua
 format:
-  revealjs:
-    auto-stretch: true
-    center: true
-    html-math-method: katex
-    transition: none
-    output-file: un_A_slides.html
-    slide-number: true
-    callout-appearance: minimal
-    code-line-numbers: true
-    theme: [default, ../template.css] # alternative themes (subset): default, night, dark
-    embed-resources: false
-    echo: true
-    fig-dpi: 150
-    # incremental: true  # Remove comment if you like incremental bullet points
-    logo: img/logoB.png
-    footer: "[Home page](https://tommasorigon.github.io/EnvEcoStat)"
   html:
     html-math-method: katex
     echo: true
@@ -345,16 +327,12 @@ sin(pi)
 **R** is a numerical computing tool and therefore **numerical
 approximation errors** are always present.
 
-. . .
-
 Fortunately, in most practical cases the difference between $0$ and
 $10^{-16}$ is completely irrelevant.
 
 In other situations, numerical approximation errors may lead to
 misleading conclusions. One should therefore be careful and evaluate case
 by case.
-
-. . .
 
 In any case, the numerical approximation may also turn out to be exact.
 For example:
@@ -540,8 +518,6 @@ x <- 1:5
 y <- 1:6
 x + y # Equivalent to: c(x, x[1]) + y
 ```
-
-. . .
 
 In this second example, instead, **R** does not return any warning, which
 makes the situation particularly dangerous

@@ -59,26 +59,26 @@ module progresses.
 - R Core Team, [*An Introduction to
   R*](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf).
 
-#### Notes, slides and R scripts
+#### Notes and R scripts
 
 The code is [written live]{.orange} during the classes, following the R
-scripts. The notes and the slides cover exactly the same material and are
-there for you to [consult at any time]{.blue}, before or after the class.
+scripts. The notes cover exactly the same material and are there for you
+to [consult at any time]{.blue}, before or after the class.
 
 The acronym **AK** refers to the book by Agresti and Kateri, **AR** to the
 book by Albert and Rizzo.
 
-| Topic | Notes | Slides | R script | Textbook |
-|-------|-------|--------|----------|----------|
-| | **INTRODUCTION TO R** | | | |
-| A-B-C: scientific computing and linear algebra | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) | [`un_A.R`](code/un_A.R) | **AK** §A.0; **AR** §1.1, §1.3, §A1---§A3 |
-| Data handling and descriptive statistics | | | | **AK** §1.4---§1.5, §A.1 |
-| | **INFERENCE AND SAMPLING DISTRIBUTIONS** | | | |
-| *To be defined* | | | | **AK** Ch. 2---5 |
-| | **LINEAR MODELS AND LEAST SQUARES** | | | |
-| *To be defined* | | | | **AK** Ch. 6 |
-| | **DATA ANALYSIS: CASE STUDIES** | | | |
-| *To be defined* | | | | |
+| Topic | Notes | R script | Textbook |
+|-------|-------|----------|----------|
+| | **INTRODUCTION TO R** | | |
+| A-B-C: scientific computing and linear algebra | [Unit A](slides/un_A.html) | [`un_A.R`](code/un_A.R) | **AK** §A.0; **AR** §1.1, §1.3, §A1---§A3 |
+| Data handling and descriptive statistics | | | **AK** §1.4---§1.5, §A.1 |
+| | **INFERENCE AND SAMPLING DISTRIBUTIONS** | | |
+| *To be defined* | | | **AK** Ch. 2---5 |
+| | **LINEAR MODELS AND LEAST SQUARES** | | |
+| *To be defined* | | | **AK** Ch. 6 |
+| | **DATA ANALYSIS: CASE STUDIES** | | |
+| *To be defined* | | | |
 
 #### Exercises
 

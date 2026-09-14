@@ -45,10 +45,10 @@ acos(x)
 atan(x)
 
 # ---- Further mathematical functions I ----------------------------------
-x <- 1 / 2
-y <- 1 / 3 # Real numbers
-n <- 5
-k <- 2 # Natural numbers
+x <- 1 / 2 # Real numbers
+y <- 1 / 3
+n <- 5 # Natural numbers
+k <- 2
 
 factorial(n) # n!
 choose(n, k) # Binomial coefficient
@@ -65,8 +65,10 @@ beta(x, y) # Beta function
 # ---- Plotting a function -----------------------------------------------
 curve(sin(x) / x, from = 0, to = 15)
 
-# # ---- The official documentation ----------------------------------------
-# ? log # Documentation of the log function
+# ---- The official documentation ----------------------------------------
+# Run the following command in the console to open the documentation
+# of the log function:
+# ? log
 
 # ---- Special symbols ---------------------------------------------------
 10^15

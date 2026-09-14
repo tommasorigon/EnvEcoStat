@@ -3,30 +3,17 @@ title: "Introduction"
 subtitle: "Programming and Data Analysis with R"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
 execute:
   cache: false
-filters:
-  - remove-pause.lua
-page-layout: full
 format:
-  revealjs:
-    auto-stretch: true
-    center: true
-    html-math-method: katex
-    transition: none
-    output-file: un_intro_slides.html
-    slide-number: true
-    callout-appearance: minimal
-    code-line-numbers: true
-    theme: [default, ../template.css]
-    embed-resources: false
-    echo: false
-    fig-dpi: 150
-    logo: img/logoB.png
-    footer: "[Home page](https://tommasorigon.github.io/EnvEcoStat)"
   html:
     html-math-method: katex
-    echo: false
+    echo: true
     callout-appearance: minimal
     theme: [simplex, ../template.css]
     toc: true
@@ -34,10 +21,10 @@ format:
     embed-resources: false
     smooth-scroll: true
     fig-dpi: 90
-editor:
-  markdown:
+editor: 
+  markdown: 
     wrap: 72
-editor_options:
+editor_options: 
   chunk_output_type: console
 ---
 
@@ -67,11 +54,6 @@ styler:::style_file("../code/un_intro.R")
 
 Text of the slide. Inline math such as $y_i = x_i^\top \beta + \epsilon_i$
 is rendered with KaTeX.
-
-. . .
-
-Content revealed after a pause (the `remove-pause.lua` filter strips the
-pause in the HTML notes).
 
 ```{r}
 #| echo: true
