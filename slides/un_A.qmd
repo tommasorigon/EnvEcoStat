@@ -77,9 +77,9 @@ Attributed to [Albert Einstein]{.grey}
     -   Mathematical functions, plotting a function, logical operations
     -   Operations with [vectors]{.blue} and [matrices]{.orange}
 
--   During the lectures we will work [only with the R scripts]{.orange}.
-    These notes and the slides are a [reference]{.blue} you can go back
-    to afterwards.
+-   In class the code is [written live]{.orange}, following the R script
+    of this unit. These notes contain the same material and are there for
+    you to [consult at any time]{.blue}.
 :::
 :::
 

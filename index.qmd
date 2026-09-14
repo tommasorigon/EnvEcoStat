@@ -27,10 +27,10 @@ editor_options:
 ---
 
 This website collects the material of the **Programming and Data Analysis
-with R** module (30 hours of laboratory) of the course *Statistical Models
-and Applications in Economics and Environmental Sciences*, B.Sc. in
-"*Economics and Science for Environmental Sustainability*", Università
-degli Studi di Milano-Bicocca.
+with R** part of the course *Statistical Models and Applications in
+Economics and Environmental Sciences*, B.Sc. in "*Economics and Science
+for Environmental Sustainability*", Università degli Studi di
+Milano-Bicocca.
 
 The other module of the course, *Statistical Inference and Modeling*, is
 not covered here.
@@ -59,10 +59,11 @@ module progresses.
 - R Core Team, [*An Introduction to
   R*](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf).
 
-#### Slides and lecture notes
+#### Notes, slides and R scripts
 
-During the lectures we work [only with the R scripts]{.orange}. The notes
-and the slides cover the same material and are meant as a reference.
+The code is [written live]{.orange} during the classes, following the R
+scripts. The notes and the slides cover exactly the same material and are
+there for you to [consult at any time]{.blue}, before or after the class.
 
 The acronym **AK** refers to the book by Agresti and Kateri, **AR** to the
 book by Albert and Rizzo.
@@ -104,7 +105,7 @@ book by Albert and Rizzo.
 
 ## Exam
 
-The exam is a written examination held in the lab, combining theoretical
+The exam is a written examination held in the computer lab, combining theoretical
 questions, exercises and exercises in **R**, covering both parts of the
 course. Students are required to execute **R** code in order to answer
 some of the questions.
