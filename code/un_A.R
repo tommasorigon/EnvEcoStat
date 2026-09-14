@@ -45,8 +45,10 @@ acos(x)
 atan(x)
 
 # ---- Further mathematical functions I ----------------------------------
-x <- 1 / 2; y <- 1 / 3 # Real numbers
-n <- 5; k <- 2 # Natural numbers
+x <- 1 / 2
+y <- 1 / 3 # Real numbers
+n <- 5
+k <- 2 # Natural numbers
 
 factorial(n) # n!
 choose(n, k) # Binomial coefficient
@@ -63,8 +65,8 @@ beta(x, y) # Beta function
 # ---- Plotting a function -----------------------------------------------
 curve(sin(x) / x, from = 0, to = 15)
 
-# ---- The official documentation ----------------------------------------
-? log # Documentation of the log function
+# # ---- The official documentation ----------------------------------------
+# ? log # Documentation of the log function
 
 # ---- Special symbols ---------------------------------------------------
 10^15
@@ -85,11 +87,15 @@ x < 0 # Is the value of x smaller than 0?
 a <- (x == -3) # Is the value of x equal to -3?
 a
 
-a <- TRUE; b <- FALSE; x <- 5; y <- 7
+a <- TRUE
+b <- FALSE
+x <- 5
+y <- 7
 x >= y # Is x greater than or equal to y? (Use "<=" for smaller or equal)
 x != y # Is x different from y?
 a & b # a AND b. Are the boolean values a and b both true?
 a | b # a OR b. Is at least one of a and b true?
+
 
 # ======================================================================
 # VECTORS
@@ -153,6 +159,7 @@ x + y # Equivalent to: c(x, x[1]) + y
 x <- 1:3
 y <- 1:6
 x + y # Equivalent to: c(x, x) + y
+
 
 # ======================================================================
 # MATRICES AND LISTS
