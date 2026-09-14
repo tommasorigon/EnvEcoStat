@@ -1,10 +1,14 @@
 ---
-title: "Exercises A: scientific computing and linear algebra"
+title: "Exercises A"
 subtitle: "Programming and Data Analysis with R"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
 lang: en
 page-layout: full
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
 execute:
   cache: false
 format:
@@ -16,21 +20,403 @@ format:
     toc: true
     toc-title: Table of contents
     embed-resources: false
+    code-line-numbers: false
     smooth-scroll: true
-    code-fold: true
-    code-summary: "Show the solution"
+    code-fold: false
+    code-summary: "Show the code"
     fig-dpi: 200
     highlight-style: github
 editor:
   markdown:
     wrap: 72
+editor_options:
+  chunk_output_type: console
 ---
 
-## Exercise 1
+## [Homepage](../index.html)
 
-Text of the exercise.
+These exercises accompany [Unit A](../un_A.html). A few of them require
+[writing your own functions]{.orange} or working with [data frames]{.blue},
+which are covered later on: come back to those once we have seen the
+corresponding material.
+
+## Exercise A
+
+Write in **R** the function `f(x)` associated with
+
+$$
+f(x) = \frac{|\sin(\pi/(4 x^2))|}{x}, \qquad x \neq 0.
+$$
+
+1.  What is the value of $f(1)$? And of $f(10^8)$?
+
+2.  Approximate $f(1)$ and $f(10)$ to the first two decimal digits.
+
+3.  Draw a plot of the function $f(x)$ over the interval $(1,3)$.
+
+4.  Compute $\sum_{k=1}^{K} f(k)$, for $K = 500$.
+
+5.  [Difficult]{.orange}. The `integrate` function of **R** (see the
+    documentation) makes it possible to compute [numerically]{.blue}
+    integrals of the form $$
+    I = \int_a^b f(x)\mathrm{d}x,
+    $$ where $a < b$ are two real values. Compute the value of the
+    integral $\int_1^3 f(x)\mathrm{d}x$, where $f(x)$ is the function
+    used in the previous points.
+
+::: {.callout-note collapse="true"}
+#### Solution
 
 ```{r}
 #| eval: false
-# Solution
+f <- function(x) {
+  abs(sin(pi / (4 * x^2))) / x
+}
+
+# A.1
+f(1)
+f(10^8)
+
+# A.2
+round(f(1), 2)
+round(f(10), 2)
+
+# A.3
+curve(f(x), 1, 3)
+
+# A.4
+K <- 500
+sum(f(1:K))
+
+# A.5
+integrate(f, lower = 1, upper = 3)
 ```
+:::
+
+## Exercise B
+
+Verify numerically the following identities for $n = 10, 100, 1000$
+(where possible).
+
+1.  $$
+    \sum_{k=0}^n(-1)^k\binom{n}{k} = 0.
+    $$
+
+2.  $$
+    \sum_{k=1}^n k \binom{n}{k} = n 2^{n-1}.
+    $$
+
+3.  $$
+    \sum_{k=1}^n(-1)^{k}k \binom{n}{k} = 0.
+    $$
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# B.1
+n <- 10
+sum((-1)^(0:n) * choose(n, 0:n))
+
+n <- 100
+sum((-1)^(0:n) * choose(n, 0:n)) # NUMERICAL ERROR!
+
+n <- 1000
+sum((-1)^(0:n) * choose(n, 0:n)) # NUMERICAL ERROR!
+
+# B.2
+n <- 10
+sum((1:n) * choose(n, 1:n))
+n * 2^(n - 1)
+
+n <- 100
+sum((1:n) * choose(n, 1:n))
+n * 2^(n - 1)
+
+n <- 1000
+sum((1:n) * choose(n, 1:n))
+n * 2^(n - 1)
+
+# B.3
+n <- 10
+sum((-1)^(1:n) * (1:n) * choose(n, 1:n))
+
+n <- 100
+sum((-1)^(1:n) * (1:n) * choose(n, 1:n)) # NUMERICAL ERROR!
+
+n <- 1000
+sum((-1)^(1:n) * (1:n) * choose(n, 1:n)) # NUMERICAL ERROR!
+```
+:::
+
+## Exercise C
+
+Write in **R** a function `roots(a, b, c)` that takes as input the
+coefficients of the polynomial
+
+$$
+a x^2 + b x + c,
+$$ and returns the vector of the values of $x$ that make it equal to
+zero.
+
+1.  Compute `roots(1, 5, 2)`;
+
+2.  Compute `roots(1, 2, 1)`;
+
+3.  Compute `roots(1, 1, 1)` and comment on the result.
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# The solution of a quadratic equation is of course available in closed form
+
+roots <- function(a, b, c) {
+  Delta <- b^2 - 4 * a * c
+  if (Delta < 0) stop("The discriminant must be non-negative")
+  (-b + c(-1, 1) * sqrt(Delta)) / (2 * a)
+}
+
+# C.1
+roots(1, 5, 2)
+
+# C.2
+roots(1, 2, 1)
+
+# C.3
+roots(1, 1, 1) # There are no real solutions
+```
+:::
+
+## Exercise D
+
+Define in **R** a symmetric matrix ${\bf A}$ of dimension $5 \times 5$,
+whose elements are $$
+{\bf A} = \begin{pmatrix}
+26 &  22 &  17 &  22 &  23 \\ 
+22 &  18 &  14 &  23 &  27 \\ 
+17 &  14 &  14 &  20 &  24 \\ 
+22 &  23 &  20 &  26 &  23 \\ 
+23 &  27 &  24 &  23 &  12 \\ 
+\end{pmatrix}.
+$$
+
+1.  Verify empirically that
+    $\text{det}({\bf A}^{-1}) = 1 / \text{det}({\bf A})$.
+
+2.  Verify empirically that
+    $\text{det}({\bf A}^2) = \text{det}({\bf A})^2$.
+
+3.  Compute the trace of ${\bf A}$, that is
+    $\text{tr}({\bf A}) = \sum_{i=1}^n a_{ii}$, for $n = 5$.
+
+4.  Verify empirically that
+    $\text{det}({\bf A}) = \prod_{i=1}^n \lambda_i$, where
+    $\lambda_1,\dots,\lambda_n$ are the eigenvalues of ${\bf A}$.
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+A <- rbind(
+  c(26, 22, 17, 22, 23),
+  c(22, 18, 14, 23, 27),
+  c(17, 14, 14, 20, 24),
+  c(22, 23, 20, 26, 23),
+  c(23, 27, 24, 23, 12)
+)
+
+# D.1
+det(solve(A)) # 0.0006493506
+1 / det(A) # Same value
+
+# D.2
+det(A %*% A) # 2371600
+det(A)^2 # Same value
+
+# D.3
+sum(diag(A)) # 96
+
+# D.4
+det(A) # 1540
+prod(eigen(A)$values) # Same value
+```
+:::
+
+## Exercise E
+
+The Euclidean distance between two vectors ${\bf x}$ and ${\bf y}$ in
+$\mathbb{R}^p$ is defined as
+$$d({\bf x},{\bf y}) = \sqrt{\sum_{j=1}^p(x_j - y_j)^2}.$$
+
+1.  Write the **R** function `dist_euclid(x, y)` that computes the
+    Euclidean distance between two vectors.
+
+2.  If `x = c(1, 4, 2, 2, 10)` and `y = c(8, 1, 8, 3, 6)`, what is the
+    value of `dist_euclid(x, y)`?
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# E.1
+dist_euclid <- function(x, y) {
+  sqrt(crossprod(x - y))
+}
+
+# E.2
+x <- c(1, 4, 2, 2, 10)
+y <- c(8, 1, 8, 3, 6)
+dist_euclid(x, y) # 10.53565
+```
+:::
+
+## Exercise F
+
+The Frobenius norm $||{\bf A}||_F$ of a real-valued matrix ${\bf A}$ of
+dimension $n \times m$ is defined as
+$$||{\bf A}||_F = \sqrt{\sum_{i=1}^n \sum_{j=1}^m a_{ij}^2}.$$
+
+1.  Write the **R** function `frobenius_norm(A)` that computes the
+    Frobenius norm of a matrix `A`.
+
+2.  If `A = cbind(1:5,6:10,11:15)`, what is the value of
+    `frobenius_norm(A)`?
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# F.1
+frobenius_norm <- function(A) {
+  sqrt(sum(A^2))
+}
+
+# F.2
+A <- cbind(1:5, 6:10, 11:15)
+frobenius_norm(A) # 35.21363
+```
+:::
+
+## Exercise G
+
+Consider the dataset `data(mtcars)`, which is available in **R**. Answer
+the following questions:
+
+1.  How many rows and how many columns does this dataset have?
+
+2.  Why does the command `mtcars[1:20]` return an error? What is the
+    difference with the command `mtcars[1:20, ]`?
+
+3.  Each of the following lines contains an error (a bug). Propose a
+    modification to fix it
+
+```{r}
+#| eval: false
+mtcars[mtcars$cyl = 4, ] 
+mtcars[-1:4, ] 
+mtcars[mtcars$cyl <= 5] 
+mtcars[mtcars$cyl == 4 | 6, ]
+```
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+data(mtcars)
+
+# G.1
+dim(mtcars) # 32 rows, 11 columns
+
+# G.2
+mtcars[1:20] # A comma is missing
+mtcars[1:20, ] # Correct command
+
+# G.3
+# mtcars[mtcars$cyl = 4, ] # WRONG
+mtcars[mtcars$cyl == 4, ] # CORRECT
+
+# mtcars[-1:4, ] # WRONG
+mtcars[-(1:4), ] # CORRECT (drops the first 4 rows)
+
+# mtcars[mtcars$cyl <= 5] # WRONG
+mtcars[mtcars$cyl <= 5, ] # CORRECT
+
+# mtcars[mtcars$cyl == 4 | 6, ] # WRONG
+mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, ] # CORRECT
+```
+:::
+
+## Exercise H
+
+Let ${\bf A}$ be a matrix of dimension $n \times n$. Implement a function
+that extracts the diagonal elements $a_{ii}$, for $i = 1,\dots,n$, of the
+matrix ${\bf A}$. Then compare it with the `diag` function of **R**.
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+diag2 <- function(A) {
+  n <- nrow(A)
+  diagonal <- numeric(n)
+  for (i in 1:n) {
+    diagonal[i] <- A[i, i]
+  }
+  diagonal
+}
+
+A <- rbind(
+  c(26, 22, 17, 22, 23),
+  c(22, 18, 14, 23, 27),
+  c(17, 14, 14, 20, 24),
+  c(22, 23, 20, 26, 23),
+  c(23, 27, 24, 23, 12)
+)
+
+diag(A)
+diag2(A)
+```
+:::
+
+## Exercise I
+
+What does the function `f(10)` return? Discuss the result without running
+the following code
+
+```{r}
+#| eval: false
+h <- function(x) {
+  x^2 
+}
+
+g <- function(x) {
+  h(x) + 1 
+}
+
+f <- function(x) {
+  g(x) * 2 
+}
+
+f(10)
+```
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+The exercise asked you to guess the result without running the code. If
+executed, it returns `202`.
+:::
+
+## Exercises from the textbook Albert & Rizzo (**AR**)
+
+-   Exercise 1.2, p. 39.
+-   Exercise 1.3, p. 39.
+-   Exercise 1.11, p. 41.

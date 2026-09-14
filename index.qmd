@@ -27,8 +27,8 @@ editor_options:
 ---
 
 This website collects the material of the **Programming and Data Analysis
-with R** part of the course *Statistical Models and Applications in
-Economics and Environmental Sciences*, B.Sc. in "*Economics and Science
+with R** part of the course *[Statistical Models and Applications in
+Economics and Environmental Sciences]{.blue}*, B.Sc. in "*Economics and Science
 for Environmental Sustainability*", Università degli Studi di
 Milano-Bicocca.
 
@@ -86,17 +86,6 @@ references to the other textbooks are given inside each unit.
 | Date             | Exam                          |
 |------------------|-------------------------------|
 | *No exams yet*   |                               |
-
-## Program of the module
-
-- **Introduction to R**: basic programming, data handling and descriptive
-  statistics.
-- **Inference and sampling distributions**: random variables, point
-  estimation, testing and confidence intervals for notable models.
-- **Linear models and least squares**: model fitting and interpretation of
-  the results.
-- **Data analysis**: case studies in ecology, economics, and environmental
-  sciences.
 
 ## Exam
 
