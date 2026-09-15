@@ -149,7 +149,6 @@ window.Quarto = {
   <li><a href="#the-sample-command" id="toc-the-sample-command" class="nav-link" data-scroll-target="#the-sample-command">The <code>sample</code> command</a></li>
   <li><a href="#sampling-with-replacement" id="toc-sampling-with-replacement" class="nav-link" data-scroll-target="#sampling-with-replacement">Sampling with replacement</a></li>
   <li><a href="#sampling-without-replacement" id="toc-sampling-without-replacement" class="nav-link" data-scroll-target="#sampling-without-replacement">Sampling without replacement</a></li>
-  <li><a href="#summary-exercise" id="toc-summary-exercise" class="nav-link" data-scroll-target="#summary-exercise">Summary exercise</a></li>
   </ul>
 </nav>
 </div>
@@ -590,7 +589,7 @@ X_i \overset{\text{iid}}{\sim} \text{N}(0,1), \qquad i=1,\dots,5
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">5</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(R, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  1.3834913 -0.8788476 -0.4515607 -1.0836992  0.7435476</code></pre>
+<pre><code>[1] -0.223409606 -0.169125152 -0.281861392  0.006861971  0.820991581</code></pre>
 </div>
 </div>
 </section>
@@ -785,146 +784,95 @@ Note
 </div>
 <p>we obtain a random <span class="blue">permutation</span> of the elements of <code>x</code>.</p>
 <p>Indeed, the default values are <code>replace = FALSE</code> and <code>size = length(x)</code>, that is a sampling <span class="orange">without replacement</span> of all the elements of the urn.</p>
-</section>
-<section id="summary-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="summary-exercise">Summary exercise</h2>
-<p>The commands of the <code>d</code>, <code>p</code>, <code>q</code> and <code>r</code> families can be combined to check <em>graphically</em> that a simulated sample really does follow the distribution it is supposed to follow. This is the idea behind this exercise.</p>
-<section id="discrete-case" class="level4">
-<h4 class="anchored" data-anchor-id="discrete-case">Discrete case</h4>
-<ol type="1">
-<li><p>Simulate <span class="math inline">n = 1000</span> values from a <span class="math inline">\text{Bin}(10, 0.3)</span> and compute the <span class="orange">relative frequencies</span> of each outcome <span class="math inline">k = 0,1,\dots,10</span>.</p></li>
-<li><p>Draw the probability mass function with <code>plot(..., type = "h")</code>, as we did above, and superimpose the relative frequencies. Do the two agree?</p></li>
-</ol>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hint
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>table(y)</code> does not return the outcomes that never occurred. Use <code>table(factor(y, levels = 0:10))</code> to obtain a table of length <span class="math inline">11</span> in any case.</p>
-</div>
-</div>
-</section>
-<section id="continuous-case" class="level4">
-<h4 class="anchored" data-anchor-id="continuous-case">Continuous case</h4>
-<ol start="3" type="1">
-<li><p>Simulate <span class="math inline">n = 1000</span> values from an exponential distribution with rate <span class="math inline">\lambda = 0.5</span>.</p></li>
-<li><p>Draw the <span class="blue">histogram</span> of the simulated values and superimpose the theoretical density, using <code>curve(..., add = TRUE)</code>.</p></li>
-<li><p>Draw the <span class="orange">empirical cumulative distribution function</span> of the simulated values, which we met in Unit D, and superimpose the theoretical one.</p></li>
-<li><p>Compare the <span class="blue">empirical quantiles</span> of the sample with the theoretical ones, for <span class="math inline">p = (0.1, 0.25, 0.5, 0.75, 0.9)</span>.</p></li>
-<li><p>Repeat point 4 for <span class="math inline">n = 20</span>, <span class="math inline">n = 200</span> and <span class="math inline">n = 20000</span>. What changes?</p></li>
-</ol>
-</section>
-<section id="solution-of-the-summary-exercise" class="level4">
-<h4 class="anchored" data-anchor-id="solution-of-the-summary-exercise">Solution of the summary exercise</h4>
-<p>For the <span class="orange">discrete case</span>, the relative frequencies of the simulated sample are very close to the probability mass function:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">321</span>)</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>size <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size =</span> size, <span class="at">prob =</span> prob)</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>freq_rel <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">factor</span>(y, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span>size)) <span class="sc">/</span> n</span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span>size, <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span>size, <span class="at">size =</span> size, <span class="at">prob =</span> prob),</span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"h"</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k"</span>, <span class="at">ylab =</span> <span class="st">"Probability"</span>, <span class="at">main =</span> <span class="st">"Bin(10, 0.3)"</span></span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">0</span><span class="sc">:</span>size, freq_rel, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">pch =</span> <span class="dv">16</span>) <span class="co"># Relative frequencies</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="un_H_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="630"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Largest discrepancy between theoretical and empirical</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(<span class="fu">abs</span>(<span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span>size, <span class="at">size =</span> size, <span class="at">prob =</span> prob) <span class="sc">-</span> <span class="fu">as.numeric</span>(freq_rel)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.01582793</code></pre>
-</div>
-</div>
-<p>For the <span class="blue">continuous case</span>, we superimpose the density on the histogram. Note the option <code>freq = FALSE</code>: the histogram must be on the density scale, otherwise the two objects are not comparable.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rexp</span>(n, <span class="at">rate =</span> lambda)</span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">main =</span> <span class="st">"Exp(0.5)"</span>, <span class="at">xlab =</span> <span class="st">"x"</span>)</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dexp</span>(x, <span class="at">rate =</span> lambda), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="un_H_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="630"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The same comparison can be made on the cumulative distribution function:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(x), <span class="at">do.points =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"Exp(0.5)"</span>, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"F(x)"</span>)</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">pexp</span>(x, <span class="at">rate =</span> lambda), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="un_H_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="630"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Finally, we compare the quantiles:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>)</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">theoretical =</span> <span class="fu">qexp</span>(p, <span class="at">rate =</span> lambda),</span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">empirical =</span> <span class="fu">quantile</span>(x, <span class="at">probs =</span> p)</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                  10%       25%      50%      75%      90%
-theoretical 0.2107210 0.5753641 1.386294 2.772589 4.605170
-empirical   0.1972495 0.6133854 1.462333 2.853270 4.559843</code></pre>
-</div>
-</div>
-<p>The <span class="orange">sample size</span> controls how close the two curves are. With <span class="math inline">n = 20</span> the histogram says very little about the underlying density; with <span class="math inline">n = 20000</span> the agreement is excellent.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (nn <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">200</span>, <span class="dv">20000</span>)) {</span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  xx <span class="ot">&lt;-</span> <span class="fu">rexp</span>(nn, <span class="at">rate =</span> lambda)</span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hist</span>(xx, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">breaks =</span> <span class="st">"FD"</span>, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"n ="</span>, nn), <span class="at">xlab =</span> <span class="st">"x"</span>)</span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">curve</span>(<span class="fu">dexp</span>(x, <span class="at">rate =</span> lambda), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="un_H_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="1080"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This is a purely <span class="blue">graphical</span> check. There exist formal tests to assess whether a sample comes from a given distribution, which are not covered here.</p>
-</div>
-</div>
+<!-- ## Summary exercise -->
+<!-- The commands of the `d`, `p`, `q` and `r` families can be combined to check -->
+<!-- *graphically* that a simulated sample really does follow the distribution it is -->
+<!-- supposed to follow. This is the idea behind this exercise. -->
+<!-- #### Discrete case -->
+<!-- 1.  Simulate $n = 1000$ values from a $\text{Bin}(10, 0.3)$ and compute the -->
+<!--     [relative frequencies]{.orange} of each outcome $k = 0,1,\dots,10$. -->
+<!-- 2.  Draw the probability mass function with `plot(..., type = "h")`, as we did -->
+<!--     above, and superimpose the relative frequencies. Do the two agree? -->
+<!-- ::: callout-tip -->
+<!-- #### Hint -->
+<!-- `table(y)` does not return the outcomes that never occurred. Use -->
+<!-- `table(factor(y, levels = 0:10))` to obtain a table of length $11$ in any case. -->
+<!-- ::: -->
+<!-- #### Continuous case -->
+<!-- 3.  Simulate $n = 1000$ values from an exponential distribution with rate -->
+<!--     $\lambda = 0.5$. -->
+<!-- 4.  Draw the [histogram]{.blue} of the simulated values and superimpose the -->
+<!--     theoretical density, using `curve(..., add = TRUE)`. -->
+<!-- 5.  Draw the [empirical cumulative distribution function]{.orange} of the -->
+<!--     simulated values, which we met in Unit D, and superimpose the theoretical -->
+<!--     one. -->
+<!-- 6.  Compare the [empirical quantiles]{.blue} of the sample with the theoretical -->
+<!--     ones, for $p = (0.1, 0.25, 0.5, 0.75, 0.9)$. -->
+<!-- 7.  Repeat point 4 for $n = 20$, $n = 200$ and $n = 20000$. What changes? -->
+<!-- #### Solution of the summary exercise -->
+<!-- For the [discrete case]{.orange}, the relative frequencies of the simulated -->
+<!-- sample are very close to the probability mass function: -->
+<!-- ```{r} -->
+<!-- set.seed(321) -->
+<!-- n <- 1000 -->
+<!-- size <- 10 -->
+<!-- prob <- 0.3 -->
+<!-- y <- rbinom(n, size = size, prob = prob) -->
+<!-- freq_rel <- table(factor(y, levels = 0:size)) / n -->
+<!-- plot(0:size, dbinom(0:size, size = size, prob = prob), -->
+<!--   type = "h", lwd = 2, -->
+<!--   xlab = "k", ylab = "Probability", main = "Bin(10, 0.3)" -->
+<!-- ) -->
+<!-- points(0:size, freq_rel, col = "red", pch = 16) # Relative frequencies -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- # Largest discrepancy between theoretical and empirical -->
+<!-- max(abs(dbinom(0:size, size = size, prob = prob) - as.numeric(freq_rel))) -->
+<!-- ``` -->
+<!-- For the [continuous case]{.blue}, we superimpose the density on the histogram. -->
+<!-- Note the option `freq = FALSE`: the histogram must be on the density scale, -->
+<!-- otherwise the two objects are not comparable. -->
+<!-- ```{r} -->
+<!-- set.seed(123) -->
+<!-- n <- 1000 -->
+<!-- lambda <- 0.5 -->
+<!-- x <- rexp(n, rate = lambda) -->
+<!-- hist(x, freq = FALSE, breaks = 30, main = "Exp(0.5)", xlab = "x") -->
+<!-- curve(dexp(x, rate = lambda), add = TRUE, col = "red", lwd = 2) -->
+<!-- ``` -->
+<!-- The same comparison can be made on the cumulative distribution function: -->
+<!-- ```{r} -->
+<!-- plot(ecdf(x), do.points = FALSE, main = "Exp(0.5)", xlab = "x", ylab = "F(x)") -->
+<!-- curve(pexp(x, rate = lambda), add = TRUE, col = "red", lwd = 2) -->
+<!-- ``` -->
+<!-- Finally, we compare the quantiles: -->
+<!-- ```{r} -->
+<!-- p <- c(0.1, 0.25, 0.5, 0.75, 0.9) -->
+<!-- rbind( -->
+<!--   theoretical = qexp(p, rate = lambda), -->
+<!--   empirical = quantile(x, probs = p) -->
+<!-- ) -->
+<!-- ``` -->
+<!-- The [sample size]{.orange} controls how close the two curves are. With $n = 20$ -->
+<!-- the histogram says very little about the underlying density; with $n = 20000$ -->
+<!-- the agreement is excellent. -->
+<!-- ```{r} -->
+<!-- #| fig-width: 12 -->
+<!-- #| fig-height: 4 -->
+<!-- set.seed(1) -->
+<!-- par(mfrow = c(1, 3)) -->
+<!-- for (nn in c(20, 200, 20000)) { -->
+<!--   xx <- rexp(nn, rate = lambda) -->
+<!--   hist(xx, freq = FALSE, breaks = "FD", main = paste("n =", nn), xlab = "x") -->
+<!--   curve(dexp(x, rate = lambda), add = TRUE, col = "red", lwd = 2) -->
+<!-- } -->
+<!-- par(mfrow = c(1, 1)) -->
+<!-- ``` -->
+<!-- ::: callout-note -->
+<!-- #### Note -->
+<!-- This is a purely [graphical]{.blue} check. There exist formal tests to assess -->
+<!-- whether a sample comes from a given distribution, which are not covered here. -->
+<!-- ::: -->
 <!-- ## The inversion method -->
 <!-- Let $X$ be a random variable with cumulative distribution function $F(x)$ and -->
 <!-- quantile function $$ -->
@@ -1059,7 +1007,6 @@ Note
 <!-- set.seed(123) -->
 <!-- rweib(10, 2, 2) -->
 <!-- ``` -->
-</section>
 </section>
 
 </main>
