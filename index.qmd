@@ -80,7 +80,8 @@ references to the other textbooks are given inside each unit.
 | **The `titanic` data** | [Unit G](un_G.html) | [`un_G.R`](code/un_G.R) | **AK** §1.5, §A.1 |
 | *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
 |  | **INFERENCE AND SAMPLING DISTRIBUTIONS** |  |  |
-| *To be defined* |  |  | **AK** Ch. 2---5 |
+| **Random variables** | [Unit H](un_H.html) | [`un_H.R`](code/un_H.R) | **AK** Ch. 2 |
+| *To be defined* |  |  | **AK** Ch. 3---5 |
 |  | **LINEAR MODELS AND LEAST SQUARES** |  |  |
 | *To be defined* |  |  | **AK** Ch. 6 |
 |  | **DATA ANALYSIS: CASE STUDIES** |  |  |
