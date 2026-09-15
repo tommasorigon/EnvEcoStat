@@ -414,9 +414,3 @@ f(10)
 The exercise asked you to guess the result without running the code. If
 executed, it returns `202`.
 :::
-
-## Exercises from the textbook Albert & Rizzo (**AR**)
-
--   Exercise 1.2, p. 39.
--   Exercise 1.3, p. 39.
--   Exercise 1.11, p. 41.

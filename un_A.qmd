@@ -85,9 +85,9 @@ Attributed to [Albert Einstein]{.grey}
 :::
 
 ::: callout-tip
-The content of this unit is covered in [Appendix A.0]{.orange} (*Basics of
-R*) of @Agresti2022. For a more extended treatment, see [Chapter 1]{.blue}
-and [Appendix A]{.grey} of @Albert2012, or @RCoreTeam.
+The content of this unit is covered in [Appendix A0]{.orange} (*Basics of
+R*) of @AgrestiR, the R appendix of @Agresti2022. For a more extended
+treatment, see @RCoreTeam.
 :::
 
 # R as a scientific calculator

@@ -48,12 +48,17 @@ module progresses.
 
 - Agresti, A. and Kateri, M. (2022), *Foundations of Statistics for Data
   Scientists*, CRC Press.
+- Agresti, A. and Kateri, M., [*R Web
+  Appendix*](https://stat4ds.rwth-aachen.de/pdf/DS_R_webAppendix.pdf) of the
+  above book. It is [freely available]{.orange} and it is an integral part of
+  the material of this module.
+
+The [website of the book](https://stat4ds.rwth-aachen.de/), where the
+[data files](https://stat4ds.rwth-aachen.de/data/) used in the exercises are
+also hosted.
 
 #### Optional
 
-- Albert, J. and Rizzo, M. (2012), [*R by
-  Example*](https://link.springer.com/book/10.1007/978-1-4614-1365-3),
-  Springer.
 - R Core Team, [*An Introduction to
   R*](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf).
 
@@ -63,24 +68,25 @@ The code is [written live]{.orange} during the classes, following the R
 scripts. The notes cover exactly the same material and are there for you
 to [consult at any time]{.blue}, before or after the class.
 
-The acronym **AK** refers to the book by Agresti and Kateri. The
-references to the other textbooks are given inside each unit.
+The acronym **AK** refers to the book by Agresti and Kateri: the sections
+numbered §A0, §A1, . . . are those of its [R web
+appendix](https://stat4ds.rwth-aachen.de/pdf/DS_R_webAppendix.pdf).
 
 | Topic | Notes | R script | Textbook |
 |------------------|------------------|------------------|------------------|
 |  | **INTRODUCTION TO R** |  |  |
-| **A-B-C** | [Unit A](un_A.html) | [`un_A.R`](code/un_A.R) | **AK** §A.0 |
-| **Programming** | [Unit B](un_B.html) | [`un_B.R`](code/un_B.R) | **AK** §A.0.3, §A.0.5 |
-| **Data frames** | [Unit C](un_C.html) | [`un_C.R`](code/un_C.R) | **AK** §A.0.3, §A.0.4 |
+| **A-B-C** | [Unit A](un_A.html) | [`un_A.R`](code/un_A.R) | **AK** §A0.1--A0.3, §A0.6 |
+| **Programming** | [Unit B](un_B.html) | [`un_B.R`](code/un_B.R) | **AK** §A0.3.5, §A0.5 |
+| **Data frames** | [Unit C](un_C.html) | [`un_C.R`](code/un_C.R) | **AK** §A0.3.4, §A0.4 |
 | *Exercises* | [Exercises A](exe/exe_A.html) |  |  |
 |  | **DESCRIPTIVE STATISTICS** |  |  |
-| **The `dde` data** | [Unit D](un_D.html) | [`un_D.R`](code/un_D.R) | **AK** §1.4, §A.1 |
-| **The `hemoglobin` data** | [Unit E](un_E.html) | [`un_E.R`](code/un_E.R) | **AK** §1.4, §A.1 |
-| **The `forbes` data** | [Unit F](un_F.html) | [`un_F.R`](code/un_F.R) | **AK** §1.5, §6.1 |
-| **The `titanic` data** | [Unit G](un_G.html) | [`un_G.R`](code/un_G.R) | **AK** §1.5, §A.1 |
+| **The `dde` data** | [Unit D](un_D.html) | [`un_D.R`](code/un_D.R) | **AK** §1.4, §A1.2 |
+| **The `hemoglobin` data** | [Unit E](un_E.html) | [`un_E.R`](code/un_E.R) | **AK** §1.4, §A1.3 |
+| **The `forbes` data** | [Unit F](un_F.html) | [`un_F.R`](code/un_F.R) | **AK** §1.5, §6.1, §A1.5 |
+| **The `titanic` data** | [Unit G](un_G.html) | [`un_G.R`](code/un_G.R) | **AK** §1.5, §A1.6 |
 | *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
 |  | **INFERENCE AND SAMPLING DISTRIBUTIONS** |  |  |
-| **Random variables** | [Unit H](un_H.html) | [`un_H.R`](code/un_H.R) | **AK** Ch. 2 |
+| **Random variables** | [Unit H](un_H.html) | [`un_H.R`](code/un_H.R) | **AK** Ch. 2, §A2.1 |
 | *To be defined* |  |  | **AK** Ch. 3---5 |
 |  | **LINEAR MODELS AND LEAST SQUARES** |  |  |
 | *To be defined* |  |  | **AK** Ch. 6 |

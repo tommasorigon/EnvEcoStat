@@ -425,12 +425,3 @@ cor(imdb$lbudget, imdb$lgross) # The comment is left to the student
 cor(imdb$duration, imdb$lgross) # The comment is left to the student
 ```
 :::
-
-## Exercises from the textbook Albert & Rizzo (**AR**)
-
--   Exercise 1.14, p. 41.
--   Exercises 2.1, 2.2, 2.3, pp. 75.
--   Exercises 2.4 and 2.5, pp. 75-76.
--   Exercises 2.10 and 2.12, p. 77.
--   Exercise 3.1, p. 96.
--   Exercise 3.4, p. 98.
