@@ -38,6 +38,10 @@ editor_options:
 These exercises accompany Units [D](../un_D.html), [E](../un_E.html),
 [F](../un_F.html) and [G](../un_G.html).
 
+The exercises whose title carries a number such as [(**AK** 1.10)]{.grey} are
+taken from Chapter 1 of @Agresti2022; their data are those of the [website of
+the book](https://stat4ds.rwth-aachen.de/data/).
+
 ## Exercise A
 
 The sample variance of the data ${\bf x} = (x_1,\dots,x_n)$ is defined as
@@ -423,5 +427,348 @@ cor(imdb$lbudget, imdb$lgross) # The comment is left to the student
 
 # E.8
 cor(imdb$duration, imdb$lgross) # The comment is left to the student
+```
+:::
+
+## Exercise F [(**AK** 1.10)]{.grey}
+
+The `Carbon_West` data file of @Agresti2022, available at [this
+link](https://stat4ds.rwth-aachen.de/data/Carbon_West.dat), reports the [per
+capita CO$_2$ emissions]{.orange} (in metric tons) of $35$ Western nations.
+
+------------------------------------------------------------------------
+
+1.  Import the data into **R**. The `read.table` function accepts a [web
+    address]{.orange} in place of a file name, so there is no need to download
+    the file first.
+
+2.  Construct a frequency distribution and a histogram of `CO2`. How would you
+    describe the shape of the distribution?
+
+3.  Find the mean, the median and the standard deviation, and interpret them.
+
+4.  Which nations are responsible for the right tail of the distribution?
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# F.1
+path <- "https://stat4ds.rwth-aachen.de/data/Carbon_West.dat"
+Carbon <- read.table(path, header = TRUE)
+str(Carbon) # 35 nations, a single quantitative variable
+
+# F.2
+classes <- seq(0, 18, by = 3)
+table(cut(Carbon$CO2, breaks = classes))
+hist(Carbon$CO2, breaks = classes)
+# Most nations emit between 3 and 9 tons, with a long right tail
+
+# F.3
+mean(Carbon$CO2) # 6.72
+median(Carbon$CO2) # 5.90, smaller than the mean, as expected for a right tail
+sd(Carbon$CO2) # 3.36, leaving aside the n vs n - 1 denominator
+
+# F.4
+Carbon$Nation[order(Carbon$CO2, decreasing = TRUE)][1:3]
+# The United States, Australia and Canada
+```
+:::
+
+## Exercise G [(**AK** 1.17)]{.grey}
+
+The `Murder` data file of @Agresti2022, available at [this
+link](https://stat4ds.rwth-aachen.de/data/Murder.dat), reports the [murder
+rate]{.orange} (number of murders per $100{,}000$ inhabitants) of each of the
+$50$ states of the U.S. and of the District of Columbia (`DC`), according to
+the FBI Uniform Crime Reports.
+
+At first, [leave the observation relative to `DC` aside]{.blue}.
+
+------------------------------------------------------------------------
+
+1.  Import the data into **R** and create a second data frame, without the row
+    relative to `DC`.
+
+2.  Using the data without `DC`, find the mean and the standard deviation, and
+    interpret their values.
+
+3.  Still without `DC`, find the five-number summary and construct the
+    corresponding boxplot. Interpret them.
+
+4.  Include `DC` again. What is affected more by this outlier: the mean or the
+    median? The range or the interquartile range? Why?
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# G.1
+path <- "https://stat4ds.rwth-aachen.de/data/Murder.dat"
+Murder <- read.table(path, header = TRUE)
+Murder_no_DC <- subset(Murder, state != "DC")
+
+# G.2
+mean(Murder_no_DC$murder) # 4.87 murders per 100.000 inhabitants
+sd(Murder_no_DC$murder) # 2.59
+
+# G.3
+fivenum(Murder_no_DC$murder) # 1.00, 2.60, 4.85, 6.20, 12.40
+boxplot(Murder_no_DC$murder)
+# Louisiana (12.4) is already an outlier among the 50 states
+
+# G.4
+c(mean(Murder_no_DC$murder), mean(Murder$murder)) # 4.87 -> 5.25
+c(median(Murder_no_DC$murder), median(Murder$murder)) # 4.85 -> 5.00
+
+diff(range(Murder_no_DC$murder)) # 11.4
+diff(range(Murder$murder)) # 23.2, twice as much
+
+IQR(Murder_no_DC$murder) # 3.55
+IQR(Murder$murder) # 3.80, almost unchanged
+
+# A single observation moves the mean and the range a lot, the median and the
+# interquartile range very little: the latter are *robust* to outliers
+```
+:::
+
+## Exercise H [(**AK** 1.19)]{.grey}
+
+The `Houses` data file of @Agresti2022, available at [this
+link](https://stat4ds.rwth-aachen.de/data/Houses.dat), lists the selling price
+(`price`, in thousands of dollars), the size (`size`, in square feet), the tax
+bill (`taxes`, in dollars), the number of bedrooms (`bedrooms`) and of
+bathrooms (`baths`), and whether the house is new (`new`, $1 =$ yes, $0 =$ no)
+for $100$ home sales in Gainesville, Florida. Here we analyse the [selling
+prices]{.orange}.
+
+------------------------------------------------------------------------
+
+1.  Import the data into **R**. Construct a frequency distribution and a
+    histogram of `price`, and describe the shape of the distribution.
+
+2.  Find the percentage of observations that fall within one standard deviation
+    of the mean, that is in the interval $(\bar{x} - s, \bar{x} + s)$. Why is
+    this percentage not close to $68\%$?
+
+3.  Construct a boxplot and interpret it.
+
+4.  Use descriptive statistics to compare the selling prices of new and old
+    houses. Would you regard this comparison as reliable?
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# H.1
+path <- "https://stat4ds.rwth-aachen.de/data/Houses.dat"
+Houses <- read.table(path, header = TRUE)
+
+classes <- seq(0, 900, by = 100)
+table(cut(Houses$price, breaks = classes))
+hist(Houses$price, breaks = classes)
+# The distribution is strongly skewed to the right
+
+# H.2
+price_mean <- mean(Houses$price) # 233.0
+price_sd <- sd(Houses$price) # 151.9
+mean(abs(Houses$price - price_mean) <= price_sd) # 0.85, that is 85%
+# The empirical rule concerns bell-shaped distributions. Here the distribution
+# is strongly asymmetric, so the rule does not apply
+
+# H.3
+fivenum(Houses$price) # 31.5, 138.8, 198.9, 257.6, 880.5
+boxplot(Houses$price) # Several outliers, all on the right
+
+# H.4
+table(Houses$new) # Only 11 of the 100 houses are new
+tapply(Houses$price, Houses$new, mean) # 207.9 vs 436.4
+tapply(Houses$price, Houses$new, median) # 190.8 vs 427.5
+boxplot(price ~ new, data = Houses)
+# New houses are sold at about twice the price, but they are only 11: the
+# comparison is based on a very small group
+```
+:::
+
+## Exercise I [(**AK** 1.20)]{.grey}
+
+Refer to the previous exercise, and let $y =$ `price` and $x =$ `size`.
+
+------------------------------------------------------------------------
+
+1.  Construct a scatterplot and interpret it. Identify the observation that
+    seems to fall apart from the others.
+
+2.  Find the correlation and interpret it.
+
+3.  Find the regression line. Interpret the slope, and find the predicted
+    selling price for a house of (i) $1000$ square feet, (ii) $4000$ square
+    feet.
+
+4.  Remove the observation identified at point 1 and obtain the regression line
+    again. How much do the estimates change?
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# I.1
+plot(Houses$size, Houses$price)
+# One house is the largest of the sample but is sold at an average price
+Houses[which.max(Houses$size), ] # Case 64: 4050 square feet, 337.5
+
+# I.2
+cor(Houses$size, Houses$price) # 0.834, a strong positive linear relationship
+
+# I.3
+fit <- lm(price ~ size, data = Houses)
+coef(fit) # Intercept -76.39, slope 0.1899
+# One additional square foot is worth, on average, about 190 dollars
+abline(fit)
+
+predict(fit, newdata = data.frame(size = c(1000, 4000))) # 113.5 and 683.2
+
+# I.4
+Houses_no64 <- subset(Houses, case != 64)
+fit2 <- lm(price ~ size, data = Houses_no64)
+coef(fit2) # Intercept -109.37, slope 0.2127
+cor(Houses_no64$size, Houses_no64$price) # 0.871
+# A single observation out of 100 changes the slope by more than 10%
+```
+:::
+
+## Exercise J [(**AK** 1.24)]{.grey}
+
+The `UN` data file of @Agresti2022, available at [this
+link](https://stat4ds.rwth-aachen.de/data/UN.dat), has United Nations data for
+$42$ nations on the following variables:
+
+-   `GDP`, the per capita gross domestic product, in thousands of dollars;
+
+-   `HDI`, a human development index, with components referring to life
+    expectancy at birth, educational attainment and income per capita;
+
+-   `GII`, a gender inequality index, a composite measure reflecting inequality
+    in achievement between women and men in reproductive health, empowerment
+    and the labour market;
+
+-   `Fertility`, the fertility rate, that is the number of births per woman;
+
+-   `CO2`, the [carbon dioxide emissions per capita]{.orange}, in metric tons;
+
+-   `Homicide`, the homicide rate, per $100{,}000$ people;
+
+-   `Prison`, the prison population, per $100{,}000$ people;
+
+-   `Internet`, the percentage of people using the Internet.
+
+------------------------------------------------------------------------
+
+1.  Import the data into **R** and conduct a descriptive analysis of the prison
+    rates, highlighting any unusual observation.
+
+2.  Construct the correlation matrix of the eight quantitative variables. Which
+    pair has the strongest association?
+
+3.  Study the association between `CO2` and `GDP` through a scatterplot, the
+    correlation and the regression line. Show how the predicted CO$_2$ varies
+    as `GDP` goes from its minimum to its maximum value in this sample.
+
+4.  The correlation between `GDP` and `Prison` is essentially zero. Does this
+    mean that the two variables are unrelated? Look at the scatterplot, and
+    then repeat the computation without the United States.
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# J.1
+path <- "https://stat4ds.rwth-aachen.de/data/UN.dat"
+UN <- read.table(path, header = TRUE)
+
+summary(UN$Prison) # Median 119.5, mean 153.9: the distribution is skewed
+sd(UN$Prison) # 124.3
+boxplot(UN$Prison)
+UN$Nation[order(UN$Prison, decreasing = TRUE)][1:3]
+# The United States (716) are far above every other nation, Russia is second
+
+# J.2
+round(cor(UN[, -1]), 2) # The first column contains the names of the nations
+# The strongest association is between GDP and HDI (0.90), which is no
+# surprise, since the income per capita is one of the components of the HDI
+
+# J.3
+plot(UN$GDP, UN$CO2)
+cor(UN$GDP, UN$CO2) # 0.674
+
+fit <- lm(CO2 ~ GDP, data = UN)
+coef(fit) # Intercept 1.926, slope 0.1778
+abline(fit)
+
+predict(fit, newdata = data.frame(GDP = range(UN$GDP))) # From 2.71 to 13.11
+
+# J.4
+cor(UN$GDP, UN$Prison) # -0.003
+plot(UN$GDP, UN$Prison) # The United States are an extreme observation
+
+UN_no_US <- subset(UN, Nation != "US")
+cor(UN_no_US$GDP, UN_no_US$Prison) # -0.27
+# A correlation close to zero does not mean that there is no relationship: here
+# it is the result of a single, very influential observation
+```
+:::
+
+## Exercise K [(**AK** 1.27)]{.grey}
+
+A study of sheep analysed whether a sheep survived for a year from the original
+observation time (`survival`, $1 =$ yes, $0 =$ no) as a function of its
+`weight`, in kg, at the original observation. The `Sheep` data file of
+@Agresti2022 is available at [this
+link](https://stat4ds.rwth-aachen.de/data/Sheep.dat).
+
+------------------------------------------------------------------------
+
+1.  Import the data into **R**. How many sheep are there? How many of them
+    survived?
+
+2.  Compare the weights of the sheep that survived with the weights of the
+    sheep that did not, using numerical descriptive statistics.
+
+3.  Compare the same two distributions graphically.
+
+4.  Summarise the results of your analysis in a few sentences. Can you conclude
+    that being heavier [causes]{.orange} a sheep to survive?
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# K.1
+path <- "https://stat4ds.rwth-aachen.de/data/Sheep.dat"
+Sheep <- read.table(path, header = TRUE)
+
+nrow(Sheep) # 1359 sheep
+table(Sheep$survival) # 318 did not survive, 1041 did
+
+# K.2
+tapply(Sheep$weight, Sheep$survival, mean) # 16.0 vs 20.6
+tapply(Sheep$weight, Sheep$survival, median) # 14.8 vs 21.6
+tapply(Sheep$weight, Sheep$survival, sd) # 5.3 vs 4.9
+tapply(Sheep$weight, Sheep$survival, summary)
+
+# K.3
+boxplot(weight ~ survival, data = Sheep)
+
+# K.4
+# The sheep that survived are clearly heavier, by about 5 kg on average, and
+# the two distributions still overlap a great deal. This is an observational
+# study: the weight is a symptom of the health of the animal, not necessarily
+# a cause of its survival
 ```
 :::

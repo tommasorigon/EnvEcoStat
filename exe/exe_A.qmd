@@ -40,6 +40,10 @@ These exercises accompany [Unit A](../un_A.html). A few of them require
 which are covered later on: come back to those once we have seen the
 corresponding material.
 
+The exercises whose title carries a number such as [(**AK** 1.2(a))]{.grey} are
+taken from Chapter 1 of @Agresti2022; their data are those of the [website of
+the book](https://stat4ds.rwth-aachen.de/data/).
+
 ## Exercise A
 
 Write in **R** the function `f(x)` associated with
@@ -248,15 +252,26 @@ prod(eigen(A)$values) # Same value
 
 ## Exercise E
 
-The Euclidean distance between two vectors ${\bf x}$ and ${\bf y}$ in
-$\mathbb{R}^p$ is defined as
-$$d({\bf x},{\bf y}) = \sqrt{\sum_{j=1}^p(x_j - y_j)^2}.$$
+The [Euclidean distance]{.orange} between two vectors ${\bf x}$ and ${\bf y}$
+in $\mathbb{R}^p$ is defined as
+$$d({\bf x},{\bf y}) = \sqrt{\sum_{j=1}^p(x_j - y_j)^2},$$ whereas the
+[Frobenius norm]{.blue} $||{\bf A}||_F$ of a real-valued matrix ${\bf A}$ of
+dimension $n \times m$ is defined as
+$$||{\bf A}||_F = \sqrt{\sum_{i=1}^n \sum_{j=1}^m a_{ij}^2}.$$
 
-1.  Write the **R** function `dist_euclid(x, y)` that computes the
-    Euclidean distance between two vectors.
+1.  Write the **R** function `dist_euclid(x, y)` that computes the Euclidean
+    distance between two vectors.
 
-2.  If `x = c(1, 4, 2, 2, 10)` and `y = c(8, 1, 8, 3, 6)`, what is the
-    value of `dist_euclid(x, y)`?
+2.  If `x = c(1, 4, 2, 2, 10)` and `y = c(8, 1, 8, 3, 6)`, what is the value of
+    `dist_euclid(x, y)`?
+
+3.  Write the **R** function `frobenius_norm(A)` that computes the Frobenius
+    norm of a matrix `A`.
+
+4.  If `A = cbind(1:5,6:10,11:15)`, what is the value of `frobenius_norm(A)`?
+
+5.  Verify that `dist_euclid(x, y)` and `frobenius_norm(x - y)` return the same
+    value. Why is that the case?
 
 ::: {.callout-note collapse="true"}
 #### Solution
@@ -272,38 +287,24 @@ dist_euclid <- function(x, y) {
 x <- c(1, 4, 2, 2, 10)
 y <- c(8, 1, 8, 3, 6)
 dist_euclid(x, y) # 10.53565
-```
-:::
 
-## Exercise F
-
-The Frobenius norm $||{\bf A}||_F$ of a real-valued matrix ${\bf A}$ of
-dimension $n \times m$ is defined as
-$$||{\bf A}||_F = \sqrt{\sum_{i=1}^n \sum_{j=1}^m a_{ij}^2}.$$
-
-1.  Write the **R** function `frobenius_norm(A)` that computes the
-    Frobenius norm of a matrix `A`.
-
-2.  If `A = cbind(1:5,6:10,11:15)`, what is the value of
-    `frobenius_norm(A)`?
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# F.1
+# E.3
 frobenius_norm <- function(A) {
   sqrt(sum(A^2))
 }
 
-# F.2
+# E.4
 A <- cbind(1:5, 6:10, 11:15)
 frobenius_norm(A) # 35.21363
+
+# E.5
+frobenius_norm(x - y) # 10.53565, the same value
+# A vector can be seen as a matrix with a single column: in that case the two
+# definitions coincide
 ```
 :::
 
-## Exercise G
+## Exercise F
 
 Consider the dataset `data(mtcars)`, which is available in **R**. Answer
 the following questions:
@@ -331,14 +332,14 @@ mtcars[mtcars$cyl == 4 | 6, ]
 #| eval: false
 data(mtcars)
 
-# G.1
+# F.1
 dim(mtcars) # 32 rows, 11 columns
 
-# G.2
+# F.2
 mtcars[1:20] # A comma is missing
 mtcars[1:20, ] # Correct command
 
-# G.3
+# F.3
 # mtcars[mtcars$cyl = 4, ] # WRONG
 mtcars[mtcars$cyl == 4, ] # CORRECT
 
@@ -350,6 +351,86 @@ mtcars[mtcars$cyl <= 5, ] # CORRECT
 
 # mtcars[mtcars$cyl == 4 | 6, ] # WRONG
 mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, ] # CORRECT
+```
+:::
+
+## Exercise G [(**AK** 1.2(a))]{.grey}
+
+The `Students` data file of @Agresti2022 collects the answers of $60$ social
+science graduate students of the University of Florida to a questionnaire. It
+is available at [this
+link](https://stat4ds.rwth-aachen.de/data/Students.dat) and contains, among
+others, the following variables:
+
+-   `gender`, the gender of the student ($1 =$ female, $0 =$ male);
+
+-   `age`, the age in years;
+
+-   `hsgpa` and `cogpa`, the high school and the college *grade point
+    average*, on a four-point scale;
+
+-   `veg`, whether the student is a vegetarian ($1 =$ yes, $0 =$ no);
+
+-   `life`, the belief in life after death ($1 =$ yes, $2 =$ no, $3 =$
+    undecided).
+
+------------------------------------------------------------------------
+
+1.  Import the data into **R** and store them in the object `students`. The
+    `read.table` function accepts a [web address]{.orange} in place of a file
+    name, so there is no need to download the file first.
+
+2.  How many rows and how many columns does `students` have? Which type does
+    **R** assign to the variables? Are there missing values?
+
+3.  Note that `gender` and `life` are [qualitative]{.blue} variables, even
+    though they are stored as numbers. Convert them into `factor` objects with
+    meaningful labels, then obtain the frequency table of `life`.
+
+4.  Extract the sub-data-frame containing the variables `age`, `hsgpa` and
+    `cogpa` only.
+
+5.  How many students are vegetarian? How many of them are older than $30$?
+
+6.  Add to `students` a new variable `gpa_change`, the difference between the
+    college and the high school GPA. For how many students did the GPA
+    improve?
+
+::: {.callout-note collapse="true"}
+#### Solution
+
+```{r}
+#| eval: false
+# G.1
+path <- "https://stat4ds.rwth-aachen.de/data/Students.dat"
+students <- read.table(path, header = TRUE)
+
+# G.2
+dim(students) # 60 rows and 18 columns
+str(students) # Every variable is stored as a number
+sum(is.na(students)) # 0, there are no missing values
+
+# G.3
+students$gender <- factor(students$gender,
+  levels = c(0, 1),
+  labels = c("male", "female")
+)
+students$life <- factor(students$life,
+  levels = c(1, 2, 3),
+  labels = c("yes", "no", "undecided")
+)
+table(students$life)
+
+# G.4
+students[, c("age", "hsgpa", "cogpa")]
+
+# G.5
+sum(students$veg) # 9 vegetarians
+nrow(subset(students, age > 30)) # 18 students
+
+# G.6
+students$gpa_change <- students$cogpa - students$hsgpa
+sum(students$gpa_change > 0) # The GPA improved for 29 students
 ```
 :::
 
