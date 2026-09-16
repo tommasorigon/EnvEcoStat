@@ -38,11 +38,17 @@ editor_options:
 These exercises accompany Units [D](../un_D.html), [E](../un_E.html),
 [F](../un_F.html) and [G](../un_G.html).
 
-The exercises whose title carries a number such as [(**AK** 1.10)]{.grey} are
+The exercises whose title carries a number such as [(**AK** 1.17)]{.grey} are
 taken from Chapter 1 of @Agresti2022; their data are those of the [website of
 the book](https://stat4ds.rwth-aachen.de/data/).
 
-## Exercise A
+The [solution]{.blue} of each exercise is in a separate **R** script, linked
+from the title of the exercise itself.
+
+## Writing your own functions
+
+::: {.callout-note collapse="true"}
+#### Exercise A - Solution: [`variance.R`](../code/variance.R)
 
 The sample variance of the data ${\bf x} = (x_1,\dots,x_n)$ is defined as
 
@@ -70,44 +76,12 @@ $$\text{var}({\bf x}) = \frac{1}{2 n^2} \sum_{i=1}^n \sum_{j = 1}^n (x_i - x_j)^
 5.  Compare the functions `var2` and `var3` with the function `var` implemented
     in **R**, using the data of point 3. Why do the results differ, even if only
     slightly? Consult the documentation to answer.
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# A.1
-var2 <- function(x) {
-  mean((x - mean(x))^2)
-}
-
-# A.2
-var3 <- function(x) {
-  n <- length(x) # Get the length of the vector x
-  D <- matrix(0, nrow = n, ncol = n) # Creation of an empty matrix
-  for (i in 1:n) {
-    for (j in 1:n) {
-      D[i, j] <- (x[i] - x[j])^2
-    }
-  }
-  sum(D) / (2 * n^2)
-}
-
-# A.3
-x <- c(1, 4, 2, 2, 10)
-c(var2(x), var3(x))
-
-# A.4
-x <- 1:3000
-var2(x)
-var3(x) # Much slower than var2(x)
-
-# A.5
-var(x) # It divides by n - 1 and not by n
-```
 :::
 
-## Exercise B
+## Data analysis
+
+::: {.callout-note collapse="true"}
+#### `elections` dataset - Solution: [`elections.R`](../code/elections.R)
 
 At [this link](../data/elections.RData) the data of the 2016 municipal elections
 in the city of Milan are available. Each statistical unit is a single vote; the
@@ -141,342 +115,10 @@ variable `party` reports the list the vote was cast for, and the variable
     concentrated, that is the one in which the votes are polarised towards a few
     parties. Pay attention to the direction of the index: a Gini index close to
     $1$ means that the votes are spread evenly across the parties.
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# B.1
-# Assuming the file has been downloaded and the "path" is the correct one:
-load("data/elections.RData")
-
-# B.2
-str(elections) # Two variables of type "factor", "party" and "district"
-
-# B.3
-table(elections$party, elections$district)
-
-# B.4
-# Number of votes
-table(elections$party)
-
-# Barplot (the names may not appear, depending on the size of the plot window)
-barplot(table(elections$party))
-
-# Percentage of votes (rounded)
-round(100 * table(elections$party) / nrow(elections), 2)
-
-# B.5
-Gini <- function(x) {
-  freq <- as.numeric(table(x))
-  freq_rel <- freq / sum(freq)
-  1 - sum(freq_rel^2)
-}
-
-# B.6
-Gini_norm <- function(x) {
-  freq <- as.numeric(table(x))
-  freq_rel <- freq / sum(freq)
-  k <- length(freq)
-  k / (k - 1) * (1 - sum(freq_rel^2))
-}
-
-# B.7
-G <- tapply(elections$party, elections$district, Gini_norm)
-round(G, 4)
-names(which.max(G)) # District 9: the most fragmented
-names(which.min(G)) # District 1: the most concentrated (polarised)
-```
 :::
 
-## Exercise C
-
-The data available at [this link](../data/swiss.csv) refer to $47$
-French-speaking provinces of Switzerland around 1888. For each province three
-variables are reported: `fertility`, a standardised fertility measure;
-`agriculture`, the percentage of males employed in agriculture; and `education`,
-the logarithm of the percentage of people with education beyond primary school.
-
-------------------------------------------------------------------------
-
-1.  Load the data into memory and save the dataset in the object `swiss_data`.
-
-2.  Which variables does the dataset contain? Of which type are they?
-
-3.  Represent the variable `education` graphically through a histogram. Then
-    compute the mean, the median and the variance.
-
-4.  Represent graphically the cumulative distribution function of the variable
-    `agriculture`.
-
-5.  Draw the scatterplot of the variables `agriculture` and `education`. Can you
-    notice any relationship?
-
-6.  Obtain the variance-covariance matrix.
-
-7.  Obtain the correlation matrix. Comment on the relationship between
-    `agriculture` and `education`.
-
 ::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# C.1
-swiss_data <- read.table("data/swiss.csv", header = TRUE)
-
-# C.2
-str(swiss_data) # Three numerical variables
-
-# C.3
-hist(swiss_data$education)
-summary(swiss_data$education)
-var(swiss_data$education) # Leaving aside the n vs n-1 denominator
-
-# C.4
-plot(ecdf(swiss_data$agriculture))
-
-# C.5
-plot(swiss_data$agriculture, swiss_data$education)
-
-# C.6
-cov(swiss_data) # Leaving aside the n vs n-1 denominator
-
-# C.7
-cor(swiss_data)
-# Between agriculture and education there is a fairly marked negative relationship
-```
-:::
-
-## Exercise D
-
-In the dataset `football` available at [this link](../data/football.csv), each
-statistical unit represents a football match of the Italian Serie A, for the
-2008-2015 championships. The dataset is made of the following variables:
-
--   `Date` indicates the date of the match.
-
--   `HomeTeam` and `AwayTeam` indicate, respectively, the team playing at home
-    and the visiting team for each match.
-
--   `FTR` indicates whether the team playing at home won (H), drew (D), or lost
-    (A).
-
--   The variables `B365H`, `B365D`, `B365A` are the odds for the victory, draw
-    and defeat of the home team.
-
-Supposing to bet on the victory of the home team, betting one euro on it one
-would obtain `B365H` euros in case of victory.
-
-------------------------------------------------------------------------
-
-1.  Load the dataset into memory.
-
-2.  Check the types of the variables present in the dataset `football`.
-
-3.  Check whether there are missing data in the dataset. If present, exclude the
-    rows containing missing values from the analysis. **Hint**: use the function
-    `na.omit`.
-
-4.  Compute the main descriptive indices for the variable `B365H`. Then
-    represent it through a histogram and a boxplot. Are there outliers? How can
-    one tell?
-
-5.  Carry out the analysis of the previous point on the logarithmic
-    transformation of `B365H`. Are there outliers?
-
-6.  Evaluate the correlation between `B365H` and `B365A`. Could one have
-    expected a similar result? What would a positive correlation imply?
-
-7.  Represent with a suitable plot the relationship between the logarithmic
-    transformations of the variables `B365H` and `B365A`. Comment on the result.
-
-8.  Evaluate the average odds `B365H` for each category of the variable `FTR`.
-    How is this result interpreted?
-
-9.  Represent through a boxplot the variable `B365H` for each category of the
-    variable `FTR`. Comment on the result.
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# D.1
-football <- read.table("data/football.csv",
-  header = TRUE, sep = ",", stringsAsFactors = TRUE
-)
-
-# D.2
-str(football)
-
-# D.3
-summary(football) # There are 3 missing values
-football <- na.omit(football) # Missing data are excluded and the dataset overwritten
-
-# D.4
-summary(football$B365H)
-
-par(mfrow = c(1, 2))
-hist(football$B365H, breaks = 20)
-boxplot(football$B365H) # The plot shows that there are several outliers
-
-# D.5
-summary(log(football$B365H))
-par(mfrow = c(1, 2))
-hist(log(football$B365H), breaks = 20)
-boxplot(log(football$B365H)) # Outliers are still present, but the effect is reduced
-
-# D.6
-cor(football$B365H, football$B365A) # The comment is left to the student
-
-# D.7
-par(mfrow = c(1, 1))
-plot(log(football$B365H), log(football$B365A)) # The comment is left to the student
-
-# D.8
-tapply(football$B365H, football$FTR, mean) # The comment is left to the student
-
-# D.9
-plot(football$B365H ~ football$FTR) # The comment is left to the student
-```
-:::
-
-## Exercise E
-
-In the dataset `imdb` available at [this link](../data/imdb.RData), each
-statistical unit is a film extracted from the website http://www.imdb.com/
-(Internet Movie Data Base). For each film, the following variables are
-available:
-
--   `movie_title` is the title of the film.
-
--   `duration` is the duration of the film expressed in minutes.
-
--   `lgross` is the logarithmic transformation of the gross revenue, expressed
-    in dollars.
-
--   `lbudget` is the logarithmic transformation of the budget, expressed in
-    dollars.
-
--   `Action, Adventure, Animation, Comedy, Crime, Documentary, Drama, Family, Fantasy, History, Horror, Music, Romance, SciFi, Thriller, War, Western`
-    are qualitative variables indicating whether the film belongs to the genre
-    or not. Each film can belong to several genres at the same time.
-
-------------------------------------------------------------------------
-
-1.  Load the dataset into memory. Check the type of the variables.
-
-2.  How many statistical units are there?
-
-3.  What is the average duration of the films in the dataset? And the average
-    gross revenue?
-
-4.  Are there differences between the distribution of the duration (`duration`)
-    of dramatic films (`Drama`) and non-dramatic ones? Answer through suitable
-    descriptive indices and graphical analyses.
-
-5.  Which are the 5 films with the highest gross revenue within the dataset?
-    **Hint**: use the function `order`.
-
-6.  Represent with appropriate plots the marginal distributions and the joint
-    distribution of the variables `lbudget` and `lgross`. What kind of
-    relationship seems to be there between the two variables?
-
-7.  Compute the correlation between `lbudget` and `lgross` and comment on the
-    result.
-
-8.  Compute the correlation between `duration` and `lgross` and comment on the
-    result. Can we therefore conclude that, in order to earn a lot, it is enough
-    to produce a film lasting 12 hours?
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# E.1
-load("data/imdb.RData")
-str(imdb)
-
-# E.2
-nrow(imdb)
-
-# E.3
-mean(imdb$duration)
-mean(exp(imdb$lgross))
-
-# E.4
-tapply(imdb$duration, imdb$Drama, mean)
-tapply(imdb$duration, imdb$Drama, median)
-plot(imdb$duration ~ imdb$Drama) # Boxplot
-
-# E.5
-imdb$movie_title[order(imdb$lgross, decreasing = TRUE)][1:5]
-
-# E.6
-par(mfrow = c(1, 3))
-hist(imdb$lbudget)
-hist(imdb$lgross)
-plot(imdb$lbudget, imdb$lgross)
-par(mfrow = c(1, 1))
-
-# E.7
-cor(imdb$lbudget, imdb$lgross) # The comment is left to the student
-
-# E.8
-cor(imdb$duration, imdb$lgross) # The comment is left to the student
-```
-:::
-
-## Exercise F [(**AK** 1.10)]{.grey}
-
-The `Carbon_West` data file of @Agresti2022, available at [this
-link](https://stat4ds.rwth-aachen.de/data/Carbon_West.dat), reports the [per
-capita CO$_2$ emissions]{.orange} (in metric tons) of $35$ Western nations.
-
-------------------------------------------------------------------------
-
-1.  Import the data into **R**. The `read.table` function accepts a [web
-    address]{.orange} in place of a file name, so there is no need to download
-    the file first.
-
-2.  Construct a frequency distribution and a histogram of `CO2`. How would you
-    describe the shape of the distribution?
-
-3.  Find the mean, the median and the standard deviation, and interpret them.
-
-4.  Which nations are responsible for the right tail of the distribution?
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# F.1
-path <- "https://stat4ds.rwth-aachen.de/data/Carbon_West.dat"
-Carbon <- read.table(path, header = TRUE)
-str(Carbon) # 35 nations, a single quantitative variable
-
-# F.2
-classes <- seq(0, 18, by = 3)
-table(cut(Carbon$CO2, breaks = classes))
-hist(Carbon$CO2, breaks = classes)
-# Most nations emit between 3 and 9 tons, with a long right tail
-
-# F.3
-mean(Carbon$CO2) # 6.72
-median(Carbon$CO2) # 5.90, smaller than the mean, as expected for a right tail
-sd(Carbon$CO2) # 3.36, leaving aside the n vs n - 1 denominator
-
-# F.4
-Carbon$Nation[order(Carbon$CO2, decreasing = TRUE)][1:3]
-# The United States, Australia and Canada
-```
-:::
-
-## Exercise G [(**AK** 1.17)]{.grey}
+#### `Murder` dataset [(**AK** 1.17)]{.grey} - Solution: [`Murder.R`](../code/Murder.R)
 
 The `Murder` data file of @Agresti2022, available at [this
 link](https://stat4ds.rwth-aachen.de/data/Murder.dat), reports the [murder
@@ -499,149 +141,51 @@ At first, [leave the observation relative to `DC` aside]{.blue}.
 
 4.  Include `DC` again. What is affected more by this outlier: the mean or the
     median? The range or the interquartile range? Why?
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# G.1
-path <- "https://stat4ds.rwth-aachen.de/data/Murder.dat"
-Murder <- read.table(path, header = TRUE)
-Murder_no_DC <- subset(Murder, state != "DC")
-
-# G.2
-mean(Murder_no_DC$murder) # 4.87 murders per 100.000 inhabitants
-sd(Murder_no_DC$murder) # 2.59
-
-# G.3
-fivenum(Murder_no_DC$murder) # 1.00, 2.60, 4.85, 6.20, 12.40
-boxplot(Murder_no_DC$murder)
-# Louisiana (12.4) is already an outlier among the 50 states
-
-# G.4
-c(mean(Murder_no_DC$murder), mean(Murder$murder)) # 4.87 -> 5.25
-c(median(Murder_no_DC$murder), median(Murder$murder)) # 4.85 -> 5.00
-
-diff(range(Murder_no_DC$murder)) # 11.4
-diff(range(Murder$murder)) # 23.2, twice as much
-
-IQR(Murder_no_DC$murder) # 3.55
-IQR(Murder$murder) # 3.80, almost unchanged
-
-# A single observation moves the mean and the range a lot, the median and the
-# interquartile range very little: the latter are *robust* to outliers
-```
 :::
 
-## Exercise H [(**AK** 1.19)]{.grey}
+::: {.callout-note collapse="true"}
+#### `Houses` dataset [(**AK** 1.19--1.20)]{.grey} - Solution: [`Houses.R`](../code/Houses.R)
 
 The `Houses` data file of @Agresti2022, available at [this
 link](https://stat4ds.rwth-aachen.de/data/Houses.dat), lists the selling price
 (`price`, in thousands of dollars), the size (`size`, in square feet), the tax
 bill (`taxes`, in dollars), the number of bedrooms (`bedrooms`) and of
 bathrooms (`baths`), and whether the house is new (`new`, $1 =$ yes, $0 =$ no)
-for $100$ home sales in Gainesville, Florida. Here we analyse the [selling
-prices]{.orange}.
+for $100$ home sales in Gainesville, Florida.
 
 ------------------------------------------------------------------------
 
-1.  Import the data into **R**. Construct a frequency distribution and a
-    histogram of `price`, and describe the shape of the distribution.
+1.  Import the data into **R**. The `read.table` function accepts a [web
+    address]{.orange} in place of a file name, so there is no need to download
+    the file first. Construct a frequency distribution and a histogram of
+    `price`, and describe the shape of the distribution.
 
 2.  Find the percentage of observations that fall within one standard deviation
     of the mean, that is in the interval $(\bar{x} - s, \bar{x} + s)$. Why is
     this percentage not close to $68\%$?
 
-3.  Construct a boxplot and interpret it.
+3.  Construct a boxplot of `price` and interpret it.
 
-4.  Use descriptive statistics to compare the selling prices of new and old
+4.  Repeat the three previous points on the [logarithm of the
+    price]{.orange}. Does the empirical rule work better on this scale? Why?
+
+5.  Use descriptive statistics to compare the selling prices of new and old
     houses. Would you regard this comparison as reliable?
 
-::: {.callout-note collapse="true"}
-#### Solution
+6.  Let now $y =$ `price` and $x =$ `size`. Construct a scatterplot and
+    interpret it. Identify the observation that seems to fall apart from the
+    others.
 
-```{r}
-#| eval: false
-# H.1
-path <- "https://stat4ds.rwth-aachen.de/data/Houses.dat"
-Houses <- read.table(path, header = TRUE)
+7.  Find the correlation and interpret it. Then find the regression line,
+    interpret the slope, and find the predicted selling price for a house of
+    (i) $1000$ square feet, (ii) $4000$ square feet.
 
-classes <- seq(0, 900, by = 100)
-table(cut(Houses$price, breaks = classes))
-hist(Houses$price, breaks = classes)
-# The distribution is strongly skewed to the right
-
-# H.2
-price_mean <- mean(Houses$price) # 233.0
-price_sd <- sd(Houses$price) # 151.9
-mean(abs(Houses$price - price_mean) <= price_sd) # 0.85, that is 85%
-# The empirical rule concerns bell-shaped distributions. Here the distribution
-# is strongly asymmetric, so the rule does not apply
-
-# H.3
-fivenum(Houses$price) # 31.5, 138.8, 198.9, 257.6, 880.5
-boxplot(Houses$price) # Several outliers, all on the right
-
-# H.4
-table(Houses$new) # Only 11 of the 100 houses are new
-tapply(Houses$price, Houses$new, mean) # 207.9 vs 436.4
-tapply(Houses$price, Houses$new, median) # 190.8 vs 427.5
-boxplot(price ~ new, data = Houses)
-# New houses are sold at about twice the price, but they are only 11: the
-# comparison is based on a very small group
-```
-:::
-
-## Exercise I [(**AK** 1.20)]{.grey}
-
-Refer to the previous exercise, and let $y =$ `price` and $x =$ `size`.
-
-------------------------------------------------------------------------
-
-1.  Construct a scatterplot and interpret it. Identify the observation that
-    seems to fall apart from the others.
-
-2.  Find the correlation and interpret it.
-
-3.  Find the regression line. Interpret the slope, and find the predicted
-    selling price for a house of (i) $1000$ square feet, (ii) $4000$ square
-    feet.
-
-4.  Remove the observation identified at point 1 and obtain the regression line
+8.  Remove the observation identified at point 6 and obtain the regression line
     again. How much do the estimates change?
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# I.1
-plot(Houses$size, Houses$price)
-# One house is the largest of the sample but is sold at an average price
-Houses[which.max(Houses$size), ] # Case 64: 4050 square feet, 337.5
-
-# I.2
-cor(Houses$size, Houses$price) # 0.834, a strong positive linear relationship
-
-# I.3
-fit <- lm(price ~ size, data = Houses)
-coef(fit) # Intercept -76.39, slope 0.1899
-# One additional square foot is worth, on average, about 190 dollars
-abline(fit)
-
-predict(fit, newdata = data.frame(size = c(1000, 4000))) # 113.5 and 683.2
-
-# I.4
-Houses_no64 <- subset(Houses, case != 64)
-fit2 <- lm(price ~ size, data = Houses_no64)
-coef(fit2) # Intercept -109.37, slope 0.2127
-cor(Houses_no64$size, Houses_no64$price) # 0.871
-# A single observation out of 100 changes the slope by more than 10%
-```
 :::
 
-## Exercise J [(**AK** 1.24)]{.grey}
+::: {.callout-note collapse="true"}
+#### `UN` dataset [(**AK** 1.24)]{.grey} - Solution: [`UN.R`](../code/UN.R)
 
 The `UN` data file of @Agresti2022, available at [this
 link](https://stat4ds.rwth-aachen.de/data/UN.dat), has United Nations data for
@@ -681,49 +225,10 @@ $42$ nations on the following variables:
 4.  The correlation between `GDP` and `Prison` is essentially zero. Does this
     mean that the two variables are unrelated? Look at the scatterplot, and
     then repeat the computation without the United States.
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# J.1
-path <- "https://stat4ds.rwth-aachen.de/data/UN.dat"
-UN <- read.table(path, header = TRUE)
-
-summary(UN$Prison) # Median 119.5, mean 153.9: the distribution is skewed
-sd(UN$Prison) # 124.3
-boxplot(UN$Prison)
-UN$Nation[order(UN$Prison, decreasing = TRUE)][1:3]
-# The United States (716) are far above every other nation, Russia is second
-
-# J.2
-round(cor(UN[, -1]), 2) # The first column contains the names of the nations
-# The strongest association is between GDP and HDI (0.90), which is no
-# surprise, since the income per capita is one of the components of the HDI
-
-# J.3
-plot(UN$GDP, UN$CO2)
-cor(UN$GDP, UN$CO2) # 0.674
-
-fit <- lm(CO2 ~ GDP, data = UN)
-coef(fit) # Intercept 1.926, slope 0.1778
-abline(fit)
-
-predict(fit, newdata = data.frame(GDP = range(UN$GDP))) # From 2.71 to 13.11
-
-# J.4
-cor(UN$GDP, UN$Prison) # -0.003
-plot(UN$GDP, UN$Prison) # The United States are an extreme observation
-
-UN_no_US <- subset(UN, Nation != "US")
-cor(UN_no_US$GDP, UN_no_US$Prison) # -0.27
-# A correlation close to zero does not mean that there is no relationship: here
-# it is the result of a single, very influential observation
-```
 :::
 
-## Exercise K [(**AK** 1.27)]{.grey}
+::: {.callout-note collapse="true"}
+#### `Sheep` dataset [(**AK** 1.27)]{.grey} - Solution: [`Sheep.R`](../code/Sheep.R)
 
 A study of sheep analysed whether a sheep survived for a year from the original
 observation time (`survival`, $1 =$ yes, $0 =$ no) as a function of its
@@ -743,32 +248,4 @@ link](https://stat4ds.rwth-aachen.de/data/Sheep.dat).
 
 4.  Summarise the results of your analysis in a few sentences. Can you conclude
     that being heavier [causes]{.orange} a sheep to survive?
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# K.1
-path <- "https://stat4ds.rwth-aachen.de/data/Sheep.dat"
-Sheep <- read.table(path, header = TRUE)
-
-nrow(Sheep) # 1359 sheep
-table(Sheep$survival) # 318 did not survive, 1041 did
-
-# K.2
-tapply(Sheep$weight, Sheep$survival, mean) # 16.0 vs 20.6
-tapply(Sheep$weight, Sheep$survival, median) # 14.8 vs 21.6
-tapply(Sheep$weight, Sheep$survival, sd) # 5.3 vs 4.9
-tapply(Sheep$weight, Sheep$survival, summary)
-
-# K.3
-boxplot(weight ~ survival, data = Sheep)
-
-# K.4
-# The sheep that survived are clearly heavier, by about 5 kg on average, and
-# the two distributions still overlap a great deal. This is an observational
-# study: the weight is a symptom of the health of the animal, not necessarily
-# a cause of its survival
-```
 :::

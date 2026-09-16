@@ -35,16 +35,22 @@ editor_options:
 
 ## [Homepage](../index.html)
 
-These exercises accompany [Unit A](../un_A.html). A few of them require
-[writing your own functions]{.orange} or working with [data frames]{.blue},
-which are covered later on: come back to those once we have seen the
-corresponding material.
+These exercises accompany Units [A](../un_A.html), [B](../un_B.html) and
+[C](../un_C.html). The exercises of the last section require [data
+frames]{.blue}, which are covered in Unit C: come back to those once we have
+seen the corresponding material.
 
 The exercises whose title carries a number such as [(**AK** 1.2(a))]{.grey} are
 taken from Chapter 1 of @Agresti2022; their data are those of the [website of
 the book](https://stat4ds.rwth-aachen.de/data/).
 
-## Exercise A
+The [solution]{.blue} of each exercise is in a separate **R** script, linked
+from the title of the exercise itself.
+
+## Numerical computing and programming
+
+::: {.callout-note collapse="true"}
+#### Exercise A - Solution: [`function.R`](../code/function.R)
 
 Write in **R** the function `f(x)` associated with
 
@@ -67,37 +73,10 @@ $$
     $$ where $a < b$ are two real values. Compute the value of the
     integral $\int_1^3 f(x)\mathrm{d}x$, where $f(x)$ is the function
     used in the previous points.
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-f <- function(x) {
-  abs(sin(pi / (4 * x^2))) / x
-}
-
-# A.1
-f(1)
-f(10^8)
-
-# A.2
-round(f(1), 2)
-round(f(10), 2)
-
-# A.3
-curve(f(x), 1, 3)
-
-# A.4
-K <- 500
-sum(f(1:K))
-
-# A.5
-integrate(f, lower = 1, upper = 3)
-```
 :::
 
-## Exercise B
+::: {.callout-note collapse="true"}
+#### Exercise B - Solution: [`binomial.R`](../code/binomial.R)
 
 Verify numerically the following identities for $n = 10, 100, 1000$
 (where possible).
@@ -113,48 +92,10 @@ Verify numerically the following identities for $n = 10, 100, 1000$
 3.  $$
     \sum_{k=1}^n(-1)^{k}k \binom{n}{k} = 0.
     $$
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# B.1
-n <- 10
-sum((-1)^(0:n) * choose(n, 0:n))
-
-n <- 100
-sum((-1)^(0:n) * choose(n, 0:n)) # NUMERICAL ERROR!
-
-n <- 1000
-sum((-1)^(0:n) * choose(n, 0:n)) # NUMERICAL ERROR!
-
-# B.2
-n <- 10
-sum((1:n) * choose(n, 1:n))
-n * 2^(n - 1)
-
-n <- 100
-sum((1:n) * choose(n, 1:n))
-n * 2^(n - 1)
-
-n <- 1000
-sum((1:n) * choose(n, 1:n))
-n * 2^(n - 1)
-
-# B.3
-n <- 10
-sum((-1)^(1:n) * (1:n) * choose(n, 1:n))
-
-n <- 100
-sum((-1)^(1:n) * (1:n) * choose(n, 1:n)) # NUMERICAL ERROR!
-
-n <- 1000
-sum((-1)^(1:n) * (1:n) * choose(n, 1:n)) # NUMERICAL ERROR!
-```
 :::
 
-## Exercise C
+::: {.callout-note collapse="true"}
+#### Exercise C - Solution: [`roots.R`](../code/roots.R)
 
 Write in **R** a function `roots(a, b, c)` that takes as input the
 coefficients of the polynomial
@@ -169,32 +110,10 @@ zero.
 2.  Compute `roots(1, 2, 1)`;
 
 3.  Compute `roots(1, 1, 1)` and comment on the result.
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# The solution of a quadratic equation is of course available in closed form
-
-roots <- function(a, b, c) {
-  Delta <- b^2 - 4 * a * c
-  if (Delta < 0) stop("The discriminant must be non-negative")
-  (-b + c(-1, 1) * sqrt(Delta)) / (2 * a)
-}
-
-# C.1
-roots(1, 5, 2)
-
-# C.2
-roots(1, 2, 1)
-
-# C.3
-roots(1, 1, 1) # There are no real solutions
-```
 :::
 
-## Exercise D
+::: {.callout-note collapse="true"}
+#### Exercise D - Solution: [`matrix.R`](../code/matrix.R)
 
 Define in **R** a symmetric matrix ${\bf A}$ of dimension $5 \times 5$,
 whose elements are $$
@@ -219,38 +138,10 @@ $$
 4.  Verify empirically that
     $\text{det}({\bf A}) = \prod_{i=1}^n \lambda_i$, where
     $\lambda_1,\dots,\lambda_n$ are the eigenvalues of ${\bf A}$.
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-A <- rbind(
-  c(26, 22, 17, 22, 23),
-  c(22, 18, 14, 23, 27),
-  c(17, 14, 14, 20, 24),
-  c(22, 23, 20, 26, 23),
-  c(23, 27, 24, 23, 12)
-)
-
-# D.1
-det(solve(A)) # 0.0006493506
-1 / det(A) # Same value
-
-# D.2
-det(A %*% A) # 2371600
-det(A)^2 # Same value
-
-# D.3
-sum(diag(A)) # 96
-
-# D.4
-det(A) # 1540
-prod(eigen(A)$values) # Same value
-```
 :::
 
-## Exercise E
+::: {.callout-note collapse="true"}
+#### Exercise E - Solution: [`distances.R`](../code/distances.R)
 
 The [Euclidean distance]{.orange} between two vectors ${\bf x}$ and ${\bf y}$
 in $\mathbb{R}^p$ is defined as
@@ -272,39 +163,44 @@ $$||{\bf A}||_F = \sqrt{\sum_{i=1}^n \sum_{j=1}^m a_{ij}^2}.$$
 
 5.  Verify that `dist_euclid(x, y)` and `frobenius_norm(x - y)` return the same
     value. Why is that the case?
+:::
 
 ::: {.callout-note collapse="true"}
-#### Solution
+#### Exercise F - Solution: [`diagonal.R`](../code/diagonal.R)
+
+Let ${\bf A}$ be a matrix of dimension $n \times n$. Implement a function
+that extracts the diagonal elements $a_{ii}$, for $i = 1,\dots,n$, of the
+matrix ${\bf A}$. Then compare it with the `diag` function of **R**.
+:::
+
+::: {.callout-note collapse="true"}
+#### Exercise G - Solution: [`nested.R`](../code/nested.R)
+
+What does the function `f(10)` return? Discuss the result without running
+the following code
 
 ```{r}
 #| eval: false
-# E.1
-dist_euclid <- function(x, y) {
-  sqrt(crossprod(x - y))
+h <- function(x) {
+  x^2 
 }
 
-# E.2
-x <- c(1, 4, 2, 2, 10)
-y <- c(8, 1, 8, 3, 6)
-dist_euclid(x, y) # 10.53565
-
-# E.3
-frobenius_norm <- function(A) {
-  sqrt(sum(A^2))
+g <- function(x) {
+  h(x) + 1 
 }
 
-# E.4
-A <- cbind(1:5, 6:10, 11:15)
-frobenius_norm(A) # 35.21363
+f <- function(x) {
+  g(x) * 2 
+}
 
-# E.5
-frobenius_norm(x - y) # 10.53565, the same value
-# A vector can be seen as a matrix with a single column: in that case the two
-# definitions coincide
+f(10)
 ```
 :::
 
-## Exercise F
+## Data frames
+
+::: {.callout-note collapse="true"}
+#### `mtcars` dataset - Solution: [`mtcars.R`](../code/mtcars.R)
 
 Consider the dataset `data(mtcars)`, which is available in **R**. Answer
 the following questions:
@@ -324,37 +220,10 @@ mtcars[-1:4, ]
 mtcars[mtcars$cyl <= 5] 
 mtcars[mtcars$cyl == 4 | 6, ]
 ```
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-data(mtcars)
-
-# F.1
-dim(mtcars) # 32 rows, 11 columns
-
-# F.2
-mtcars[1:20] # A comma is missing
-mtcars[1:20, ] # Correct command
-
-# F.3
-# mtcars[mtcars$cyl = 4, ] # WRONG
-mtcars[mtcars$cyl == 4, ] # CORRECT
-
-# mtcars[-1:4, ] # WRONG
-mtcars[-(1:4), ] # CORRECT (drops the first 4 rows)
-
-# mtcars[mtcars$cyl <= 5] # WRONG
-mtcars[mtcars$cyl <= 5, ] # CORRECT
-
-# mtcars[mtcars$cyl == 4 | 6, ] # WRONG
-mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, ] # CORRECT
-```
 :::
 
-## Exercise G [(**AK** 1.2(a))]{.grey}
+::: {.callout-note collapse="true"}
+#### `Students` dataset [(**AK** 1.2(a))]{.grey} - Solution: [`Students.R`](../code/Students.R)
 
 The `Students` data file of @Agresti2022 collects the answers of $60$ social
 science graduate students of the University of Florida to a questionnaire. It
@@ -395,103 +264,4 @@ others, the following variables:
 6.  Add to `students` a new variable `gpa_change`, the difference between the
     college and the high school GPA. For how many students did the GPA
     improve?
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-# G.1
-path <- "https://stat4ds.rwth-aachen.de/data/Students.dat"
-students <- read.table(path, header = TRUE)
-
-# G.2
-dim(students) # 60 rows and 18 columns
-str(students) # Every variable is stored as a number
-sum(is.na(students)) # 0, there are no missing values
-
-# G.3
-students$gender <- factor(students$gender,
-  levels = c(0, 1),
-  labels = c("male", "female")
-)
-students$life <- factor(students$life,
-  levels = c(1, 2, 3),
-  labels = c("yes", "no", "undecided")
-)
-table(students$life)
-
-# G.4
-students[, c("age", "hsgpa", "cogpa")]
-
-# G.5
-sum(students$veg) # 9 vegetarians
-nrow(subset(students, age > 30)) # 18 students
-
-# G.6
-students$gpa_change <- students$cogpa - students$hsgpa
-sum(students$gpa_change > 0) # The GPA improved for 29 students
-```
-:::
-
-## Exercise H
-
-Let ${\bf A}$ be a matrix of dimension $n \times n$. Implement a function
-that extracts the diagonal elements $a_{ii}$, for $i = 1,\dots,n$, of the
-matrix ${\bf A}$. Then compare it with the `diag` function of **R**.
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-```{r}
-#| eval: false
-diag2 <- function(A) {
-  n <- nrow(A)
-  diagonal <- numeric(n)
-  for (i in 1:n) {
-    diagonal[i] <- A[i, i]
-  }
-  diagonal
-}
-
-A <- rbind(
-  c(26, 22, 17, 22, 23),
-  c(22, 18, 14, 23, 27),
-  c(17, 14, 14, 20, 24),
-  c(22, 23, 20, 26, 23),
-  c(23, 27, 24, 23, 12)
-)
-
-diag(A)
-diag2(A)
-```
-:::
-
-## Exercise I
-
-What does the function `f(10)` return? Discuss the result without running
-the following code
-
-```{r}
-#| eval: false
-h <- function(x) {
-  x^2 
-}
-
-g <- function(x) {
-  h(x) + 1 
-}
-
-f <- function(x) {
-  g(x) * 2 
-}
-
-f(10)
-```
-
-::: {.callout-note collapse="true"}
-#### Solution
-
-The exercise asked you to guess the result without running the code. If
-executed, it returns `202`.
 :::

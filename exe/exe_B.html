@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -147,17 +112,8 @@ window.Quarto = {
    
   <ul>
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a></li>
-  <li><a href="#exercise-a" id="toc-exercise-a" class="nav-link" data-scroll-target="#exercise-a">Exercise A</a></li>
-  <li><a href="#exercise-b" id="toc-exercise-b" class="nav-link" data-scroll-target="#exercise-b">Exercise B</a></li>
-  <li><a href="#exercise-c" id="toc-exercise-c" class="nav-link" data-scroll-target="#exercise-c">Exercise C</a></li>
-  <li><a href="#exercise-d" id="toc-exercise-d" class="nav-link" data-scroll-target="#exercise-d">Exercise D</a></li>
-  <li><a href="#exercise-e" id="toc-exercise-e" class="nav-link" data-scroll-target="#exercise-e">Exercise E</a></li>
-  <li><a href="#exercise-f-ak-1.10" id="toc-exercise-f-ak-1.10" class="nav-link" data-scroll-target="#exercise-f-ak-1.10">Exercise F <span class="grey">(<strong>AK</strong> 1.10)</span></a></li>
-  <li><a href="#exercise-g-ak-1.17" id="toc-exercise-g-ak-1.17" class="nav-link" data-scroll-target="#exercise-g-ak-1.17">Exercise G <span class="grey">(<strong>AK</strong> 1.17)</span></a></li>
-  <li><a href="#exercise-h-ak-1.19" id="toc-exercise-h-ak-1.19" class="nav-link" data-scroll-target="#exercise-h-ak-1.19">Exercise H <span class="grey">(<strong>AK</strong> 1.19)</span></a></li>
-  <li><a href="#exercise-i-ak-1.20" id="toc-exercise-i-ak-1.20" class="nav-link" data-scroll-target="#exercise-i-ak-1.20">Exercise I <span class="grey">(<strong>AK</strong> 1.20)</span></a></li>
-  <li><a href="#exercise-j-ak-1.24" id="toc-exercise-j-ak-1.24" class="nav-link" data-scroll-target="#exercise-j-ak-1.24">Exercise J <span class="grey">(<strong>AK</strong> 1.24)</span></a></li>
-  <li><a href="#exercise-k-ak-1.27" id="toc-exercise-k-ak-1.27" class="nav-link" data-scroll-target="#exercise-k-ak-1.27">Exercise K <span class="grey">(<strong>AK</strong> 1.27)</span></a></li>
+  <li><a href="#writing-your-own-functions" id="toc-writing-your-own-functions" class="nav-link" data-scroll-target="#writing-your-own-functions">Writing your own functions</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data analysis</a></li>
   </ul>
 </nav>
 </div>
@@ -199,10 +155,23 @@ window.Quarto = {
 <section id="homepage" class="level2">
 <h2 class="anchored" data-anchor-id="homepage"><a href="../index.html">Homepage</a></h2>
 <p>These exercises accompany Units <a href="../un_D.html">D</a>, <a href="../un_E.html">E</a>, <a href="../un_F.html">F</a> and <a href="../un_G.html">G</a>.</p>
-<p>The exercises whose title carries a number such as <span class="grey">(<strong>AK</strong> 1.10)</span> are taken from Chapter 1 of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>; their data are those of the <a href="https://stat4ds.rwth-aachen.de/data/">website of the book</a>.</p>
+<p>The exercises whose title carries a number such as <span class="grey">(<strong>AK</strong> 1.17)</span> are taken from Chapter 1 of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>; their data are those of the <a href="https://stat4ds.rwth-aachen.de/data/">website of the book</a>.</p>
+<p>The <span class="blue">solutions</span> are collected in the script <a href="../code/exe_B.R"><code>exe_B.R</code></a>, linked from the title of each exercise.</p>
 </section>
-<section id="exercise-a" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-a">Exercise A</h2>
+<section id="writing-your-own-functions" class="level2">
+<h2 class="anchored" data-anchor-id="writing-your-own-functions">Writing your own functions</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise A - Solution: <a href="../code/exe_B.R"><code>exe_B.R</code></a>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>The sample variance of the data <span class="math inline">{\bf x} = (x_1,\dots,x_n)</span> is defined as</p>
 <p><span class="math display">
 \text{var}({\bf x}) = \frac{1}{n}\sum_{i=1}^n(x_i - \bar{x})^2,
@@ -216,54 +185,24 @@ window.Quarto = {
 <li><p>Suppose now that <code>x &lt;- 1:3000</code>. Do you notice any difference with respect to the previous point?</p></li>
 <li><p>Compare the functions <code>var2</code> and <code>var3</code> with the function <code>var</code> implemented in <strong>R</strong>, using the data of point 3. Why do the results differ, even if only slightly? Consult the documentation to answer.</p></li>
 </ol>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A.1</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>var2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># A.2</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>var3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x) <span class="co"># Get the length of the vector x</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> n) <span class="co"># Creation of an empty matrix</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      D[i, j] <span class="ot">&lt;-</span> (x[i] <span class="sc">-</span> x[j])<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(D) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> n<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># A.3</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">10</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">var2</span>(x), <span class="fu">var3</span>(x))</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># A.4</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3000</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">var2</span>(x)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">var3</span>(x) <span class="co"># Much slower than var2(x)</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># A.5</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(x) <span class="co"># It divides by n - 1 and not by n</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-b" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-b">Exercise B</h2>
+<section id="data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="data-analysis">Data analysis</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>elections</code> dataset - Solution: <a href="../code/exe_B.R"><code>exe_B.R</code></a>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>At <a href="../data/elections.RData">this link</a> the data of the 2016 municipal elections in the city of Milan are available. Each statistical unit is a single vote; the variable <code>party</code> reports the list the vote was cast for, and the variable <code>district</code> the borough (<em>Municipio</em>) in which it was cast.</p>
 <hr>
 <ol type="1">
@@ -277,314 +216,21 @@ G = 1 - \sum_{j=1}^k f_j^2,
 <li><p>Write a function <code>Gini_norm(x)</code> that computes the normalised Gini index, that is <span class="math display">G_\text{norm} = \frac{k}{k-1} G.</span></p></li>
 <li><p>Evaluate the fragmentation of the votes among the parties in the different districts using the normalised Gini index. Organise the results in a table and say which district is the most fragmented and which one is the most concentrated, that is the one in which the votes are polarised towards a few parties. Pay attention to the direction of the index: a Gini index close to <span class="math inline">1</span> means that the votes are spread evenly across the parties.</p></li>
 </ol>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B.1</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming the file has been downloaded and the "path" is the correct one:</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/elections.RData"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># B.2</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(elections) <span class="co"># Two variables of type "factor", "party" and "district"</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># B.3</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(elections<span class="sc">$</span>party, elections<span class="sc">$</span>district)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># B.4</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of votes</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(elections<span class="sc">$</span>party)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot (the names may not appear, depending on the size of the plot window)</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(elections<span class="sc">$</span>party))</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Percentage of votes (rounded)</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">table</span>(elections<span class="sc">$</span>party) <span class="sc">/</span> <span class="fu">nrow</span>(elections), <span class="dv">2</span>)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># B.5</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>Gini <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  freq <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">table</span>(x))</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  freq_rel <span class="ot">&lt;-</span> freq <span class="sc">/</span> <span class="fu">sum</span>(freq)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(freq_rel<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co"># B.6</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>Gini_norm <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  freq <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">table</span>(x))</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  freq_rel <span class="ot">&lt;-</span> freq <span class="sc">/</span> <span class="fu">sum</span>(freq)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">length</span>(freq)</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  k <span class="sc">/</span> (k <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(freq_rel<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co"># B.7</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">tapply</span>(elections<span class="sc">$</span>party, elections<span class="sc">$</span>district, Gini_norm)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(G, <span class="dv">4</span>)</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">which.max</span>(G)) <span class="co"># District 9: the most fragmented</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">which.min</span>(G)) <span class="co"># District 1: the most concentrated (polarised)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
-</div>
-</section>
-<section id="exercise-c" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-c">Exercise C</h2>
-<p>The data available at <a href="../data/swiss.csv">this link</a> refer to <span class="math inline">47</span> French-speaking provinces of Switzerland around 1888. For each province three variables are reported: <code>fertility</code>, a standardised fertility measure; <code>agriculture</code>, the percentage of males employed in agriculture; and <code>education</code>, the logarithm of the percentage of people with education beyond primary school.</p>
-<hr>
-<ol type="1">
-<li><p>Load the data into memory and save the dataset in the object <code>swiss_data</code>.</p></li>
-<li><p>Which variables does the dataset contain? Of which type are they?</p></li>
-<li><p>Represent the variable <code>education</code> graphically through a histogram. Then compute the mean, the median and the variance.</p></li>
-<li><p>Represent graphically the cumulative distribution function of the variable <code>agriculture</code>.</p></li>
-<li><p>Draw the scatterplot of the variables <code>agriculture</code> and <code>education</code>. Can you notice any relationship?</p></li>
-<li><p>Obtain the variance-covariance matrix.</p></li>
-<li><p>Obtain the correlation matrix. Comment on the relationship between <code>agriculture</code> and <code>education</code>.</p></li>
-</ol>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<code>Murder</code> dataset <span class="grey">(<strong>AK</strong> 1.17)</span> - Solution: <a href="../code/exe_B.R"><code>exe_B.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># C.1</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>swiss_data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/swiss.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># C.2</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(swiss_data) <span class="co"># Three numerical variables</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># C.3</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(swiss_data<span class="sc">$</span>education)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(swiss_data<span class="sc">$</span>education)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(swiss_data<span class="sc">$</span>education) <span class="co"># Leaving aside the n vs n-1 denominator</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># C.4</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(swiss_data<span class="sc">$</span>agriculture))</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># C.5</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(swiss_data<span class="sc">$</span>agriculture, swiss_data<span class="sc">$</span>education)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># C.6</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(swiss_data) <span class="co"># Leaving aside the n vs n-1 denominator</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># C.7</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(swiss_data)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Between agriculture and education there is a fairly marked negative relationship</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-d" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-d">Exercise D</h2>
-<p>In the dataset <code>football</code> available at <a href="../data/football.csv">this link</a>, each statistical unit represents a football match of the Italian Serie A, for the 2008-2015 championships. The dataset is made of the following variables:</p>
-<ul>
-<li><p><code>Date</code> indicates the date of the match.</p></li>
-<li><p><code>HomeTeam</code> and <code>AwayTeam</code> indicate, respectively, the team playing at home and the visiting team for each match.</p></li>
-<li><p><code>FTR</code> indicates whether the team playing at home won (H), drew (D), or lost (A).</p></li>
-<li><p>The variables <code>B365H</code>, <code>B365D</code>, <code>B365A</code> are the odds for the victory, draw and defeat of the home team.</p></li>
-</ul>
-<p>Supposing to bet on the victory of the home team, betting one euro on it one would obtain <code>B365H</code> euros in case of victory.</p>
-<hr>
-<ol type="1">
-<li><p>Load the dataset into memory.</p></li>
-<li><p>Check the types of the variables present in the dataset <code>football</code>.</p></li>
-<li><p>Check whether there are missing data in the dataset. If present, exclude the rows containing missing values from the analysis. <strong>Hint</strong>: use the function <code>na.omit</code>.</p></li>
-<li><p>Compute the main descriptive indices for the variable <code>B365H</code>. Then represent it through a histogram and a boxplot. Are there outliers? How can one tell?</p></li>
-<li><p>Carry out the analysis of the previous point on the logarithmic transformation of <code>B365H</code>. Are there outliers?</p></li>
-<li><p>Evaluate the correlation between <code>B365H</code> and <code>B365A</code>. Could one have expected a similar result? What would a positive correlation imply?</p></li>
-<li><p>Represent with a suitable plot the relationship between the logarithmic transformations of the variables <code>B365H</code> and <code>B365A</code>. Comment on the result.</p></li>
-<li><p>Evaluate the average odds <code>B365H</code> for each category of the variable <code>FTR</code>. How is this result interpreted?</p></li>
-<li><p>Represent through a boxplot the variable <code>B365H</code> for each category of the variable <code>FTR</code>. Comment on the result.</p></li>
-</ol>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># D.1</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>football <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/football.csv"</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># D.2</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(football)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># D.3</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(football) <span class="co"># There are 3 missing values</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>football <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(football) <span class="co"># Missing data are excluded and the dataset overwritten</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># D.4</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(football<span class="sc">$</span>B365H)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(football<span class="sc">$</span>B365H, <span class="at">breaks =</span> <span class="dv">20</span>)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(football<span class="sc">$</span>B365H) <span class="co"># The plot shows that there are several outliers</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># D.5</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">log</span>(football<span class="sc">$</span>B365H))</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">log</span>(football<span class="sc">$</span>B365H), <span class="at">breaks =</span> <span class="dv">20</span>)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log</span>(football<span class="sc">$</span>B365H)) <span class="co"># Outliers are still present, but the effect is reduced</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># D.6</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(football<span class="sc">$</span>B365H, football<span class="sc">$</span>B365A) <span class="co"># The comment is left to the student</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co"># D.7</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">log</span>(football<span class="sc">$</span>B365H), <span class="fu">log</span>(football<span class="sc">$</span>B365A)) <span class="co"># The comment is left to the student</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co"># D.8</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(football<span class="sc">$</span>B365H, football<span class="sc">$</span>FTR, mean) <span class="co"># The comment is left to the student</span></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co"># D.9</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(football<span class="sc">$</span>B365H <span class="sc">~</span> football<span class="sc">$</span>FTR) <span class="co"># The comment is left to the student</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-e" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-e">Exercise E</h2>
-<p>In the dataset <code>imdb</code> available at <a href="../data/imdb.RData">this link</a>, each statistical unit is a film extracted from the website http://www.imdb.com/ (Internet Movie Data Base). For each film, the following variables are available:</p>
-<ul>
-<li><p><code>movie_title</code> is the title of the film.</p></li>
-<li><p><code>duration</code> is the duration of the film expressed in minutes.</p></li>
-<li><p><code>lgross</code> is the logarithmic transformation of the gross revenue, expressed in dollars.</p></li>
-<li><p><code>lbudget</code> is the logarithmic transformation of the budget, expressed in dollars.</p></li>
-<li><p><code>Action, Adventure, Animation, Comedy, Crime, Documentary, Drama, Family, Fantasy, History, Horror, Music, Romance, SciFi, Thriller, War, Western</code> are qualitative variables indicating whether the film belongs to the genre or not. Each film can belong to several genres at the same time.</p></li>
-</ul>
-<hr>
-<ol type="1">
-<li><p>Load the dataset into memory. Check the type of the variables.</p></li>
-<li><p>How many statistical units are there?</p></li>
-<li><p>What is the average duration of the films in the dataset? And the average gross revenue?</p></li>
-<li><p>Are there differences between the distribution of the duration (<code>duration</code>) of dramatic films (<code>Drama</code>) and non-dramatic ones? Answer through suitable descriptive indices and graphical analyses.</p></li>
-<li><p>Which are the 5 films with the highest gross revenue within the dataset? <strong>Hint</strong>: use the function <code>order</code>.</p></li>
-<li><p>Represent with appropriate plots the marginal distributions and the joint distribution of the variables <code>lbudget</code> and <code>lgross</code>. What kind of relationship seems to be there between the two variables?</p></li>
-<li><p>Compute the correlation between <code>lbudget</code> and <code>lgross</code> and comment on the result.</p></li>
-<li><p>Compute the correlation between <code>duration</code> and <code>lgross</code> and comment on the result. Can we therefore conclude that, in order to earn a lot, it is enough to produce a film lasting 12 hours?</p></li>
-</ol>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># E.1</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/imdb.RData"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(imdb)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># E.2</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(imdb)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># E.3</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(imdb<span class="sc">$</span>duration)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">exp</span>(imdb<span class="sc">$</span>lgross))</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># E.4</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(imdb<span class="sc">$</span>duration, imdb<span class="sc">$</span>Drama, mean)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(imdb<span class="sc">$</span>duration, imdb<span class="sc">$</span>Drama, median)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imdb<span class="sc">$</span>duration <span class="sc">~</span> imdb<span class="sc">$</span>Drama) <span class="co"># Boxplot</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># E.5</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>imdb<span class="sc">$</span>movie_title[<span class="fu">order</span>(imdb<span class="sc">$</span>lgross, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)][<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># E.6</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(imdb<span class="sc">$</span>lbudget)</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(imdb<span class="sc">$</span>lgross)</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imdb<span class="sc">$</span>lbudget, imdb<span class="sc">$</span>lgross)</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co"># E.7</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(imdb<span class="sc">$</span>lbudget, imdb<span class="sc">$</span>lgross) <span class="co"># The comment is left to the student</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co"># E.8</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(imdb<span class="sc">$</span>duration, imdb<span class="sc">$</span>lgross) <span class="co"># The comment is left to the student</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-f-ak-1.10" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-f-ak-1.10">Exercise F <span class="grey">(<strong>AK</strong> 1.10)</span></h2>
-<p>The <code>Carbon_West</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>, available at <a href="https://stat4ds.rwth-aachen.de/data/Carbon_West.dat">this link</a>, reports the <span class="orange">per capita CO<span class="math inline">_2</span> emissions</span> (in metric tons) of <span class="math inline">35</span> Western nations.</p>
-<hr>
-<ol type="1">
-<li><p>Import the data into <strong>R</strong>. The <code>read.table</code> function accepts a <span class="orange">web address</span> in place of a file name, so there is no need to download the file first.</p></li>
-<li><p>Construct a frequency distribution and a histogram of <code>CO2</code>. How would you describe the shape of the distribution?</p></li>
-<li><p>Find the mean, the median and the standard deviation, and interpret them.</p></li>
-<li><p>Which nations are responsible for the right tail of the distribution?</p></li>
-</ol>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># F.1</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://stat4ds.rwth-aachen.de/data/Carbon_West.dat"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Carbon <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Carbon) <span class="co"># 35 nations, a single quantitative variable</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># F.2</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>classes <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">18</span>, <span class="at">by =</span> <span class="dv">3</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">cut</span>(Carbon<span class="sc">$</span>CO2, <span class="at">breaks =</span> classes))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Carbon<span class="sc">$</span>CO2, <span class="at">breaks =</span> classes)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Most nations emit between 3 and 9 tons, with a long right tail</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># F.3</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Carbon<span class="sc">$</span>CO2) <span class="co"># 6.72</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(Carbon<span class="sc">$</span>CO2) <span class="co"># 5.90, smaller than the mean, as expected for a right tail</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(Carbon<span class="sc">$</span>CO2) <span class="co"># 3.36, leaving aside the n vs n - 1 denominator</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># F.4</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>Carbon<span class="sc">$</span>Nation[<span class="fu">order</span>(Carbon<span class="sc">$</span>CO2, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)][<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co"># The United States, Australia and Canada</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-g-ak-1.17" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-g-ak-1.17">Exercise G <span class="grey">(<strong>AK</strong> 1.17)</span></h2>
 <p>The <code>Murder</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>, available at <a href="https://stat4ds.rwth-aachen.de/data/Murder.dat">this link</a>, reports the <span class="orange">murder rate</span> (number of murders per <span class="math inline">100{,}000</span> inhabitants) of each of the <span class="math inline">50</span> states of the U.S. and of the District of Columbia (<code>DC</code>), according to the FBI Uniform Crime Reports.</p>
 <p>At first, <span class="blue">leave the observation relative to <code>DC</code> aside</span>.</p>
 <hr>
@@ -594,157 +240,51 @@ Solution
 <li><p>Still without <code>DC</code>, find the five-number summary and construct the corresponding boxplot. Interpret them.</p></li>
 <li><p>Include <code>DC</code> again. What is affected more by this outlier: the mean or the median? The range or the interquartile range? Why?</p></li>
 </ol>
+</div>
+</div>
+</div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<code>Houses</code> dataset <span class="grey">(<strong>AK</strong> 1.19–1.20)</span> - Solution: <a href="../code/exe_B.R"><code>exe_B.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># G.1</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://stat4ds.rwth-aachen.de/data/Murder.dat"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Murder <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Murder_no_DC <span class="ot">&lt;-</span> <span class="fu">subset</span>(Murder, state <span class="sc">!=</span> <span class="st">"DC"</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># G.2</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Murder_no_DC<span class="sc">$</span>murder) <span class="co"># 4.87 murders per 100.000 inhabitants</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(Murder_no_DC<span class="sc">$</span>murder) <span class="co"># 2.59</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># G.3</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">fivenum</span>(Murder_no_DC<span class="sc">$</span>murder) <span class="co"># 1.00, 2.60, 4.85, 6.20, 12.40</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Murder_no_DC<span class="sc">$</span>murder)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Louisiana (12.4) is already an outlier among the 50 states</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># G.4</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(Murder_no_DC<span class="sc">$</span>murder), <span class="fu">mean</span>(Murder<span class="sc">$</span>murder)) <span class="co"># 4.87 -&gt; 5.25</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">median</span>(Murder_no_DC<span class="sc">$</span>murder), <span class="fu">median</span>(Murder<span class="sc">$</span>murder)) <span class="co"># 4.85 -&gt; 5.00</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(<span class="fu">range</span>(Murder_no_DC<span class="sc">$</span>murder)) <span class="co"># 11.4</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(<span class="fu">range</span>(Murder<span class="sc">$</span>murder)) <span class="co"># 23.2, twice as much</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(Murder_no_DC<span class="sc">$</span>murder) <span class="co"># 3.55</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(Murder<span class="sc">$</span>murder) <span class="co"># 3.80, almost unchanged</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co"># A single observation moves the mean and the range a lot, the median and the</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co"># interquartile range very little: the latter are *robust* to outliers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-h-ak-1.19" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-h-ak-1.19">Exercise H <span class="grey">(<strong>AK</strong> 1.19)</span></h2>
-<p>The <code>Houses</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>, available at <a href="https://stat4ds.rwth-aachen.de/data/Houses.dat">this link</a>, lists the selling price (<code>price</code>, in thousands of dollars), the size (<code>size</code>, in square feet), the tax bill (<code>taxes</code>, in dollars), the number of bedrooms (<code>bedrooms</code>) and of bathrooms (<code>baths</code>), and whether the house is new (<code>new</code>, <span class="math inline">1 =</span> yes, <span class="math inline">0 =</span> no) for <span class="math inline">100</span> home sales in Gainesville, Florida. Here we analyse the <span class="orange">selling prices</span>.</p>
+<p>The <code>Houses</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>, available at <a href="https://stat4ds.rwth-aachen.de/data/Houses.dat">this link</a>, lists the selling price (<code>price</code>, in thousands of dollars), the size (<code>size</code>, in square feet), the tax bill (<code>taxes</code>, in dollars), the number of bedrooms (<code>bedrooms</code>) and of bathrooms (<code>baths</code>), and whether the house is new (<code>new</code>, <span class="math inline">1 =</span> yes, <span class="math inline">0 =</span> no) for <span class="math inline">100</span> home sales in Gainesville, Florida.</p>
 <hr>
 <ol type="1">
-<li><p>Import the data into <strong>R</strong>. Construct a frequency distribution and a histogram of <code>price</code>, and describe the shape of the distribution.</p></li>
+<li><p>Import the data into <strong>R</strong>. The <code>read.table</code> function accepts a <span class="orange">web address</span> in place of a file name, so there is no need to download the file first. Construct a frequency distribution and a histogram of <code>price</code>, and describe the shape of the distribution.</p></li>
 <li><p>Find the percentage of observations that fall within one standard deviation of the mean, that is in the interval <span class="math inline">(\bar{x} - s, \bar{x} + s)</span>. Why is this percentage not close to <span class="math inline">68\%</span>?</p></li>
-<li><p>Construct a boxplot and interpret it.</p></li>
+<li><p>Construct a boxplot of <code>price</code> and interpret it.</p></li>
+<li><p>Repeat the three previous points on the <span class="orange">logarithm of the price</span>. Does the empirical rule work better on this scale? Why?</p></li>
 <li><p>Use descriptive statistics to compare the selling prices of new and old houses. Would you regard this comparison as reliable?</p></li>
+<li><p>Let now <span class="math inline">y =</span> <code>price</code> and <span class="math inline">x =</span> <code>size</code>. Construct a scatterplot and interpret it. Identify the observation that seems to fall apart from the others.</p></li>
+<li><p>Find the correlation and interpret it. Then find the regression line, interpret the slope, and find the predicted selling price for a house of</p>
+<ol type="i">
+<li><span class="math inline">1000</span> square feet, (ii) <span class="math inline">4000</span> square feet.</li>
+</ol></li>
+<li><p>Remove the observation identified at point 6 and obtain the regression line again. How much do the estimates change?</p></li>
 </ol>
+</div>
+</div>
+</div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<code>UN</code> dataset <span class="grey">(<strong>AK</strong> 1.24)</span> - Solution: <a href="../code/exe_B.R"><code>exe_B.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># H.1</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://stat4ds.rwth-aachen.de/data/Houses.dat"</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Houses <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>classes <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">900</span>, <span class="at">by =</span> <span class="dv">100</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">cut</span>(Houses<span class="sc">$</span>price, <span class="at">breaks =</span> classes))</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Houses<span class="sc">$</span>price, <span class="at">breaks =</span> classes)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The distribution is strongly skewed to the right</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># H.2</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>price_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(Houses<span class="sc">$</span>price) <span class="co"># 233.0</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>price_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(Houses<span class="sc">$</span>price) <span class="co"># 151.9</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">abs</span>(Houses<span class="sc">$</span>price <span class="sc">-</span> price_mean) <span class="sc">&lt;=</span> price_sd) <span class="co"># 0.85, that is 85%</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># The empirical rule concerns bell-shaped distributions. Here the distribution</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># is strongly asymmetric, so the rule does not apply</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># H.3</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">fivenum</span>(Houses<span class="sc">$</span>price) <span class="co"># 31.5, 138.8, 198.9, 257.6, 880.5</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Houses<span class="sc">$</span>price) <span class="co"># Several outliers, all on the right</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># H.4</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Houses<span class="sc">$</span>new) <span class="co"># Only 11 of the 100 houses are new</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(Houses<span class="sc">$</span>price, Houses<span class="sc">$</span>new, mean) <span class="co"># 207.9 vs 436.4</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(Houses<span class="sc">$</span>price, Houses<span class="sc">$</span>new, median) <span class="co"># 190.8 vs 427.5</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(price <span class="sc">~</span> new, <span class="at">data =</span> Houses)</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co"># New houses are sold at about twice the price, but they are only 11: the</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co"># comparison is based on a very small group</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-i-ak-1.20" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-i-ak-1.20">Exercise I <span class="grey">(<strong>AK</strong> 1.20)</span></h2>
-<p>Refer to the previous exercise, and let <span class="math inline">y =</span> <code>price</code> and <span class="math inline">x =</span> <code>size</code>.</p>
-<hr>
-<ol type="1">
-<li><p>Construct a scatterplot and interpret it. Identify the observation that seems to fall apart from the others.</p></li>
-<li><p>Find the correlation and interpret it.</p></li>
-<li><p>Find the regression line. Interpret the slope, and find the predicted selling price for a house of (i) <span class="math inline">1000</span> square feet, (ii) <span class="math inline">4000</span> square feet.</p></li>
-<li><p>Remove the observation identified at point 1 and obtain the regression line again. How much do the estimates change?</p></li>
-</ol>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I.1</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Houses<span class="sc">$</span>size, Houses<span class="sc">$</span>price)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># One house is the largest of the sample but is sold at an average price</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>Houses[<span class="fu">which.max</span>(Houses<span class="sc">$</span>size), ] <span class="co"># Case 64: 4050 square feet, 337.5</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># I.2</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Houses<span class="sc">$</span>size, Houses<span class="sc">$</span>price) <span class="co"># 0.834, a strong positive linear relationship</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># I.3</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> size, <span class="at">data =</span> Houses)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit) <span class="co"># Intercept -76.39, slope 0.1899</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># One additional square foot is worth, on average, about 190 dollars</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">size =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">4000</span>))) <span class="co"># 113.5 and 683.2</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># I.4</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>Houses_no64 <span class="ot">&lt;-</span> <span class="fu">subset</span>(Houses, case <span class="sc">!=</span> <span class="dv">64</span>)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> size, <span class="at">data =</span> Houses_no64)</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit2) <span class="co"># Intercept -109.37, slope 0.2127</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Houses_no64<span class="sc">$</span>size, Houses_no64<span class="sc">$</span>price) <span class="co"># 0.871</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co"># A single observation out of 100 changes the slope by more than 10%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-j-ak-1.24" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-j-ak-1.24">Exercise J <span class="grey">(<strong>AK</strong> 1.24)</span></h2>
 <p>The <code>UN</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>, available at <a href="https://stat4ds.rwth-aachen.de/data/UN.dat">this link</a>, has United Nations data for <span class="math inline">42</span> nations on the following variables:</p>
 <ul>
 <li><p><code>GDP</code>, the per capita gross domestic product, in thousands of dollars;</p></li>
@@ -763,59 +303,21 @@ Solution
 <li><p>Study the association between <code>CO2</code> and <code>GDP</code> through a scatterplot, the correlation and the regression line. Show how the predicted CO<span class="math inline">_2</span> varies as <code>GDP</code> goes from its minimum to its maximum value in this sample.</p></li>
 <li><p>The correlation between <code>GDP</code> and <code>Prison</code> is essentially zero. Does this mean that the two variables are unrelated? Look at the scatterplot, and then repeat the computation without the United States.</p></li>
 </ol>
+</div>
+</div>
+</div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<code>Sheep</code> dataset <span class="grey">(<strong>AK</strong> 1.27)</span> - Solution: <a href="../code/exe_B.R"><code>exe_B.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># J.1</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://stat4ds.rwth-aachen.de/data/UN.dat"</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>UN <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(UN<span class="sc">$</span>Prison) <span class="co"># Median 119.5, mean 153.9: the distribution is skewed</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(UN<span class="sc">$</span>Prison) <span class="co"># 124.3</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(UN<span class="sc">$</span>Prison)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>UN<span class="sc">$</span>Nation[<span class="fu">order</span>(UN<span class="sc">$</span>Prison, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)][<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The United States (716) are far above every other nation, Russia is second</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># J.2</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(UN[, <span class="sc">-</span><span class="dv">1</span>]), <span class="dv">2</span>) <span class="co"># The first column contains the names of the nations</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The strongest association is between GDP and HDI (0.90), which is no</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># surprise, since the income per capita is one of the components of the HDI</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># J.3</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(UN<span class="sc">$</span>GDP, UN<span class="sc">$</span>CO2)</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(UN<span class="sc">$</span>GDP, UN<span class="sc">$</span>CO2) <span class="co"># 0.674</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(CO2 <span class="sc">~</span> GDP, <span class="at">data =</span> UN)</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit) <span class="co"># Intercept 1.926, slope 0.1778</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit)</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">GDP =</span> <span class="fu">range</span>(UN<span class="sc">$</span>GDP))) <span class="co"># From 2.71 to 13.11</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># J.4</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(UN<span class="sc">$</span>GDP, UN<span class="sc">$</span>Prison) <span class="co"># -0.003</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(UN<span class="sc">$</span>GDP, UN<span class="sc">$</span>Prison) <span class="co"># The United States are an extreme observation</span></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>UN_no_US <span class="ot">&lt;-</span> <span class="fu">subset</span>(UN, Nation <span class="sc">!=</span> <span class="st">"US"</span>)</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(UN_no_US<span class="sc">$</span>GDP, UN_no_US<span class="sc">$</span>Prison) <span class="co"># -0.27</span></span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="co"># A correlation close to zero does not mean that there is no relationship: here</span></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co"># it is the result of a single, very influential observation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-k-ak-1.27" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-k-ak-1.27">Exercise K <span class="grey">(<strong>AK</strong> 1.27)</span></h2>
 <p>A study of sheep analysed whether a sheep survived for a year from the original observation time (<code>survival</code>, <span class="math inline">1 =</span> yes, <span class="math inline">0 =</span> no) as a function of its <code>weight</code>, in kg, at the original observation. The <code>Sheep</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span> is available at <a href="https://stat4ds.rwth-aachen.de/data/Sheep.dat">this link</a>.</p>
 <hr>
 <ol type="1">
@@ -824,41 +326,6 @@ Solution
 <li><p>Compare the same two distributions graphically.</p></li>
 <li><p>Summarise the results of your analysis in a few sentences. Can you conclude that being heavier <span class="orange">causes</span> a sheep to survive?</p></li>
 </ol>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># K.1</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://stat4ds.rwth-aachen.de/data/Sheep.dat"</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Sheep <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(Sheep) <span class="co"># 1359 sheep</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Sheep<span class="sc">$</span>survival) <span class="co"># 318 did not survive, 1041 did</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># K.2</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(Sheep<span class="sc">$</span>weight, Sheep<span class="sc">$</span>survival, mean) <span class="co"># 16.0 vs 20.6</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(Sheep<span class="sc">$</span>weight, Sheep<span class="sc">$</span>survival, median) <span class="co"># 14.8 vs 21.6</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(Sheep<span class="sc">$</span>weight, Sheep<span class="sc">$</span>survival, sd) <span class="co"># 5.3 vs 4.9</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(Sheep<span class="sc">$</span>weight, Sheep<span class="sc">$</span>survival, summary)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># K.3</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(weight <span class="sc">~</span> survival, <span class="at">data =</span> Sheep)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># K.4</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># The sheep that survived are clearly heavier, by about 5 kg on average, and</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># the two distributions still overlap a great deal. This is an observational</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># study: the weight is a symptom of the health of the animal, not necessarily</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># a cause of its survival</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </div>
 </div>
 </div>
