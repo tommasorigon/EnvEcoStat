@@ -56,7 +56,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="exe_A_files/libs/clipboard/clipboard.min.js"></script>
@@ -133,10 +153,9 @@ window.Quarto = {
   <li><a href="#exercise-d" id="toc-exercise-d" class="nav-link" data-scroll-target="#exercise-d">Exercise D</a></li>
   <li><a href="#exercise-e" id="toc-exercise-e" class="nav-link" data-scroll-target="#exercise-e">Exercise E</a></li>
   <li><a href="#exercise-f" id="toc-exercise-f" class="nav-link" data-scroll-target="#exercise-f">Exercise F</a></li>
-  <li><a href="#exercise-g" id="toc-exercise-g" class="nav-link" data-scroll-target="#exercise-g">Exercise G</a></li>
+  <li><a href="#exercise-g-ak-1.2a" id="toc-exercise-g-ak-1.2a" class="nav-link" data-scroll-target="#exercise-g-ak-1.2a">Exercise G <span class="grey">(<strong>AK</strong> 1.2(a))</span></a></li>
   <li><a href="#exercise-h" id="toc-exercise-h" class="nav-link" data-scroll-target="#exercise-h">Exercise H</a></li>
   <li><a href="#exercise-i" id="toc-exercise-i" class="nav-link" data-scroll-target="#exercise-i">Exercise I</a></li>
-  <li><a href="#exercises-from-the-textbook-albert-rizzo-ar" id="toc-exercises-from-the-textbook-albert-rizzo-ar" class="nav-link" data-scroll-target="#exercises-from-the-textbook-albert-rizzo-ar">Exercises from the textbook Albert &amp; Rizzo (<strong>AR</strong>)</a></li>
   </ul>
 </nav>
 </div>
@@ -178,6 +197,7 @@ window.Quarto = {
 <section id="homepage" class="level2">
 <h2 class="anchored" data-anchor-id="homepage"><a href="../index.html">Homepage</a></h2>
 <p>These exercises accompany <a href="../un_A.html">Unit A</a>. A few of them require <span class="orange">writing your own functions</span> or working with <span class="blue">data frames</span>, which are covered later on: come back to those once we have seen the corresponding material.</p>
+<p>The exercises whose title carries a number such as <span class="grey">(<strong>AK</strong> 1.2(a))</span> are taken from Chapter 1 of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>; their data are those of the <a href="https://stat4ds.rwth-aachen.de/data/">website of the book</a>.</p>
 </section>
 <section id="exercise-a" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-a">Exercise A</h2>
@@ -401,10 +421,13 @@ Solution
 </section>
 <section id="exercise-e" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-e">Exercise E</h2>
-<p>The Euclidean distance between two vectors <span class="math inline">{\bf x}</span> and <span class="math inline">{\bf y}</span> in <span class="math inline">\mathbb{R}^p</span> is defined as <span class="math display">d({\bf x},{\bf y}) = \sqrt{\sum_{j=1}^p(x_j - y_j)^2}.</span></p>
+<p>The <span class="orange">Euclidean distance</span> between two vectors <span class="math inline">{\bf x}</span> and <span class="math inline">{\bf y}</span> in <span class="math inline">\mathbb{R}^p</span> is defined as <span class="math display">d({\bf x},{\bf y}) = \sqrt{\sum_{j=1}^p(x_j - y_j)^2},</span> whereas the <span class="blue">Frobenius norm</span> <span class="math inline">||{\bf A}||_F</span> of a real-valued matrix <span class="math inline">{\bf A}</span> of dimension <span class="math inline">n \times m</span> is defined as <span class="math display">||{\bf A}||_F = \sqrt{\sum_{i=1}^n \sum_{j=1}^m a_{ij}^2}.</span></p>
 <ol type="1">
 <li><p>Write the <strong>R</strong> function <code>dist_euclid(x, y)</code> that computes the Euclidean distance between two vectors.</p></li>
 <li><p>If <code>x = c(1, 4, 2, 2, 10)</code> and <code>y = c(8, 1, 8, 3, 6)</code>, what is the value of <code>dist_euclid(x, y)</code>?</p></li>
+<li><p>Write the <strong>R</strong> function <code>frobenius_norm(A)</code> that computes the Frobenius norm of a matrix <code>A</code>.</p></li>
+<li><p>If <code>A = cbind(1:5,6:10,11:15)</code>, what is the value of <code>frobenius_norm(A)</code>?</p></li>
+<li><p>Verify that <code>dist_euclid(x, y)</code> and <code>frobenius_norm(x - y)</code> return the same value. Why is that the case?</p></li>
 </ol>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
@@ -427,7 +450,21 @@ Solution
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># E.2</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">10</span>)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">6</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dist_euclid</span>(x, y) <span class="co"># 10.53565</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dist_euclid</span>(x, y) <span class="co"># 10.53565</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># E.3</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>frobenius_norm <span class="ot">&lt;-</span> <span class="cf">function</span>(A) {</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="fu">sum</span>(A<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># E.4</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">6</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">11</span><span class="sc">:</span><span class="dv">15</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">frobenius_norm</span>(A) <span class="co"># 35.21363</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># E.5</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">frobenius_norm</span>(x <span class="sc">-</span> y) <span class="co"># 10.53565, the same value</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># A vector can be seen as a matrix with a single column: in that case the two</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># definitions coincide</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -435,11 +472,18 @@ Solution
 </section>
 <section id="exercise-f" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-f">Exercise F</h2>
-<p>The Frobenius norm <span class="math inline">||{\bf A}||_F</span> of a real-valued matrix <span class="math inline">{\bf A}</span> of dimension <span class="math inline">n \times m</span> is defined as <span class="math display">||{\bf A}||_F = \sqrt{\sum_{i=1}^n \sum_{j=1}^m a_{ij}^2}.</span></p>
+<p>Consider the dataset <code>data(mtcars)</code>, which is available in <strong>R</strong>. Answer the following questions:</p>
 <ol type="1">
-<li><p>Write the <strong>R</strong> function <code>frobenius_norm(A)</code> that computes the Frobenius norm of a matrix <code>A</code>.</p></li>
-<li><p>If <code>A = cbind(1:5,6:10,11:15)</code>, what is the value of <code>frobenius_norm(A)</code>?</p></li>
+<li><p>How many rows and how many columns does this dataset have?</p></li>
+<li><p>Why does the command <code>mtcars[1:20]</code> return an error? What is the difference with the command <code>mtcars[1:20, ]</code>?</p></li>
+<li><p>Each of the following lines contains an error (a bug). Propose a modification to fix it</p></li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="ot">=</span> <span class="dv">4</span>, ] </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, ] </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="sc">&lt;=</span> <span class="dv">5</span>] </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="sc">==</span> <span class="dv">4</span> <span class="sc">|</span> <span class="dv">6</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -453,33 +497,51 @@ Solution
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># F.1</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>frobenius_norm <span class="ot">&lt;-</span> <span class="cf">function</span>(A) {</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="fu">sum</span>(A<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># F.2</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">6</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">11</span><span class="sc">:</span><span class="dv">15</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">frobenius_norm</span>(A) <span class="co"># 35.21363</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># F.1</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(mtcars) <span class="co"># 32 rows, 11 columns</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># F.2</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="co"># A comma is missing</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, ] <span class="co"># Correct command</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># F.3</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># mtcars[mtcars$cyl = 4, ] # WRONG</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="sc">==</span> <span class="dv">4</span>, ] <span class="co"># CORRECT</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># mtcars[-1:4, ] # WRONG</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), ] <span class="co"># CORRECT (drops the first 4 rows)</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># mtcars[mtcars$cyl &lt;= 5] # WRONG</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="sc">&lt;=</span> <span class="dv">5</span>, ] <span class="co"># CORRECT</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># mtcars[mtcars$cyl == 4 | 6, ] # WRONG</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="sc">==</span> <span class="dv">4</span> <span class="sc">|</span> mtcars<span class="sc">$</span>cyl <span class="sc">==</span> <span class="dv">6</span>, ] <span class="co"># CORRECT</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-g" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-g">Exercise G</h2>
-<p>Consider the dataset <code>data(mtcars)</code>, which is available in <strong>R</strong>. Answer the following questions:</p>
+<section id="exercise-g-ak-1.2a" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-g-ak-1.2a">Exercise G <span class="grey">(<strong>AK</strong> 1.2(a))</span></h2>
+<p>The <code>Students</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span> collects the answers of <span class="math inline">60</span> social science graduate students of the University of Florida to a questionnaire. It is available at <a href="https://stat4ds.rwth-aachen.de/data/Students.dat">this link</a> and contains, among others, the following variables:</p>
+<ul>
+<li><p><code>gender</code>, the gender of the student (<span class="math inline">1 =</span> female, <span class="math inline">0 =</span> male);</p></li>
+<li><p><code>age</code>, the age in years;</p></li>
+<li><p><code>hsgpa</code> and <code>cogpa</code>, the high school and the college <em>grade point average</em>, on a four-point scale;</p></li>
+<li><p><code>veg</code>, whether the student is a vegetarian (<span class="math inline">1 =</span> yes, <span class="math inline">0 =</span> no);</p></li>
+<li><p><code>life</code>, the belief in life after death (<span class="math inline">1 =</span> yes, <span class="math inline">2 =</span> no, <span class="math inline">3 =</span> undecided).</p></li>
+</ul>
+<hr>
 <ol type="1">
-<li><p>How many rows and how many columns does this dataset have?</p></li>
-<li><p>Why does the command <code>mtcars[1:20]</code> return an error? What is the difference with the command <code>mtcars[1:20, ]</code>?</p></li>
-<li><p>Each of the following lines contains an error (a bug). Propose a modification to fix it</p></li>
+<li><p>Import the data into <strong>R</strong> and store them in the object <code>students</code>. The <code>read.table</code> function accepts a <span class="orange">web address</span> in place of a file name, so there is no need to download the file first.</p></li>
+<li><p>How many rows and how many columns does <code>students</code> have? Which type does <strong>R</strong> assign to the variables? Are there missing values?</p></li>
+<li><p>Note that <code>gender</code> and <code>life</code> are <span class="blue">qualitative</span> variables, even though they are stored as numbers. Convert them into <code>factor</code> objects with meaningful labels, then obtain the frequency table of <code>life</code>.</p></li>
+<li><p>Extract the sub-data-frame containing the variables <code>age</code>, <code>hsgpa</code> and <code>cogpa</code> only.</p></li>
+<li><p>How many students are vegetarian? How many of them are older than <span class="math inline">30</span>?</p></li>
+<li><p>Add to <code>students</code> a new variable <code>gpa_change</code>, the difference between the college and the high school GPA. For how many students did the GPA improve?</p></li>
 </ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="ot">=</span> <span class="dv">4</span>, ] </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, ] </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="sc">&lt;=</span> <span class="dv">5</span>] </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="sc">==</span> <span class="dv">4</span> <span class="sc">|</span> <span class="dv">6</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -493,27 +555,36 @@ Solution
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># G.1</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(mtcars) <span class="co"># 32 rows, 11 columns</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># G.2</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="co"># A comma is missing</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, ] <span class="co"># Correct command</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># G.1</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://stat4ds.rwth-aachen.de/data/Students.dat"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># G.2</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(students) <span class="co"># 60 rows and 18 columns</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(students) <span class="co"># Every variable is stored as a number</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(students)) <span class="co"># 0, there are no missing values</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># G.3</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># mtcars[mtcars$cyl = 4, ] # WRONG</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="sc">==</span> <span class="dv">4</span>, ] <span class="co"># CORRECT</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># mtcars[-1:4, ] # WRONG</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), ] <span class="co"># CORRECT (drops the first 4 rows)</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># mtcars[mtcars$cyl &lt;= 5] # WRONG</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="sc">&lt;=</span> <span class="dv">5</span>, ] <span class="co"># CORRECT</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co"># mtcars[mtcars$cyl == 4 | 6, ] # WRONG</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="sc">==</span> <span class="dv">4</span> <span class="sc">|</span> mtcars<span class="sc">$</span>cyl <span class="sc">==</span> <span class="dv">6</span>, ] <span class="co"># CORRECT</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>students<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">factor</span>(students<span class="sc">$</span>gender,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"female"</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>students<span class="sc">$</span>life <span class="ot">&lt;-</span> <span class="fu">factor</span>(students<span class="sc">$</span>life,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"no"</span>, <span class="st">"undecided"</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(students<span class="sc">$</span>life)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># G.4</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>students[, <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"hsgpa"</span>, <span class="st">"cogpa"</span>)]</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co"># G.5</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(students<span class="sc">$</span>veg) <span class="co"># 9 vegetarians</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">subset</span>(students, age <span class="sc">&gt;</span> <span class="dv">30</span>)) <span class="co"># 18 students</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co"># G.6</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>students<span class="sc">$</span>gpa_change <span class="ot">&lt;-</span> students<span class="sc">$</span>cogpa <span class="sc">-</span> students<span class="sc">$</span>hsgpa</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(students<span class="sc">$</span>gpa_change <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="co"># The GPA improved for 29 students</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -593,17 +664,14 @@ Solution
 </div>
 </div>
 </div>
-</section>
-<section id="exercises-from-the-textbook-albert-rizzo-ar" class="level2">
-<h2 class="anchored" data-anchor-id="exercises-from-the-textbook-albert-rizzo-ar">Exercises from the textbook Albert &amp; Rizzo (<strong>AR</strong>)</h2>
-<ul>
-<li>Exercise 1.2, p.&nbsp;39.</li>
-<li>Exercise 1.3, p.&nbsp;39.</li>
-<li>Exercise 1.11, p.&nbsp;41.</li>
-</ul>
+
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Agresti2022" class="csl-entry" role="listitem">
+Agresti, A., and Kateri, M. (2022), <em>Foundations of statistics for data scientists</em>, CRC Press.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
