@@ -108,8 +108,9 @@ a rigorous data analysis.
 ::: callout-note
 #### Note
 
-To be able to run the next commands, you need to download the file `football.csv`
-and save it on your computer. [Link to the file](data/football.csv).
+To be able to run the next commands, you need to download the file
+`airquality.csv` and save it on your computer.
+[Link to the file](data/airquality.csv).
 :::
 
 ## The raw data (text editor)
@@ -118,7 +119,7 @@ and save it on your computer. [Link to the file](data/football.csv).
 
 ## The working directory
 
-The active **R** session is open in a specific [working directory]{.blue}, identified
+The active **R** session is open in a specific [working directory]{.orange}, identified
 by the command `getwd`.
 
 For example, the directory in which this code was executed is the following
@@ -127,25 +128,25 @@ For example, the directory in which this code was executed is the following
 getwd() # Identifies the working directory (get working directory)
 ```
 
-To open the file `football.csv`, you must provide **R** with the **path of the
+To open the file `airquality.csv`, you must provide **R** with the **path of the
 file**, which depends on where it has been saved (on the Desktop, in the
 downloads folder, and so on).
 
 ```{r}
 # THE PATH VARIABLE MUST BE CHANGED DEPENDING ON WHERE THE .csv FILE IS SAVED
-path <- "data/football.csv" # This is the path of the file, relative to getwd()
+path <- "data/airquality.csv" # This is the path of the file, relative to getwd()
 ```
 
-The path of the file can also be a [link]{.orange}, as in this case:
+The path of the file can also be a [link]{.blue}, as in this case:
 
 ```{r}
 #| eval: false
-path <- "https://tommasorigon.github.io/EnvEcoStat/data/football.csv"
+path <- "https://tommasorigon.github.io/EnvEcoStat/data/airquality.csv"
 ```
 
 ## Importing the dataset
 
-It is also possible to [change the working directory]{.blue} through the command
+It is also possible to [change the working directory]{.orange} through the command
 `setwd`.
 
 In RStudio, you can use the option *More -\> Set as working directory* in the
@@ -156,7 +157,7 @@ dataset** into memory one uses, for instance, the command `read.table`.
 Therefore:
 
 ```{r}
-football <- read.table(path, header = TRUE, sep = ",")
+airquality <- read.table(path, header = TRUE, sep = ",")
 ```
 
 ::: callout-note
@@ -173,52 +174,48 @@ enough to use:
 
 ```{r}
 #| eval: false
-football <- read.table("football.csv", header = TRUE, sep = ",")
+airquality <- read.table("airquality.csv", header = TRUE, sep = ",")
 ```
 
 ## Exploring a `data.frame`
 
-First of all, we are interested in understanding how many [variables]{.orange} and how
-many [observations]{.blue} are contained in the `data.frame`:
+First of all, we are interested in understanding how many [variables]{.blue} and how
+many [observations]{.orange} are contained in the `data.frame`:
 
 ```{r}
-dim(football) # Equivalent to c(nrow(football), ncol(football))
+dim(airquality) # Equivalent to c(nrow(airquality), ncol(airquality))
 ```
 
 To check that we have not made gross mistakes in importing the `data.frame`, we
 can display the first $6$ observations with the command `head`:
 
 ```{r}
-head(football) # Equivalent command: football[1:6, ]
+head(airquality) # Equivalent command: airquality[1:6, ]
 ```
 
 The command `tail` can be used to show the last $6$ observations:
 
 ```{r}
-tail(football) # Equivalent command: football[1895:1900, ]
+tail(airquality) # Equivalent command: airquality[148:153, ]
 ```
 
-## The `football` dataset
+## The `airquality` dataset
 
-The `football` dataset therefore contains a total of $7$ variables. Each
-observation is a [football match]{.orange} played in the Italian [Serie A]{.blue}
-championship from 2008 to 2015.
+The `airquality` dataset therefore contains a total of $6$ variables. Each
+observation is a [day]{.blue} between 1 May and 30 September [1973]{.orange}, and the
+measurements were collected in [New York]{.blue}.
 
--   The variable `Date` indicates the date of the match.
--   The variables `HomeTeam`, `AwayTeam` indicate the team that played at home
-    and away, respectively.
--   The variable `FTR` ("*Full Time Result*") indicates whether the match was
-    won by the home team (`H`), by the away team (`A`), or ended in a draw
-    (`D`).
--   The variables `B365H`, `B365D` and `B365A` indicate the odds of the betting
-    company *Bet365 Group Ltd* for the 3 events, before the beginning of the
-    match.
+-   The variable `Ozone` is the mean ozone concentration, in parts per billion.
+-   The variable `Solar.R` is the solar radiation, in Langleys.
+-   The variable `Wind` is the average wind speed, in miles per hour.
+-   The variable `Temp` is the maximum daily temperature, in degrees Fahrenheit.
+-   The variables `Month` and `Day` identify the calendar day.
 
 To [access]{.orange} and [modify]{.blue} the names of the variables, one uses the command
 `colnames`.
 
 ```{r}
-colnames(football) # To access the names of the variables
+colnames(airquality) # To access the names of the variables
 ```
 
 ## Types of variables
@@ -241,8 +238,11 @@ Finally, dates are coded in **R** with the type `Date`.
 highlighted by the command `str`, which provides a summary of the `data.frame`.
 
 ```{r}
-str(football)
+str(airquality)
 ```
+
+Here `Month` and `Day` are read as `integer`, but they are calendar codes rather
+than quantities: we will convert them below.
 :::
 
 ## Quantitative variables
@@ -255,13 +255,68 @@ A numerical variable is an **R** vector to all intents and purposes, therefore
 we can apply the functions we have already met so far
 
 ```{r}
-is.numeric(football$B365H) # Check that it is a variable of type numeric
-class(football$B365H)
-football$B365H[1:10] # First 10 elements of an R vector
+is.numeric(airquality$Wind) # Check that it is a variable of type numeric
+class(airquality$Wind)
+airquality$Wind[1:10] # First 10 elements of an R vector
+```
+
+The symbol `$` is also used to [create a new variable]{.orange}. The temperature
+is expressed in degrees Fahrenheit, which is not the most convenient scale for
+us; recalling that
+
+$$
+(\text{``Fahrenheit''}) = 32 + \frac{9}{5}(\text{``Celsius''}),
+$$
+
+we add to the `data.frame` a column with the temperature in degrees Celsius:
+
+```{r}
+airquality$TempC <- (airquality$Temp - 32) * 5 / 9
+
+head(airquality[, c("Temp", "TempC")]) # The two scales side by side
+```
+
+Note that the operation is [vectorised]{.blue}: it is applied to all $153$ days
+at once, without any loop.
+
+```{r}
+range(airquality$Temp) # In degrees Fahrenheit
+range(airquality$TempC) # In degrees Celsius
 ```
 
 The [descriptive analyses]{.orange} of a numerical variable will be addressed in the
 next units; for now we limit ourselves to the manipulation of the `data.frame`.
+
+## Variables of type `date`
+
+The variables `Month` and `Day` identify a date, and it is convenient to store
+that date as such. All the observations refer to the year $1973$.
+
+In **R** the conversion is performed by the command `as.Date`, followed by the
+[format]{.blue} in which the date is expressed:
+
+```{r}
+dates <- paste(1973, airquality$Month, airquality$Day, sep = "-")
+dates[1:3] # Character strings of the form "1973-5-1"
+
+airquality$Date <- as.Date(dates, format = "%Y-%m-%d")
+class(airquality$Date)
+airquality$Date[1:10]
+```
+
+Once converted into `Date` format, it is possible to carry out some additional
+operations. For example:
+
+```{r}
+min(airquality$Date) # First day of the series
+max(airquality$Date) # Last day of the series
+```
+
+::: callout-warning
+We build the date [before]{.orange} converting `Month` into a qualitative variable. If
+we did the opposite, the numerical code of the month would no longer be
+available to `paste`.
+:::
 
 ## Qualitative variables I
 
@@ -269,79 +324,57 @@ Variables of type `character` are appropriate for text strings, that is when
 each field corresponds to a short text, such as a *Tweet*.
 
 Qualitative variables with repeated values should instead be coded as `factor`.
+This is the case of `Month`: the numbers from $5$ to $9$ are [labels]{.blue}, not
+quantities, and computing their mean would make no sense.
 
-We therefore have to [convert]{.blue} the $3$ variables `HomeTeam`, `AwayTeam` and
-`FTR` as follows:
-
-```{r}
-football$HomeTeam <- factor(football$HomeTeam)
-football$AwayTeam <- factor(football$AwayTeam)
-football$FTR <- factor(football$FTR)
-```
-
-Alternatively, we can perform this operation while reading the data, through the
-option `stringsAsFactors`. Hence:
+We therefore [convert]{.orange} the variable as follows:
 
 ```{r}
-football <- read.table(path, header = TRUE, sep = ",", stringsAsFactors = TRUE)
+airquality$Month <- factor(airquality$Month)
+class(airquality$Month)
 ```
+
+::: callout-note
+#### Note
+
+This file contains no text column. When a file does contain one, the conversion
+can be performed directly while reading the data, through the option
+`stringsAsFactors = TRUE` of `read.table`.
+:::
 
 ## Qualitative variables II
 
-First of all, let us check that the conversion was carried out correctly and let
-us explore the content of the variable `HomeTeam`.
-
-In variables of type `factor` the various [categories]{.orange} are listed, called
+In variables of type `factor` the various [categories]{.blue} are listed, called
 `levels` in **R**.
 
 To access the categories one uses the command `levels`, which lists the
-categories of the variable in alphabetical order:
+categories of the variable in increasing order:
 
 ```{r}
-levels(football$HomeTeam)
+levels(airquality$Month)
+table(airquality$Month) # Number of days observed in each month
 ```
 
 ## Qualitative variables III
 
-The command `levels` makes it possible to [rename the categories]{.blue}, for
+The command `levels` makes it possible to [rename the categories]{.orange}, for
 example:
 
 ```{r}
-football$FTR[1:10]
-levels(football$FTR) <- c("Away", "Draw", "Home") # Rename the categories
-football$FTR[1:10]
+airquality$Month[1:10]
+levels(airquality$Month) <- c("May", "June", "July", "August", "September")
+airquality$Month[1:10]
 ```
 
-The command `levels` also makes it possible to [merge]{.orange} the categories of a
+The command `levels` also makes it possible to [merge]{.blue} the categories of a
 qualitative variable:
 
 ```{r}
-football$Draw <- football$FTR # Create a copy of the variable FTR called Draw
-levels(football$Draw) <- c("Not_Draw", "Draw", "Not_Draw") # Merging of categories
+airquality$Season <- airquality$Month # Create a copy of Month called Season
+# June, July and August are the peak months for ozone: merge them
+levels(airquality$Season) <- c("Off-peak", "Peak", "Peak", "Peak", "Off-peak")
 
-football$Draw[1:10]
-```
-
-## Variables of type `date`
-
-The variable `Date` of the `football` dataset represents a date and must therefore
-be coded as such.
-
-In **R** the conversion is performed by the command `as.Date`, followed by the
-[format]{.blue} in which the date is expressed:
-
-```{r}
-football$Date <- as.Date(football$Date, format = "%Y-%m-%d")
-class(football$Date)
-football$Date[1:10]
-```
-
-Once converted into `Date` format, it is possible to carry out some additional
-operations. For example:
-
-```{r}
-min(football$Date) # First match played
-max(football$Date) # Last match played
+table(airquality$Season)
 ```
 
 ## Manipulating a dataset
@@ -349,51 +382,61 @@ max(football$Date) # Last match played
 To [select the rows]{.orange} of a dataset one proceeds as in the case of matrices:
 
 ```{r}
-football[c(1806, 501, 109), ]
+airquality[c(120, 62, 9), ]
 ```
 
 It is of course possible (and typically much more useful) to select the
 observations that satisfy a given [condition]{.blue}.
 
-Suppose for example that we want to identify the matches that ended in a draw:
+Suppose for example that we want to identify the hottest days, those above $90$
+degrees Fahrenheit:
 
 ```{r}
-football_draw <- football[football$FTR == "Draw", ]
-head(football_draw)
+airquality_hot <- airquality[airquality$Temp > 90, ]
+dim(airquality_hot)
+head(airquality_hot)
 ```
 
 ## Missing values
 
-Suppose we want to identify the matches in which the home team has a low
-probability of winning according to *Bet365*:
+Suppose now that we want to identify the days on which the ozone concentration
+exceeded $100$ parts per billion:
 
 ```{r}
-football_home <- football[football$B365H > 9, ]
-football_home
+airquality_ozone <- airquality[airquality$Ozone > 100, ]
+dim(airquality_ozone)
+head(airquality_ozone)
 ```
 
 ::: callout-important
-Something went wrong: there are symbols (`NA`) that we had not met so far.
+Something went wrong: there are rows entirely made of symbols (`NA`) that we had
+not met so far.
 :::
 
 The reason why the command produces apparently strange results is due to the
 presence of some [missing data]{.orange}, coded as `NA` (*Not Available*).
 
-In particular, there are $3$ observations (the $1501$st, $1846$th and $1848$th)
-whose values relative to *Bet365* are not available.
+The comparison `NA > 100` does not return `TRUE` or `FALSE`: it returns `NA`,
+because the value is unknown. Consequently the selection returns one row for
+every missing value.
 
 ```{r}
-football[rowSums(is.na(football)) > 0, ] # Identifies the rows with missing values
+sum(is.na(airquality$Ozone)) # How many days lack the ozone measurement
+colSums(is.na(airquality)) # The same count, variable by variable
 ```
 
 The function `is.na` produces a [logical]{.blue} matrix of the same dimension as
-`football`, containing `TRUE` if the value is missing and `FALSE` otherwise.
+`airquality`, containing `TRUE` if the value is missing and `FALSE` otherwise.
 
 The function `rowSums(matrix)` produces a vector whose values are the sum of the
 elements of each row of the `matrix`.
 
-As a consequence, `rowSums(is.na(football))` indicates how many missing values are
-present in each row.
+As a consequence, `rowSums(is.na(airquality))` indicates how many missing values
+are present in each row.
+
+```{r}
+sum(rowSums(is.na(airquality)) > 0) # Number of incomplete days
+```
 
 ## Handling missing data
 
@@ -404,37 +447,47 @@ The easiest solution, although a potentially very dangerous one, consists simply
 in [removing]{.orange} the incomplete rows through the command `na.omit`:
 
 ```{r}
-football_no_na <- na.omit(football)
-dim(football_no_na)
+airquality_no_na <- na.omit(airquality)
+dim(airquality_no_na)
 ```
 
-To solve the original problem, that is identifying the matches in which the home
-team has a low probability of winning, one can use `subset`:
+::: callout-warning
+We started from $153$ days and we are left with $111$: more than a quarter of
+the data has been thrown away. Moreover the missing values are [not]{.blue} spread
+evenly over the months, so what remains is not a fair picture of the summer.
+:::
+
+To solve the original problem, that is identifying the days with a high ozone
+concentration, one can use `subset`, which discards the missing values:
 
 ```{r}
-football_home <- subset(football, subset = B365H > 9)
-football_home
+airquality_ozone <- subset(airquality, subset = Ozone > 100)
+airquality_ozone
 ```
 
 ## Selecting the variables
 
-The command `subset` can be used both to [select the rows]{.blue} (observations) and
-to [select the columns]{.orange} (variables).
+The command `subset` can be used both to [select the rows]{.orange} (observations) and
+to [select the columns]{.blue} (variables).
 
 In the second case, one can proceed through the option `select`:
 
 ```{r}
-football_B365 <- subset(football, select = c(B365H, B365D, B365A))
-head(football_B365)
+airquality_pollution <- subset(airquality, select = c(Date, Ozone, Temp, Wind))
+head(airquality_pollution)
 ```
 
-Of course it is also possible to select [simultaneously]{.blue} both the rows and the
+Of course it is also possible to select [simultaneously]{.orange} both the rows and the
 columns.
+
+```{r}
+subset(airquality, subset = Ozone > 100, select = c(Date, Ozone, Temp))
+```
 
 ## The `attach` command
 
 In **R** there exists a command called `attach`. Although used by many, this
-command is [diabolical]{.orange} and it would be better to avoid using it.
+command is [diabolical]{.blue} and it would be better to avoid using it.
 
 The command `attach(dataframe)` makes it possible to use the variables of a
 `data.frame` as if they were present in the workspace.
@@ -456,66 +509,54 @@ respect to its initial version.
 Running the command `str` again we indeed obtain that
 
 ```{r}
-str(football)
+str(airquality)
 ```
-
-## The house always wins
-
-In football betting the [odds]{.blue} represent the inverse of the probability of an
-event, so that $$
-    (\text{Probability of the event}) = \frac{1}{(\text{Odds of the event})}
-    $$
-
-The odds also represent the amount in € that the winner receives against the
-payment of the unit amount of $1$€.
-
-For example, betting $10$€ on the victory of Juventus in the match against
-Chievo of 30 August 2014, one would have obtained $15$€, since the odds were
-$1.50$.
-
-If the bet were fair, the probabilities of victory, draw and defeat should sum
-to $1$.
-
-However, this does not happen: the resulting probabilities sum to a value $>1$.
-This discrepancy is called the [overround]{.orange} and guarantees a profit to the
-house.
 
 ## Summary exercise
 
--   Obtain the variable `overround`, defined as the difference between the sum
-    of the "probabilities" of the $3$ events (victory, draw, defeat) and $1$,
-    that is the fair case.
+Ozone is not emitted directly: it forms in the lower atmosphere through
+reactions that are favoured by [sunlight]{.orange} and [heat]{.blue}, and it is dispersed by
+the [wind]{.orange}. The following questions are a first, purely descriptive look at
+that mechanism.
 
--   Say what is the overround associated with the match Udinese-Parma of 1
-    September 2013.
+-   On which day was the highest ozone concentration recorded? And the highest
+    temperature? Are they the same day?
 
--   Say in which matches the lowest and the highest overround was applied, and
-    identify those values.
+-   How many days are missing the ozone measurement, month by month? Is the
+    problem spread evenly over the summer?
 
--   In which match was the highest overround applied in the Serie A championship
-    of 2009/2010?
+-   Compute the average ozone concentration in each month. Be careful: the
+    command `mean` returns `NA` if even a single value is missing.
+
+-   Create a qualitative variable `Windy` that distinguishes the days with a
+    wind speed above the median from the others. Then compare the average ozone
+    concentration of the two groups. Is the result consistent with what was said
+    above?
 
 ::: callout-tip
 #### Hint
 
-Use the commands `which.min` and `which.max`. Consult the documentation to
-understand how they work.
+Use the commands `which.max`, `table` and `tapply`. The option `na.rm = TRUE` of
+the command `mean` excludes the missing values from the computation. Consult the
+documentation to understand how they work.
 :::
 
 #### Solution
 
 ```{r}
-# Computation of the overround
-football$overround <- 1 / football$B365H + 1 / football$B365D + 1 / football$B365A - 1
+# Day of the maximum ozone concentration, and of the maximum temperature
+airquality[which.max(airquality$Ozone), ]
+airquality[which.max(airquality$Temp), ]
 
-# Overround associated with Udinese-Parma of 1 September 2013
-subset(football, Date == "2013-09-01" & HomeTeam == "Udinese")
+# Missing ozone measurements, month by month
+table(airquality$Month[is.na(airquality$Ozone)])
 
-# Minimum and maximum overround
-football[which.min(football$overround), ]
-football[which.max(football$overround), ]
+# Average ozone concentration in each month
+tapply(airquality$Ozone, airquality$Month, mean, na.rm = TRUE)
 
-# The Serie A championship starts at the end of August and ends at the end of May
-football2009_2010 <- subset(football, Date >= "2009-08-15" & Date <= "2010-06-15")
-football2009_2010[which.max(football2009_2010$overround), ]
+# Windy days and average ozone concentration
+airquality$Windy <- factor(airquality$Wind > median(airquality$Wind),
+  levels = c(FALSE, TRUE), labels = c("Calm", "Windy")
+)
+tapply(airquality$Ozone, airquality$Windy, mean, na.rm = TRUE)
 ```

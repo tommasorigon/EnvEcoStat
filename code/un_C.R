@@ -3,110 +3,131 @@ getwd() # Identifies the working directory (get working directory)
 
 ## -----------------------------------------------------------------------------
 # THE PATH VARIABLE MUST BE CHANGED DEPENDING ON WHERE THE .csv FILE IS SAVED
-path <- "data/football.csv" # This is the path of the file, relative to getwd()
+path <- "data/airquality.csv" # This is the path of the file, relative to getwd()
 
 ## -----------------------------------------------------------------------------
 #| eval: false
-# path <- "https://tommasorigon.github.io/EnvEcoStat/data/football.csv"
+# path <- "https://tommasorigon.github.io/EnvEcoStat/data/airquality.csv"
 
 ## -----------------------------------------------------------------------------
-football <- read.table(path, header = TRUE, sep = ",")
+airquality <- read.table(path, header = TRUE, sep = ",")
 
 ## -----------------------------------------------------------------------------
 #| eval: false
-# football <- read.table("football.csv", header = TRUE, sep = ",")
+# airquality <- read.table("airquality.csv", header = TRUE, sep = ",")
 
 ## -----------------------------------------------------------------------------
-dim(football) # Equivalent to c(nrow(football), ncol(football))
+dim(airquality) # Equivalent to c(nrow(airquality), ncol(airquality))
 
 ## -----------------------------------------------------------------------------
-head(football) # Equivalent command: football[1:6, ]
+head(airquality) # Equivalent command: airquality[1:6, ]
 
 ## -----------------------------------------------------------------------------
-tail(football) # Equivalent command: football[1895:1900, ]
+tail(airquality) # Equivalent command: airquality[148:153, ]
 
 ## -----------------------------------------------------------------------------
-colnames(football) # To access the names of the variables
+colnames(airquality) # To access the names of the variables
 
 ## -----------------------------------------------------------------------------
-str(football)
+str(airquality)
 
 ## -----------------------------------------------------------------------------
-is.numeric(football$B365H) # Check that it is a variable of type numeric
-class(football$B365H)
-football$B365H[1:10] # First 10 elements of an R vector
+is.numeric(airquality$Wind) # Check that it is a variable of type numeric
+class(airquality$Wind)
+airquality$Wind[1:10] # First 10 elements of an R vector
 
 ## -----------------------------------------------------------------------------
-football$HomeTeam <- factor(football$HomeTeam)
-football$AwayTeam <- factor(football$AwayTeam)
-football$FTR <- factor(football$FTR)
+airquality$TempC <- (airquality$Temp - 32) * 5 / 9
+
+head(airquality[, c("Temp", "TempC")]) # The two scales side by side
 
 ## -----------------------------------------------------------------------------
-football <- read.table(path, header = TRUE, sep = ",", stringsAsFactors = TRUE)
+range(airquality$Temp) # In degrees Fahrenheit
+range(airquality$TempC) # In degrees Celsius
 
 ## -----------------------------------------------------------------------------
-levels(football$HomeTeam)
+dates <- paste(1973, airquality$Month, airquality$Day, sep = "-")
+dates[1:3] # Character strings of the form "1973-5-1"
+
+airquality$Date <- as.Date(dates, format = "%Y-%m-%d")
+class(airquality$Date)
+airquality$Date[1:10]
 
 ## -----------------------------------------------------------------------------
-football$FTR[1:10]
-levels(football$FTR) <- c("Away", "Draw", "Home") # Rename the categories
-football$FTR[1:10]
+min(airquality$Date) # First day of the series
+max(airquality$Date) # Last day of the series
 
 ## -----------------------------------------------------------------------------
-football$Draw <- football$FTR # Create a copy of the variable FTR called Draw
-levels(football$Draw) <- c("Not_Draw", "Draw", "Not_Draw") # Merging of categories
-
-football$Draw[1:10]
+airquality$Month <- factor(airquality$Month)
+class(airquality$Month)
 
 ## -----------------------------------------------------------------------------
-football$Date <- as.Date(football$Date, format = "%Y-%m-%d")
-class(football$Date)
-football$Date[1:10]
+levels(airquality$Month)
+table(airquality$Month) # Number of days observed in each month
 
 ## -----------------------------------------------------------------------------
-min(football$Date) # First match played
-max(football$Date) # Last match played
+airquality$Month[1:10]
+levels(airquality$Month) <- c("May", "June", "July", "August", "September")
+airquality$Month[1:10]
 
 ## -----------------------------------------------------------------------------
-football[c(1806, 501, 109), ]
+airquality$Season <- airquality$Month # Create a copy of Month called Season
+# June, July and August are the peak months for ozone: merge them
+levels(airquality$Season) <- c("Off-peak", "Peak", "Peak", "Peak", "Off-peak")
+
+table(airquality$Season)
 
 ## -----------------------------------------------------------------------------
-football_draw <- football[football$FTR == "Draw", ]
-head(football_draw)
+airquality[c(120, 62, 9), ]
 
 ## -----------------------------------------------------------------------------
-football_home <- football[football$B365H > 9, ]
-football_home
+airquality_hot <- airquality[airquality$Temp > 90, ]
+dim(airquality_hot)
+head(airquality_hot)
 
 ## -----------------------------------------------------------------------------
-football[rowSums(is.na(football)) > 0, ] # Identifies the rows with missing values
+airquality_ozone <- airquality[airquality$Ozone > 100, ]
+dim(airquality_ozone)
+head(airquality_ozone)
 
 ## -----------------------------------------------------------------------------
-football_no_na <- na.omit(football)
-dim(football_no_na)
+sum(is.na(airquality$Ozone)) # How many days lack the ozone measurement
+colSums(is.na(airquality)) # The same count, variable by variable
 
 ## -----------------------------------------------------------------------------
-football_home <- subset(football, subset = B365H > 9)
-football_home
+sum(rowSums(is.na(airquality)) > 0) # Number of incomplete days
 
 ## -----------------------------------------------------------------------------
-football_B365 <- subset(football, select = c(B365H, B365D, B365A))
-head(football_B365)
+airquality_no_na <- na.omit(airquality)
+dim(airquality_no_na)
 
 ## -----------------------------------------------------------------------------
-str(football)
+airquality_ozone <- subset(airquality, subset = Ozone > 100)
+airquality_ozone
 
 ## -----------------------------------------------------------------------------
-# Computation of the overround
-football$overround <- 1 / football$B365H + 1 / football$B365D + 1 / football$B365A - 1
+airquality_pollution <- subset(airquality, select = c(Date, Ozone, Temp, Wind))
+head(airquality_pollution)
 
-# Overround associated with Udinese-Parma of 1 September 2013
-subset(football, Date == "2013-09-01" & HomeTeam == "Udinese")
+## -----------------------------------------------------------------------------
+subset(airquality, subset = Ozone > 100, select = c(Date, Ozone, Temp))
 
-# Minimum and maximum overround
-football[which.min(football$overround), ]
-football[which.max(football$overround), ]
+## -----------------------------------------------------------------------------
+str(airquality)
 
-# The Serie A championship starts at the end of August and ends at the end of May
-football2009_2010 <- subset(football, Date >= "2009-08-15" & Date <= "2010-06-15")
-football2009_2010[which.max(football2009_2010$overround), ]
+## -----------------------------------------------------------------------------
+# Day of the maximum ozone concentration, and of the maximum temperature
+airquality[which.max(airquality$Ozone), ]
+airquality[which.max(airquality$Temp), ]
+
+# Missing ozone measurements, month by month
+table(airquality$Month[is.na(airquality$Ozone)])
+
+# Average ozone concentration in each month
+tapply(airquality$Ozone, airquality$Month, mean, na.rm = TRUE)
+
+# Windy days and average ozone concentration
+airquality$Windy <- factor(airquality$Wind > median(airquality$Wind),
+  levels = c(FALSE, TRUE), labels = c("Calm", "Windy")
+)
+tapply(airquality$Ozone, airquality$Windy, mean, na.rm = TRUE)

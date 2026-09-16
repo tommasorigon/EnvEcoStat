@@ -383,23 +383,33 @@ Exercise G - Solution: <a href="../code/nested.R"><code>nested.R</code></a>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>mtcars</code> dataset - Solution: <a href="../code/mtcars.R"><code>mtcars.R</code></a>
+<code>swiss</code> dataset - Solution: <a href="../code/swiss.R"><code>swiss.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Consider the dataset <code>data(mtcars)</code>, which is available in <strong>R</strong>. Answer the following questions:</p>
+<p>The <code>swiss</code> data file, available at <a href="../data/swiss.csv">this link</a>, reports standardised socio-economic indicators for the <span class="math inline">47</span> French-speaking provinces of Switzerland around <span class="math inline">1888</span>:</p>
+<ul>
+<li><p><code>province</code>, the name of the province;</p></li>
+<li><p><code>Fertility</code>, a standardised fertility measure;</p></li>
+<li><p><code>Agriculture</code>, the percentage of males employed in agriculture;</p></li>
+<li><p><code>Examination</code>, the percentage of draftees receiving the highest mark on an army examination;</p></li>
+<li><p><code>Education</code>, the percentage of draftees educated beyond primary school;</p></li>
+<li><p><code>Catholic</code>, the percentage of Catholics;</p></li>
+<li><p><code>Infant.Mortality</code>, the percentage of live births who die within a year.</p></li>
+</ul>
+<hr>
 <ol type="1">
-<li><p>How many rows and how many columns does this dataset have?</p></li>
-<li><p>Why does the command <code>mtcars[1:20]</code> return an error? What is the difference with the command <code>mtcars[1:20, ]</code>?</p></li>
+<li><p>Import the data into <strong>R</strong>. How many rows and how many columns does this dataset have? Which type does <strong>R</strong> assign to the variable <code>province</code>?</p></li>
+<li><p>Why does the command <code>swiss[1:20]</code> return an error? What is the difference with the command <code>swiss[1:20, ]</code>?</p></li>
 <li><p>Each of the following lines contains an error (a bug). Propose a modification to fix it</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="ot">=</span> <span class="dv">4</span>, ] </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, ] </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="sc">&lt;=</span> <span class="dv">5</span>] </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mtcars[mtcars<span class="sc">$</span>cyl <span class="sc">==</span> <span class="dv">4</span> <span class="sc">|</span> <span class="dv">6</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>swiss[swiss<span class="sc">$</span>Education <span class="ot">=</span> <span class="dv">7</span>, ]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>swiss[<span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, ]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>swiss[swiss<span class="sc">$</span>Education <span class="sc">&lt;=</span> <span class="dv">5</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>swiss[swiss<span class="sc">$</span>Education <span class="sc">==</span> <span class="dv">7</span> <span class="sc">|</span> <span class="dv">12</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>

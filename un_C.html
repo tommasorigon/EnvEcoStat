@@ -134,20 +134,19 @@ window.Quarto = {
   <li><a href="#the-working-directory" id="toc-the-working-directory" class="nav-link" data-scroll-target="#the-working-directory">The working directory</a></li>
   <li><a href="#importing-the-dataset" id="toc-importing-the-dataset" class="nav-link" data-scroll-target="#importing-the-dataset">Importing the dataset</a></li>
   <li><a href="#exploring-a-data.frame" id="toc-exploring-a-data.frame" class="nav-link" data-scroll-target="#exploring-a-data.frame">Exploring a <code>data.frame</code></a></li>
-  <li><a href="#the-football-dataset" id="toc-the-football-dataset" class="nav-link" data-scroll-target="#the-football-dataset">The <code>football</code> dataset</a></li>
+  <li><a href="#the-airquality-dataset" id="toc-the-airquality-dataset" class="nav-link" data-scroll-target="#the-airquality-dataset">The <code>airquality</code> dataset</a></li>
   <li><a href="#types-of-variables" id="toc-types-of-variables" class="nav-link" data-scroll-target="#types-of-variables">Types of variables</a></li>
   <li><a href="#quantitative-variables" id="toc-quantitative-variables" class="nav-link" data-scroll-target="#quantitative-variables">Quantitative variables</a></li>
+  <li><a href="#variables-of-type-date" id="toc-variables-of-type-date" class="nav-link" data-scroll-target="#variables-of-type-date">Variables of type <code>date</code></a></li>
   <li><a href="#qualitative-variables-i" id="toc-qualitative-variables-i" class="nav-link" data-scroll-target="#qualitative-variables-i">Qualitative variables I</a></li>
   <li><a href="#qualitative-variables-ii" id="toc-qualitative-variables-ii" class="nav-link" data-scroll-target="#qualitative-variables-ii">Qualitative variables II</a></li>
   <li><a href="#qualitative-variables-iii" id="toc-qualitative-variables-iii" class="nav-link" data-scroll-target="#qualitative-variables-iii">Qualitative variables III</a></li>
-  <li><a href="#variables-of-type-date" id="toc-variables-of-type-date" class="nav-link" data-scroll-target="#variables-of-type-date">Variables of type <code>date</code></a></li>
   <li><a href="#manipulating-a-dataset" id="toc-manipulating-a-dataset" class="nav-link" data-scroll-target="#manipulating-a-dataset">Manipulating a dataset</a></li>
   <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values">Missing values</a></li>
   <li><a href="#handling-missing-data" id="toc-handling-missing-data" class="nav-link" data-scroll-target="#handling-missing-data">Handling missing data</a></li>
   <li><a href="#selecting-the-variables" id="toc-selecting-the-variables" class="nav-link" data-scroll-target="#selecting-the-variables">Selecting the variables</a></li>
   <li><a href="#the-attach-command" id="toc-the-attach-command" class="nav-link" data-scroll-target="#the-attach-command">The <code>attach</code> command</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  <li><a href="#the-house-always-wins" id="toc-the-house-always-wins" class="nav-link" data-scroll-target="#the-house-always-wins">The house always wins</a></li>
   <li><a href="#summary-exercise" id="toc-summary-exercise" class="nav-link" data-scroll-target="#summary-exercise">Summary exercise</a></li>
   </ul>
 </nav>
@@ -237,7 +236,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>To be able to run the next commands, you need to download the file <code>football.csv</code> and save it on your computer. <a href="data/football.csv">Link to the file</a>.</p>
+<p>To be able to run the next commands, you need to download the file <code>airquality.csv</code> and save it on your computer. <a href="data/airquality.csv">Link to the file</a>.</p>
 </div>
 </div>
 </section>
@@ -247,7 +246,7 @@ Note
 </section>
 <section id="the-working-directory" class="level2">
 <h2 class="anchored" data-anchor-id="the-working-directory">The working directory</h2>
-<p>The active <strong>R</strong> session is open in a specific <span class="blue">working directory</span>, identified by the command <code>getwd</code>.</p>
+<p>The active <strong>R</strong> session is open in a specific <span class="orange">working directory</span>, identified by the command <code>getwd</code>.</p>
 <p>For example, the directory in which this code was executed is the following</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>() <span class="co"># Identifies the working directory (get working directory)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -255,23 +254,23 @@ Note
 <pre><code>[1] "/Users/tommaso/Repositories/EnvEcoStat"</code></pre>
 </div>
 </div>
-<p>To open the file <code>football.csv</code>, you must provide <strong>R</strong> with the <strong>path of the file</strong>, which depends on where it has been saved (on the Desktop, in the downloads folder, and so on).</p>
+<p>To open the file <code>airquality.csv</code>, you must provide <strong>R</strong> with the <strong>path of the file</strong>, which depends on where it has been saved (on the Desktop, in the downloads folder, and so on).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># THE PATH VARIABLE MUST BE CHANGED DEPENDING ON WHERE THE .csv FILE IS SAVED</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"data/football.csv"</span> <span class="co"># This is the path of the file, relative to getwd()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"data/airquality.csv"</span> <span class="co"># This is the path of the file, relative to getwd()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The path of the file can also be a <span class="orange">link</span>, as in this case:</p>
+<p>The path of the file can also be a <span class="blue">link</span>, as in this case:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://tommasorigon.github.io/EnvEcoStat/data/football.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://tommasorigon.github.io/EnvEcoStat/data/airquality.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="importing-the-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="importing-the-dataset">Importing the dataset</h2>
-<p>It is also possible to <span class="blue">change the working directory</span> through the command <code>setwd</code>.</p>
+<p>It is also possible to <span class="orange">change the working directory</span> through the command <code>setwd</code>.</p>
 <p>In RStudio, you can use the option <em>More -&gt; Set as working directory</em> in the <em>Files</em> window, selecting the directory of interest.</p>
 <p>Once the correct <em>path</em> of the file has been identified, to <strong>import the dataset</strong> into memory one uses, for instance, the command <code>read.table</code>. Therefore:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>football <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -291,59 +290,60 @@ Note
 </div>
 <p>Finally, note that if the file is contained in the working directory, it is then enough to use:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>football <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"football.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"airquality.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exploring-a-data.frame" class="level2">
 <h2 class="anchored" data-anchor-id="exploring-a-data.frame">Exploring a <code>data.frame</code></h2>
-<p>First of all, we are interested in understanding how many <span class="orange">variables</span> and how many <span class="blue">observations</span> are contained in the <code>data.frame</code>:</p>
+<p>First of all, we are interested in understanding how many <span class="blue">variables</span> and how many <span class="orange">observations</span> are contained in the <code>data.frame</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(football) <span class="co"># Equivalent to c(nrow(football), ncol(football))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(airquality) <span class="co"># Equivalent to c(nrow(airquality), ncol(airquality))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1900    7</code></pre>
+<pre><code>[1] 153   6</code></pre>
 </div>
 </div>
 <p>To check that we have not made gross mistakes in importing the <code>data.frame</code>, we can display the first <span class="math inline">6</span> observations with the command <code>head</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(football) <span class="co"># Equivalent command: football[1:6, ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality) <span class="co"># Equivalent command: airquality[1:6, ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        Date HomeTeam   AwayTeam FTR B365H B365D B365A
-1 2014-08-30   Chievo   Juventus   A  7.00   4.0  1.50
-2 2014-08-30     Roma Fiorentina   H  1.67   3.8  5.00
-3 2014-08-31 Atalanta     Verona   D  2.05   3.4  3.60
-4 2014-08-31   Cesena      Parma   H  3.10   3.2  2.35
-5 2014-08-31    Genoa     Napoli   A  3.90   3.4  1.95
-6 2014-08-31    Milan      Lazio   H  2.00   3.4  3.75</code></pre>
+<pre><code>  Ozone Solar.R Wind Temp Month Day
+1    41     190  7.4   67     5   1
+2    36     118  8.0   72     5   2
+3    12     149 12.6   74     5   3
+4    18     313 11.5   62     5   4
+5    NA      NA 14.3   56     5   5
+6    28      NA 14.9   66     5   6</code></pre>
 </div>
 </div>
 <p>The command <code>tail</code> can be used to show the last <span class="math inline">6</span> observations:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(football) <span class="co"># Equivalent command: football[1895:1900, ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(airquality) <span class="co"># Equivalent command: airquality[148:153, ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           Date HomeTeam  AwayTeam FTR B365H B365D B365A
-1895 2011-05-22    Inter   Catania   H  1.53  3.75  7.00
-1896 2011-05-22 Juventus    Napoli   D  1.90  3.60  3.80
-1897 2011-05-22    Lecce     Lazio   A  6.00  3.60  1.60
-1898 2011-05-22  Palermo    Chievo   A  1.75  3.50  4.75
-1899 2011-05-22     Roma Sampdoria   H  1.29  5.00 11.00
-1900 2011-05-22  Udinese     Milan   D  3.50  1.53  6.50</code></pre>
+<pre><code>    Ozone Solar.R Wind Temp Month Day
+148    14      20 16.6   63     9  25
+149    30     193  6.9   70     9  26
+150    NA     145 13.2   77     9  27
+151    14     191 14.3   75     9  28
+152    18     131  8.0   76     9  29
+153    20     223 11.5   68     9  30</code></pre>
 </div>
 </div>
 </section>
-<section id="the-football-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="the-football-dataset">The <code>football</code> dataset</h2>
-<p>The <code>football</code> dataset therefore contains a total of <span class="math inline">7</span> variables. Each observation is a <span class="orange">football match</span> played in the Italian <span class="blue">Serie A</span> championship from 2008 to 2015.</p>
+<section id="the-airquality-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="the-airquality-dataset">The <code>airquality</code> dataset</h2>
+<p>The <code>airquality</code> dataset therefore contains a total of <span class="math inline">6</span> variables. Each observation is a <span class="blue">day</span> between 1 May and 30 September <span class="orange">1973</span>, and the measurements were collected in <span class="blue">New York</span>.</p>
 <ul>
-<li>The variable <code>Date</code> indicates the date of the match.</li>
-<li>The variables <code>HomeTeam</code>, <code>AwayTeam</code> indicate the team that played at home and away, respectively.</li>
-<li>The variable <code>FTR</code> (“<em>Full Time Result</em>”) indicates whether the match was won by the home team (<code>H</code>), by the away team (<code>A</code>), or ended in a draw (<code>D</code>).</li>
-<li>The variables <code>B365H</code>, <code>B365D</code> and <code>B365A</code> indicate the odds of the betting company <em>Bet365 Group Ltd</em> for the 3 events, before the beginning of the match.</li>
+<li>The variable <code>Ozone</code> is the mean ozone concentration, in parts per billion.</li>
+<li>The variable <code>Solar.R</code> is the solar radiation, in Langleys.</li>
+<li>The variable <code>Wind</code> is the average wind speed, in miles per hour.</li>
+<li>The variable <code>Temp</code> is the maximum daily temperature, in degrees Fahrenheit.</li>
+<li>The variables <code>Month</code> and <code>Day</code> identify the calendar day.</li>
 </ul>
 <p>To <span class="orange">access</span> and <span class="blue">modify</span> the names of the variables, one uses the command <code>colnames</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(football) <span class="co"># To access the names of the variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(airquality) <span class="co"># To access the names of the variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Date"     "HomeTeam" "AwayTeam" "FTR"      "B365H"    "B365D"    "B365A"   </code></pre>
+<pre><code>[1] "Ozone"   "Solar.R" "Wind"    "Temp"    "Month"   "Day"    </code></pre>
 </div>
 </div>
 </section>
@@ -365,18 +365,18 @@ Note
 <div class="callout-body-container callout-body">
 <p><strong>R</strong> does not always recognise the type of the variables correctly, as highlighted by the command <code>str</code>, which provides a summary of the <code>data.frame</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(football)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(airquality)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   1900 obs. of  7 variables:
- $ Date    : chr  "2014-08-30" "2014-08-30" "2014-08-31" "2014-08-31" ...
- $ HomeTeam: chr  "Chievo" "Roma" "Atalanta" "Cesena" ...
- $ AwayTeam: chr  "Juventus" "Fiorentina" "Verona" "Parma" ...
- $ FTR     : chr  "A" "H" "D" "H" ...
- $ B365H   : num  7 1.67 2.05 3.1 3.9 2 2.2 2.3 3.1 1.8 ...
- $ B365D   : num  4 3.8 3.4 3.2 3.4 3.4 3.25 3.4 3.3 3.5 ...
- $ B365A   : num  1.5 5 3.6 2.35 1.95 3.75 3.3 3 2.3 4.5 ...</code></pre>
+<pre><code>'data.frame':   153 obs. of  6 variables:
+ $ Ozone  : int  41 36 12 18 NA 28 23 19 8 NA ...
+ $ Solar.R: int  190 118 149 313 NA NA 299 99 19 194 ...
+ $ Wind   : num  7.4 8 12.6 11.5 14.3 14.9 8.6 13.8 20.1 8.6 ...
+ $ Temp   : int  67 72 74 62 56 66 65 59 61 69 ...
+ $ Month  : int  5 5 5 5 5 5 5 5 5 5 ...
+ $ Day    : int  1 2 3 4 5 6 7 8 9 10 ...</code></pre>
 </div>
 </div>
+<p>Here <code>Month</code> and <code>Day</code> are read as <code>integer</code>, but they are calendar codes rather than quantities: we will convert them below.</p>
 </div>
 </div>
 </section>
@@ -385,107 +385,164 @@ Note
 <p>To <span class="blue">extract a variable</span> from a <code>data.frame</code> one proceeds as in the case of lists, that is through the symbol <code>$</code>. The variables can be saved under any name.</p>
 <p>A numerical variable is an <strong>R</strong> vector to all intents and purposes, therefore we can apply the functions we have already met so far</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(football<span class="sc">$</span>B365H) <span class="co"># Check that it is a variable of type numeric</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(airquality<span class="sc">$</span>Wind) <span class="co"># Check that it is a variable of type numeric</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(football<span class="sc">$</span>B365H)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(airquality<span class="sc">$</span>Wind)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>B365H[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="co"># First 10 elements of an R vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Wind[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="co"># First 10 elements of an R vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 7.00 1.67 2.05 3.10 3.90 2.00 2.20 2.30 3.10 1.80</code></pre>
+<pre><code> [1]  7.4  8.0 12.6 11.5 14.3 14.9  8.6 13.8 20.1  8.6</code></pre>
+</div>
+</div>
+<p>The symbol <code>$</code> is also used to <span class="orange">create a new variable</span>. The temperature is expressed in degrees Fahrenheit, which is not the most convenient scale for us; recalling that</p>
+<p><span class="math display">
+(\text{``Fahrenheit''}) = 32 + \frac{9}{5}(\text{``Celsius''}),
+</span></p>
+<p>we add to the <code>data.frame</code> a column with the temperature in degrees Celsius:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>TempC <span class="ot">&lt;-</span> (airquality<span class="sc">$</span>Temp <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">9</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality[, <span class="fu">c</span>(<span class="st">"Temp"</span>, <span class="st">"TempC"</span>)]) <span class="co"># The two scales side by side</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Temp    TempC
+1   67 19.44444
+2   72 22.22222
+3   74 23.33333
+4   62 16.66667
+5   56 13.33333
+6   66 18.88889</code></pre>
+</div>
+</div>
+<p>Note that the operation is <span class="blue">vectorised</span>: it is applied to all <span class="math inline">153</span> days at once, without any loop.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(airquality<span class="sc">$</span>Temp) <span class="co"># In degrees Fahrenheit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 56 97</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(airquality<span class="sc">$</span>TempC) <span class="co"># In degrees Celsius</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13.33333 36.11111</code></pre>
 </div>
 </div>
 <p>The <span class="orange">descriptive analyses</span> of a numerical variable will be addressed in the next units; for now we limit ourselves to the manipulation of the <code>data.frame</code>.</p>
 </section>
+<section id="variables-of-type-date" class="level2">
+<h2 class="anchored" data-anchor-id="variables-of-type-date">Variables of type <code>date</code></h2>
+<p>The variables <code>Month</code> and <code>Day</code> identify a date, and it is convenient to store that date as such. All the observations refer to the year <span class="math inline">1973</span>.</p>
+<p>In <strong>R</strong> the conversion is performed by the command <code>as.Date</code>, followed by the <span class="blue">format</span> in which the date is expressed:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="dv">1973</span>, airquality<span class="sc">$</span>Month, airquality<span class="sc">$</span>Day, <span class="at">sep =</span> <span class="st">"-"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>dates[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="co"># Character strings of the form "1973-5-1"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1973-5-1" "1973-5-2" "1973-5-3"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dates, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(airquality<span class="sc">$</span>Date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Date"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Date[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "1973-05-01" "1973-05-02" "1973-05-03" "1973-05-04" "1973-05-05"
+ [6] "1973-05-06" "1973-05-07" "1973-05-08" "1973-05-09" "1973-05-10"</code></pre>
+</div>
+</div>
+<p>Once converted into <code>Date</code> format, it is possible to carry out some additional operations. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(airquality<span class="sc">$</span>Date) <span class="co"># First day of the series</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1973-05-01"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(airquality<span class="sc">$</span>Date) <span class="co"># Last day of the series</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1973-09-30"</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We build the date <span class="orange">before</span> converting <code>Month</code> into a qualitative variable. If we did the opposite, the numerical code of the month would no longer be available to <code>paste</code>.</p>
+</div>
+</div>
+</div>
+</section>
 <section id="qualitative-variables-i" class="level2">
 <h2 class="anchored" data-anchor-id="qualitative-variables-i">Qualitative variables I</h2>
 <p>Variables of type <code>character</code> are appropriate for text strings, that is when each field corresponds to a short text, such as a <em>Tweet</em>.</p>
-<p>Qualitative variables with repeated values should instead be coded as <code>factor</code>.</p>
-<p>We therefore have to <span class="blue">convert</span> the <span class="math inline">3</span> variables <code>HomeTeam</code>, <code>AwayTeam</code> and <code>FTR</code> as follows:</p>
+<p>Qualitative variables with repeated values should instead be coded as <code>factor</code>. This is the case of <code>Month</code>: the numbers from <span class="math inline">5</span> to <span class="math inline">9</span> are <span class="blue">labels</span>, not quantities, and computing their mean would make no sense.</p>
+<p>We therefore <span class="orange">convert</span> the variable as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>HomeTeam <span class="ot">&lt;-</span> <span class="fu">factor</span>(football<span class="sc">$</span>HomeTeam)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>AwayTeam <span class="ot">&lt;-</span> <span class="fu">factor</span>(football<span class="sc">$</span>AwayTeam)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>FTR <span class="ot">&lt;-</span> <span class="fu">factor</span>(football<span class="sc">$</span>FTR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Month <span class="ot">&lt;-</span> <span class="fu">factor</span>(airquality<span class="sc">$</span>Month)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(airquality<span class="sc">$</span>Month)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
 </div>
-<p>Alternatively, we can perform this operation while reading the data, through the option <code>stringsAsFactors</code>. Hence:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>football <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This file contains no text column. When a file does contain one, the conversion can be performed directly while reading the data, through the option <code>stringsAsFactors = TRUE</code> of <code>read.table</code>.</p>
+</div>
 </div>
 </section>
 <section id="qualitative-variables-ii" class="level2">
 <h2 class="anchored" data-anchor-id="qualitative-variables-ii">Qualitative variables II</h2>
-<p>First of all, let us check that the conversion was carried out correctly and let us explore the content of the variable <code>HomeTeam</code>.</p>
-<p>In variables of type <code>factor</code> the various <span class="orange">categories</span> are listed, called <code>levels</code> in <strong>R</strong>.</p>
-<p>To access the categories one uses the command <code>levels</code>, which lists the categories of the variable in alphabetical order:</p>
+<p>In variables of type <code>factor</code> the various <span class="blue">categories</span> are listed, called <code>levels</code> in <strong>R</strong>.</p>
+<p>To access the categories one uses the command <code>levels</code>, which lists the categories of the variable in increasing order:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(football<span class="sc">$</span>HomeTeam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(airquality<span class="sc">$</span>Month)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "Atalanta"   "Bari"       "Bologna"    "Brescia"    "Cagliari"  
- [6] "Catania"    "Cesena"     "Chievo"     "Empoli"     "Fiorentina"
-[11] "Genoa"      "Inter"      "Juventus"   "Lazio"      "Lecce"     
-[16] "Livorno"    "Milan"      "Napoli"     "Palermo"    "Parma"     
-[21] "Reggina"    "Roma"       "Sampdoria"  "Sassuolo"   "Siena"     
-[26] "Torino"     "Udinese"    "Verona"    </code></pre>
+<pre><code>[1] "5" "6" "7" "8" "9"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(airquality<span class="sc">$</span>Month) <span class="co"># Number of days observed in each month</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 5  6  7  8  9 
+31 30 31 31 30 </code></pre>
 </div>
 </div>
 </section>
 <section id="qualitative-variables-iii" class="level2">
 <h2 class="anchored" data-anchor-id="qualitative-variables-iii">Qualitative variables III</h2>
-<p>The command <code>levels</code> makes it possible to <span class="blue">rename the categories</span>, for example:</p>
+<p>The command <code>levels</code> makes it possible to <span class="orange">rename the categories</span>, for example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>FTR[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Month[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] A H D H A H D D D H
-Levels: A D H</code></pre>
+<pre><code> [1] 5 5 5 5 5 5 5 5 5 5
+Levels: 5 6 7 8 9</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(football<span class="sc">$</span>FTR) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Away"</span>, <span class="st">"Draw"</span>, <span class="st">"Home"</span>) <span class="co"># Rename the categories</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>FTR[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(airquality<span class="sc">$</span>Month) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"May"</span>, <span class="st">"June"</span>, <span class="st">"July"</span>, <span class="st">"August"</span>, <span class="st">"September"</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Month[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] Away Home Draw Home Away Home Draw Draw Draw Home
-Levels: Away Draw Home</code></pre>
+<pre><code> [1] May May May May May May May May May May
+Levels: May June July August September</code></pre>
 </div>
 </div>
-<p>The command <code>levels</code> also makes it possible to <span class="orange">merge</span> the categories of a qualitative variable:</p>
+<p>The command <code>levels</code> also makes it possible to <span class="blue">merge</span> the categories of a qualitative variable:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>Draw <span class="ot">&lt;-</span> football<span class="sc">$</span>FTR <span class="co"># Create a copy of the variable FTR called Draw</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(football<span class="sc">$</span>Draw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Not_Draw"</span>, <span class="st">"Draw"</span>, <span class="st">"Not_Draw"</span>) <span class="co"># Merging of categories</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>Draw[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Season <span class="ot">&lt;-</span> airquality<span class="sc">$</span>Month <span class="co"># Create a copy of Month called Season</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># June, July and August are the peak months for ozone: merge them</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(airquality<span class="sc">$</span>Season) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Off-peak"</span>, <span class="st">"Peak"</span>, <span class="st">"Peak"</span>, <span class="st">"Peak"</span>, <span class="st">"Off-peak"</span>)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(airquality<span class="sc">$</span>Season)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] Not_Draw Not_Draw Draw     Not_Draw Not_Draw Not_Draw Draw     Draw    
- [9] Draw     Not_Draw
-Levels: Not_Draw Draw</code></pre>
-</div>
-</div>
-</section>
-<section id="variables-of-type-date" class="level2">
-<h2 class="anchored" data-anchor-id="variables-of-type-date">Variables of type <code>date</code></h2>
-<p>The variable <code>Date</code> of the <code>football</code> dataset represents a date and must therefore be coded as such.</p>
-<p>In <strong>R</strong> the conversion is performed by the command <code>as.Date</code>, followed by the <span class="blue">format</span> in which the date is expressed:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(football<span class="sc">$</span>Date, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(football<span class="sc">$</span>Date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Date"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>Date[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "2014-08-30" "2014-08-30" "2014-08-31" "2014-08-31" "2014-08-31"
- [6] "2014-08-31" "2014-08-31" "2014-08-31" "2014-08-31" "2014-08-31"</code></pre>
-</div>
-</div>
-<p>Once converted into <code>Date</code> format, it is possible to carry out some additional operations. For example:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(football<span class="sc">$</span>Date) <span class="co"># First match played</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "2008-08-30"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(football<span class="sc">$</span>Date) <span class="co"># Last match played</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "2015-05-31"</code></pre>
+<pre><code>
+Off-peak     Peak 
+      61       92 </code></pre>
 </div>
 </div>
 </section>
@@ -493,44 +550,52 @@ Levels: Not_Draw Draw</code></pre>
 <h2 class="anchored" data-anchor-id="manipulating-a-dataset">Manipulating a dataset</h2>
 <p>To <span class="orange">select the rows</span> of a dataset one proceeds as in the case of matrices:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>football[<span class="fu">c</span>(<span class="dv">1806</span>, <span class="dv">501</span>, <span class="dv">109</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>airquality[<span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">62</span>, <span class="dv">9</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw
-1806 2011-03-13    Genoa  Palermo Home  1.91  3.25   4.2 Not_Draw
-501  2013-11-23    Milan    Genoa Draw  1.44  4.20   7.5     Draw
-109  2014-11-09  Palermo  Udinese Draw  2.15  3.30   3.4     Draw</code></pre>
+<pre><code>    Ozone Solar.R Wind Temp  Month Day    TempC       Date   Season
+120    76     203  9.7   97 August  28 36.11111 1973-08-28     Peak
+62    135     269  4.1   84   July   1 28.88889 1973-07-01     Peak
+9       8      19 20.1   61    May   9 16.11111 1973-05-09 Off-peak</code></pre>
 </div>
 </div>
 <p>It is of course possible (and typically much more useful) to select the observations that satisfy a given <span class="blue">condition</span>.</p>
-<p>Suppose for example that we want to identify the matches that ended in a draw:</p>
+<p>Suppose for example that we want to identify the hottest days, those above <span class="math inline">90</span> degrees Fahrenheit:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>football_draw <span class="ot">&lt;-</span> football[football<span class="sc">$</span>FTR <span class="sc">==</span> <span class="st">"Draw"</span>, ]</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(football_draw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>airquality_hot <span class="ot">&lt;-</span> airquality[airquality<span class="sc">$</span>Temp <span class="sc">&gt;</span> <span class="dv">90</span>, ]</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(airquality_hot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         Date   HomeTeam  AwayTeam  FTR B365H B365D B365A Draw
-3  2014-08-31   Atalanta    Verona Draw  2.05  3.40   3.6 Draw
-7  2014-08-31    Palermo Sampdoria Draw  2.20  3.25   3.3 Draw
-8  2014-08-31   Sassuolo  Cagliari Draw  2.30  3.40   3.0 Draw
-9  2014-08-31     Torino     Inter Draw  3.10  3.30   2.3 Draw
-14 2014-09-14 Fiorentina     Genoa Draw  1.57  3.80   6.0 Draw
-21 2014-09-20     Cesena    Empoli Draw  2.80  3.00   2.7 Draw</code></pre>
+<pre><code>[1] 14  9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_hot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Ozone Solar.R Wind Temp  Month Day    TempC       Date Season
+42     NA     259 10.9   93   June  11 33.88889 1973-06-11   Peak
+43     NA     250  9.2   92   June  12 33.33333 1973-06-12   Peak
+69     97     267  6.3   92   July   8 33.33333 1973-07-08   Peak
+70     97     272  5.7   92   July   9 33.33333 1973-07-09   Peak
+75     NA     291 14.9   91   July  14 32.77778 1973-07-14   Peak
+102    NA     222  8.6   92 August  10 33.33333 1973-08-10   Peak</code></pre>
 </div>
 </div>
 </section>
 <section id="missing-values" class="level2">
 <h2 class="anchored" data-anchor-id="missing-values">Missing values</h2>
-<p>Suppose we want to identify the matches in which the home team has a low probability of winning according to <em>Bet365</em>:</p>
+<p>Suppose now that we want to identify the days on which the ozone concentration exceeded <span class="math inline">100</span> parts per billion:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>football_home <span class="ot">&lt;-</span> football[football<span class="sc">$</span>B365H <span class="sc">&gt;</span> <span class="dv">9</span>, ]</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>football_home</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>airquality_ozone <span class="ot">&lt;-</span> airquality[airquality<span class="sc">$</span>Ozone <span class="sc">&gt;</span> <span class="dv">100</span>, ]</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(airquality_ozone)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw
-162  2015-01-06   Cesena   Napoli Away   9.5  4.75  1.36 Not_Draw
-224  2015-02-15   Cesena Juventus Draw  15.0  6.00  1.22     Draw
-NA         &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;    NA    NA    NA     &lt;NA&gt;
-1520 2010-05-16    Siena    Inter Away  21.0  9.00  1.10 Not_Draw
-NA.1       &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;    NA    NA    NA     &lt;NA&gt;
-NA.2       &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;    NA    NA    NA     &lt;NA&gt;</code></pre>
+<pre><code>[1] 44  9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_ozone)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Ozone Solar.R Wind Temp Month Day    TempC       Date   Season
+NA      NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;NA&gt;
+NA.1    NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;NA&gt;
+NA.2    NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;NA&gt;
+NA.3    NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;NA&gt;
+NA.4    NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;NA&gt;
+30     115     223  5.7   79   May  30 26.11111 1973-05-30 Off-peak</code></pre>
 </div>
 </div>
 <div class="callout callout-style-simple callout-important no-icon">
@@ -539,70 +604,105 @@ NA.2       &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;    NA    NA    NA
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Something went wrong: there are symbols (<code>NA</code>) that we had not met so far.</p>
+<p>Something went wrong: there are rows entirely made of symbols (<code>NA</code>) that we had not met so far.</p>
 </div>
 </div>
 </div>
 <p>The reason why the command produces apparently strange results is due to the presence of some <span class="orange">missing data</span>, coded as <code>NA</code> (<em>Not Available</em>).</p>
-<p>In particular, there are <span class="math inline">3</span> observations (the <span class="math inline">1501</span>st, <span class="math inline">1846</span>th and <span class="math inline">1848</span>th) whose values relative to <em>Bet365</em> are not available.</p>
+<p>The comparison <code>NA &gt; 100</code> does not return <code>TRUE</code> or <code>FALSE</code>: it returns <code>NA</code>, because the value is unknown. Consequently the selection returns one row for every missing value.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>football[<span class="fu">rowSums</span>(<span class="fu">is.na</span>(football)) <span class="sc">&gt;</span> <span class="dv">0</span>, ] <span class="co"># Identifies the rows with missing values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(airquality<span class="sc">$</span>Ozone)) <span class="co"># How many days lack the ozone measurement</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw
-1501 2010-05-09  Bologna  Catania Draw    NA    NA    NA     Draw
-1846 2011-04-17   Chievo  Bologna Home    NA    NA    NA Not_Draw
-1848 2011-04-17    Genoa  Brescia Home    NA    NA    NA Not_Draw</code></pre>
+<pre><code>[1] 37</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(airquality)) <span class="co"># The same count, variable by variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Ozone Solar.R    Wind    Temp   Month     Day   TempC    Date  Season 
+     37       7       0       0       0       0       0       0       0 </code></pre>
 </div>
 </div>
-<p>The function <code>is.na</code> produces a <span class="blue">logical</span> matrix of the same dimension as <code>football</code>, containing <code>TRUE</code> if the value is missing and <code>FALSE</code> otherwise.</p>
+<p>The function <code>is.na</code> produces a <span class="blue">logical</span> matrix of the same dimension as <code>airquality</code>, containing <code>TRUE</code> if the value is missing and <code>FALSE</code> otherwise.</p>
 <p>The function <code>rowSums(matrix)</code> produces a vector whose values are the sum of the elements of each row of the <code>matrix</code>.</p>
-<p>As a consequence, <code>rowSums(is.na(football))</code> indicates how many missing values are present in each row.</p>
+<p>As a consequence, <code>rowSums(is.na(airquality))</code> indicates how many missing values are present in each row.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(<span class="fu">is.na</span>(airquality)) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="co"># Number of incomplete days</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 42</code></pre>
+</div>
+</div>
 </section>
 <section id="handling-missing-data" class="level2">
 <h2 class="anchored" data-anchor-id="handling-missing-data">Handling missing data</h2>
 <p>The statistical treatment of missing data is not among the objectives of this course.</p>
 <p>The easiest solution, although a potentially very dangerous one, consists simply in <span class="orange">removing</span> the incomplete rows through the command <code>na.omit</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>football_no_na <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(football)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(football_no_na)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>airquality_no_na <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(airquality)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(airquality_no_na)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1897    8</code></pre>
+<pre><code>[1] 111   9</code></pre>
 </div>
 </div>
-<p>To solve the original problem, that is identifying the matches in which the home team has a low probability of winning, one can use <code>subset</code>:</p>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We started from <span class="math inline">153</span> days and we are left with <span class="math inline">111</span>: more than a quarter of the data has been thrown away. Moreover the missing values are <span class="blue">not</span> spread evenly over the months, so what remains is not a fair picture of the summer.</p>
+</div>
+</div>
+</div>
+<p>To solve the original problem, that is identifying the days with a high ozone concentration, one can use <code>subset</code>, which discards the missing values:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>football_home <span class="ot">&lt;-</span> <span class="fu">subset</span>(football, <span class="at">subset =</span> B365H <span class="sc">&gt;</span> <span class="dv">9</span>)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>football_home</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>airquality_ozone <span class="ot">&lt;-</span> <span class="fu">subset</span>(airquality, <span class="at">subset =</span> Ozone <span class="sc">&gt;</span> <span class="dv">100</span>)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>airquality_ozone</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw
-162  2015-01-06   Cesena   Napoli Away   9.5  4.75  1.36 Not_Draw
-224  2015-02-15   Cesena Juventus Draw  15.0  6.00  1.22     Draw
-1520 2010-05-16    Siena    Inter Away  21.0  9.00  1.10 Not_Draw</code></pre>
+<pre><code>    Ozone Solar.R Wind Temp  Month Day    TempC       Date   Season
+30    115     223  5.7   79    May  30 26.11111 1973-05-30 Off-peak
+62    135     269  4.1   84   July   1 28.88889 1973-07-01     Peak
+86    108     223  8.0   85   July  25 29.44444 1973-07-25     Peak
+99    122     255  4.0   89 August   7 31.66667 1973-08-07     Peak
+101   110     207  8.0   90 August   9 32.22222 1973-08-09     Peak
+117   168     238  3.4   81 August  25 27.22222 1973-08-25     Peak
+121   118     225  2.3   94 August  29 34.44444 1973-08-29     Peak</code></pre>
 </div>
 </div>
 </section>
 <section id="selecting-the-variables" class="level2">
 <h2 class="anchored" data-anchor-id="selecting-the-variables">Selecting the variables</h2>
-<p>The command <code>subset</code> can be used both to <span class="blue">select the rows</span> (observations) and to <span class="orange">select the columns</span> (variables).</p>
+<p>The command <code>subset</code> can be used both to <span class="orange">select the rows</span> (observations) and to <span class="blue">select the columns</span> (variables).</p>
 <p>In the second case, one can proceed through the option <code>select</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>football_B365 <span class="ot">&lt;-</span> <span class="fu">subset</span>(football, <span class="at">select =</span> <span class="fu">c</span>(B365H, B365D, B365A))</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(football_B365)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>airquality_pollution <span class="ot">&lt;-</span> <span class="fu">subset</span>(airquality, <span class="at">select =</span> <span class="fu">c</span>(Date, Ozone, Temp, Wind))</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_pollution)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  B365H B365D B365A
-1  7.00   4.0  1.50
-2  1.67   3.8  5.00
-3  2.05   3.4  3.60
-4  3.10   3.2  2.35
-5  3.90   3.4  1.95
-6  2.00   3.4  3.75</code></pre>
+<pre><code>        Date Ozone Temp Wind
+1 1973-05-01    41   67  7.4
+2 1973-05-02    36   72  8.0
+3 1973-05-03    12   74 12.6
+4 1973-05-04    18   62 11.5
+5 1973-05-05    NA   56 14.3
+6 1973-05-06    28   66 14.9</code></pre>
 </div>
 </div>
-<p>Of course it is also possible to select <span class="blue">simultaneously</span> both the rows and the columns.</p>
+<p>Of course it is also possible to select <span class="orange">simultaneously</span> both the rows and the columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(airquality, <span class="at">subset =</span> Ozone <span class="sc">&gt;</span> <span class="dv">100</span>, <span class="at">select =</span> <span class="fu">c</span>(Date, Ozone, Temp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Date Ozone Temp
+30  1973-05-30   115   79
+62  1973-07-01   135   84
+86  1973-07-25   108   85
+99  1973-08-07   122   89
+101 1973-08-09   110   90
+117 1973-08-25   168   81
+121 1973-08-29   118   94</code></pre>
+</div>
+</div>
 </section>
 <section id="the-attach-command" class="level2">
 <h2 class="anchored" data-anchor-id="the-attach-command">The <code>attach</code> command</h2>
-<p>In <strong>R</strong> there exists a command called <code>attach</code>. Although used by many, this command is <span class="orange">diabolical</span> and it would be better to avoid using it.</p>
+<p>In <strong>R</strong> there exists a command called <code>attach</code>. Although used by many, this command is <span class="blue">diabolical</span> and it would be better to avoid using it.</p>
 <p>The command <code>attach(dataframe)</code> makes it possible to use the variables of a <code>data.frame</code> as if they were present in the workspace.</p>
 <p>This practice, however, makes the code much less readable and often leads to errors of various kinds.</p>
 <p>Despite several protests in favour of the removal of <code>attach</code> by some, this command keeps (r)existing and is still used by many.</p>
@@ -613,37 +713,29 @@ NA.2       &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;    NA    NA    NA
 <p>After all these operations, the dataset turns out to be much modified with respect to its initial version.</p>
 <p>Running the command <code>str</code> again we indeed obtain that</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(football)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(airquality)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   1900 obs. of  8 variables:
- $ Date    : Date, format: "2014-08-30" "2014-08-30" ...
- $ HomeTeam: Factor w/ 28 levels "Atalanta","Bari",..: 8 22 1 7 11 17 19 24 26 27 ...
- $ AwayTeam: Factor w/ 28 levels "Atalanta","Bari",..: 13 10 28 20 18 14 23 5 12 9 ...
- $ FTR     : Factor w/ 3 levels "Away","Draw",..: 1 3 2 3 1 3 2 2 2 3 ...
- $ B365H   : num  7 1.67 2.05 3.1 3.9 2 2.2 2.3 3.1 1.8 ...
- $ B365D   : num  4 3.8 3.4 3.2 3.4 3.4 3.25 3.4 3.3 3.5 ...
- $ B365A   : num  1.5 5 3.6 2.35 1.95 3.75 3.3 3 2.3 4.5 ...
- $ Draw    : Factor w/ 2 levels "Not_Draw","Draw": 1 1 2 1 1 1 2 2 2 1 ...</code></pre>
+<pre><code>'data.frame':   153 obs. of  9 variables:
+ $ Ozone  : int  41 36 12 18 NA 28 23 19 8 NA ...
+ $ Solar.R: int  190 118 149 313 NA NA 299 99 19 194 ...
+ $ Wind   : num  7.4 8 12.6 11.5 14.3 14.9 8.6 13.8 20.1 8.6 ...
+ $ Temp   : int  67 72 74 62 56 66 65 59 61 69 ...
+ $ Month  : Factor w/ 5 levels "May","June","July",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ Day    : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ TempC  : num  19.4 22.2 23.3 16.7 13.3 ...
+ $ Date   : Date, format: "1973-05-01" "1973-05-02" ...
+ $ Season : Factor w/ 2 levels "Off-peak","Peak": 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 </div>
 </div>
-</section>
-<section id="the-house-always-wins" class="level2">
-<h2 class="anchored" data-anchor-id="the-house-always-wins">The house always wins</h2>
-<p>In football betting the <span class="blue">odds</span> represent the inverse of the probability of an event, so that <span class="math display">
-    (\text{Probability of the event}) = \frac{1}{(\text{Odds of the event})}
-    </span></p>
-<p>The odds also represent the amount in € that the winner receives against the payment of the unit amount of <span class="math inline">1</span>€.</p>
-<p>For example, betting <span class="math inline">10</span>€ on the victory of Juventus in the match against Chievo of 30 August 2014, one would have obtained <span class="math inline">15</span>€, since the odds were <span class="math inline">1.50</span>.</p>
-<p>If the bet were fair, the probabilities of victory, draw and defeat should sum to <span class="math inline">1</span>.</p>
-<p>However, this does not happen: the resulting probabilities sum to a value <span class="math inline">&gt;1</span>. This discrepancy is called the <span class="orange">overround</span> and guarantees a profit to the house.</p>
 </section>
 <section id="summary-exercise" class="level2">
 <h2 class="anchored" data-anchor-id="summary-exercise">Summary exercise</h2>
+<p>Ozone is not emitted directly: it forms in the lower atmosphere through reactions that are favoured by <span class="orange">sunlight</span> and <span class="blue">heat</span>, and it is dispersed by the <span class="orange">wind</span>. The following questions are a first, purely descriptive look at that mechanism.</p>
 <ul>
-<li><p>Obtain the variable <code>overround</code>, defined as the difference between the sum of the “probabilities” of the <span class="math inline">3</span> events (victory, draw, defeat) and <span class="math inline">1</span>, that is the fair case.</p></li>
-<li><p>Say what is the overround associated with the match Udinese-Parma of 1 September 2013.</p></li>
-<li><p>Say in which matches the lowest and the highest overround was applied, and identify those values.</p></li>
-<li><p>In which match was the highest overround applied in the Serie A championship of 2009/2010?</p></li>
+<li><p>On which day was the highest ozone concentration recorded? And the highest temperature? Are they the same day?</p></li>
+<li><p>How many days are missing the ozone measurement, month by month? Is the problem spread evenly over the summer?</p></li>
+<li><p>Compute the average ozone concentration in each month. Be careful: the command <code>mean</code> returns <code>NA</code> if even a single value is missing.</p></li>
+<li><p>Create a qualitative variable <code>Windy</code> that distinguishes the days with a wind speed above the median from the others. Then compare the average ozone concentration of the two groups. Is the result consistent with what was said above?</p></li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -655,38 +747,44 @@ Hint
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Use the commands <code>which.min</code> and <code>which.max</code>. Consult the documentation to understand how they work.</p>
+<p>Use the commands <code>which.max</code>, <code>table</code> and <code>tapply</code>. The option <code>na.rm = TRUE</code> of the command <code>mean</code> excludes the missing values from the computation. Consult the documentation to understand how they work.</p>
 </div>
 </div>
 <section id="solution" class="level4">
 <h4 class="anchored" data-anchor-id="solution">Solution</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computation of the overround</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>football<span class="sc">$</span>overround <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> football<span class="sc">$</span>B365H <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> football<span class="sc">$</span>B365D <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> football<span class="sc">$</span>B365A <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Overround associated with Udinese-Parma of 1 September 2013</span></span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(football, Date <span class="sc">==</span> <span class="st">"2013-09-01"</span> <span class="sc">&amp;</span> HomeTeam <span class="sc">==</span> <span class="st">"Udinese"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Day of the maximum ozone concentration, and of the maximum temperature</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>airquality[<span class="fu">which.max</span>(airquality<span class="sc">$</span>Ozone), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>          Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw  overround
-400 2013-09-01  Udinese    Parma Home   2.1  3.25   3.6 Not_Draw 0.06166056</code></pre>
+<pre><code>    Ozone Solar.R Wind Temp  Month Day    TempC       Date Season
+117   168     238  3.4   81 August  25 27.22222 1973-08-25   Peak</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Minimum and maximum overround</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>football[<span class="fu">which.min</span>(football<span class="sc">$</span>overround), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>airquality[<span class="fu">which.max</span>(airquality<span class="sc">$</span>Temp), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>          Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw  overround
-301 2015-04-18 Juventus    Lazio Home  1.95   3.4  4.33 Not_Draw 0.03788504</code></pre>
+<pre><code>    Ozone Solar.R Wind Temp  Month Day    TempC       Date Season
+120    76     203  9.7   97 August  28 36.11111 1973-08-28   Peak</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>football[<span class="fu">which.max</span>(football<span class="sc">$</span>overround), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Missing ozone measurements, month by month</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(airquality<span class="sc">$</span>Month[<span class="fu">is.na</span>(airquality<span class="sc">$</span>Ozone)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           Date HomeTeam AwayTeam  FTR B365H B365D B365A Draw overround
-1839 2011-04-10  Palermo   Cesena Draw   2.1   2.1     6 Draw 0.1190476</code></pre>
+<pre><code>
+      May      June      July    August September 
+        5        21         5         5         1 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The Serie A championship starts at the end of August and ends at the end of May</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>football2009_2010 <span class="ot">&lt;-</span> <span class="fu">subset</span>(football, Date <span class="sc">&gt;=</span> <span class="st">"2009-08-15"</span> <span class="sc">&amp;</span> Date <span class="sc">&lt;=</span> <span class="st">"2010-06-15"</span>)</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>football2009_2010[<span class="fu">which.max</span>(football2009_2010<span class="sc">$</span>overround), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average ozone concentration in each month</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(airquality<span class="sc">$</span>Ozone, airquality<span class="sc">$</span>Month, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           Date HomeTeam AwayTeam  FTR B365H B365D B365A     Draw overround
-1483 2010-04-25  Bologna    Parma Home   1.5  3.75     6 Not_Draw       0.1</code></pre>
+<pre><code>      May      June      July    August September 
+ 23.61538  29.44444  59.11538  59.96154  31.44828 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Windy days and average ozone concentration</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Windy <span class="ot">&lt;-</span> <span class="fu">factor</span>(airquality<span class="sc">$</span>Wind <span class="sc">&gt;</span> <span class="fu">median</span>(airquality<span class="sc">$</span>Wind),</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Calm"</span>, <span class="st">"Windy"</span>)</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(airquality<span class="sc">$</span>Ozone, airquality<span class="sc">$</span>Windy, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Calm    Windy 
+56.59677 25.51852 </code></pre>
 </div>
 </div>
 </section>

@@ -200,25 +200,44 @@ f(10)
 ## Data frames
 
 ::: {.callout-note collapse="true"}
-#### `mtcars` dataset - Solution: [`mtcars.R`](../code/mtcars.R)
+#### `swiss` dataset - Solution: [`swiss.R`](../code/swiss.R)
 
-Consider the dataset `data(mtcars)`, which is available in **R**. Answer
-the following questions:
+The `swiss` data file, available at [this link](../data/swiss.csv), reports
+standardised socio-economic indicators for the $47$ French-speaking provinces
+of Switzerland around $1888$:
 
-1.  How many rows and how many columns does this dataset have?
+-   `province`, the name of the province;
 
-2.  Why does the command `mtcars[1:20]` return an error? What is the
-    difference with the command `mtcars[1:20, ]`?
+-   `Fertility`, a standardised fertility measure;
+
+-   `Agriculture`, the percentage of males employed in agriculture;
+
+-   `Examination`, the percentage of draftees receiving the highest mark on an
+    army examination;
+
+-   `Education`, the percentage of draftees educated beyond primary school;
+
+-   `Catholic`, the percentage of Catholics;
+
+-   `Infant.Mortality`, the percentage of live births who die within a year.
+
+------------------------------------------------------------------------
+
+1.  Import the data into **R**. How many rows and how many columns does this
+    dataset have? Which type does **R** assign to the variable `province`?
+
+2.  Why does the command `swiss[1:20]` return an error? What is the difference
+    with the command `swiss[1:20, ]`?
 
 3.  Each of the following lines contains an error (a bug). Propose a
     modification to fix it
 
 ```{r}
 #| eval: false
-mtcars[mtcars$cyl = 4, ] 
-mtcars[-1:4, ] 
-mtcars[mtcars$cyl <= 5] 
-mtcars[mtcars$cyl == 4 | 6, ]
+swiss[swiss$Education = 7, ]
+swiss[-1:4, ]
+swiss[swiss$Education <= 5]
+swiss[swiss$Education == 7 | 12, ]
 ```
 :::
 
