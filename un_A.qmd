@@ -76,7 +76,7 @@ Attributed to [Albert Einstein]{.grey}
     -   A-B-C: the **R** software as a [scientific calculator]{.blue}
     -   Routine operations: cleaning the *workspace*, special symbols
     -   Mathematical functions, plotting a function, logical operations
-    -   Operations with [vectors]{.blue} and [matrices]{.orange}
+    -   Operations with [vectors]{.blue}
 
 -   In class the code is [written live]{.orange}, following the R script
     of this unit. These notes contain the same material and are there for
@@ -239,21 +239,21 @@ floor(x) # Rounds x down to the nearest integer
 ceiling(x) # Rounds x up to the nearest integer
 ```
 
-## Further mathematical functions II
+<!-- ## Further mathematical functions II -->
 
-The gamma function $\Gamma(x) = \int_0^\infty s^{x-1} e^{-s} d s$ is
-computed in **R** as follows:
+<!-- The gamma function $\Gamma(x) = \int_0^\infty s^{x-1} e^{-s} d s$ is -->
+<!-- computed in **R** as follows: -->
 
-```{r}
-gamma(x) # Gamma function
-```
+<!-- ```{r} -->
+<!-- gamma(x) # Gamma function -->
+<!-- ``` -->
 
-The beta function $\mathcal{B}(x,y) = \int_0^1 s^{x-1}(1-s)^{y-1}ds$ is
-computed in **R** as follows:
+<!-- The beta function $\mathcal{B}(x,y) = \int_0^1 s^{x-1}(1-s)^{y-1}ds$ is -->
+<!-- computed in **R** as follows: -->
 
-```{r}
-beta(x, y) # Beta function
-```
+<!-- ```{r} -->
+<!-- beta(x, y) # Beta function -->
+<!-- ``` -->
 
 ## Plotting a function
 
@@ -517,252 +517,6 @@ makes the situation particularly dangerous
 x <- 1:3
 y <- 1:6
 x + y # Equivalent to: c(x, x) + y
-```
-
-# Matrices and lists
-
-## Matrices
-
-A [matrix]{.blue} ${\bf A}$ is a collection of elements $(a)_{ij}$ for
-$i=1,\dots,n$ and $j=1,\dots,m$.
-
-For example, the square matrix of dimension $2 \times 2$
-
-$${\bf A} = \begin{pmatrix}
-5 & 2\\
-1 & 4 \\
-\end{pmatrix},$$ can be defined in **R** through the command `matrix` as
-follows:
-
-```{r}
-A <- matrix(c(5, 1, 2, 4), nrow = 2, ncol = 2)
-A
-```
-
-It is also possible to list the elements [row by row]{.orange}
-
-```{r}
-# Equivalent definition
-A <- matrix(c(5, 2, 1, 4), nrow = 2, ncol = 2, byrow = TRUE)
-```
-
-## Row vectors and column vectors
-
-A matrix with a single column is a [column vector]{.blue}:
-
-```{r}
-x_col <- matrix(c(1, 10, 3, 5), ncol = 1)
-x_col
-```
-
-A matrix with a single row is a [row vector]{.orange}:
-
-```{r}
-x_row <- matrix(c(1, 10, 3, 5), nrow = 1)
-x_row
-```
-
-## Row vectors and **R** vectors
-
-In most cases, the [row vector]{.blue} `x_row` is interchangeable with the
-vector `x`.
-
-```{r}
-x_row <- matrix(c(1, 10, 3, 5), nrow = 1)
-x <- c(1, 10, 3, 5) # Similar, but not identical, to x_row
-```
-
-For example, the functions `sum(x_row)` and `sum(x)` return the same
-result.
-
-There are however some slight distinctions. For example:
-
-```{r}
-dim(x_row)
-dim(x)
-```
-
-The symbol `NULL` means [not defined]{.orange}, because the notion of dimension
-does not exist for a generic **R** vector.
-
-## Operations on matrices I
-
-It is possible to [select the elements]{.blue} of a matrix in a way analogous
-to what was done with vectors.
-
-```{r}
-A[1, 2] # Extraction of the element in position (1,2)
-A[, 2] # Extraction of the second column
-A[1, ] # Extraction of the first row
-```
-
-Some [basic commands]{.orange} to manipulate matrices are the following
-
-```{r}
-dim(A) # Returns the dimension of the matrix
-a <- c(A) # Converts the matrix into a vector
-a
-```
-
-```{r}
-diag(A) # Returns the diagonal of the matrix
-t(A) # Computes the transposed matrix A'
-sum(A) # Sum of all the elements of A
-```
-
-## Operations on matrices II
-
-As for vectors, elementary operations (sum, product, `log`, `exp`, etc.)
-are performed [element by element]{.blue}.
-
-```{r}
-exp(A)
-```
-
-Let ${\bf A}$ and ${\bf B}$ be two matrices having the same number of
-columns and let us define
-
-$$
-{\bf C} = \begin{pmatrix}{\bf A} \\ {\bf B} \end{pmatrix}.
-$$
-
-```{r}
-B <- A # I create a matrix B identical to A, for simplicity
-C <- rbind(A, B)
-C
-```
-
-Analogously, let ${\bf A}$ and ${\bf B}$ be two matrices having the same
-number of rows and let us define
-${\bf C} = \begin{pmatrix}{\bf A} & {\bf B} \end{pmatrix}$.
-
-```{r}
-C <- cbind(A, B)
-C
-```
-
-## Operations on matrices III
-
-Let ${\bf x}$ and ${\bf y}$ be two column vectors in $\mathbb{R}^p$.
-Then, their [cross product]{.orange} is equal to
-
-$$ 
-{\bf x}^\intercal {\bf y} = \sum_{i=1}^p x_i y_i.
-$$
-
-In **R** we can use the command `crossprod`
-
-```{r}
-x <- matrix(c(-4, 2, 6, 10, 22), ncol = 1)
-y <- matrix(c(3, 2, 2, 7, 9), ncol = 1)
-crossprod(x, y) # Equivalent to: sum(x * y)
-```
-
-The command `crossprod` also works correctly with **R** "vectors".
-
-The command `crossprod` can be used as well to compute the following
-[matrix product]{.orange} $$
-{\bf A}^\intercal {\bf B},
-$$ where ${\bf A}$ and ${\bf B}$ are two matrices of compatible
-dimensions.
-
-## Operations on matrices IV
-
-In linear algebra the [product between compatible matrices]{.blue}
-${\bf A} {\bf B}$ is called the row-by-column product. In **R** one uses
-the following command
-
-```{r}
-A <- rbind(c(1, 2, 3), c(4, 9, 2), c(2, 2, 2))
-B <- rbind(c(5, 2, 5), c(3, 3, 7), c(-2, -8, 10))
-
-A %*% B # Row-by-column product AB
-```
-
-[Note]{.orange}. The command `A * B` denotes the element-by-element product and
-not the row-by-column product.
-
-If the matrices are not compatible **R** produces an error (try it as an
-exercise!)
-
-## Operations on matrices V
-
-Let ${\bf A}$ be a square $n \times n$ real-valued matrix. Its **inverse
-matrix** ${\bf A}^{-1}$, when it exists, is the unique matrix such that
-
-$$
-{\bf A} {\bf A}^{-1} = {\bf A}^{-1} {\bf A} =  I_n.
-$$
-
-To obtain ${\bf A}^{-1}$ one uses the command `solve`.
-
-```{r}
-A <- rbind(c(1, 2, 3), c(4, 9, 2), c(2, 2, 2))
-A1 <- solve(A) # Inverse matrix of A
-A1
-```
-
-```{r}
-round(A %*% A1, digits = 5) # Sanity check
-```
-
-```{r}
-det(A) # Computes the determinant of the matrix A
-```
-
-## Operations on matrices VI
-
-In case a matrix is not invertible, the [determinant]{.blue} is equal to $0$.
-The command `solve` in that case produces an error.
-
-```{r}
-# Example of a NON invertible matrix
-A <- rbind(c(1, 2, 3), c(2, 4, 6), c(2, 2, 2))
-det(A) # Determinant equal to 0, solve(A) produces an error
-```
-
-There are several functions for the [decomposition of matrices]{.orange}, whose
-output is sometimes a [list]{.blue}.
-
-```{r}
-A <- matrix(c(4, 1, 1, 8), ncol = 2)
-chol(A) # Cholesky decomposition
-qr(A) # QR decomposition
-eigen(A) # Spectral decomposition
-```
-
-## Lists
-
-A [list]{.orange} is a collection of objects (numbers, vectors, matrices, etc.).
-
-To [store]{.blue} or to [extract]{.orange} an object from a list one uses the dollar
-symbol `$`.
-
-```{r}
-# Creation of a list
-new_list <- list(
-  A = matrix(c(4, 1, 1, 8), ncol = 2),
-  x = c(1, 2, 6, 6, 9)
-)
-
-new_list
-```
-
-## Example: the spectral decomposition
-
-The eigenvalues and eigenvectors of a matrix $\textbf{A}$ are obtained
-through the command `eigen`.
-
-The result is a [list]{.blue}, containing the eigenvectors (`vectors`) and the
-eigenvalues (`values`).
-
-```{r}
-Spec_A <- eigen(A) # Spectral decomposition of the matrix A
-Spec_A
-```
-
-```{r}
-Spec_A$values # Extraction of the eigenvalues
 ```
 
 ## References

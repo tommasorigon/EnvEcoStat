@@ -113,68 +113,21 @@ zero.
 :::
 
 ::: {.callout-note collapse="true"}
-#### Exercise D - Solution: [`matrix.R`](../code/matrix.R)
-
-Define in **R** a symmetric matrix ${\bf A}$ of dimension $5 \times 5$,
-whose elements are $$
-{\bf A} = \begin{pmatrix}
-26 &  22 &  17 &  22 &  23 \\ 
-22 &  18 &  14 &  23 &  27 \\ 
-17 &  14 &  14 &  20 &  24 \\ 
-22 &  23 &  20 &  26 &  23 \\ 
-23 &  27 &  24 &  23 &  12 \\ 
-\end{pmatrix}.
-$$
-
-1.  Verify empirically that
-    $\text{det}({\bf A}^{-1}) = 1 / \text{det}({\bf A})$.
-
-2.  Verify empirically that
-    $\text{det}({\bf A}^2) = \text{det}({\bf A})^2$.
-
-3.  Compute the trace of ${\bf A}$, that is
-    $\text{tr}({\bf A}) = \sum_{i=1}^n a_{ii}$, for $n = 5$.
-
-4.  Verify empirically that
-    $\text{det}({\bf A}) = \prod_{i=1}^n \lambda_i$, where
-    $\lambda_1,\dots,\lambda_n$ are the eigenvalues of ${\bf A}$.
-:::
-
-::: {.callout-note collapse="true"}
-#### Exercise E - Solution: [`distances.R`](../code/distances.R)
+#### Exercise D - Solution: [`distances.R`](../code/distances.R)
 
 The [Euclidean distance]{.orange} between two vectors ${\bf x}$ and ${\bf y}$
 in $\mathbb{R}^p$ is defined as
-$$d({\bf x},{\bf y}) = \sqrt{\sum_{j=1}^p(x_j - y_j)^2},$$ whereas the
-[Frobenius norm]{.blue} $||{\bf A}||_F$ of a real-valued matrix ${\bf A}$ of
-dimension $n \times m$ is defined as
-$$||{\bf A}||_F = \sqrt{\sum_{i=1}^n \sum_{j=1}^m a_{ij}^2}.$$
+$$d({\bf x},{\bf y}) = \sqrt{\sum_{j=1}^p(x_j - y_j)^2}.$$
 
 1.  Write the **R** function `dist_euclid(x, y)` that computes the Euclidean
     distance between two vectors.
 
 2.  If `x = c(1, 4, 2, 2, 10)` and `y = c(8, 1, 8, 3, 6)`, what is the value of
     `dist_euclid(x, y)`?
-
-3.  Write the **R** function `frobenius_norm(A)` that computes the Frobenius
-    norm of a matrix `A`.
-
-4.  If `A = cbind(1:5,6:10,11:15)`, what is the value of `frobenius_norm(A)`?
-
-5.  Verify that `dist_euclid(x, y)` and `frobenius_norm(x - y)` return the same
-    value. Why is that the case?
 :::
 
 ::: {.callout-note collapse="true"}
-#### Exercise F - Solution: [`diagonal.R`](../code/diagonal.R)
-
-Let ${\bf A}$ be a matrix of dimension $n \times n$. Implement a function
-that extracts the diagonal elements $a_{ii}$, for $i = 1,\dots,n$, of the
-matrix ${\bf A}$. Then compare it with the `diag` function of **R**.
-:::
-
-::: {.callout-note collapse="true"}
-#### Exercise G - Solution: [`nested.R`](../code/nested.R)
+#### Exercise E - Solution: [`nested.R`](../code/nested.R)
 
 What does the function `f(10)` return? Discuss the result without running
 the following code
