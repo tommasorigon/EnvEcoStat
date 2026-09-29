@@ -247,8 +247,8 @@ than quantities: we will convert them below.
 
 ## Quantitative variables
 
-To [extract a variable]{.blue} from a `data.frame` one proceeds as in the case of
-lists, that is through the symbol `$`. The variables can be saved under any
+To [extract a variable]{.blue} from a `data.frame` one uses the dollar symbol
+`$`. The variables can be saved under any
 name.
 
 A numerical variable is an **R** vector to all intents and purposes, therefore

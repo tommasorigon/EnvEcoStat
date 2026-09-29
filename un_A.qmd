@@ -76,7 +76,7 @@ Attributed to [Albert Einstein]{.grey}
     -   A-B-C: the **R** software as a [scientific calculator]{.blue}
     -   Routine operations: cleaning the *workspace*, special symbols
     -   Mathematical functions, plotting a function, logical operations
-    -   Operations with [vectors]{.blue}
+    -   Operations with [vectors]{.blue} and [matrices]{.orange}
 
 -   In class the code is [written live]{.orange}, following the R script
     of this unit. These notes contain the same material and are there for
@@ -517,6 +517,88 @@ makes the situation particularly dangerous
 x <- 1:3
 y <- 1:6
 x + y # Equivalent to: c(x, x) + y
+```
+
+# Matrices
+
+## Matrices
+
+A [matrix]{.blue} ${\bf A}$ is a collection of elements $(a)_{ij}$ for
+$i=1,\dots,n$ and $j=1,\dots,m$.
+
+For example, the square matrix of dimension $2 \times 2$
+
+$${\bf A} = \begin{pmatrix}
+5 & 2\\
+1 & 4 \\
+\end{pmatrix},$$ can be defined in **R** through the command `matrix` as
+follows:
+
+```{r}
+A <- matrix(c(5, 1, 2, 4), nrow = 2, ncol = 2)
+A
+```
+
+It is also possible to list the elements [row by row]{.orange}
+
+```{r}
+# Equivalent definition
+A <- matrix(c(5, 2, 1, 4), nrow = 2, ncol = 2, byrow = TRUE)
+```
+
+## Operations on matrices I
+
+It is possible to [select the elements]{.blue} of a matrix in a way analogous
+to what was done with vectors.
+
+```{r}
+A[1, 2] # Extraction of the element in position (1,2)
+A[, 2] # Extraction of the second column
+A[1, ] # Extraction of the first row
+```
+
+Some [basic commands]{.orange} to manipulate matrices are the following
+
+```{r}
+dim(A) # Returns the dimension of the matrix
+a <- c(A) # Converts the matrix into a vector
+a
+```
+
+```{r}
+diag(A) # Returns the diagonal of the matrix
+sum(A) # Sum of all the elements of A
+```
+
+## Operations on matrices II
+
+As for vectors, elementary operations (sum, product, `log`, `exp`, etc.)
+are performed [element by element]{.blue}.
+
+```{r}
+exp(A)
+```
+
+Let ${\bf A}$ and ${\bf B}$ be two matrices having the same number of
+columns and let us define
+
+$$
+{\bf C} = \begin{pmatrix}{\bf A} \\ {\bf B} \end{pmatrix}.
+$$
+
+```{r}
+B <- A # I create a matrix B identical to A, for simplicity
+C <- rbind(A, B)
+C
+```
+
+Analogously, let ${\bf A}$ and ${\bf B}$ be two matrices having the same
+number of rows and let us define
+${\bf C} = \begin{pmatrix}{\bf A} & {\bf B} \end{pmatrix}$.
+
+```{r}
+C <- cbind(A, B)
+C
 ```
 
 ## References

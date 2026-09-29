@@ -14,3 +14,17 @@ dist_euclid <- function(x, y) {
 x <- c(1, 4, 2, 2, 10)
 y <- c(8, 1, 8, 3, 6)
 dist_euclid(x, y) # 10.53565
+
+# 3 --------------------------------------------------------------------
+frobenius_norm <- function(A) {
+  sqrt(sum(A^2))
+}
+
+# 4 --------------------------------------------------------------------
+A <- cbind(1:5, 6:10, 11:15)
+frobenius_norm(A) # 35.21363
+
+# 5 --------------------------------------------------------------------
+frobenius_norm(x - y) # 10.53565, the same value
+# A vector can be seen as a matrix with a single column: in that case the two
+# definitions coincide

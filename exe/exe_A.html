@@ -286,10 +286,13 @@ Exercise D - Solution: <a href="../code/distances.R"><code>distances.R</code></a
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The <span class="orange">Euclidean distance</span> between two vectors <span class="math inline">{\bf x}</span> and <span class="math inline">{\bf y}</span> in <span class="math inline">\mathbb{R}^p</span> is defined as <span class="math display">d({\bf x},{\bf y}) = \sqrt{\sum_{j=1}^p(x_j - y_j)^2}.</span></p>
+<p>The <span class="orange">Euclidean distance</span> between two vectors <span class="math inline">{\bf x}</span> and <span class="math inline">{\bf y}</span> in <span class="math inline">\mathbb{R}^p</span> is defined as <span class="math display">d({\bf x},{\bf y}) = \sqrt{\sum_{j=1}^p(x_j - y_j)^2},</span> whereas the <span class="blue">Frobenius norm</span> <span class="math inline">||{\bf A}||_F</span> of a real-valued matrix <span class="math inline">{\bf A}</span> of dimension <span class="math inline">n \times m</span> is defined as <span class="math display">||{\bf A}||_F = \sqrt{\sum_{i=1}^n \sum_{j=1}^m a_{ij}^2}.</span></p>
 <ol type="1">
 <li><p>Write the <strong>R</strong> function <code>dist_euclid(x, y)</code> that computes the Euclidean distance between two vectors.</p></li>
 <li><p>If <code>x = c(1, 4, 2, 2, 10)</code> and <code>y = c(8, 1, 8, 3, 6)</code>, what is the value of <code>dist_euclid(x, y)</code>?</p></li>
+<li><p>Write the <strong>R</strong> function <code>frobenius_norm(A)</code> that computes the Frobenius norm of a matrix <code>A</code>.</p></li>
+<li><p>If <code>A = cbind(1:5,6:10,11:15)</code>, what is the value of <code>frobenius_norm(A)</code>?</p></li>
+<li><p>Verify that <code>dist_euclid(x, y)</code> and <code>frobenius_norm(x - y)</code> return the same value. Why is that the case?</p></li>
 </ol>
 </div>
 </div>
@@ -300,11 +303,27 @@ Exercise D - Solution: <a href="../code/distances.R"><code>distances.R</code></a
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise E - Solution: <a href="../code/nested.R"><code>nested.R</code></a>
+Exercise E - Solution: <a href="../code/diagonal.R"><code>diagonal.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">{\bf A}</span> be a matrix of dimension <span class="math inline">n \times n</span>. Implement a function that extracts the diagonal elements <span class="math inline">a_{ii}</span>, for <span class="math inline">i = 1,\dots,n</span>, of the matrix <span class="math inline">{\bf A}</span>. Then compare it with the <code>diag</code> function of <strong>R</strong>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise F - Solution: <a href="../code/nested.R"><code>nested.R</code></a>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>What does the function <code>f(10)</code> return? Discuss the result without running the following code</p>
 <div class="cell">
@@ -329,7 +348,7 @@ Exercise E - Solution: <a href="../code/nested.R"><code>nested.R</code></a>
 <section id="data-frames" class="level2">
 <h2 class="anchored" data-anchor-id="data-frames">Data frames</h2>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -338,7 +357,7 @@ Exercise E - Solution: <a href="../code/nested.R"><code>nested.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The <code>swiss</code> data file, available at <a href="../data/swiss.csv">this link</a>, reports standardised socio-economic indicators for the <span class="math inline">47</span> French-speaking provinces of Switzerland around <span class="math inline">1888</span>:</p>
 <ul>
@@ -366,7 +385,7 @@ Exercise E - Solution: <a href="../code/nested.R"><code>nested.R</code></a>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -375,7 +394,7 @@ Exercise E - Solution: <a href="../code/nested.R"><code>nested.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The <code>Students</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span> collects the answers of <span class="math inline">60</span> social science graduate students of the University of Florida to a questionnaire. It is available at <a href="https://stat4ds.rwth-aachen.de/data/Students.dat">this link</a> and contains, among others, the following variables:</p>
 <ul>

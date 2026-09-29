@@ -169,6 +169,12 @@ window.Quarto = {
   <li><a href="#operations-on-vectors-ii" id="toc-operations-on-vectors-ii" class="nav-link" data-scroll-target="#operations-on-vectors-ii">Operations on vectors II</a></li>
   <li><a href="#operations-on-vectors-iii" id="toc-operations-on-vectors-iii" class="nav-link" data-scroll-target="#operations-on-vectors-iii">Operations on vectors III</a></li>
   <li><a href="#operations-on-vectors-a-warning" id="toc-operations-on-vectors-a-warning" class="nav-link" data-scroll-target="#operations-on-vectors-a-warning">Operations on vectors: a warning</a></li>
+  </ul></li>
+  <li><a href="#matrices" id="toc-matrices" class="nav-link" data-scroll-target="#matrices">Matrices</a>
+  <ul class="collapse">
+  <li><a href="#matrices-1" id="toc-matrices-1" class="nav-link" data-scroll-target="#matrices-1">Matrices</a></li>
+  <li><a href="#operations-on-matrices-i" id="toc-operations-on-matrices-i" class="nav-link" data-scroll-target="#operations-on-matrices-i">Operations on matrices I</a></li>
+  <li><a href="#operations-on-matrices-ii" id="toc-operations-on-matrices-ii" class="nav-link" data-scroll-target="#operations-on-matrices-ii">Operations on matrices II</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
@@ -223,7 +229,7 @@ window.Quarto = {
 <li>A-B-C: the <strong>R</strong> software as a <span class="blue">scientific calculator</span></li>
 <li>Routine operations: cleaning the <em>workspace</em>, special symbols</li>
 <li>Mathematical functions, plotting a function, logical operations</li>
-<li>Operations with <span class="blue">vectors</span></li>
+<li>Operations with <span class="blue">vectors</span> and <span class="orange">matrices</span></li>
 </ul></li>
 <li><p>In class the code is <span class="orange">written live</span>, following the R script of this unit. These notes contain the same material and are there for you to <span class="blue">consult at any time</span>.</p></li>
 </ul>
@@ -788,6 +794,110 @@ length</code></pre>
 <span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> y <span class="co"># Equivalent to: c(x, x) + y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2 4 6 5 7 9</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="matrices" class="level1">
+<h1>Matrices</h1>
+<section id="matrices-1" class="level2">
+<h2 class="anchored" data-anchor-id="matrices-1">Matrices</h2>
+<p>A <span class="blue">matrix</span> <span class="math inline">{\bf A}</span> is a collection of elements <span class="math inline">(a)_{ij}</span> for <span class="math inline">i=1,\dots,n</span> and <span class="math inline">j=1,\dots,m</span>.</p>
+<p>For example, the square matrix of dimension <span class="math inline">2 \times 2</span></p>
+<p><span class="math display">{\bf A} = \begin{pmatrix}
+5 &amp; 2\\
+1 &amp; 4 \\
+\end{pmatrix},</span> can be defined in <strong>R</strong> through the command <code>matrix</code> as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    5    2
+[2,]    1    4</code></pre>
+</div>
+</div>
+<p>It is also possible to list the elements <span class="orange">row by row</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Equivalent definition</span></span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="operations-on-matrices-i" class="level2">
+<h2 class="anchored" data-anchor-id="operations-on-matrices-i">Operations on matrices I</h2>
+<p>It is possible to <span class="blue">select the elements</span> of a matrix in a way analogous to what was done with vectors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">1</span>, <span class="dv">2</span>] <span class="co"># Extraction of the element in position (1,2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>A[, <span class="dv">2</span>] <span class="co"># Extraction of the second column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">1</span>, ] <span class="co"># Extraction of the first row</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5 2</code></pre>
+</div>
+</div>
+<p>Some <span class="orange">basic commands</span> to manipulate matrices are the following</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(A) <span class="co"># Returns the dimension of the matrix</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(A) <span class="co"># Converts the matrix into a vector</span></span>
+<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5 1 2 4</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(A) <span class="co"># Returns the diagonal of the matrix</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(A) <span class="co"># Sum of all the elements of A</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+</div>
+</section>
+<section id="operations-on-matrices-ii" class="level2">
+<h2 class="anchored" data-anchor-id="operations-on-matrices-ii">Operations on matrices II</h2>
+<p>As for vectors, elementary operations (sum, product, <code>log</code>, <code>exp</code>, etc.) are performed <span class="blue">element by element</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]      [,2]
+[1,] 148.413159  7.389056
+[2,]   2.718282 54.598150</code></pre>
+</div>
+</div>
+<p>Let <span class="math inline">{\bf A}</span> and <span class="math inline">{\bf B}</span> be two matrices having the same number of columns and let us define</p>
+<p><span class="math display">
+{\bf C} = \begin{pmatrix}{\bf A} \\ {\bf B} \end{pmatrix}.
+</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> A <span class="co"># I create a matrix B identical to A, for simplicity</span></span>
+<span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">rbind</span>(A, B)</span>
+<span id="cb149-3"><a href="#cb149-3" aria-hidden="true" tabindex="-1"></a>C</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    5    2
+[2,]    1    4
+[3,]    5    2
+[4,]    1    4</code></pre>
+</div>
+</div>
+<p>Analogously, let <span class="math inline">{\bf A}</span> and <span class="math inline">{\bf B}</span> be two matrices having the same number of rows and let us define <span class="math inline">{\bf C} = \begin{pmatrix}{\bf A} &amp; {\bf B} \end{pmatrix}</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">cbind</span>(A, B)</span>
+<span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a>C</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    5    2    5    2
+[2,]    1    4    1    4</code></pre>
 </div>
 </div>
 </section>
