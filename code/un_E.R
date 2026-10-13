@@ -70,29 +70,6 @@ interquartile_range(hemo_A)
 interquartile_range(hemo_B)
 
 ## -----------------------------------------------------------------------------
-MAD <- function(x) {
-  median(abs(x - median(x)))
-}
-
-## -----------------------------------------------------------------------------
-MAD(hemo_A)
-MAD(hemo_B)
-
-## -----------------------------------------------------------------------------
-tapply(hemoglobin$hemoglobin, hemoglobin$method, mean)
-with(hemoglobin, tapply(hemoglobin, method, mean)) # Even more compactly
-
-## -----------------------------------------------------------------------------
-tab <- rbind(
-  with(hemoglobin, tapply(hemoglobin, method, my_var)),
-  with(hemoglobin, tapply(hemoglobin, method, my_sd)),
-  with(hemoglobin, tapply(hemoglobin, method, interquartile_range)),
-  with(hemoglobin, tapply(hemoglobin, method, MAD))
-)
-rownames(tab) <- c("Variance", "Standard deviation", "Interquartile range", "MAD")
-tab
-
-## -----------------------------------------------------------------------------
 # First possible implementation
 asym <- function(x) {
   sdev <- sqrt(mean(x^2) - mean(x)^2)

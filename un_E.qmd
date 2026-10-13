@@ -61,36 +61,39 @@ styler:::style_file("code/un_E.R")
 
 ## Topics covered
 
--   Variance and standard deviation
--   Other measures of variability (range, interquartile range, MAD)
+- Variance and standard deviation
+- Other measures of variability (range, interquartile range, MAD)
 
 ::: callout-note
 #### Note
 
-The exercises associated with this unit are available at
-[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_B.html).
+The exercises associated with this unit are available at [this
+link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_B.html).
 :::
 
 ## Description of the problem
 
-We are interested in comparing the effectiveness of two different methods,
-called A and B, for the [measurement of haemoglobin]{.orange} in blood.
+We are interested in comparing the effectiveness of two different
+methods, called A and B, for the [measurement of haemoglobin]{.orange}
+in blood.
 
 [Artificial blood]{.blue} containing 15 grams of haemoglobin every
 $100 \text{cm}^3$ has been created in the laboratory.
 
 A total of $n = 360$ samples were drawn from the compound.
 
-Of these, in $n_A = 180$ samples the haemoglobin was measured using method A,
-whereas for the remaining $n_B = 180$ samples method B was used.
+Of these, in $n_A = 180$ samples the haemoglobin was measured using
+method A, whereas for the remaining $n_B = 180$ samples method B was
+used.
 
-The differences between the various measurements are largely to be attributed to
-the measurement errors of the two different methods.
+The differences between the various measurements are largely to be
+attributed to the measurement errors of the two different methods.
 
 ## Importing the `hemoglobin` data
 
-As done previously, first of all you need to download the file `hemoglobin.csv`
-and save it on your computer. [Link to the file](data/hemoglobin.csv)
+As done previously, first of all you need to download the file
+`hemoglobin.csv` and save it on your computer. [Link to the
+file](data/hemoglobin.csv)
 
 ```{r}
 hemoglobin <- read.table("data/hemoglobin.csv",
@@ -110,16 +113,17 @@ hemoglobin <- read.table(path, header = TRUE, sep = ",", stringsAsFactors = TRUE
 str(hemoglobin)
 ```
 
-The option `stringsAsFactors = TRUE` implies that the variable `method` is coded
-as a `factor` and not as a `character`.
+The option `stringsAsFactors = TRUE` implies that the variable `method`
+is coded as a `factor` and not as a `character`.
 
 ## Preliminary operations
 
-In this format the data are [hard to analyse]{.orange}, at least without using the
-advanced `*apply` functions or the tools of the so-called `tidyverse`.
+In this format the data are [hard to analyse]{.orange}, at least without
+using the advanced `*apply` functions or the tools of the so-called
+`tidyverse`.
 
-Therefore, we create the two variables `hemo_A` and `hemo_B`, containing the
-haemoglobin values for the two methods.
+Therefore, we create the two variables `hemo_A` and `hemo_B`, containing
+the haemoglobin values for the two methods.
 
 ```{r}
 hemo_A <- hemoglobin$hemoglobin[hemoglobin$method == "A"] # Group A
@@ -136,12 +140,14 @@ boxplot(hemoglobin$hemoglobin ~ hemoglobin$method,
 )
 ```
 
-From these first descriptive analyses it emerges that both methods are, at least
-on average, [well calibrated]{.blue}. Which of the two is preferable?
+From these first descriptive analyses it emerges that both methods are,
+at least on average, [well calibrated]{.blue}. Which of the two is
+preferable?
 
 ## The variance I
 
-Recall that the [variance]{.orange} of the data $x_1,\dots,x_n$ is equal to
+Recall that the [variance]{.orange} of the data $x_1,\dots,x_n$ is equal
+to
 
 $$
 \sigma^2  = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2 = \left(\frac{1}{n}\sum_{i=1}^n x_i^2\right) - \bar{x}^2.
@@ -161,8 +167,9 @@ Method B is therefore characterised by a larger [variability]{.blue}.
 
 ## The variance II
 
-For convenience, we create a [new function]{.orange} called `my_var` that computes the
-[variance]{.blue} of a generic vector `x`. We will therefore have:
+For convenience, we create a [new function]{.orange} called `my_var`
+that computes the [variance]{.blue} of a generic vector `x`. We will
+therefore have:
 
 ```{r}
 my_var <- function(x) {
@@ -173,13 +180,13 @@ my_var(hemo_A)
 my_var(hemo_B)
 ```
 
-In **R** the function `var` is available, however this computes a slightly
-[different quantity]{.orange}, that is $$
+In **R** the function `var` is available, however this computes a
+slightly [different quantity]{.orange}, that is $$
 \texttt{var(x)} = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2,
 $$ that is the [unbiased estimator]{.blue} of the variance.
 
-[Not clear why?]{.orange} It will be addressed in the part of the course devoted to
-statistical inference.
+[Not clear why?]{.orange} It will be addressed in the part of the course
+devoted to statistical inference.
 
 ## The variance III
 
@@ -199,14 +206,16 @@ Obtain the same output as `my_var` using the function `var`.
 
 ## Standard deviation
 
-The [standard deviation]{.orange} is the square root of the variance, that is $$
+The [standard deviation]{.orange} is the square root of the variance,
+that is $$
 \text{sd}(x) = \sigma = \sqrt{\sigma^2}.
 $$
 
-We therefore create a suitable **R** function called `my_sd` to compute it.
+We therefore create a suitable **R** function called `my_sd` to compute
+it.
 
-Also in this case, be careful that the **R** command `sd` computes instead the
-value of $$
+Also in this case, be careful that the **R** command `sd` computes
+instead the value of $$
 \texttt{sd(x)} = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2}.
 $$
 
@@ -224,14 +233,14 @@ sd(hemo_B)
 
 ## Range
 
-The [range]{.blue} is the difference between the minimum and the maximum of the
-distribution, that is $$
+The [range]{.blue} is the difference between the minimum and the maximum
+of the distribution, that is $$
 (\text{``Range''}) = x_{(n)} - x_{(1)},
-$$ where $x_{(1)}$ and $x_{(n)}$ represent respectively the minimum and the
-maximum of the data.
+$$ where $x_{(1)}$ and $x_{(n)}$ represent respectively the minimum and
+the maximum of the data.
 
-Although a specific function to compute it does not exist, we can use the
-following commands
+Although a specific function to compute it does not exist, we can use
+the following commands
 
 ```{r}
 max(hemo_A) - min(hemo_A)
@@ -249,13 +258,13 @@ Define a suitable **R** function that computes the [range]{.orange}.
 
 ## Interquartile range
 
-The [interquartile range]{.blue} is the difference between the third and the first
-quartile, that is $$
+The [interquartile range]{.blue} is the difference between the third and
+the first quartile, that is $$
 (\text{``Interquartile range''}) = \mathcal{Q}_{0.75} - \mathcal{Q}_{0.25}.
 $$
 
-It is much more [resistant]{.orange} than the variance in the presence of a few extreme
-observations.
+It is much more [resistant]{.orange} than the variance in the presence
+of a few extreme observations.
 
 Its implementation in **R** is the following:
 
@@ -268,64 +277,64 @@ interquartile_range(hemo_A)
 interquartile_range(hemo_B)
 ```
 
-## Median absolute deviation (MAD)
+<!-- ## Median absolute deviation (MAD) -->
 
-The variability index [MAD]{.blue} (*Median Absolute Deviation*) is defined as
-follows $$
-\text{MAD} = \text{Median}(|x_1 - \text{Me}_x|, \dots, |x_n - \text{Me}_x|), \qquad \text{Me}_x = \text{Median}(x_1,\dots,x_n).
-$$
+<!-- The variability index [MAD]{.blue} (*Median Absolute Deviation*) is -->
+<!-- defined as follows $$ -->
+<!-- \text{MAD} = \text{Median}(|x_1 - \text{Me}_x|, \dots, |x_n - \text{Me}_x|), \qquad \text{Me}_x = \text{Median}(x_1,\dots,x_n). -->
+<!-- $$ -->
 
-To compute it, we create an appropriate function:
+<!-- To compute it, we create an appropriate function: -->
 
-```{r}
-MAD <- function(x) {
-  median(abs(x - median(x)))
-}
-```
+<!-- ```{r} -->
+<!-- MAD <- function(x) { -->
+<!--   median(abs(x - median(x))) -->
+<!-- } -->
+<!-- ``` -->
 
-The MAD of the variables `hemo_A` and `hemo_B` is therefore equal to
+<!-- The MAD of the variables `hemo_A` and `hemo_B` is therefore equal to -->
 
-```{r}
-MAD(hemo_A)
-MAD(hemo_B)
-```
+<!-- ```{r} -->
+<!-- MAD(hemo_A) -->
+<!-- MAD(hemo_B) -->
+<!-- ``` -->
 
-## The `tapply` function I
+<!-- ## The `tapply` function I -->
 
-There exists a more [elegant]{.orange} and [fast]{.blue} method to obtain these results,
-based on the function `tapply`.
+<!-- There exists a more [elegant]{.orange} and [fast]{.blue} method to -->
+<!-- obtain these results, based on the function `tapply`. -->
 
-The function `tapply(x, group, fun)` applies a certain function `fun` to a set
-of data `x`, for each [group]{.orange} `group`.
+<!-- The function `tapply(x, group, fun)` applies a certain function `fun` to -->
+<!-- a set of data `x`, for each [group]{.orange} `group`. -->
 
-For example, the arithmetic mean of `hemo_A` and `hemo_B` is obtained as
-follows:
+<!-- For example, the arithmetic mean of `hemo_A` and `hemo_B` is obtained as -->
+<!-- follows: -->
 
-```{r}
-tapply(hemoglobin$hemoglobin, hemoglobin$method, mean)
-with(hemoglobin, tapply(hemoglobin, method, mean)) # Even more compactly
-```
+<!-- ```{r} -->
+<!-- tapply(hemoglobin$hemoglobin, hemoglobin$method, mean) -->
+<!-- with(hemoglobin, tapply(hemoglobin, method, mean)) # Even more compactly -->
+<!-- ``` -->
 
-## The `tapply` function II
+<!-- ## The `tapply` function II -->
 
-Therefore, we can obtain the various variability indices as follows:
+<!-- Therefore, we can obtain the various variability indices as follows: -->
 
-```{r}
-tab <- rbind(
-  with(hemoglobin, tapply(hemoglobin, method, my_var)),
-  with(hemoglobin, tapply(hemoglobin, method, my_sd)),
-  with(hemoglobin, tapply(hemoglobin, method, interquartile_range)),
-  with(hemoglobin, tapply(hemoglobin, method, MAD))
-)
-rownames(tab) <- c("Variance", "Standard deviation", "Interquartile range", "MAD")
-tab
-```
+<!-- ```{r} -->
+<!-- tab <- rbind( -->
+<!--   with(hemoglobin, tapply(hemoglobin, method, my_var)), -->
+<!--   with(hemoglobin, tapply(hemoglobin, method, my_sd)), -->
+<!--   with(hemoglobin, tapply(hemoglobin, method, interquartile_range)), -->
+<!--   with(hemoglobin, tapply(hemoglobin, method, MAD)) -->
+<!-- ) -->
+<!-- rownames(tab) <- c("Variance", "Standard deviation", "Interquartile range", "MAD") -->
+<!-- tab -->
+<!-- ``` -->
 
-::: callout-note
-#### Exercise
+<!-- ::: callout-note -->
+<!-- #### Exercise -->
 
-Try to use the function `aggregate` to obtain the same result.
-:::
+<!-- Try to use the function `aggregate` to obtain the same result. -->
+<!-- ::: -->
 
 ## Summary exercise
 
@@ -334,7 +343,7 @@ The most commonly used measure of skewness is the so-called standardised
 \gamma = \frac{1}{\text{sd}(x)^3} \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^3 = \frac{1}{n} \sum_{i=1}^n \left(\frac{x_i - \bar{x}}{\sigma}\right)^3.
 $$
 
--   Create a suitable function to compute it.
+- Create a suitable function to compute it.
 
 #### Solution of the summary exercise
 
