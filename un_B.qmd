@@ -355,24 +355,24 @@ for (i in 1:100) {
 }
 ```
 
-## The `*apply` family of functions
+<!-- ## The `*apply` family of functions -->
 
-When possible, it would be better to [avoid]{.blue} using `for` loops, because they
-tend to be slow in **R** (unlike other languages, such as C++).
+<!-- When possible, it would be better to [avoid]{.blue} using `for` loops, because they -->
+<!-- tend to be slow in **R** (unlike other languages, such as C++). -->
 
-A more elegant alternative, although not necessarily a more efficient one, is
-the `*apply` family of functions, that is: `apply`, `tapply`, `sapply`,
-`mapply`, `lapply`.
+<!-- A more elegant alternative, although not necessarily a more efficient one, is -->
+<!-- the `*apply` family of functions, that is: `apply`, `tapply`, `sapply`, -->
+<!-- `mapply`, `lapply`. -->
 
-The simplest one, `apply`, executes a given function for each row / column of a
-matrix.
+<!-- The simplest one, `apply`, executes a given function for each row / column of a -->
+<!-- matrix. -->
 
-::: callout-note
-## Exercise
+<!-- ::: callout-note -->
+<!-- ## Exercise -->
 
-Consult the documentation of the `*apply` functions to get a first idea of how
-they work.
-:::
+<!-- Consult the documentation of the `*apply` functions to get a first idea of how -->
+<!-- they work. -->
+<!-- ::: -->
 
 ## **R** packages
 

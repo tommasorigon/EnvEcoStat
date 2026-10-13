@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,10 +10,16 @@
 
 <title>Elements of programming</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -66,10 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="un_B_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="un_B_files/libs/quarto-html/anchor.min.js"></script>
 <link href="un_B_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="un_B_files/libs/quarto-html/quarto-syntax-highlighting-2dd8675203c32411a5a6bac4cfca86ce.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="un_B_files/libs/quarto-html/quarto-syntax-highlighting-5968cd3d4e70e451b59e061e3897736e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="un_B_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="un_B_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="un_B_files/libs/bootstrap/bootstrap-abca03668476d56ad8e58af0d59d28d0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="un_B_files/libs/bootstrap/bootstrap-55d66b82bfb7e8363875927e87202f7a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -100,7 +106,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -138,7 +144,6 @@ window.Quarto = {
   <li><a href="#while-and-for-loops-iii" id="toc-while-and-for-loops-iii" class="nav-link" data-scroll-target="#while-and-for-loops-iii"><code>while</code> and <code>for</code> loops III</a></li>
   <li><a href="#summary-exercise-i" id="toc-summary-exercise-i" class="nav-link" data-scroll-target="#summary-exercise-i">Summary exercise I</a></li>
   <li><a href="#summary-exercise-ii" id="toc-summary-exercise-ii" class="nav-link" data-scroll-target="#summary-exercise-ii">Summary exercise II</a></li>
-  <li><a href="#the-apply-family-of-functions" id="toc-the-apply-family-of-functions" class="nav-link" data-scroll-target="#the-apply-family-of-functions">The <code>*apply</code> family of functions</a></li>
   <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages"><strong>R</strong> packages</a></li>
   </ul>
 </nav>
@@ -196,7 +201,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+<span class="screen-reader-only">Note</span>Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -209,13 +214,13 @@ Note
 <p>Besides being a statistical software, <strong>R</strong> is a <span class="orange">programming language</span>.</p>
 <p>Most <strong>R</strong> objects are functions. Indeed:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sum) <span class="co"># Identifies the type of object</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sum) <span class="co"># Identifies the type of object</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "function"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(log) <span class="co"># Second example</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(log) <span class="co"># Second example</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "function"</code></pre>
 </div>
@@ -228,25 +233,25 @@ Note
 <p>To create a new function, one uses the command <code>function</code>.</p>
 <p>The <span class="orange">new function</span> <code>cube</code> computes the cube of the number it receives as input:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cube <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cube <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">3</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  out</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The <span class="blue">last object</span> (in this case called <code>out</code>) is returned as the result:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cube</span>(<span class="dv">4</span>) <span class="co"># Computes the cube of the value 4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cube</span>(<span class="dv">4</span>) <span class="co"># Computes the cube of the value 4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 64</code></pre>
 </div>
 </div>
 <p>Alternatively, we can also use the command <code>return</code> to return the result:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cube <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cube <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">3</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out) <span class="co"># Makes it explicit that the value to be returned is out</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cube</span>(<span class="dv">8</span>) <span class="co"># Computes the cube of the value 8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cube</span>(<span class="dv">8</span>) <span class="co"># Computes the cube of the value 8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 512</code></pre>
 </div>
@@ -256,31 +261,31 @@ Note
 <h2 class="anchored" data-anchor-id="functions-iii">Functions III</h2>
 <p>It is possible to define new functions with <span class="orange">multiple arguments</span>, also choosing their <span class="blue">default values</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>power <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">p =</span> <span class="dv">2</span>) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>power <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">p =</span> <span class="dv">2</span>) {</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> x<span class="sc">^</span>p</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  out</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The default value for the argument <code>p</code> is the square (<code>p = 2</code>), indeed:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="at">x =</span> <span class="dv">4</span>) <span class="co"># Computes the square of the value 4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="at">x =</span> <span class="dv">4</span>) <span class="co"># Computes the square of the value 4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 16</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="dv">4</span>) <span class="co"># Alternative syntax: the argument names need not be specified</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="dv">4</span>) <span class="co"># Alternative syntax: the argument names need not be specified</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 16</code></pre>
 </div>
 </div>
 <p>However, we can select a different power as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">p =</span> <span class="dv">3</span>) <span class="co"># Computes the cube of the value 4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">p =</span> <span class="dv">3</span>) <span class="co"># Computes the cube of the value 4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 64</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="dv">4</span>, <span class="dv">3</span>) <span class="co"># Alternative syntax: the argument names need not be specified</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="dv">4</span>, <span class="dv">3</span>) <span class="co"># Alternative syntax: the argument names need not be specified</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 64</code></pre>
 </div>
@@ -292,7 +297,7 @@ Note
 <p>The (optional) control statement <code>else</code> makes it possible to perform an <span class="blue">alternative operation</span> if the previous condition is not satisfied.</p>
 <p>For example, the following code prints on screen (function <code>print</code>) a different sentence depending on whether the condition is true or false:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>condition <span class="ot">&lt;-</span> pi<span class="sc">^</span><span class="dv">2</span> <span class="sc">&lt;</span> <span class="dv">10</span> <span class="co"># Boolean value (in this case the condition is TRUE)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>condition <span class="ot">&lt;-</span> pi<span class="sc">^</span><span class="dv">2</span> <span class="sc">&lt;</span> <span class="dv">10</span> <span class="co"># Boolean value (in this case the condition is TRUE)</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (condition) {</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"The condition is true"</span>)</span>
@@ -302,7 +307,7 @@ Note
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"The condition is false"</span>)</span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Other commands to be executed</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ...</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "The condition is true"</code></pre>
 </div>
@@ -313,7 +318,7 @@ Note
 <p>The following function <code>square_root</code> is a more concrete example concerning <code>if</code> and <code>else</code>.</p>
 <p>If the number provided as input is negative, a <code>NaN</code> is returned:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>square_root <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>square_root <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Warning message; it would actually be more appropriate to use "warning"</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"The value of x must be positive"</span>)</span>
@@ -324,14 +329,14 @@ Note
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  out</span>
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">square_root</span>(<span class="sc">-</span><span class="dv">2</span>) <span class="co"># The condition x &lt; 0 is satisfied</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">square_root</span>(<span class="sc">-</span><span class="dv">2</span>) <span class="co"># The condition x &lt; 0 is satisfied</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "The value of x must be positive"</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NaN</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">square_root</span>(<span class="dv">36</span>) <span class="co"># The condition x &lt; 0 is NOT satisfied</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">square_root</span>(<span class="dv">36</span>) <span class="co"># The condition x &lt; 0 is NOT satisfied</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
@@ -342,7 +347,7 @@ Note
 <p><code>for</code> loops and <code>while</code> loops repeat the operation contained between the curly brackets <code>{ }</code> until a given condition is satisfied.</p>
 <p>Let us start with a simple example concerning the <code>while</code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># We start with i = 5</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># We start with i = 5</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;=</span> <span class="dv">25</span>) { <span class="co"># Repeats the operation as long as i is smaller or equal to 25</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i) <span class="co"># Prints on screen the value of i</span></span>
@@ -350,7 +355,7 @@ Note
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># In real settings, here there are of course other operations to be executed</span></span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ...</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5
 [1] 10
@@ -374,7 +379,7 @@ Note
 </div>
 <p>The following code requires a forced interruption of the <strong>R</strong> session or, in the worst case, a restart of the computer:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DO NOT RUN THE FOLLOWING CODE!</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DO NOT RUN THE FOLLOWING CODE!</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The condition i &lt;= 25 is always true because i is never updated</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">5</span></span>
@@ -383,7 +388,7 @@ Note
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Other operations to be executed</span></span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ...</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="while-and-for-loops-iii" class="level2">
@@ -391,17 +396,17 @@ Note
 <p>As an alternative to <code>while</code> loops, one can use the more explicit syntax of <code>for</code> loops.</p>
 <p>The <code>for</code> loop executes the content of the curly brackets considering, one at a time, the values contained for instance in a vector:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">5</span>, <span class="at">to =</span> <span class="dv">25</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">5</span>, <span class="at">to =</span> <span class="dv">25</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  5 10 15 20 25</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> values) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> values) {</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i <span class="sc">+</span> <span class="dv">2</span>) <span class="co"># Prints on screen the value of i + 2</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Other operations to be executed</span></span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ...</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7
 [1] 12
@@ -423,7 +428,7 @@ d_{ij} = (x_i - x_j)^2, \qquad  i,j \in \{1,\dots,n\},
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Outline of the solution
+<span class="screen-reader-only">Tip</span>Outline of the solution
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -434,7 +439,7 @@ Outline of the solution
 <section id="solution-of-summary-exercise-i" class="level4">
 <h4 class="anchored" data-anchor-id="solution-of-summary-exercise-i">Solution of summary exercise I</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>distances <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>distances <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x) <span class="co"># Get the length of the vector x</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> n) <span class="co"># Creation of an empty matrix</span></span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -447,7 +452,7 @@ Outline of the solution
 <span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">24</span>) <span class="co"># Example to check that it is correct</span></span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="fu">distances</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="fu">distances</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]    0    9   16  361
@@ -462,7 +467,7 @@ Outline of the solution
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+<span class="screen-reader-only">Note</span>Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -487,7 +492,7 @@ Note
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Hint
+<span class="screen-reader-only">Tip</span>Hint
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -498,7 +503,7 @@ Hint
 <h4 class="anchored" data-anchor-id="solution-of-summary-exercise-ii">Solution of summary exercise II</h4>
 <p>The solution below makes use of the <code>else if</code> construct.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  condA <span class="ot">&lt;-</span> (i <span class="sc">%%</span> <span class="dv">3</span>) <span class="sc">==</span> <span class="dv">0</span> <span class="co"># Is the number a multiple of 3?</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  condB <span class="ot">&lt;-</span> (i <span class="sc">%%</span> <span class="dv">5</span>) <span class="sc">==</span> <span class="dv">0</span> <span class="co"># Is the number a multiple of 5?</span></span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -511,41 +516,35 @@ Hint
 <span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
 <span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(i)</span>
 <span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<!-- ## The `*apply` family of functions -->
+<!-- When possible, it would be better to [avoid]{.blue} using `for` loops, because they -->
+<!-- tend to be slow in **R** (unlike other languages, such as C++). -->
+<!-- A more elegant alternative, although not necessarily a more efficient one, is -->
+<!-- the `*apply` family of functions, that is: `apply`, `tapply`, `sapply`, -->
+<!-- `mapply`, `lapply`. -->
+<!-- The simplest one, `apply`, executes a given function for each row / column of a -->
+<!-- matrix. -->
+<!-- ::: callout-note -->
+<!-- ## Exercise -->
+<!-- Consult the documentation of the `*apply` functions to get a first idea of how -->
+<!-- they work. -->
+<!-- ::: -->
 </section>
-</section>
-<section id="the-apply-family-of-functions" class="level2">
-<h2 class="anchored" data-anchor-id="the-apply-family-of-functions">The <code>*apply</code> family of functions</h2>
-<p>When possible, it would be better to <span class="blue">avoid</span> using <code>for</code> loops, because they tend to be slow in <strong>R</strong> (unlike other languages, such as C++).</p>
-<p>A more elegant alternative, although not necessarily a more efficient one, is the <code>*apply</code> family of functions, that is: <code>apply</code>, <code>tapply</code>, <code>sapply</code>, <code>mapply</code>, <code>lapply</code>.</p>
-<p>The simplest one, <code>apply</code>, executes a given function for each row / column of a matrix.</p>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Consult the documentation of the <code>*apply</code> functions to get a first idea of how they work.</p>
-</div>
-</div>
 </section>
 <section id="r-packages" class="level2">
 <h2 class="anchored" data-anchor-id="r-packages"><strong>R</strong> packages</h2>
 <p><strong>R</strong> is organised in <span class="orange">packages</span>.</p>
 <p>If we want to use the functions of a package, it can be loaded using the function <code>library</code>, that is:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS) <span class="co"># Loads the MASS package into memory</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr) <span class="co"># Loads the knitr package into memory</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS) <span class="co"># Loads the MASS package into memory</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr) <span class="co"># Loads the knitr package into memory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If a package is not available on the computer, it has to be installed.</p>
 <p>One can use the following command, or use the “Packages” window available in RStudio.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"knitr"</span>) <span class="co"># Installs the knitr package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"knitr"</span>) <span class="co"># Installs the knitr package</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 
@@ -602,13 +601,14 @@ Exercise
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -484,22 +484,22 @@ columns.
 subset(airquality, subset = Ozone > 100, select = c(Date, Ozone, Temp))
 ```
 
-## The `attach` command
+<!-- ## The `attach` command -->
 
-In **R** there exists a command called `attach`. Although used by many, this
-command is [diabolical]{.blue} and it would be better to avoid using it.
+<!-- In **R** there exists a command called `attach`. Although used by many, this -->
+<!-- command is [diabolical]{.blue} and it would be better to avoid using it. -->
 
-The command `attach(dataframe)` makes it possible to use the variables of a
-`data.frame` as if they were present in the workspace.
+<!-- The command `attach(dataframe)` makes it possible to use the variables of a -->
+<!-- `data.frame` as if they were present in the workspace. -->
 
-This practice, however, makes the code much less readable and often leads to
-errors of various kinds.
+<!-- This practice, however, makes the code much less readable and often leads to -->
+<!-- errors of various kinds. -->
 
-Despite several protests in favour of the removal of `attach` by some, this
-command keeps (r)existing and is still used by many.
+<!-- Despite several protests in favour of the removal of `attach` by some, this -->
+<!-- command keeps (r)existing and is still used by many. -->
 
-In this course no examples of use of `attach` will be provided, to avoid leading
-the student into temptation.
+<!-- In this course no examples of use of `attach` will be provided, to avoid leading -->
+<!-- the student into temptation. -->
 
 ## Summary
 
@@ -512,51 +512,51 @@ Running the command `str` again we indeed obtain that
 str(airquality)
 ```
 
-## Summary exercise
+<!-- ## Summary exercise -->
 
-Ozone is not emitted directly: it forms in the lower atmosphere through
-reactions that are favoured by [sunlight]{.orange} and [heat]{.blue}, and it is dispersed by
-the [wind]{.orange}. The following questions are a first, purely descriptive look at
-that mechanism.
+<!-- Ozone is not emitted directly: it forms in the lower atmosphere through -->
+<!-- reactions that are favoured by [sunlight]{.orange} and [heat]{.blue}, and it is dispersed by -->
+<!-- the [wind]{.orange}. The following questions are a first, purely descriptive look at -->
+<!-- that mechanism. -->
 
--   On which day was the highest ozone concentration recorded? And the highest
-    temperature? Are they the same day?
+<!-- -   On which day was the highest ozone concentration recorded? And the highest -->
+<!--     temperature? Are they the same day? -->
 
--   How many days are missing the ozone measurement, month by month? Is the
-    problem spread evenly over the summer?
+<!-- -   How many days are missing the ozone measurement, month by month? Is the -->
+<!--     problem spread evenly over the summer? -->
 
--   Compute the average ozone concentration in each month. Be careful: the
-    command `mean` returns `NA` if even a single value is missing.
+<!-- -   Compute the average ozone concentration in each month. Be careful: the -->
+<!--     command `mean` returns `NA` if even a single value is missing. -->
 
--   Create a qualitative variable `Windy` that distinguishes the days with a
-    wind speed above the median from the others. Then compare the average ozone
-    concentration of the two groups. Is the result consistent with what was said
-    above?
+<!-- -   Create a qualitative variable `Windy` that distinguishes the days with a -->
+<!--     wind speed above the median from the others. Then compare the average ozone -->
+<!--     concentration of the two groups. Is the result consistent with what was said -->
+<!--     above? -->
 
-::: callout-tip
-#### Hint
+<!-- ::: callout-tip -->
+<!-- #### Hint -->
 
-Use the commands `which.max`, `table` and `tapply`. The option `na.rm = TRUE` of
-the command `mean` excludes the missing values from the computation. Consult the
-documentation to understand how they work.
-:::
+<!-- Use the commands `which.max`, `table` and `tapply`. The option `na.rm = TRUE` of -->
+<!-- the command `mean` excludes the missing values from the computation. Consult the -->
+<!-- documentation to understand how they work. -->
+<!-- ::: -->
 
-#### Solution
+<!-- #### Solution -->
 
-```{r}
-# Day of the maximum ozone concentration, and of the maximum temperature
-airquality[which.max(airquality$Ozone), ]
-airquality[which.max(airquality$Temp), ]
+<!-- ```{r} -->
+<!-- # Day of the maximum ozone concentration, and of the maximum temperature -->
+<!-- airquality[which.max(airquality$Ozone), ] -->
+<!-- airquality[which.max(airquality$Temp), ] -->
 
-# Missing ozone measurements, month by month
-table(airquality$Month[is.na(airquality$Ozone)])
+<!-- # Missing ozone measurements, month by month -->
+<!-- table(airquality$Month[is.na(airquality$Ozone)]) -->
 
-# Average ozone concentration in each month
-tapply(airquality$Ozone, airquality$Month, mean, na.rm = TRUE)
+<!-- # Average ozone concentration in each month -->
+<!-- tapply(airquality$Ozone, airquality$Month, mean, na.rm = TRUE) -->
 
-# Windy days and average ozone concentration
-airquality$Windy <- factor(airquality$Wind > median(airquality$Wind),
-  levels = c(FALSE, TRUE), labels = c("Calm", "Windy")
-)
-tapply(airquality$Ozone, airquality$Windy, mean, na.rm = TRUE)
-```
+<!-- # Windy days and average ozone concentration -->
+<!-- airquality$Windy <- factor(airquality$Wind > median(airquality$Wind), -->
+<!--   levels = c(FALSE, TRUE), labels = c("Calm", "Windy") -->
+<!-- ) -->
+<!-- tapply(airquality$Ozone, airquality$Windy, mean, na.rm = TRUE) -->
+<!-- ``` -->

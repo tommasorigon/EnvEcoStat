@@ -78,30 +78,6 @@ hist(dde_non_preterm,
 )
 
 ## -----------------------------------------------------------------------------
-# Definition of UNEQUALLY spaced intervals
-breaks <- c(5 * 0:10, 70, 90, 110, 130, 150, 170, 190)
-
-# CORRECT PLOT
-hist(dde_non_preterm,
-  freq = FALSE,
-  breaks = breaks,
-  # From here on we are only adding aesthetic details
-  main = "CORRECT PLOT", xlab = "DDE", ylab = "Density"
-)
-
-# WRONG PLOT
-hist(dde_non_preterm,
-  freq = TRUE, # Frequencies are used
-  breaks = breaks,
-  # From here on we are only adding aesthetic details
-  main = "WRONG PLOT", xlab = "DDE", ylab = "Absolute frequencies"
-)
-
-## -----------------------------------------------------------------------------
-nclass.Sturges(dde_non_preterm) # Sturges' rule
-nclass.FD(dde_non_preterm) # Freedman and Diaconis' rule
-
-## -----------------------------------------------------------------------------
 hist(dde_non_preterm, # Non-preterm births group
   freq = FALSE,
   main = "Non-preterm births"
@@ -171,16 +147,6 @@ quantile(dde_non_preterm, probs = c(0.1, 0.25, 0.75, 0.9), type = 1)
 ## -----------------------------------------------------------------------------
 min(dde_non_preterm[F_non_preterm(dde_non_preterm) >= 0.25])
 min(dde_non_preterm[F_non_preterm(dde_non_preterm) >= 0.75])
-
-## -----------------------------------------------------------------------------
-tab <- rbind(
-  quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 1),
-  quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 6),
-  quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 7),
-  quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 9)
-)
-rownames(tab) <- c(1, 6, 7, 9) # Changes the names of the rows of the table
-tab
 
 ## -----------------------------------------------------------------------------
 summary(dde_preterm)

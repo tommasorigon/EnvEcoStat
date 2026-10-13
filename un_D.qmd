@@ -280,79 +280,79 @@ hist(dde_non_preterm,
 Histogram based on the [absolute frequencies]{.orange} (left) and on the [density]{.blue}
 (right), only for the group of non-preterm births.
 
-## Histograms III
+<!-- ## Histograms III -->
 
-::: callout-warning
-In the case of [unequally spaced]{.orange} intervals, it is mandatory to use the option
-`freq = FALSE`, otherwise the resulting plot is meaningless.
-:::
+<!-- ::: callout-warning -->
+<!-- In the case of [unequally spaced]{.orange} intervals, it is mandatory to use the option -->
+<!-- `freq = FALSE`, otherwise the resulting plot is meaningless. -->
+<!-- ::: -->
 
-```{r}
-# Definition of UNEQUALLY spaced intervals
-breaks <- c(5 * 0:10, 70, 90, 110, 130, 150, 170, 190)
+<!-- ```{r} -->
+<!-- # Definition of UNEQUALLY spaced intervals -->
+<!-- breaks <- c(5 * 0:10, 70, 90, 110, 130, 150, 170, 190) -->
 
-# CORRECT PLOT
-hist(dde_non_preterm,
-  freq = FALSE,
-  breaks = breaks,
-  # From here on we are only adding aesthetic details
-  main = "CORRECT PLOT", xlab = "DDE", ylab = "Density"
-)
+<!-- # CORRECT PLOT -->
+<!-- hist(dde_non_preterm, -->
+<!--   freq = FALSE, -->
+<!--   breaks = breaks, -->
+<!--   # From here on we are only adding aesthetic details -->
+<!--   main = "CORRECT PLOT", xlab = "DDE", ylab = "Density" -->
+<!-- ) -->
 
-# WRONG PLOT
-hist(dde_non_preterm,
-  freq = TRUE, # Frequencies are used
-  breaks = breaks,
-  # From here on we are only adding aesthetic details
-  main = "WRONG PLOT", xlab = "DDE", ylab = "Absolute frequencies"
-)
-```
+<!-- # WRONG PLOT -->
+<!-- hist(dde_non_preterm, -->
+<!--   freq = TRUE, # Frequencies are used -->
+<!--   breaks = breaks, -->
+<!--   # From here on we are only adding aesthetic details -->
+<!--   main = "WRONG PLOT", xlab = "DDE", ylab = "Absolute frequencies" -->
+<!-- ) -->
+<!-- ``` -->
 
-The plot on the left is correct and makes use of the notion of [density]{.blue}
-explained above. The plot on the right is [wrong]{.orange}.
+<!-- The plot on the left is correct and makes use of the notion of [density]{.blue} -->
+<!-- explained above. The plot on the right is [wrong]{.orange}. -->
 
-Fortunately **R** warns us through a `warning` that this procedure is incorrect.
+<!-- Fortunately **R** warns us through a `warning` that this procedure is incorrect. -->
 
-## The number of intervals
+<!-- ## The number of intervals -->
 
-A number of intervals that is [too low]{.blue} entails a [loss of information]{.orange}.
+<!-- A number of intervals that is [too low]{.blue} entails a [loss of information]{.orange}. -->
 
-Conversely, a number of intervals that is [too high]{.blue} entails a **loss of
-synthesis**.
+<!-- Conversely, a number of intervals that is [too high]{.blue} entails a **loss of -->
+<!-- synthesis**. -->
 
-Keep in mind that the [number of intervals]{.orange} must depend on the **number of
-data points**.
+<!-- Keep in mind that the [number of intervals]{.orange} must depend on the **number of -->
+<!-- data points**. -->
 
-Various formulas have been proposed to identify the "optimal number" of
-intervals. They should however be taken as suggestions and not used
-automatically.
+<!-- Various formulas have been proposed to identify the "optimal number" of -->
+<!-- intervals. They should however be taken as suggestions and not used -->
+<!-- automatically. -->
 
-[Sturges]{.blue}. The number of intervals, rounded to the nearest integer, is $$ 
-(\text{number of intervals}) = 1 + \log_2{n}. 
-$$
+<!-- [Sturges]{.blue}. The number of intervals, rounded to the nearest integer, is $$  -->
+<!-- (\text{number of intervals}) = 1 + \log_2{n}.  -->
+<!-- $$ -->
 
-[Freedman & Diaconis]{.orange}. The number of intervals, rounded to the nearest
-integer, is $$ 
-(\text{number of intervals})  = \frac{x_{(n)} - x_{(1)}}{2(\mathcal{Q}_{0.75} - \mathcal{Q}_{0.25})}n^{1/3}. 
-$$
+<!-- [Freedman & Diaconis]{.orange}. The number of intervals, rounded to the nearest -->
+<!-- integer, is $$  -->
+<!-- (\text{number of intervals})  = \frac{x_{(n)} - x_{(1)}}{2(\mathcal{Q}_{0.75} - \mathcal{Q}_{0.25})}n^{1/3}.  -->
+<!-- $$ -->
 
-## The number of intervals II
+<!-- ## The number of intervals II -->
 
-The "optimal" number of intervals can be obtained through the following
-commands:
+<!-- The "optimal" number of intervals can be obtained through the following -->
+<!-- commands: -->
 
-```{r}
-nclass.Sturges(dde_non_preterm) # Sturges' rule
-nclass.FD(dde_non_preterm) # Freedman and Diaconis' rule
-```
+<!-- ```{r} -->
+<!-- nclass.Sturges(dde_non_preterm) # Sturges' rule -->
+<!-- nclass.FD(dde_non_preterm) # Freedman and Diaconis' rule -->
+<!-- ``` -->
 
-::: callout-note
-#### Note
+<!-- ::: callout-note -->
+<!-- #### Note -->
 
-The **R** command `hist`, unless specified otherwise through the option
-`breaks`, automatically selects [equally spaced]{.blue} intervals through the rule of
-[Sturges]{.orange}.
-:::
+<!-- The **R** command `hist`, unless specified otherwise through the option -->
+<!-- `breaks`, automatically selects [equally spaced]{.blue} intervals through the rule of -->
+<!-- [Sturges]{.orange}. -->
+<!-- ::: -->
 
 ## Comparison between the two distributions
 
@@ -532,54 +532,54 @@ min(dde_non_preterm[F_non_preterm(dde_non_preterm) >= 0.75])
 ```
 :::
 
-## Location indices: the quantiles II
+<!-- ## Location indices: the quantiles II -->
 
-::: callout-note
-#### Note
+<!-- ::: callout-note -->
+<!-- #### Note -->
 
-The definition of quantile we have given is the usual one, but it is not the
-only possible one.
-:::
+<!-- The definition of quantile we have given is the usual one, but it is not the -->
+<!-- only possible one. -->
+<!-- ::: -->
 
-That definition is obtained with the option `type = 1`, which however is **not
-the default**. The default value is instead `type = 7`.
+<!-- That definition is obtained with the option `type = 1`, which however is **not -->
+<!-- the default**. The default value is instead `type = 7`. -->
 
-If you are curious to know the various definitions of quantile, remember that
-the [documentation]{.blue} can be consulted through the command: `? quantile`.
+<!-- If you are curious to know the various definitions of quantile, remember that -->
+<!-- the [documentation]{.blue} can be consulted through the command: `? quantile`. -->
 
-::: callout-note
-#### Note
+<!-- ::: callout-note -->
+<!-- #### Note -->
 
-A drawback of the `type = 1` quantile is that the median does not always
-coincide with the quantile $\mathcal{Q}_{0.5}$. Find an example in which this
-happens and check that the problem is instead solved in the `type = 7` case.
-:::
+<!-- A drawback of the `type = 1` quantile is that the median does not always -->
+<!-- coincide with the quantile $\mathcal{Q}_{0.5}$. Find an example in which this -->
+<!-- happens and check that the problem is instead solved in the `type = 7` case. -->
+<!-- ::: -->
 
-## Location indices: the quantiles III
+<!-- ## Location indices: the quantiles III -->
 
-In **R** there are in total as many as [9 ways]{.orange} of computing the quantiles.
+<!-- In **R** there are in total as many as [9 ways]{.orange} of computing the quantiles. -->
 
-Fortunately, for large sample sizes the [differences]{.blue} tend to be
-[negligible]{.orange}.
+<!-- Fortunately, for large sample sizes the [differences]{.blue} tend to be -->
+<!-- [negligible]{.orange}. -->
 
-We list below some examples for the variable `dde_preterm`:
+<!-- We list below some examples for the variable `dde_preterm`: -->
 
-```{r}
-tab <- rbind(
-  quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 1),
-  quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 6),
-  quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 7),
-  quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 9)
-)
-rownames(tab) <- c(1, 6, 7, 9) # Changes the names of the rows of the table
-tab
-```
+<!-- ```{r} -->
+<!-- tab <- rbind( -->
+<!--   quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 1), -->
+<!--   quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 6), -->
+<!--   quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 7), -->
+<!--   quantile(dde_preterm, probs = c(0.1, 0.25, 0.5, 0.75, 0.9), type = 9) -->
+<!-- ) -->
+<!-- rownames(tab) <- c(1, 6, 7, 9) # Changes the names of the rows of the table -->
+<!-- tab -->
+<!-- ``` -->
 
-::: callout-tip
-#### Hint
+<!-- ::: callout-tip -->
+<!-- #### Hint -->
 
-What does `rbind` do? We met it in Unit A.
-:::
+<!-- What does `rbind` do? We met it in Unit A. -->
+<!-- ::: -->
 
 ## The `summary` command
 

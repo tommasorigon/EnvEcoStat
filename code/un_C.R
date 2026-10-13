@@ -114,20 +114,3 @@ subset(airquality, subset = Ozone > 100, select = c(Date, Ozone, Temp))
 
 ## -----------------------------------------------------------------------------
 str(airquality)
-
-## -----------------------------------------------------------------------------
-# Day of the maximum ozone concentration, and of the maximum temperature
-airquality[which.max(airquality$Ozone), ]
-airquality[which.max(airquality$Temp), ]
-
-# Missing ozone measurements, month by month
-table(airquality$Month[is.na(airquality$Ozone)])
-
-# Average ozone concentration in each month
-tapply(airquality$Ozone, airquality$Month, mean, na.rm = TRUE)
-
-# Windy days and average ozone concentration
-airquality$Windy <- factor(airquality$Wind > median(airquality$Wind),
-  levels = c(FALSE, TRUE), labels = c("Calm", "Windy")
-)
-tapply(airquality$Ozone, airquality$Windy, mean, na.rm = TRUE)
