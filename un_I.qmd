@@ -1,0 +1,295 @@
+---
+title: "Sampling distributions"
+subtitle: "Programming and Data Analysis with R"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    smooth-scroll: true
+    fig-dpi: 90
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+## [Homepage](index.html)
+
+```{r}
+#| warning: false
+#| echo: false
+#| include: false
+#| message: false
+#| purl: false
+
+# Please ignore this chunk.
+# A single purl() call: calling it twice in the same knit would clash on the
+# chunk labels. The clean script is derived from the full one, so the two
+# cannot go out of sync.
+
+# 1. Full script, for personal use: code plus the text of the notes as
+#    comments. Not linked from the website (and ignored by git).
+knitr::purl("un_I.qmd", output = "code/un_I_full.R", documentation = 2)
+full <- readLines("code/un_I_full.R")
+# strip the Quarto markup that is only meaningful in the rendered page
+full <- full[!grepl("^#' *:::", full)]
+full <- gsub("\\[([^]]*)\\]\\{[^}]*\\}", "\\1", full)
+squeeze <- function(x) x[!(x == "" & c(FALSE, head(x == "", -1)))]
+writeLines(squeeze(full), "code/un_I_full.R")
+
+# 2. Clean script, linked from the website: code only, obtained by dropping
+#    the text (#') and the chunk headers (#+).
+clean <- squeeze(full[!grepl("^#'|^#\\+", full)])
+writeLines(clean, "code/un_I.R")
+styler:::style_file("code/un_I.R")
+
+rm(clean, squeeze, full)
+```
+## Topics covered
+
+-   The sampling distribution of a statistic
+-   Standard error
+-   The central limit theorem
+-   Bias and mean squared error of an estimator
+
+::: callout-note
+#### Note
+
+The exercises associated with this unit are available at
+[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_C.html).
+:::
+
+## A survey on climate change
+
+In 2019, a poll asked a [random sample]{.blue} of $n = 1008$ Americans whether
+they thought that climate change was a major threat to the stability of the
+United States. A total of $524$ people said yes.
+
+```{r}
+524 / 1008 # Sample proportion
+```
+
+The [sample proportion]{.orange} $\hat{\pi} = 0.52$ is a [statistic]{.blue}. The
+population proportion $\pi$ is a [parameter]{.orange}: it is unknown, because we
+cannot interview all the Americans.
+
+::: callout-note
+#### Research question
+
+Can we conclude that the [majority]{.orange} of Americans thinks that climate
+change is a major threat?
+:::
+
+## What if exactly half said yes?
+
+Suppose that $\pi = 0.5$. Then the number of yes in a sample of $1008$ people is
+a $\text{Bin}(1008, 0.5)$. With `rbinom` ([Unit H](un_H.html)) we can simulate $R = 1000$
+[new surveys]{.blue}:
+
+```{r}
+set.seed(123)
+R <- 1000 # Number of simulated surveys
+pi_hat <- rbinom(R, size = 1008, prob = 0.5) / 1008 # R sample proportions
+head(pi_hat)
+```
+
+Each survey gives a different value: before collecting the data, $\hat{\pi}$ is
+a [random variable]{.orange}. Its distribution is called [sampling
+distribution]{.blue}.
+
+```{r}
+hist(pi_hat, breaks = 30, main = "Sample proportions (n = 1008)", xlab = "Sample proportion")
+abline(v = 0.52, col = "red") # Observed sample proportion
+```
+
+How often does a survey give $52\%$ of yes or more, if $\pi = 0.5$?
+
+```{r}
+mean(pi_hat >= 0.52) # The mean of TRUE / FALSE values is a proportion
+```
+
+About $1$ survey out of $10$: the observed result is [not surprising]{.orange},
+and we cannot conclude that there is a majority.
+
+## Standard error
+
+The theory says that $$
+\mathbb{E}[\hat{\pi}] = \pi, \qquad \sigma_{\hat{\pi}} = \sqrt{\frac{\pi(1-\pi)}{n}}.
+$$
+
+The quantity $\sigma_{\hat{\pi}}$ is the [standard error]{.orange}: it measures
+how much $\hat{\pi}$ varies from sample to sample.
+
+```{r}
+mean(pi_hat) # Simulated
+sd(pi_hat) # Simulated
+sqrt(0.5 * 0.5 / 1008) # Theoretical standard error
+```
+
+The standard error [decreases]{.blue} with $n$. With $n = 10000$ people, the
+same $52\%$ would have been very surprising:
+
+```{r}
+sqrt(0.5 * 0.5 / 10000)
+```
+
+## Air pollution in a city
+
+An environmental agency wants to estimate the mean daily concentration $\mu$ of
+PM2.5 (in µg/m³) in a city, measuring it on $n = 64$ random days.
+
+::: callout-note
+#### Research question
+
+[Before]{.orange} collecting the data: how close to $\mu$ will the sample mean
+$\bar{y}$ of $64$ days be?
+:::
+
+From previous years, the daily concentrations have mean about $28$, standard
+deviation about $12$, and an [asymmetric]{.blue} distribution. We describe them
+with a [gamma]{.orange} distribution with these mean and standard deviation:
+
+```{r}
+mu <- 28
+sigma <- 12
+k <- mu^2 / sigma^2 # Shape, so that the mean is mu
+lambda <- mu / sigma^2 # Rate, so that the standard deviation is sigma
+curve(dgamma(x, shape = k, rate = lambda), from = 0, to = 100, xlab = "PM2.5", ylab = "f(y)")
+```
+
+## Repeating the experiment
+
+A simulated campaign of $64$ days, repeated three times:
+
+```{r}
+set.seed(123)
+n <- 64
+mean(rgamma(n, shape = k, rate = lambda))
+mean(rgamma(n, shape = k, rate = lambda))
+mean(rgamma(n, shape = k, rate = lambda))
+```
+
+We want $R = 1000$ campaigns, so we use a `for` loop ([Unit B](un_B.html)):
+
+```{r}
+y_bar <- rep(NA, R) # Empty vector, to be filled with the R sample means
+
+for (r in 1:R) {
+  y <- rgamma(n, shape = k, rate = lambda) # A new campaign of n days
+  y_bar[r] <- mean(y) # Its sample mean is stored in position r
+}
+```
+
+::: callout-tip
+#### Hint
+
+If the loop is not clear, set `R <- 3` and run it again, adding `print(y_bar)`
+inside the curly brackets.
+:::
+
+## The sampling distribution of $\bar{Y}$
+
+The theory says that $$
+\mathbb{E}[\bar{Y}] = \mu, \qquad \sigma_{\bar{Y}} = \frac{\sigma}{\sqrt{n}}.
+$$
+
+```{r}
+mean(y_bar) # Simulated
+sd(y_bar) # Simulated
+sigma / sqrt(n) # Theoretical standard error
+```
+
+The [central limit theorem]{.orange} states that, for large $n$, $$
+\bar{Y} \simeq \text{N}\left(\mu, \frac{\sigma^2}{n}\right),
+$$ regardless of the shape of the population. Indeed:
+
+```{r}
+hist(y_bar, breaks = 30, freq = FALSE, main = "Sample means (n = 64)", xlab = "Sample mean")
+curve(dnorm(x, mean = mu, sd = sigma / sqrt(n)), add = TRUE, col = "red")
+```
+
+The option `add = TRUE` draws the curve on top of the histogram.
+
+## Using the central limit theorem
+
+::: callout-warning
+#### Question
+
+What is the probability that the campaign [overestimates]{.orange} $\mu$ by more
+than $3$ µg/m³, that is $\mathbb{P}(\bar{Y} > 31)$?
+:::
+
+#### Solution
+
+```{r}
+1 - pnorm(31, mean = mu, sd = sigma / sqrt(n)) # Central limit theorem
+mean(y_bar > 31) # Simulation
+```
+
+## Estimating the variance
+
+In [Unit E](un_E.html) and [Unit F](un_F.html) we saw that `var` divides by
+$n - 1$ and not by $n$. Why? Consider the two estimators of $\sigma^2$ $$
+\hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^n(Y_i - \bar{Y})^2, \qquad S^2 = \frac{1}{n - 1}\sum_{i=1}^n(Y_i - \bar{Y})^2.
+$$
+
+An estimator is [unbiased]{.blue} if its expected value equals the parameter.
+Let us check through simulation, with a short campaign of $n = 5$ days:
+
+```{r}
+my_var <- function(x) mean(x^2) - mean(x)^2 # From Unit F: divides by n
+
+set.seed(123)
+n <- 5
+R <- 10000
+sigma2_hat <- rep(NA, R)
+S2 <- rep(NA, R)
+
+for (r in 1:R) {
+  y <- rgamma(n, shape = k, rate = lambda)
+  sigma2_hat[r] <- my_var(y)
+  S2[r] <- var(y)
+}
+
+c(mean(sigma2_hat), mean(S2), sigma^2)
+```
+
+$S^2$ is [unbiased]{.orange}, whereas $\hat{\sigma}^2$ underestimates $\sigma^2$,
+since $\mathbb{E}[\hat{\sigma}^2] = (n-1)\sigma^2 / n = 115.2$.
+
+## Mean squared error
+
+Unbiasedness is not everything. The [mean squared error]{.blue} $$
+\text{MSE}(\hat{\theta}) = \mathbb{E}[(\hat{\theta} - \theta)^2] = \text{var}[\hat{\theta}] + (\mathbb{E}[\hat{\theta}] - \theta)^2
+$$ measures how close, on average, an estimator falls to the parameter:
+
+```{r}
+mean((sigma2_hat - sigma^2)^2) # MSE of the biased estimator
+mean((S2 - sigma^2)^2) # MSE of the unbiased estimator
+```
+
+The biased estimator has a [smaller]{.orange} MSE: its bias is compensated by a
+smaller variance (the bias-variance trade-off).
+
+::: callout-note
+#### Exercise
+
+To estimate $\mu$, the agency could also use the [sample median]{.blue}.
+Compare the bias and the MSE of the sample mean and of the sample median, for
+$n = 20$ days.
+:::
