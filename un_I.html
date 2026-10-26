@@ -402,21 +402,7 @@ window.Quarto = {
 </section>
 <section id="using-the-central-limit-theorem" class="level2">
 <h2 class="anchored" data-anchor-id="using-the-central-limit-theorem">Using the central limit theorem</h2>
-<div class="callout callout-style-simple callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>What is the probability that the campaign <span class="orange">overestimates</span> <span class="math inline">\mu</span> by more than <span class="math inline">3</span> µg/m³, that is <span class="math inline">\mathbb{P}(\bar{Y} &gt; 31)</span>?</p>
-</div>
-</div>
-<section id="solution" class="level4">
-<h4 class="anchored" data-anchor-id="solution">Solution</h4>
+<p>What is the probability that the campaign <span class="orange">overestimates</span> <span class="math inline">\mu</span> by more than <span class="math inline">3</span> µg/m³, that is <span class="math inline">\mathbb{P}(\bar{Y} &gt; 31)</span>? We can answer either with the central limit theorem or with the simulated sample means:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">31</span>, <span class="at">mean =</span> mu, <span class="at">sd =</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n)) <span class="co"># Central limit theorem</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -427,7 +413,6 @@ window.Quarto = {
 <pre><code>[1] 0.025</code></pre>
 </div>
 </div>
-</section>
 </section>
 <section id="estimating-the-variance" class="level2">
 <h2 class="anchored" data-anchor-id="estimating-the-variance">Estimating the variance</h2>
@@ -460,7 +445,7 @@ window.Quarto = {
 <section id="mean-squared-error" class="level2">
 <h2 class="anchored" data-anchor-id="mean-squared-error">Mean squared error</h2>
 <p>Unbiasedness is not everything. The <span class="blue">mean squared error</span> <span class="math display">
-\text{MSE}(\hat{\theta}) = \mathbb{E}[(\hat{\theta} - \theta)^2] = \text{var}[\hat{\theta}] + (\mathbb{E}[\hat{\theta}] - \theta)^2
+\text{MSE}(\hat{\theta}) = \mathbb{E}[(\hat{\theta} - \theta)^2] = \mathbb{E}[(\hat{\theta} - \mathbb{E}[\hat{\theta}])^2] + (\mathbb{E}[\hat{\theta}] - \theta)^2
 </span> measures how close, on average, an estimator falls to the parameter:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((sigma2_hat <span class="sc">-</span> sigma<span class="sc">^</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span>) <span class="co"># MSE of the biased estimator</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -473,19 +458,6 @@ window.Quarto = {
 </div>
 </div>
 <p>The biased estimator has a <span class="orange">smaller</span> MSE: its bias is compensated by a smaller variance (the bias-variance trade-off).</p>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>To estimate <span class="math inline">\mu</span>, the agency could also use the <span class="blue">sample median</span>. Compare the bias and the MSE of the sample mean and of the sample median, for <span class="math inline">n = 20</span> days.</p>
-</div>
-</div>
 </section>
 
 </main>

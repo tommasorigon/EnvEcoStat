@@ -100,39 +100,6 @@ for (i in values) {
 }
 
 ## -----------------------------------------------------------------------------
-distances <- function(x) {
-  n <- length(x) # Get the length of the vector x
-  D <- matrix(0, nrow = n, ncol = n) # Creation of an empty matrix
-
-  for (i in 1:n) {
-    for (j in 1:n) {
-      D[i, j] <- (x[i] - x[j])^2
-    }
-  }
-  D # Value to be returned
-}
-
-x <- c(5, 2, 1, 24) # Example to check that it is correct
-distances(x)
-
-## -----------------------------------------------------------------------------
-#| eval: false
-# for (i in 1:100) {
-#   condA <- (i %% 3) == 0 # Is the number a multiple of 3?
-#   condB <- (i %% 5) == 0 # Is the number a multiple of 5?
-#
-#   if (condA & condB) {
-#     print("fizzbuzz")
-#   } else if (condA) {
-#     print("fizz")
-#   } else if (condB) {
-#     print("buzz")
-#   } else {
-#     print(i)
-#   }
-# }
-
-## -----------------------------------------------------------------------------
 library(MASS) # Loads the MASS package into memory
 library(knitr) # Loads the knitr package into memory
 

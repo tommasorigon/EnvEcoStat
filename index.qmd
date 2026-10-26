@@ -88,6 +88,7 @@ appendix](https://stat4ds.rwth-aachen.de/pdf/DS_R_webAppendix.pdf).
 |  | **INFERENCE AND SAMPLING DISTRIBUTIONS** |  |  |
 | **Random variables** | [Unit H](un_H.html) | [`un_H.R`](code/un_H.R) | **AK** Ch. 2, §A2.1 |
 | **Sampling distributions** | [Unit I](un_I.html) | [`un_I.R`](code/un_I.R) | **AK** Ch. 3, §4.1, §A3 |
+| *Exercises* | [Exercises C](exe/exe_C.html) |  |  |
 | *To be defined* |  |  | **AK** Ch. 4---5 |
 |  | **LINEAR MODELS AND LEAST SQUARES** |  |  |
 | *To be defined* |  |  | **AK** Ch. 6 |

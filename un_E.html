@@ -143,7 +143,6 @@ window.Quarto = {
   <li><a href="#standard-deviation" id="toc-standard-deviation" class="nav-link" data-scroll-target="#standard-deviation">Standard deviation</a></li>
   <li><a href="#range" id="toc-range" class="nav-link" data-scroll-target="#range">Range</a></li>
   <li><a href="#interquartile-range" id="toc-interquartile-range" class="nav-link" data-scroll-target="#interquartile-range">Interquartile range</a></li>
-  <li><a href="#summary-exercise" id="toc-summary-exercise" class="nav-link" data-scroll-target="#summary-exercise">Summary exercise</a></li>
   </ul>
 </nav>
 </div>
@@ -274,7 +273,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="the-variance-i">The variance I</h2>
 <p>Recall that the <span class="orange">variance</span> of the data <span class="math inline">y_1,\dots,y_n</span> is equal to</p>
 <p><span class="math display">
-\hat{\sigma}^2  = \frac{1}{n}\sum_{i=1}^n (y_i - \bar{y})^2 = \left(\frac{1}{n}\sum_{i=1}^n y_i^2\right) - \bar{y}^2.
+\text{var}(y)  = \frac{1}{n}\sum_{i=1}^n (y_i - \bar{y})^2 = \left(\frac{1}{n}\sum_{i=1}^n y_i^2\right) - \bar{y}^2.
 </span></p>
 <p>We can therefore compute the variances of the two groups “manually”:</p>
 <div class="cell">
@@ -315,7 +314,7 @@ window.Quarto = {
 </div>
 </div>
 <p>In <strong>R</strong> the function <code>var</code> is available, however this computes a slightly <span class="orange">different quantity</span>, that is <span class="math display">
-\texttt{var(x)} = s^2 = \frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2,
+s^2 = \frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2,
 </span> that is the <span class="blue">unbiased estimator</span> of the variance.</p>
 <p><span class="orange">Not clear why?</span> It will be addressed in the part of the course devoted to statistical inference.</p>
 </section>
@@ -332,28 +331,15 @@ window.Quarto = {
 <pre><code>[1] 0.09956351</code></pre>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Obtain the same output as <code>my_var</code> using the function <code>var</code>.</p>
-</div>
-</div>
 </section>
 <section id="standard-deviation" class="level2">
 <h2 class="anchored" data-anchor-id="standard-deviation">Standard deviation</h2>
 <p>The <span class="orange">standard deviation</span> is the square root of the variance, that is <span class="math display">
-\hat{\sigma} = \sqrt{\hat{\sigma}^2}.
+\text{sd}(y) = \sqrt{\text{var}(y)}.
 </span></p>
 <p>We therefore create a suitable <strong>R</strong> function called <code>my_sd</code> to compute it.</p>
 <p>Also in this case, be careful that the <strong>R</strong> command <code>sd</code> computes instead the value of <span class="math display">
-\texttt{sd(x)} = s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2}.
+s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2}.
 </span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>my_sd <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
@@ -400,19 +386,6 @@ window.Quarto = {
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(<span class="fu">range</span>(hemo_B))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.97508</code></pre>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Define a suitable <strong>R</strong> function that computes the <span class="orange">range</span>.</p>
 </div>
 </div>
 </section>
@@ -482,37 +455,6 @@ window.Quarto = {
 <!-- #### Exercise -->
 <!-- Try to use the function `aggregate` to obtain the same result. -->
 <!-- ::: -->
-</section>
-<section id="summary-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="summary-exercise">Summary exercise</h2>
-<p>The most commonly used measure of skewness is the so-called standardised <span class="blue">skewness index</span> of <span class="orange">Pearson</span>, defined as <span class="math display">
-\hat{\gamma} = \frac{1}{\hat{\sigma}^3} \frac{1}{n} \sum_{i=1}^n (y_i - \bar{y})^3 = \frac{1}{n} \sum_{i=1}^n \left(\frac{y_i - \bar{y}}{\hat{\sigma}}\right)^3.
-</span></p>
-<ul>
-<li>Create a suitable function to compute it.</li>
-</ul>
-<section id="solution-of-the-summary-exercise" class="level4">
-<h4 class="anchored" data-anchor-id="solution-of-the-summary-exercise">Solution of the summary exercise</h4>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First possible implementation</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>asym <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  sdev <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="fu">mean</span>(x)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">3</span>) <span class="sc">/</span> sdev<span class="sc">^</span><span class="dv">3</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="co"># (Slightly) alternative implementation</span></span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>asym <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  sdev <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="fu">mean</span>(x)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> (x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">/</span> sdev</span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(z<span class="sc">^</span><span class="dv">3</span>)</span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="fu">asym</span>(hemo_A)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.09535216</code></pre>
-</div>
-</div>
-</section>
 </section>
 
 </main>

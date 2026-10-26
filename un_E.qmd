@@ -150,7 +150,7 @@ Recall that the [variance]{.orange} of the data $y_1,\dots,y_n$ is equal
 to
 
 $$
-\hat{\sigma}^2  = \frac{1}{n}\sum_{i=1}^n (y_i - \bar{y})^2 = \left(\frac{1}{n}\sum_{i=1}^n y_i^2\right) - \bar{y}^2.
+\text{var}(y)  = \frac{1}{n}\sum_{i=1}^n (y_i - \bar{y})^2 = \left(\frac{1}{n}\sum_{i=1}^n y_i^2\right) - \bar{y}^2.
 $$
 
 We can therefore compute the variances of the two groups "manually":
@@ -182,7 +182,7 @@ my_var(hemo_B)
 
 In **R** the function `var` is available, however this computes a
 slightly [different quantity]{.orange}, that is $$
-\texttt{var(x)} = s^2 = \frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2,
+s^2 = \frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2,
 $$ that is the [unbiased estimator]{.blue} of the variance.
 
 [Not clear why?]{.orange} It will be addressed in the part of the course
@@ -198,17 +198,11 @@ var(hemo_A)
 var(hemo_B)
 ```
 
-::: callout-note
-#### Exercise
-
-Obtain the same output as `my_var` using the function `var`.
-:::
-
 ## Standard deviation
 
 The [standard deviation]{.orange} is the square root of the variance,
 that is $$
-\hat{\sigma} = \sqrt{\hat{\sigma}^2}.
+\text{sd}(y) = \sqrt{\text{var}(y)}.
 $$
 
 We therefore create a suitable **R** function called `my_sd` to compute
@@ -216,7 +210,7 @@ it.
 
 Also in this case, be careful that the **R** command `sd` computes
 instead the value of $$
-\texttt{sd(x)} = s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2}.
+s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2}.
 $$
 
 ```{r}
@@ -249,12 +243,6 @@ max(hemo_B) - min(hemo_B)
 diff(range(hemo_A))
 diff(range(hemo_B))
 ```
-
-::: callout-note
-#### Exercise
-
-Define a suitable **R** function that computes the [range]{.orange}.
-:::
 
 ## Interquartile range
 
@@ -335,31 +323,3 @@ interquartile_range(hemo_B)
 
 <!-- Try to use the function `aggregate` to obtain the same result. -->
 <!-- ::: -->
-
-## Summary exercise
-
-The most commonly used measure of skewness is the so-called standardised
-[skewness index]{.blue} of [Pearson]{.orange}, defined as $$
-\hat{\gamma} = \frac{1}{\hat{\sigma}^3} \frac{1}{n} \sum_{i=1}^n (y_i - \bar{y})^3 = \frac{1}{n} \sum_{i=1}^n \left(\frac{y_i - \bar{y}}{\hat{\sigma}}\right)^3.
-$$
-
-- Create a suitable function to compute it.
-
-#### Solution of the summary exercise
-
-```{r}
-# First possible implementation
-asym <- function(x) {
-  sdev <- sqrt(mean(x^2) - mean(x)^2)
-  mean((x - mean(x))^3) / sdev^3
-}
-
-# (Slightly) alternative implementation
-asym <- function(x) {
-  sdev <- sqrt(mean(x^2) - mean(x)^2)
-  z <- (x - mean(x)) / sdev
-  mean(z^3)
-}
-
-asym(hemo_A)
-```

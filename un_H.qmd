@@ -380,13 +380,6 @@ Be careful with the parametrisations and with the meaning of the arguments.
 Consult the documentation to know how they are defined.
 :::
 
-::: callout-note
-#### Exercise
-
-Represent graphically all the previous distributions, for different choices of
-the parameters.
-:::
-
 ## Pseudo-random numbers I
 
 The fourth class of functions in our list is the one of type `rdist`, which
@@ -610,7 +603,7 @@ probability to every element of `x`.
 
 If we wanted to sample with [non-uniform probabilities]{.blue}, we would have to
 provide a vector of probabilities of length equal to the number of elements of
-`x` (try it as an exercise!)
+`x`.
 
 ## Sampling with replacement
 

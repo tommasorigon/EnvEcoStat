@@ -145,10 +145,6 @@ quantile(dde_preterm, probs = c(0.1, 0.25, 0.75, 0.9))
 quantile(dde_non_preterm, probs = c(0.1, 0.25, 0.75, 0.9))
 
 ## -----------------------------------------------------------------------------
-min(dde_non_preterm[F_non_preterm(dde_non_preterm) >= 0.25])
-min(dde_non_preterm[F_non_preterm(dde_non_preterm) >= 0.75])
-
-## -----------------------------------------------------------------------------
 summary(dde_preterm)
 summary(dde_non_preterm)
 

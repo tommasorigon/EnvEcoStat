@@ -147,7 +147,6 @@ window.Quarto = {
   <li><a href="#the-least-squares-line-ii" id="toc-the-least-squares-line-ii" class="nav-link" data-scroll-target="#the-least-squares-line-ii">The least squares line II</a></li>
   <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction">Prediction</a></li>
   <li><a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link" data-scroll-target="#goodness-of-fit">Goodness of fit</a></li>
-  <li><a href="#summary-exercise" id="toc-summary-exercise" class="nav-link" data-scroll-target="#summary-exercise">Summary exercise</a></li>
   </ul>
 </nav>
 </div>
@@ -319,19 +318,6 @@ window.Quarto = {
 <pre><code>[1] 202.9529</code></pre>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Why do the two means differ slightly? What can this be due to?</p>
-</div>
-</div>
 </section>
 <section id="variability-indices" class="level2">
 <h2 class="anchored" data-anchor-id="variability-indices">Variability indices</h2>
@@ -348,19 +334,6 @@ window.Quarto = {
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">my_var</span>(forbes<span class="sc">$</span>Pressure)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 8.584575</code></pre>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Obtain the second moments of the variables <code>TempC</code> and <code>Pressure</code>.</p>
 </div>
 </div>
 </section>
@@ -418,8 +391,8 @@ window.Quarto = {
 <section id="correlation" class="level2">
 <h2 class="anchored" data-anchor-id="correlation">Correlation</h2>
 <p>The <span class="blue">correlation</span> index is defined as: <span class="math display">
-r = \frac{\text{cov}(x,y)}{\sqrt{\text{var}(x) \text{var}(y)}},
-</span> where <span class="math inline">\text{var}(x)</span> and <span class="math inline">\text{var}(y)</span> are the variances <span class="math inline">\hat{\sigma}^2</span> of <a href="un_E.html">Unit E</a>, computed by <code>my_var</code>.</p>
+\text{cor}(x,y) = \frac{\text{cov}(x,y)}{\sqrt{\text{var}(x) \text{var}(y)}},
+</span> where <span class="math inline">\text{var}(x)</span> and <span class="math inline">\text{var}(y)</span> are the variances of <a href="un_E.html">Unit E</a>, computed by <code>my_var</code>.</p>
 <p>Therefore, we can compute the correlation as follows:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">my_cov</span>(forbes<span class="sc">$</span>TempC, forbes<span class="sc">$</span>Pressure) <span class="sc">/</span></span>
@@ -431,19 +404,6 @@ r = \frac{\text{cov}(x,y)}{\sqrt{\text{var}(x) \text{var}(y)}},
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="fu">var</span>(forbes<span class="sc">$</span>TempC) <span class="sc">*</span> <span class="fu">var</span>(forbes<span class="sc">$</span>Pressure))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9972227</code></pre>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Why do the results of the two commands coincide? Check this fact by carrying out the computations <span class="orange">analytically</span> (pen and paper).</p>
 </div>
 </div>
 <p>In <strong>R</strong> there is also the command <code>cor</code>, which returns the correlation</p>
@@ -539,7 +499,7 @@ Coefficients:
 <section id="goodness-of-fit" class="level2">
 <h2 class="anchored" data-anchor-id="goodness-of-fit">Goodness of fit</h2>
 <p>How well does the line fit the data? The coefficient <span class="math inline">R^2</span> for a simple linear regression model is defined as: <span class="math display">
-R^2 = 1 - \frac{\text{var}(e)}{\text{var}(y)} = r^2,
+R^2 = 1 - \frac{\text{var}(e)}{\text{var}(y)} = \text{cor}(x,y)^2,
 </span> where <span class="math inline">e_1,\dots,e_n</span> are the <span class="blue">residuals</span>.</p>
 <p>First of all we therefore compute the residuals:</p>
 <div class="cell">
@@ -554,34 +514,6 @@ R^2 = 1 - \frac{\text{var}(e)}{\text{var}(y)} = r^2,
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">my_var</span>(residuals) <span class="sc">/</span> <span class="fu">my_var</span>(forbes<span class="sc">$</span>Pressure)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.994453</code></pre>
-</div>
-</div>
-</section>
-<section id="summary-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="summary-exercise">Summary exercise</h2>
-<p>The following <span class="orange">synthetic</span> data report, for <span class="math inline">10</span> hypothetical countries, the per capita income (thousands of €, <code>income</code>) and the per capita electricity consumption (MWh, <code>consumption</code>) in a given year. They are made up for the purpose of this exercise and are not real statistics.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>income <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">18.2</span>, <span class="fl">21.4</span>, <span class="fl">25.0</span>, <span class="fl">27.6</span>, <span class="fl">30.1</span>, <span class="fl">33.4</span>, <span class="fl">36.8</span>, <span class="fl">41.2</span>, <span class="fl">45.9</span>, <span class="fl">52.3</span>)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>consumption <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.1</span>, <span class="fl">3.6</span>, <span class="fl">4.0</span>, <span class="fl">4.2</span>, <span class="fl">4.9</span>, <span class="fl">5.1</span>, <span class="fl">5.8</span>, <span class="fl">6.0</span>, <span class="fl">6.9</span>, <span class="fl">7.4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<ul>
-<li><p>Draw a scatterplot of the two variables and comment on it.</p></li>
-<li><p>Compute the covariance and the correlation between <code>income</code> and <code>consumption</code>.</p></li>
-<li><p>Obtain the least squares line that explains the consumption as a function of the income, and add it to the plot.</p></li>
-<li><p>Compute the <span class="math inline">R^2</span> and comment on the goodness of fit.</p></li>
-<li><p>According to the estimated model, what is the expected consumption for a country with a per capita income of <span class="math inline">40</span> thousand €?</p></li>
-</ul>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Hint
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>To import small amounts of data into <strong>R</strong>, it is also possible to use the command <code>scan</code>.</p>
 </div>
 </div>
 </section>

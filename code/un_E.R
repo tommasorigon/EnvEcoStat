@@ -68,19 +68,3 @@ interquartile_range <- function(x) {
 
 interquartile_range(hemo_A)
 interquartile_range(hemo_B)
-
-## -----------------------------------------------------------------------------
-# First possible implementation
-asym <- function(x) {
-  sdev <- sqrt(mean(x^2) - mean(x)^2)
-  mean((x - mean(x))^3) / sdev^3
-}
-
-# (Slightly) alternative implementation
-asym <- function(x) {
-  sdev <- sqrt(mean(x^2) - mean(x)^2)
-  z <- (x - mean(x)) / sdev
-  mean(z^3)
-}
-
-asym(hemo_A)

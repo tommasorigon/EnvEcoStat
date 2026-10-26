@@ -227,14 +227,9 @@ The option `add = TRUE` draws the curve on top of the histogram.
 
 ## Using the central limit theorem
 
-::: callout-warning
-#### Question
-
 What is the probability that the campaign [overestimates]{.orange} $\mu$ by more
-than $3$ µg/m³, that is $\mathbb{P}(\bar{Y} > 31)$?
-:::
-
-#### Solution
+than $3$ µg/m³, that is $\mathbb{P}(\bar{Y} > 31)$? We can answer either with the
+central limit theorem or with the simulated sample means:
 
 ```{r}
 1 - pnorm(31, mean = mu, sd = sigma / sqrt(n)) # Central limit theorem
@@ -275,7 +270,7 @@ since $\mathbb{E}[\hat{\sigma}^2] = (n-1)\sigma^2 / n = 115.2$.
 ## Mean squared error
 
 Unbiasedness is not everything. The [mean squared error]{.blue} $$
-\text{MSE}(\hat{\theta}) = \mathbb{E}[(\hat{\theta} - \theta)^2] = \text{var}[\hat{\theta}] + (\mathbb{E}[\hat{\theta}] - \theta)^2
+\text{MSE}(\hat{\theta}) = \mathbb{E}[(\hat{\theta} - \theta)^2] = \mathbb{E}[(\hat{\theta} - \mathbb{E}[\hat{\theta}])^2] + (\mathbb{E}[\hat{\theta}] - \theta)^2
 $$ measures how close, on average, an estimator falls to the parameter:
 
 ```{r}
@@ -285,11 +280,3 @@ mean((S2 - sigma^2)^2) # MSE of the unbiased estimator
 
 The biased estimator has a [smaller]{.orange} MSE: its bias is compensated by a
 smaller variance (the bias-variance trade-off).
-
-::: callout-note
-#### Exercise
-
-To estimate $\mu$, the agency could also use the [sample median]{.blue}.
-Compare the bias and the MSE of the sample mean and of the sample median, for
-$n = 20$ days.
-:::

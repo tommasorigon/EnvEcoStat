@@ -661,19 +661,6 @@ Call: ecdf(dde_non_preterm)
 <pre><code>[1] 22.5</code></pre>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Obtain the median “manually” in the case in which the vector <code>x</code> has an odd number of elements.</p>
-</div>
-</div>
 </section>
 <section id="location-indices-the-quantiles-i" class="level2">
 <h2 class="anchored" data-anchor-id="location-indices-the-quantiles-i">Location indices: the quantiles I</h2>
@@ -692,30 +679,6 @@ Call: ecdf(dde_non_preterm)
 <div class="cell-output cell-output-stdout">
 <pre><code>   10%    25%    75%    90% 
 12.230 16.735 35.400 50.720 </code></pre>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Convince yourself that the “manual” implementation of the definition above is the following:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(dde_non_preterm[<span class="fu">F_non_preterm</span>(dde_non_preterm) <span class="sc">&gt;=</span> <span class="fl">0.25</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 16.73</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(dde_non_preterm[<span class="fu">F_non_preterm</span>(dde_non_preterm) <span class="sc">&gt;=</span> <span class="fl">0.75</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 35.45</code></pre>
-</div>
-</div>
-<p>Compare the results with those of <code>quantile</code>: the tiny differences are due to the fact that, by default, <strong>R</strong> uses a slightly different definition.</p>
 </div>
 </div>
 <!-- ## Location indices: the quantiles II -->
@@ -758,12 +721,12 @@ Call: ecdf(dde_non_preterm)
 <h2 class="anchored" data-anchor-id="the-summary-command">The <code>summary</code> command</h2>
 <p>To obtain quickly the <span class="blue">main descriptive statistics</span> of a distribution (minimum, maximum, mean, median and quartiles), one often uses the command <code>summary</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dde_preterm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dde_preterm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    3.17   19.94   29.46   36.20   45.30  178.06 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dde_non_preterm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dde_non_preterm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    2.50   16.73   24.04   29.14   35.40  162.29 </code></pre>
@@ -771,7 +734,7 @@ Call: ecdf(dde_non_preterm)
 </div>
 <p>The command <code>summary</code> can also be used directly on an object of type <code>data.frame</code>, producing the following output:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dde)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dde)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      DDE              GAD       
  Min.   :  2.50   Min.   :194.0  
@@ -788,7 +751,7 @@ Call: ecdf(dde_non_preterm)
 <p>An alternative graphical representation to histograms are <span class="orange">boxplots</span>.</p>
 <p>The <span class="blue">descriptive statistics</span> on which boxplots are based can be obtained through the command <code>boxplot.stats</code>, that is:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot.stats</span>(dde_preterm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot.stats</span>(dde_preterm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$stats
 [1]  3.17 19.94 29.46 45.30 83.25
@@ -805,11 +768,11 @@ $out
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(dde_preterm, dde_non_preterm) <span class="co"># Produces the plot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(dde_preterm, dde_non_preterm) <span class="co"># Produces the plot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="un_D_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="630"></p>
+<p><img src="un_D_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="630"></p>
 </figure>
 </div>
 </div>

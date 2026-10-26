@@ -571,19 +571,6 @@ F(\mathcal{Q}(0.75)) = F(F^{-1}(0.75))= 0.75.
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Represent graphically all the previous distributions, for different choices of the parameters.</p>
-</div>
-</div>
 </section>
 <section id="pseudo-random-numbers-i" class="level2">
 <h2 class="anchored" data-anchor-id="pseudo-random-numbers-i">Pseudo-random numbers I</h2>
@@ -595,7 +582,7 @@ Y_i \overset{\text{iid}}{\sim} \text{N}(0,1), \qquad i=1,\dots,5
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">5</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(R, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -2.0214808  0.8310088  0.1507636 -1.4406470 -0.8355410</code></pre>
+<pre><code>[1]  0.3985941  1.9593125  0.4388263 -0.6236895 -0.2388413</code></pre>
 </div>
 </div>
 </section>
@@ -755,7 +742,7 @@ Y_i \overset{\text{iid}}{\sim} \text{N}(0,1), \qquad i=1,\dots,5
 <li>without replacement, if <code>replace = FALSE</code>.</li>
 </ul>
 <p>If the argument <code>prob</code> is not specified, the function <code>sample</code> assigns equal probability to every element of <code>x</code>.</p>
-<p>If we wanted to sample with <span class="blue">non-uniform probabilities</span>, we would have to provide a vector of probabilities of length equal to the number of elements of <code>x</code> (try it as an exercise!)</p>
+<p>If we wanted to sample with <span class="blue">non-uniform probabilities</span>, we would have to provide a vector of probabilities of length equal to the number of elements of <code>x</code>.</p>
 </section>
 <section id="sampling-with-replacement" class="level2">
 <h2 class="anchored" data-anchor-id="sampling-with-replacement">Sampling with replacement</h2>
