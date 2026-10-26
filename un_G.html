@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,10 +10,16 @@
 
 <title>Descriptive analysis of the titanic data</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -66,10 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="un_G_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="un_G_files/libs/quarto-html/anchor.min.js"></script>
 <link href="un_G_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="un_G_files/libs/quarto-html/quarto-syntax-highlighting-2dd8675203c32411a5a6bac4cfca86ce.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="un_G_files/libs/quarto-html/quarto-syntax-highlighting-882f132b49beac8344fe1497d568d70b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="un_G_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="un_G_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="un_G_files/libs/bootstrap/bootstrap-abca03668476d56ad8e58af0d59d28d0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="un_G_files/libs/bootstrap/bootstrap-55d66b82bfb7e8363875927e87202f7a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -100,7 +106,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -138,8 +144,6 @@ window.Quarto = {
   <li><a href="#conditional-distributions-i" id="toc-conditional-distributions-i" class="nav-link" data-scroll-target="#conditional-distributions-i">Conditional distributions I</a></li>
   <li><a href="#conditional-distributions-ii" id="toc-conditional-distributions-ii" class="nav-link" data-scroll-target="#conditional-distributions-ii">Conditional distributions II</a></li>
   <li><a href="#graphical-representations" id="toc-graphical-representations" class="nav-link" data-scroll-target="#graphical-representations">Graphical representations</a></li>
-  <li><a href="#advanced-graphical-tools-optional" id="toc-advanced-graphical-tools-optional" class="nav-link" data-scroll-target="#advanced-graphical-tools-optional">Advanced graphical tools (optional)</a></li>
-  <li><a href="#summary-exercise" id="toc-summary-exercise" class="nav-link" data-scroll-target="#summary-exercise">Summary exercise</a></li>
   </ul>
 </nav>
 </div>
@@ -195,7 +199,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+<span class="screen-reader-only">Note</span>Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -217,17 +221,17 @@ Note
 <h2 class="anchored" data-anchor-id="importing-the-titanic-data">Importing the <code>titanic</code> data</h2>
 <p>As done previously, first of all you need to download the file <code>titanic.csv</code> and save it on your computer. <a href="data/titanic.csv">Link to the file</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/titanic.csv"</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/titanic.csv"</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Alternatively, we can simply obtain them using the link:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://tommasorigon.github.io/EnvEcoStat/data/titanic.csv"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://tommasorigon.github.io/EnvEcoStat/data/titanic.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(titanic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(titanic)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   1316 obs. of  2 variables:
  $ survived: Factor w/ 2 levels "No","Yes": 2 2 2 2 2 2 2 2 2 2 ...
@@ -239,7 +243,7 @@ Note
 <h2 class="anchored" data-anchor-id="absolute-and-relative-marginal-frequencies">Absolute and relative (marginal) frequencies</h2>
 <p>We can obtain the (marginal) absolute frequencies of the two variables using the command <code>summary</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(titanic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(titanic)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> survived  class    
  No :817   I  :325  
@@ -249,10 +253,10 @@ Note
 </div>
 <p>Of course, we can obtain the <span class="blue">absolute</span> and <span class="orange">relative</span> frequencies also using the command <code>table</code>. For example for the variable <code>class</code>, we can use:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>freq_abs_class <span class="ot">&lt;-</span> <span class="fu">table</span>(titanic<span class="sc">$</span>class)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>freq_abs_class <span class="ot">&lt;-</span> <span class="fu">table</span>(titanic<span class="sc">$</span>class)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>freq_rel_class <span class="ot">&lt;-</span> freq_abs_class <span class="sc">/</span> <span class="fu">sum</span>(freq_abs_class)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>tab_summary <span class="ot">&lt;-</span> <span class="fu">cbind</span>(freq_abs_class, freq_rel_class)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>tab_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>tab_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    freq_abs_class freq_rel_class
 I              325      0.2469605
@@ -266,8 +270,8 @@ III            706      0.5364742</code></pre>
 <p>A summary we can produce consists in building a table, called a <strong>contingency table<span class="blue">or</span>two-way table</strong>.</p>
 <p>In <strong>R</strong> one uses, also in this case, the command <code>table</code>, with two arguments:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(titanic<span class="sc">$</span>survived, titanic<span class="sc">$</span>class)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(titanic<span class="sc">$</span>survived, titanic<span class="sc">$</span>class)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     
         I  II III
@@ -466,7 +470,7 @@ III            706      0.5364742</code></pre>
 <h2 class="anchored" data-anchor-id="joint-marginal-frequencies">Joint &amp; marginal frequencies</h2>
 <p>The tables described in the previous sections are obtained in <strong>R</strong> as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addmargins</span>(tab) <span class="co"># Adds the (absolute) marginal distributions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addmargins</span>(tab) <span class="co"># Adds the (absolute) marginal distributions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     
          I   II  III  Sum
@@ -476,8 +480,8 @@ III            706      0.5364742</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tab_rel <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tab) <span class="co"># Alternative command: table(tab) / sum(tab)</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>tab_rel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tab_rel <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tab) <span class="co"># Alternative command: table(tab) / sum(tab)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>tab_rel</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     
                I         II        III
@@ -486,7 +490,7 @@ III            706      0.5364742</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addmargins</span>(tab_rel) <span class="co"># Adds the relative marginal distributions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addmargins</span>(tab_rel) <span class="co"># Adds the relative marginal distributions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     
                I         II        III        Sum
@@ -596,7 +600,7 @@ III            706      0.5364742</code></pre>
 <p>The command <code>prop.table</code> also makes it possible to compute the relative conditional frequencies.</p>
 <p>The distribution of each class, conditional on the outcome, is:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab, <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     
               I        II       III
@@ -606,7 +610,7 @@ III            706      0.5364742</code></pre>
 </div>
 <p>The distribution of each outcome, conditional on the class, is:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     
               I        II       III
@@ -620,7 +624,7 @@ III            706      0.5364742</code></pre>
 <p>It is possible to represent the data of a contingency table graphically through a bar chart, which in <strong>R</strong> is implemented through the command <code>barplot</code>.</p>
 <p>A graphical representation of the joint frequencies is therefore the following:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">legend.text =</span> <span class="cn">TRUE</span>) <span class="co"># beside = TRUE places the bars side by side</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">legend.text =</span> <span class="cn">TRUE</span>) <span class="co"># beside = TRUE places the bars side by side</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -631,11 +635,11 @@ III            706      0.5364742</code></pre>
 </div>
 <p>If we were interested in showing the conditional frequencies, we can instead use:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">prop.table</span>(tab, <span class="dv">2</span>),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">prop.table</span>(tab, <span class="dv">2</span>),</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">beside =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Class"</span>,</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="cn">TRUE</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>) <span class="co"># beside = FALSE stacks the bars.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>) <span class="co"># beside = FALSE stacks the bars.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -644,114 +648,81 @@ III            706      0.5364742</code></pre>
 </div>
 </div>
 </div>
-</section>
-<section id="advanced-graphical-tools-optional" class="level2">
-<h2 class="anchored" data-anchor-id="advanced-graphical-tools-optional">Advanced graphical tools (optional)</h2>
-<section id="the-ggplot2-package" class="level4">
-<h4 class="anchored" data-anchor-id="the-ggplot2-package">The <code>ggplot2</code> package</h4>
-<p>So-called <strong>R</strong> <code>base</code> contains a wide range of graphical representations. Nevertheless, an <strong>R</strong> graphical package called <code>ggplot2</code> has recently gained considerable popularity.</p>
-<p>Let us first load it into memory:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Then, the first plot shown above can be obtained with the syntax:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> titanic, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> survived)) <span class="sc">+</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Absolute frequencies"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="un_G_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="630"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>And the second one:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> titanic, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> survived)) <span class="sc">+</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Relative frequencies"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="un_G_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="630"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="summary-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="summary-exercise">Summary exercise</h2>
-<p>The <span class="orange">contingencies</span> are equal to the difference between observed frequencies and expected frequencies, under the hypothesis of independence: <span class="math display">
-(\text{contingency}_{ij}) = n_{ij} - \hat{n}_{ij}, \qquad i=1,\dots,h,\quad j=1,\dots,k.
-</span></p>
-<p>Recall that, under independence, the <span class="blue">expected frequencies</span> are <span class="math inline">\hat{n}_{ij} = n_{i+} n_{+j} / n</span>.</p>
-<p>The <span class="math inline">\chi^2</span> index of association is defined as <span class="math display">
-\chi^2 = \sum_{i=1}^h\sum_{j=1}^k \frac{(n_{ij} - \hat{n}_{ij})^2}{\hat{n}_{ij}} = n\left(\sum_{i=1}^h\sum_{j=1}^k\frac{f_{ij}^2}{f_{i+}f_{+j}} - 1\right).
-</span></p>
-<p>Write an <strong>R</strong> function called <code>chi_squared(x, y)</code> that computes Pearson’s <span class="math inline">\chi^2</span> index.</p>
-<section id="solution" class="level4">
-<h4 class="anchored" data-anchor-id="solution">Solution</h4>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>chi_squared <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  nn <span class="ot">&lt;-</span> <span class="fu">table</span>(x, y)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">sum</span>(nn)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  ff <span class="ot">&lt;-</span> nn <span class="sc">/</span> n <span class="co"># Joint relative frequencies</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  f_x <span class="ot">&lt;-</span> <span class="fu">table</span>(x) <span class="sc">/</span> n <span class="co"># Marginal relative frequencies of x</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  f_y <span class="ot">&lt;-</span> <span class="fu">table</span>(y) <span class="sc">/</span> n <span class="co"># Marginal relative frequencies of y</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  S <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(f_x)) {</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(f_y)) {</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>      S <span class="ot">&lt;-</span> S <span class="sc">+</span> ff[i, j]<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (f_x[i] <span class="sc">*</span> f_y[j])</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">*</span> (S <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="fu">chi_squared</span>(titanic<span class="sc">$</span>survived, titanic<span class="sc">$</span>class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     No 
-133.052 </code></pre>
-</div>
-</div>
-</section>
-<section id="solution-alternative-more-concise" class="level4">
-<h4 class="anchored" data-anchor-id="solution-alternative-more-concise">Solution (alternative, more concise)</h4>
-<p>The following solution makes use of the functions <code>apply</code> and <code>outer</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>chi_squared <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  nn <span class="ot">&lt;-</span> <span class="fu">table</span>(x, y)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">sum</span>(nn)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  ff <span class="ot">&lt;-</span> nn <span class="sc">/</span> n</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  f_x <span class="ot">&lt;-</span> <span class="fu">apply</span>(ff, <span class="dv">1</span>, sum)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  f_y <span class="ot">&lt;-</span> <span class="fu">apply</span>(ff, <span class="dv">2</span>, sum)</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  f_e <span class="ot">&lt;-</span> <span class="fu">outer</span>(f_x, f_y) <span class="co"># "Outer" product between vectors</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">*</span> (<span class="fu">sum</span>(ff<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> f_e) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="fu">chi_squared</span>(titanic<span class="sc">$</span>survived, titanic<span class="sc">$</span>class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 133.052</code></pre>
-</div>
-</div>
-<p>Finally, note that the function <code>chisq.test</code> produces the same result.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(titanic<span class="sc">$</span>survived, titanic<span class="sc">$</span>class))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's Chi-squared test
-
-data:  table(titanic$survived, titanic$class)
-X-squared = 133.05, df = 2, p-value &lt; 2.2e-16</code></pre>
-</div>
-</div>
-</section>
+<!-- ## Advanced graphical tools (optional) -->
+<!-- #### The `ggplot2` package -->
+<!-- So-called **R** `base` contains a wide range of graphical representations. -->
+<!-- Nevertheless, an **R** graphical package called `ggplot2` has recently gained -->
+<!-- considerable popularity. -->
+<!-- Let us first load it into memory: -->
+<!-- ```{r} -->
+<!-- library(ggplot2) -->
+<!-- ``` -->
+<!-- Then, the first plot shown above can be obtained with the syntax: -->
+<!-- ```{r} -->
+<!-- ggplot(data = titanic, aes(x = class, fill = survived)) + -->
+<!--   geom_bar(position = "dodge") + -->
+<!--   theme_bw() + -->
+<!--   theme(legend.position = "top") + -->
+<!--   scale_fill_brewer(palette = "Dark2") + -->
+<!--   ylab("Absolute frequencies") -->
+<!-- ``` -->
+<!-- And the second one: -->
+<!-- ```{r} -->
+<!-- ggplot(data = titanic, aes(x = class, fill = survived)) + -->
+<!--   geom_bar(position = "fill") + -->
+<!--   theme_bw() + -->
+<!--   theme(legend.position = "top") + -->
+<!--   scale_fill_brewer(palette = "Dark2") + -->
+<!--   ylab("Relative frequencies") -->
+<!-- ``` -->
+<!-- ## Summary exercise -->
+<!-- The [contingencies]{.orange} are equal to the difference between observed frequencies -->
+<!-- and expected frequencies, under the hypothesis of independence: $$ -->
+<!-- (\text{contingency}_{ij}) = n_{ij} - \hat{n}_{ij}, \qquad i=1,\dots,h,\quad j=1,\dots,k. -->
+<!-- $$ -->
+<!-- Recall that, under independence, the [expected frequencies]{.blue} are -->
+<!-- $\hat{n}_{ij} = n_{i+} n_{+j} / n$. -->
+<!-- The $\chi^2$ index of association is defined as $$ -->
+<!-- \chi^2 = \sum_{i=1}^h\sum_{j=1}^k \frac{(n_{ij} - \hat{n}_{ij})^2}{\hat{n}_{ij}} = n\left(\sum_{i=1}^h\sum_{j=1}^k\frac{f_{ij}^2}{f_{i+}f_{+j}} - 1\right). -->
+<!-- $$ -->
+<!-- Write an **R** function called `chi_squared(x, y)` that computes Pearson's -->
+<!-- $\chi^2$ index. -->
+<!-- #### Solution -->
+<!-- ```{r} -->
+<!-- chi_squared <- function(x, y) { -->
+<!--   nn <- table(x, y) -->
+<!--   n <- sum(nn) -->
+<!--   ff <- nn / n # Joint relative frequencies -->
+<!--   f_x <- table(x) / n # Marginal relative frequencies of x -->
+<!--   f_y <- table(y) / n # Marginal relative frequencies of y -->
+<!--   S <- 0 -->
+<!--   for (i in 1:length(f_x)) { -->
+<!--     for (j in 1:length(f_y)) { -->
+<!--       S <- S + ff[i, j]^2 / (f_x[i] * f_y[j]) -->
+<!--     } -->
+<!--   } -->
+<!--   n * (S - 1) -->
+<!-- } -->
+<!-- chi_squared(titanic$survived, titanic$class) -->
+<!-- ``` -->
+<!-- #### Solution (alternative, more concise) -->
+<!-- The following solution makes use of the functions `apply` and `outer`. -->
+<!-- ```{r} -->
+<!-- chi_squared <- function(x, y) { -->
+<!--   nn <- table(x, y) -->
+<!--   n <- sum(nn) -->
+<!--   ff <- nn / n -->
+<!--   f_x <- apply(ff, 1, sum) -->
+<!--   f_y <- apply(ff, 2, sum) -->
+<!--   f_e <- outer(f_x, f_y) # "Outer" product between vectors -->
+<!--   n * (sum(ff^2 / f_e) - 1) -->
+<!-- } -->
+<!-- chi_squared(titanic$survived, titanic$class) -->
+<!-- ``` -->
+<!-- Finally, note that the function `chisq.test` produces the same result. -->
+<!-- ```{r} -->
+<!-- chisq.test(table(titanic$survived, titanic$class)) -->
+<!-- ``` -->
 </section>
 
 </main>
@@ -807,13 +778,14 @@ X-squared = 133.05, df = 2, p-value &lt; 2.2e-16</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

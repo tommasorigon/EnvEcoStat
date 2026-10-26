@@ -260,98 +260,98 @@ barplot(prop.table(tab, 2),
 ) # beside = FALSE stacks the bars.
 ```
 
-## Advanced graphical tools (optional)
+<!-- ## Advanced graphical tools (optional) -->
 
-#### The `ggplot2` package
+<!-- #### The `ggplot2` package -->
 
-So-called **R** `base` contains a wide range of graphical representations.
-Nevertheless, an **R** graphical package called `ggplot2` has recently gained
-considerable popularity.
+<!-- So-called **R** `base` contains a wide range of graphical representations. -->
+<!-- Nevertheless, an **R** graphical package called `ggplot2` has recently gained -->
+<!-- considerable popularity. -->
 
-Let us first load it into memory:
+<!-- Let us first load it into memory: -->
 
-```{r}
-library(ggplot2)
-```
+<!-- ```{r} -->
+<!-- library(ggplot2) -->
+<!-- ``` -->
 
-Then, the first plot shown above can be obtained with the syntax:
+<!-- Then, the first plot shown above can be obtained with the syntax: -->
 
-```{r}
-ggplot(data = titanic, aes(x = class, fill = survived)) +
-  geom_bar(position = "dodge") +
-  theme_bw() +
-  theme(legend.position = "top") +
-  scale_fill_brewer(palette = "Dark2") +
-  ylab("Absolute frequencies")
-```
+<!-- ```{r} -->
+<!-- ggplot(data = titanic, aes(x = class, fill = survived)) + -->
+<!--   geom_bar(position = "dodge") + -->
+<!--   theme_bw() + -->
+<!--   theme(legend.position = "top") + -->
+<!--   scale_fill_brewer(palette = "Dark2") + -->
+<!--   ylab("Absolute frequencies") -->
+<!-- ``` -->
 
-And the second one:
+<!-- And the second one: -->
 
-```{r}
-ggplot(data = titanic, aes(x = class, fill = survived)) +
-  geom_bar(position = "fill") +
-  theme_bw() +
-  theme(legend.position = "top") +
-  scale_fill_brewer(palette = "Dark2") +
-  ylab("Relative frequencies")
-```
+<!-- ```{r} -->
+<!-- ggplot(data = titanic, aes(x = class, fill = survived)) + -->
+<!--   geom_bar(position = "fill") + -->
+<!--   theme_bw() + -->
+<!--   theme(legend.position = "top") + -->
+<!--   scale_fill_brewer(palette = "Dark2") + -->
+<!--   ylab("Relative frequencies") -->
+<!-- ``` -->
 
-## Summary exercise
+<!-- ## Summary exercise -->
 
-The [contingencies]{.orange} are equal to the difference between observed frequencies
-and expected frequencies, under the hypothesis of independence: $$
-(\text{contingency}_{ij}) = n_{ij} - \hat{n}_{ij}, \qquad i=1,\dots,h,\quad j=1,\dots,k.
-$$
+<!-- The [contingencies]{.orange} are equal to the difference between observed frequencies -->
+<!-- and expected frequencies, under the hypothesis of independence: $$ -->
+<!-- (\text{contingency}_{ij}) = n_{ij} - \hat{n}_{ij}, \qquad i=1,\dots,h,\quad j=1,\dots,k. -->
+<!-- $$ -->
 
-Recall that, under independence, the [expected frequencies]{.blue} are
-$\hat{n}_{ij} = n_{i+} n_{+j} / n$.
+<!-- Recall that, under independence, the [expected frequencies]{.blue} are -->
+<!-- $\hat{n}_{ij} = n_{i+} n_{+j} / n$. -->
 
-The $\chi^2$ index of association is defined as $$
-\chi^2 = \sum_{i=1}^h\sum_{j=1}^k \frac{(n_{ij} - \hat{n}_{ij})^2}{\hat{n}_{ij}} = n\left(\sum_{i=1}^h\sum_{j=1}^k\frac{f_{ij}^2}{f_{i+}f_{+j}} - 1\right).
-$$
+<!-- The $\chi^2$ index of association is defined as $$ -->
+<!-- \chi^2 = \sum_{i=1}^h\sum_{j=1}^k \frac{(n_{ij} - \hat{n}_{ij})^2}{\hat{n}_{ij}} = n\left(\sum_{i=1}^h\sum_{j=1}^k\frac{f_{ij}^2}{f_{i+}f_{+j}} - 1\right). -->
+<!-- $$ -->
 
-Write an **R** function called `chi_squared(x, y)` that computes Pearson's
-$\chi^2$ index.
+<!-- Write an **R** function called `chi_squared(x, y)` that computes Pearson's -->
+<!-- $\chi^2$ index. -->
 
-#### Solution
+<!-- #### Solution -->
 
-```{r}
-chi_squared <- function(x, y) {
-  nn <- table(x, y)
-  n <- sum(nn)
-  ff <- nn / n # Joint relative frequencies
-  f_x <- table(x) / n # Marginal relative frequencies of x
-  f_y <- table(y) / n # Marginal relative frequencies of y
-  S <- 0
-  for (i in 1:length(f_x)) {
-    for (j in 1:length(f_y)) {
-      S <- S + ff[i, j]^2 / (f_x[i] * f_y[j])
-    }
-  }
-  n * (S - 1)
-}
-chi_squared(titanic$survived, titanic$class)
-```
+<!-- ```{r} -->
+<!-- chi_squared <- function(x, y) { -->
+<!--   nn <- table(x, y) -->
+<!--   n <- sum(nn) -->
+<!--   ff <- nn / n # Joint relative frequencies -->
+<!--   f_x <- table(x) / n # Marginal relative frequencies of x -->
+<!--   f_y <- table(y) / n # Marginal relative frequencies of y -->
+<!--   S <- 0 -->
+<!--   for (i in 1:length(f_x)) { -->
+<!--     for (j in 1:length(f_y)) { -->
+<!--       S <- S + ff[i, j]^2 / (f_x[i] * f_y[j]) -->
+<!--     } -->
+<!--   } -->
+<!--   n * (S - 1) -->
+<!-- } -->
+<!-- chi_squared(titanic$survived, titanic$class) -->
+<!-- ``` -->
 
-#### Solution (alternative, more concise)
+<!-- #### Solution (alternative, more concise) -->
 
-The following solution makes use of the functions `apply` and `outer`.
+<!-- The following solution makes use of the functions `apply` and `outer`. -->
 
-```{r}
-chi_squared <- function(x, y) {
-  nn <- table(x, y)
-  n <- sum(nn)
-  ff <- nn / n
-  f_x <- apply(ff, 1, sum)
-  f_y <- apply(ff, 2, sum)
-  f_e <- outer(f_x, f_y) # "Outer" product between vectors
-  n * (sum(ff^2 / f_e) - 1)
-}
-chi_squared(titanic$survived, titanic$class)
-```
+<!-- ```{r} -->
+<!-- chi_squared <- function(x, y) { -->
+<!--   nn <- table(x, y) -->
+<!--   n <- sum(nn) -->
+<!--   ff <- nn / n -->
+<!--   f_x <- apply(ff, 1, sum) -->
+<!--   f_y <- apply(ff, 2, sum) -->
+<!--   f_e <- outer(f_x, f_y) # "Outer" product between vectors -->
+<!--   n * (sum(ff^2 / f_e) - 1) -->
+<!-- } -->
+<!-- chi_squared(titanic$survived, titanic$class) -->
+<!-- ``` -->
 
-Finally, note that the function `chisq.test` produces the same result.
+<!-- Finally, note that the function `chisq.test` produces the same result. -->
 
-```{r}
-chisq.test(table(titanic$survived, titanic$class))
-```
+<!-- ```{r} -->
+<!-- chisq.test(table(titanic$survived, titanic$class)) -->
+<!-- ``` -->
