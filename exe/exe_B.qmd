@@ -50,21 +50,21 @@ from the title of the exercise itself.
 ::: {.callout-note collapse="true"}
 #### Exercise A - Solution: [`variance.R`](../code/variance.R)
 
-The sample variance of the data ${\bf x} = (x_1,\dots,x_n)$ is defined as
+The variance of the data $y_1,\dots,y_n$ is defined as
 
 $$
-\text{var}({\bf x}) = \frac{1}{n}\sum_{i=1}^n(x_i - \bar{x})^2,
-$$ where $\bar{x}$ is the sample mean. Note that $\text{var}({\bf x})$ admits
+\hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^n(y_i - \bar{y})^2,
+$$ where $\bar{y}$ is the sample mean. Note that $\hat{\sigma}^2$ admits
 the alternative representation
 
-$$\text{var}({\bf x}) = \frac{1}{2 n^2} \sum_{i=1}^n \sum_{j = 1}^n (x_i - x_j)^2.$$
+$$\hat{\sigma}^2 = \frac{1}{2 n^2} \sum_{i=1}^n \sum_{j = 1}^n (y_i - y_j)^2.$$
 
 ------------------------------------------------------------------------
 
-1.  Write a function `var2(x)` that computes the variance of ${\bf x}$ using the
+1.  Write a function `var2(x)` that computes $\hat{\sigma}^2$ using the
     definition.
 
-2.  Write a function `var3(x)` that computes the variance of ${\bf x}$ using the
+2.  Write a function `var3(x)` that computes $\hat{\sigma}^2$ using the
     formula based on the distances between pairs of elements.
 
 3.  Suppose that `x = c(1, 4, 2, 2, 10)`. Check that the two functions `var2(x)`

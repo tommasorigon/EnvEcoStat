@@ -232,7 +232,7 @@ window.Quarto = {
 </section>
 <section id="what-if-exactly-half-said-yes" class="level2">
 <h2 class="anchored" data-anchor-id="what-if-exactly-half-said-yes">What if exactly half said yes?</h2>
-<p>Suppose that <span class="math inline">\pi = 0.5</span>. Then the number of yes in a sample of <span class="math inline">1008</span> people is a <span class="math inline">\text{Bin}(1008, 0.5)</span>. With <code>rbinom</code> (<a href="un_H.html">Unit H</a>) we can simulate <span class="math inline">R = 1000</span> <span class="blue">new surveys</span>:</p>
+<p>Suppose that <span class="math inline">\pi = 0.5</span>. Then the number of yes in a sample of <span class="math inline">1008</span> people is a <span class="math inline">\text{binom}(1008, 0.5)</span>. With <code>rbinom</code> (<a href="un_H.html">Unit H</a>) we can simulate <span class="math inline">R = 1000</span> <span class="blue">new surveys</span>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># Number of simulated surveys</span></span>

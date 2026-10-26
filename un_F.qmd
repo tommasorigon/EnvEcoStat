@@ -87,6 +87,12 @@ at the time the barometer was a heavy and expensive instrument.
 In the mountains water boils at a different temperature, so that one can try to
 estimate the pressure starting from the boiling temperature.
 
+::: callout-note
+#### Research question
+
+Can we predict the atmospheric pressure from the boiling temperature of water?
+:::
+
 ## Importing the `forbes` data
 
 As done previously, first of all you need to download the file `forbes.csv` and
@@ -128,20 +134,9 @@ Why do we round the values using `round`? For [aesthetic]{.blue} reasons only.
 
 ## Histogram
 
-::: callout-warning
-#### Question 1
-
-Draw a histogram of the temperature variable, choosing an appropriate number of
-equally spaced classes and justifying the choice.
-
-Add to these plots the graphical "embellishments" deemed necessary (names of the
-variables, title, and so on).
-:::
-
-#### Solution
-
-We can decide to specify the intervals of the classes ourselves, or to leave
-this choice to **R**.
+Let us first look at the [distribution]{.orange} of the boiling temperature. We
+can decide to specify the intervals of the classes ourselves, or to leave this
+choice to **R**.
 
 ```{r}
 par(mfrow = c(1, 2)) # Split the graphical window into 2 parts
@@ -154,55 +149,37 @@ breaks <- c(90, 92.5, 95, 97.5, 100, 102.5)
 hist(forbes$TempC, breaks = breaks)
 ```
 
-The solution on the left uses $6$ classes. The one on the right uses $5$
+The histogram on the left uses $6$ classes. The one on the right uses $5$
 classes.
 
 ## Location indices
-
-::: callout-warning
-#### Question 2
-
-Obtain the arithmetic mean of both variables `TempC` and `Pressure`. What is the
-average boiling temperature expressed in degrees Fahrenheit? Answer without
-computing all the values of the variable `TempF`.
-:::
-
-#### Solution
 
 We have already computed the means through the command `summary`; for
 completeness:
 
 ```{r}
-# First part of the question
 mean(forbes$TempC)
 mean(forbes$Pressure)
 ```
 
+What is the average boiling temperature in degrees [Fahrenheit]{.blue}? We do
+not need the values of `TempF`: it is enough to use the properties of the mean.
+
 ```{r}
-# Second part of the question
 32 + 9 / 5 * mean(forbes$TempC) # Using the properties of the mean
-mean(forbes$TempF) # Not required: computes the mean from the original data
+mean(forbes$TempF) # Computes the mean from the original data
 ```
 
 ::: callout-note
 #### Exercise
 
-Why do the means computed in the second part differ slightly? What can this be
-due to?
+Why do the two means differ slightly? What can this be due to?
 :::
 
 ## Variability indices
 
-::: callout-warning
-#### Question 3
-
-Obtain the variance of the variables `TempC` and `Pressure`.
-:::
-
-#### Solution
-
 Since it will turn out to be useful later, we define the function `my_var` that
-computes the [variance]{.orange}.
+computes the [variance]{.orange}, as in [Unit E](un_E.html).
 
 ```{r}
 # Yes, the function is defined on a single line and there is nothing wrong with it
@@ -219,19 +196,11 @@ my_var(forbes$Pressure)
 Obtain the second moments of the variables `TempC` and `Pressure`.
 :::
 
-## Covariance and correlation
+## The scatterplot
 
-::: callout-warning
-## Question 4
-
-Draw a suitable plot that helps to understand the relationship between the two
-variables. Then compute the correlation.
-:::
-
-#### Solution
-
-For the first part of the question, we need the new command `plot`, which can be
-used (among other things!) to build a [scatterplot]{.blue}.
+To understand the relationship between the two variables, we need the new
+command `plot`, which can be used (among other things!) to build a
+[scatterplot]{.blue}.
 
 We provide two versions of the same plot; the second one contains aesthetic
 improvements.
@@ -248,7 +217,9 @@ plot(forbes$TempC, forbes$Pressure,
 It is therefore evident that the data are approximately (although not perfectly)
 aligned.
 
-For the second part of the question (correlation), we first have to obtain the
+## Covariance
+
+To measure the strength of this relationship, we first have to obtain the
 [covariance]{.orange} between two variables.
 
 The [covariance]{.blue} between two sets of data $x_1,\dots,x_n$ and $y_1,\dots,y_n$
@@ -274,9 +245,12 @@ divides the sum by $(n - 1)$ and not by $n$, for reasons related to
 cov(forbes$Pressure, forbes$TempC) # = 17 / 16 * my_cov(forbes$TempC, forbes$Pressure)
 ```
 
+## Correlation
+
 The [correlation]{.blue} index is defined as: $$
-\rho = \frac{\text{cov}(x,y)}{\sqrt{\text{var}(x) \text{var}(y)}}.
-$$
+r = \frac{\text{cov}(x,y)}{\sqrt{\text{var}(x) \text{var}(y)}},
+$$ where $\text{var}(x)$ and $\text{var}(y)$ are the variances $\hat{\sigma}^2$ of
+[Unit E](un_E.html), computed by `my_var`.
 
 Therefore, we can compute the correlation as follows:
 
@@ -302,20 +276,10 @@ correlation <- cor(forbes$TempC, forbes$Pressure)
 correlation
 ```
 
-## The linear regression model
+## The least squares line I
 
-::: callout-warning
-## Question 5
-
-Obtain the least squares line for the relationship between `TempC` and
-`Pressure` and draw it in the plot obtained previously.
-:::
-
-#### Solution
-
-First of all recall that in a [linear model]{.blue} of the form
-$y_i = \alpha + \beta x_i + \epsilon_i$, the [least squares]{.orange} estimates are
-equal to $$
+In a [linear model]{.blue} of the form $y_i = \alpha + \beta x_i + \epsilon_i$,
+the [least squares]{.orange} estimates are equal to $$
 \hat{\alpha} = \bar{y} - \hat{\beta}\:\bar{x}, \qquad \hat{\beta}  = \frac{\text{cov}(x,y)}{\text{var}(x)}.
 $$
 
@@ -329,6 +293,10 @@ alpha_hat <- mean(forbes$Pressure) - mean(forbes$TempC) * beta_hat
 
 c(alpha_hat, beta_hat)
 ```
+
+## The least squares line II
+
+We can now draw the estimated line on the scatterplot:
 
 ```{r}
 plot(forbes$TempC, forbes$Pressure,
@@ -349,39 +317,28 @@ lm(Pressure ~ TempC, data = forbes)
 ```
 :::
 
-::: callout-warning
-## Question 6
+## Prediction
 
-According to the estimated model, if the boiling temperature of water is equal
-to 97 degrees Celsius, what is the pressure?
-:::
-
-#### Solution
-
-Using the estimates obtained, we can quickly compute the fitted values:
+Using the estimates obtained, we can quickly compute the [predicted]{.orange}
+pressure for any boiling temperature:
 
 ```{r}
 x <- seq(from = 90, to = 100, length = 20)
 alpha_hat + beta_hat * x
 ```
 
-In particular, when `TempC = 97` we have that:
+In particular, if water boils at $97$ degrees Celsius, the estimated pressure is:
 
 ```{r}
 alpha_hat + beta_hat * 97
 ```
 
-::: callout-warning
-## Question 7
+## Goodness of fit
 
-Obtain an index of goodness of fit of the curve to the data.
-:::
-
-#### Solution
-
-The coefficient $R^2$ for a simple linear regression model is defined as: $$
-R^2 = 1 - \frac{\text{var}(r)}{\text{var}(y)} = \rho^2,
-$$ where $r_1,\dots,r_n$ are the [residuals]{.blue}.
+How well does the line fit the data? The coefficient $R^2$ for a simple linear
+regression model is defined as: $$
+R^2 = 1 - \frac{\text{var}(e)}{\text{var}(y)} = r^2,
+$$ where $e_1,\dots,e_n$ are the [residuals]{.blue}.
 
 First of all we therefore compute the residuals:
 

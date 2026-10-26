@@ -33,10 +33,10 @@ pbinom(5, size = 10, prob = 0.6) # The value is larger than 0.25
 ## -----------------------------------------------------------------------------
 kk <- 0:n
 prob <- dbinom(0:n, size = n, prob = p)
-plot(kk, prob, type = "h", main = "Bin(10,0.6)", xlab = "k", ylab = "P(X=k)")
+plot(kk, prob, type = "h", main = "binom(10, 0.6)", xlab = "k", ylab = "P(Y=k)")
 
 ## -----------------------------------------------------------------------------
-x <- 1 # Point at which to compute f(x)
+x <- 1 # Point at which to compute the density
 mu <- 3 # Mean
 sigma2 <- 10 # Variance
 

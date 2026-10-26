@@ -272,9 +272,9 @@ window.Quarto = {
 </section>
 <section id="the-variance-i" class="level2">
 <h2 class="anchored" data-anchor-id="the-variance-i">The variance I</h2>
-<p>Recall that the <span class="orange">variance</span> of the data <span class="math inline">x_1,\dots,x_n</span> is equal to</p>
+<p>Recall that the <span class="orange">variance</span> of the data <span class="math inline">y_1,\dots,y_n</span> is equal to</p>
 <p><span class="math display">
-\sigma^2  = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2 = \left(\frac{1}{n}\sum_{i=1}^n x_i^2\right) - \bar{x}^2.
+\hat{\sigma}^2  = \frac{1}{n}\sum_{i=1}^n (y_i - \bar{y})^2 = \left(\frac{1}{n}\sum_{i=1}^n y_i^2\right) - \bar{y}^2.
 </span></p>
 <p>We can therefore compute the variances of the two groups “manually”:</p>
 <div class="cell">
@@ -315,7 +315,7 @@ window.Quarto = {
 </div>
 </div>
 <p>In <strong>R</strong> the function <code>var</code> is available, however this computes a slightly <span class="orange">different quantity</span>, that is <span class="math display">
-\texttt{var(x)} = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2,
+\texttt{var(x)} = s^2 = \frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2,
 </span> that is the <span class="blue">unbiased estimator</span> of the variance.</p>
 <p><span class="orange">Not clear why?</span> It will be addressed in the part of the course devoted to statistical inference.</p>
 </section>
@@ -349,11 +349,11 @@ window.Quarto = {
 <section id="standard-deviation" class="level2">
 <h2 class="anchored" data-anchor-id="standard-deviation">Standard deviation</h2>
 <p>The <span class="orange">standard deviation</span> is the square root of the variance, that is <span class="math display">
-\text{sd}(x) = \sigma = \sqrt{\sigma^2}.
+\hat{\sigma} = \sqrt{\hat{\sigma}^2}.
 </span></p>
 <p>We therefore create a suitable <strong>R</strong> function called <code>my_sd</code> to compute it.</p>
 <p>Also in this case, be careful that the <strong>R</strong> command <code>sd</code> computes instead the value of <span class="math display">
-\texttt{sd(x)} = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2}.
+\texttt{sd(x)} = s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2}.
 </span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>my_sd <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
@@ -381,8 +381,8 @@ window.Quarto = {
 <section id="range" class="level2">
 <h2 class="anchored" data-anchor-id="range">Range</h2>
 <p>The <span class="blue">range</span> is the difference between the minimum and the maximum of the distribution, that is <span class="math display">
-(\text{``Range''}) = x_{(n)} - x_{(1)},
-</span> where <span class="math inline">x_{(1)}</span> and <span class="math inline">x_{(n)}</span> represent respectively the minimum and the maximum of the data.</p>
+(\text{``Range''}) = y_{(n)} - y_{(1)},
+</span> where <span class="math inline">y_{(1)}</span> and <span class="math inline">y_{(n)}</span> represent respectively the minimum and the maximum of the data.</p>
 <p>Although a specific function to compute it does not exist, we can use the following commands</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(hemo_A) <span class="sc">-</span> <span class="fu">min</span>(hemo_A)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -486,7 +486,7 @@ window.Quarto = {
 <section id="summary-exercise" class="level2">
 <h2 class="anchored" data-anchor-id="summary-exercise">Summary exercise</h2>
 <p>The most commonly used measure of skewness is the so-called standardised <span class="blue">skewness index</span> of <span class="orange">Pearson</span>, defined as <span class="math display">
-\gamma = \frac{1}{\text{sd}(x)^3} \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^3 = \frac{1}{n} \sum_{i=1}^n \left(\frac{x_i - \bar{x}}{\sigma}\right)^3.
+\hat{\gamma} = \frac{1}{\hat{\sigma}^3} \frac{1}{n} \sum_{i=1}^n (y_i - \bar{y})^3 = \frac{1}{n} \sum_{i=1}^n \left(\frac{y_i - \bar{y}}{\hat{\sigma}}\right)^3.
 </span></p>
 <ul>
 <li>Create a suitable function to compute it.</li>

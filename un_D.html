@@ -522,10 +522,10 @@ window.Quarto = {
 </section>
 <section id="the-empirical-cumulative-distribution-function-i" class="level2">
 <h2 class="anchored" data-anchor-id="the-empirical-cumulative-distribution-function-i">The empirical cumulative distribution function I</h2>
-<p>A second graphical representation of frequent use is the so-called <strong>empirical cumulative distribution function</strong> <span class="math inline">F(x)</span>.</p>
-<p>Let <span class="math inline">x_1,\dots,x_n</span> be a collection of data, then we define <span class="math display">
-F(x) = \frac{1}{n} \sum_{i=1}^n \mathbb{1}(x_i \le x),
-</span> where <span class="math inline">\mathbb{1}(x_i \le x)</span> is the <span class="blue">indicator function</span> and equals <span class="math inline">1</span> if <span class="math inline">x_i \le x</span> and <span class="math inline">0</span> if <span class="math inline">x_i &gt; x</span>.</p>
+<p>A second graphical representation of frequent use is the so-called <strong>empirical cumulative distribution function</strong> <span class="math inline">F(y)</span>.</p>
+<p>Let <span class="math inline">y_1,\dots,y_n</span> be a collection of data, then we define <span class="math display">
+F(y) = \frac{1}{n} \sum_{i=1}^n \mathbb{1}(y_i \le y),
+</span> where <span class="math inline">\mathbb{1}(y_i \le y)</span> is the <span class="blue">indicator function</span> and equals <span class="math inline">1</span> if <span class="math inline">y_i \le y</span> and <span class="math inline">0</span> if <span class="math inline">y_i &gt; y</span>.</p>
 <p>In <strong>R</strong>, one uses the command <code>ecdf</code> (<em>empirical cumulative distribution function</em>), for example:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ecdf</span>(dde_non_preterm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -613,8 +613,8 @@ Call: ecdf(dde_non_preterm)
 <h2 class="anchored" data-anchor-id="location-indices-the-median-i">Location indices: the median I</h2>
 <p>The median (Me) of a variable is the <span class="blue">central value</span> of the distribution, that is:</p>
 <p><span class="math display">
-\text{Me} = \begin{cases}x_{\left(\frac{n+1}{2}\right)}, &amp;\qquad \text{ if } n \text{ is odd},  \\[10pt] \left(x_{(n/2)} + x_{(n/2+1)}\right)/2,&amp;\qquad \text{ if } n \text{ is even},\end{cases}
-</span> where <span class="math inline">x_{(1)},\dots,x_{(n)}</span> represents the ordered sample.</p>
+\text{Me} = \begin{cases}y_{\left(\frac{n+1}{2}\right)}, &amp;\qquad \text{ if } n \text{ is odd},  \\[10pt] \left(y_{(n/2)} + y_{(n/2+1)}\right)/2,&amp;\qquad \text{ if } n \text{ is even},\end{cases}
+</span> where <span class="math inline">y_{(1)},\dots,y_{(n)}</span> represents the ordered sample.</p>
 <p>In <strong>R</strong> there is a dedicated command:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(dde_preterm) <span class="co"># Median of DDE for women with preterm delivery</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -677,9 +677,9 @@ Call: ecdf(dde_non_preterm)
 </section>
 <section id="location-indices-the-quantiles-i" class="level2">
 <h2 class="anchored" data-anchor-id="location-indices-the-quantiles-i">Location indices: the quantiles I</h2>
-<p>Let <span class="math inline">x_1,\dots,x_n</span> be a set of data, let <span class="math inline">p \in (0,1)</span> and let <span class="math inline">F(x)</span> be the empirical cumulative distribution function. The <span class="orange"><span class="math inline">p</span>-quantile</span> is then equal to</p>
+<p>Let <span class="math inline">y_1,\dots,y_n</span> be a set of data, let <span class="math inline">p \in (0,1)</span> and let <span class="math inline">F(y)</span> be the empirical cumulative distribution function. The <span class="orange"><span class="math inline">p</span>-quantile</span> is then equal to</p>
 <p><span class="math display">
-\mathcal{Q}_p = \inf\{ x : F(x) \ge p \}.
+\mathcal{Q}_p = \inf\{ y : F(y) \ge p \}.
 </span></p>
 <p>In <strong>R</strong>, considering <span class="math inline">p = (0.1,0.25,0.75,0.9)</span>, that is the first decile, the first quartile, the third quartile and the ninth decile, we can use the command <code>quantile</code></p>
 <div class="cell">

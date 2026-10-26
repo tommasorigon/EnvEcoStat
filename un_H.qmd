@@ -74,15 +74,15 @@ measure theory ($\sigma$-algebras, probability measures, and so on), which we
 will leave in the background.
 
 For the purposes of this course, it is enough to recall that a real-valued
-random variable $X$ is uniquely identified by its **cumulative distribution
+random variable $Y$ is uniquely identified by its **cumulative distribution
 function**, that is $$
-F(x) := \mathbb{P}(X \le x).
+F(y) := \mathbb{P}(Y \le y).
 $$
 
-If the function $F(x)$ is piecewise constant, we say that $X$ is a [discrete]{.orange}
+If the function $F(y)$ is piecewise constant, we say that $Y$ is a [discrete]{.orange}
 random variable.
 
-If the function $F(x)$ is continuous, we say that $X$ is a [continuous]{.blue} random
+If the function $F(y)$ is continuous, we say that $Y$ is a [continuous]{.blue} random
 variable.
 
 ::: callout-tip
@@ -94,51 +94,51 @@ idea to go back to the textbook and to your notes on probability.
 
 ## Discrete random variables I (recap)
 
-As anticipated, a random variable is said to be discrete if $F(x)$ is piecewise
+As anticipated, a random variable is said to be discrete if $F(y)$ is piecewise
 constant.
 
-More precisely, we say that $X$ is a discrete random variable if there exists a
+More precisely, we say that $Y$ is a discrete random variable if there exists a
 set of [countable cardinality]{.orange} $\mathcal{S} \subseteq \mathbb{R}$, called the
 [support]{.blue}, such that $$
-\mathbb{P}(X \in \mathcal{S}) = \sum_{x \in \mathcal{S}} \mathbb{P}(X = x) = 1.
+\mathbb{P}(Y \in \mathcal{S}) = \sum_{y \in \mathcal{S}} \mathbb{P}(Y = y) = 1.
 $$
 
 In practice, we will often have that the support
 $\mathcal{S} \subseteq \{0, 1, 2, \dots\}$ is a subset of the natural numbers.
 Moreover, the support $\mathcal{S}$ can be [finite]{.orange}.
 
-Intuitively, we say that the random variable $X$ can only take the values in the
+Intuitively, we say that the random variable $Y$ can only take the values in the
 support $\mathcal{S}$.
 
 ## Discrete random variables II (recap)
 
 The [probability mass function]{.blue} of a discrete random variable is equal to $$
-p(x) = \mathbb{P}(X = x).
+f(y) = \mathbb{P}(Y = y).
 $$
 
-The function $p(x)$ [identifies]{.orange} a discrete random variable.
+The function $f(y)$ [identifies]{.orange} a discrete random variable.
 
-Therefore, of course, it holds that $p(x) \ge 0$ and that
-$\sum_{x \in \mathcal{S}} p(x) = 1$.
+Therefore, of course, it holds that $f(y) \ge 0$ and that
+$\sum_{y \in \mathcal{S}} f(y) = 1$.
 
 The [expected value]{.blue} of a random variable is moreover defined, if it exists,
 as $$
-\mathbb{E}(X) = \sum_{x \in \mathcal{S}} x \: p(x). 
+\mathbb{E}[Y] = \sum_{y \in \mathcal{S}} y \: f(y). 
 $$
 
-More generally, the expected value of a transformation $g(X)$, if it exists, is
+More generally, the expected value of a transformation $g(Y)$, if it exists, is
 equal to $$
-\mathbb{E}\{g(X)\} = \sum_{x \in \mathcal{S}} g(x) \: p(x).
+\mathbb{E}[g(Y)] = \sum_{y \in \mathcal{S}} g(y) \: f(y).
 $$
 
 ## Binomial distribution (probability mass function)
 
-Let $X \sim \text{Bin}(n, \pi)$ be a [binomial]{.orange} random variable, so that the
+Let $Y \sim \text{binom}(n, \pi)$ be a [binomial]{.orange} random variable, so that the
 probability mass function is $$
-\mathbb{P}(X = k) = {n \choose k } \pi^k (1-\pi)^{n-k}, \qquad k=0,1,\dots,n.
+\mathbb{P}(Y = k) = {n \choose k } \pi^k (1-\pi)^{n-k}, \qquad k=0,1,\dots,n.
 $$
 
-Supposing that $n = 10$ and $\pi = 0.6$, then $\mathbb{P}(X=4)$ is computed as
+Supposing that $n = 10$ and $\pi = 0.6$, then $\mathbb{P}(Y=4)$ is computed as
 follows:
 
 ```{r}
@@ -161,7 +161,7 @@ dbinom(k, size = n, prob = p)
 In a similar way, we can also compute the following probability, that is
 
 $$
-F(x) =   \mathbb{P}(X \le x) = \sum_{k=0}^x\mathbb{P}(X = k), \qquad X \sim \text{Bin}(n, \pi).
+F(y) =   \mathbb{P}(Y \le y) = \sum_{k=0}^y\mathbb{P}(Y = k), \qquad Y \sim \text{binom}(n, \pi).
 $$
 
 Supposing that $n = 10$ and $\pi = 0.6$, then the value $F(5)$ is computed as
@@ -173,7 +173,7 @@ pbinom(5, size = n, prob = p) # Specific R function
 ```
 
 Suppose instead that we are interested in the complementary event, that is: $$
-\mathbb{P}(X > 5) = 1 - \mathbb{P}(X \le 5).
+\mathbb{P}(Y > 5) = 1 - \mathbb{P}(Y \le 5).
 $$
 
 ```{r}
@@ -186,7 +186,7 @@ pbinom(5, size = n, prob = p, lower.tail = FALSE)
 The [expected value]{.blue} of a binomial random variable is equal to
 
 $$
-\mathbb{E}(X) = \sum_{k=0}^n k \: \mathbb{P}(X = k) =  n\pi, \qquad X \sim \text{Bin}(n,\pi).
+\mathbb{E}[Y] = \sum_{k=0}^n k \: \mathbb{P}(Y = k) =  n\pi, \qquad Y \sim \text{binom}(n,\pi).
 $$
 
 Supposing as before that $n = 10$ and $\pi = 0.6$, we have that:
@@ -197,7 +197,7 @@ sum(0:n * dbinom(0:n, size = n, prob = 0.6)) # Numerical computation
 ```
 
 Through direct computation, we can moreover evaluate for example
-$\mathbb{E}(\sqrt{X})$, indeed:
+$\mathbb{E}[\sqrt{Y}]$, indeed:
 
 ```{r}
 sum(sqrt(0:n) * dbinom(0:n, size = n, prob = 0.6))
@@ -213,15 +213,15 @@ distribution is finite.
 ## Binomial distribution (quantiles)
 
 The [$p$-quantile]{.orange} of a discrete distribution is the smallest value $k$ such
-that $\mathbb{P}(X \le k) \ge p$. Hence: $$
-\mathcal{Q}(p) = \inf\{x \in \mathbb{R} : F(x) \ge p \}.
+that $\mathbb{P}(Y \le k) \ge p$. Hence: $$
+\mathcal{Q}(p) = \inf\{y \in \mathbb{R} : F(y) \ge p \}.
 $$
 
-Supposing that $X \sim \text{Bin}(10, 0.6)$, the [first quartile]{.blue} for example
+Supposing that $Y \sim \text{binom}(10, 0.6)$, the [first quartile]{.blue} for example
 is
 
 $$
-\mathcal{Q}(0.25) = \inf\{x \in \mathbb{R} : F(x) \ge 0.25 \} = 5.
+\mathcal{Q}(0.25) = \inf\{y \in \mathbb{R} : F(y) \ge 0.25 \} = 5.
 $$
 
 In **R** we can obtain these results as follows:
@@ -242,39 +242,39 @@ pbinom(5, size = 10, prob = 0.6) # The value is larger than 0.25
 ```{r}
 kk <- 0:n
 prob <- dbinom(0:n, size = n, prob = p)
-plot(kk, prob, type = "h", main = "Bin(10,0.6)", xlab = "k", ylab = "P(X=k)")
+plot(kk, prob, type = "h", main = "binom(10, 0.6)", xlab = "k", ylab = "P(Y=k)")
 ```
 
 ## Continuous random variables I (recap)
 
-A random variable is said to be [continuous]{.orange} if $F(x)$ is continuous.
+A random variable is said to be [continuous]{.orange} if $F(y)$ is continuous.
 
 The [density]{.blue} function of a continuous random variable is a function
-$f(x) \ge 0$ such that $$
-\mathbb{P}(a < X < b) = \int_a^b f(x) \mathrm{d} x, \qquad f(x) = \frac{\partial}{\partial x} F(x). 
+$f(y) \ge 0$ such that $$
+\mathbb{P}(a < Y < b) = \int_a^b f(y) \mathrm{d} y, \qquad f(y) = \frac{\partial}{\partial y} F(y). 
 $$
 
 Therefore, by definition: $$
-\mathbb{P}(X \le b) = F(b) = \int_{-\infty}^b f(x) \mathrm{d} x.
+\mathbb{P}(Y \le b) = F(b) = \int_{-\infty}^b f(y) \mathrm{d} y.
 $$
 
-Moreover, the [expected value]{.orange} of a transformation $g(X)$, if it exists, is
+Moreover, the [expected value]{.orange} of a transformation $g(Y)$, if it exists, is
 equal to $$
-\mathbb{E}\{g(X)\} = \int_{\mathbb{R}} g(x) \: f(x) \mathrm{d} x.
+\mathbb{E}[g(Y)] = \int_{\mathbb{R}} g(y) \: f(y) \mathrm{d} y.
 $$
 
 ## Normal distribution (density function)
 
-Let $X \sim \text{N}(\mu, \sigma^2)$ be a [Gaussian variable]{.blue} with mean $\mu$
+Let $Y \sim \text{N}(\mu, \sigma^2)$ be a [Gaussian variable]{.blue} with mean $\mu$
 and variance $\sigma^2$, that is having density $$
-f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(x - \mu)^2\right\}.
+f(y) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(y - \mu)^2\right\}.
 $$
 
-If $X \sim \text{N}(3, 10)$ then we can compute the value $f(1)$ using the **R**
+If $Y \sim \text{N}(3, 10)$ then we can compute the value $f(1)$ using the **R**
 commands:
 
 ```{r}
-x <- 1 # Point at which to compute f(x)
+x <- 1 # Point at which to compute the density
 mu <- 3 # Mean
 sigma2 <- 10 # Variance
 
@@ -291,9 +291,9 @@ the variance $\sigma^2$.
 
 ## Normal distribution (cumulative distribution function)
 
-Let $X \sim \text{N}(0,1)$ be a [standard normal]{.orange}. We are interested in
+Let $Y \sim \text{N}(0,1)$ be a [standard normal]{.orange}. We are interested in
 computing the probability of the following event: $$
-\mathbb{P}(|X| \le 1) = \mathbb{P}(-1 \le X \le 1) = \mathbb{P}(X \le 1) - \mathbb{P}(X < -1).
+\mathbb{P}(|Y| \le 1) = \mathbb{P}(-1 \le Y \le 1) = \mathbb{P}(Y \le 1) - \mathbb{P}(Y < -1).
 $$
 
 We can compute this probability (in an inefficient way) through the command
@@ -304,7 +304,7 @@ integrate(dnorm, lower = -1, upper = 1)
 ```
 
 Since we are dealing with a continuous variable, we obtain that
-$\mathbb{P}(X < -1) = \mathbb{P}(X \le -1)$.
+$\mathbb{P}(Y < -1) = \mathbb{P}(Y \le -1)$.
 
 Hence, we can compute this probability in **R** using the dedicated commands:
 
@@ -314,7 +314,7 @@ pnorm(1) - pnorm(-1)
 
 ## Normal distribution (quantile function)
 
-The continuity of the cumulative distribution function $F(x)$ implies that the
+The continuity of the cumulative distribution function $F(y)$ implies that the
 [quantile function]{.blue} is equal to $\mathcal{Q}(\cdot) = F^{-1}(\cdot)$.
 
 For example, consider the third quartile of a standard normal distribution, that
@@ -344,19 +344,19 @@ curve(dnorm(x, mean = 0, sd = 1), from = -3, to = 3, ylab = "f(x)", main = "N(0,
 ## Summary table I
 
 **R** has an extensive [collection of functions]{.orange} dedicated to the main
-probability distributions. Let $X$ be a random variable.
+probability distributions. Let $Y$ be a random variable.
 
 -   `ddist` (where the initial `d` stands for [density]{.blue}). Computes the
-    [density]{.orange} $f(x)$ of a continuous variable $X$, or the probability mass
-    function $p(x) = \mathbb{P}(X = x)$ in case $X$ is discrete.
+    [density]{.orange} $f(y)$ of a continuous variable $Y$, or the probability mass
+    function $f(y) = \mathbb{P}(Y = y)$ in case $Y$ is discrete.
 
 -   `pdist` (where the initial `p` stands for [probability]{.blue}), which makes it
     possible to compute the value of the [cumulative distribution function]{.orange} at
-    a specified point, that is it computes $F(x) = \mathbb{P}(X \le x)$.
+    a specified point, that is it computes $F(y) = \mathbb{P}(Y \le y)$.
 
 -   `qdist` (where the initial `q` stands for [quantile]{.blue}), which represents
     the [quantile function]{.orange}, that is: $$
-    \mathcal{Q}(p) = \inf\{x \in \mathbb{R} : F(x) \ge p\}, \qquad p \in (0,1).
+    \mathcal{Q}(p) = \inf\{y \in \mathbb{R} : F(y) \ge p\}, \qquad p \in (0,1).
     $$
 
 -   `rdist` (where the initial `r` stands for [random]{.blue}), which makes it
@@ -394,7 +394,7 @@ makes it possible to obtain [random values]{.blue} from a distribution.
 
 For example, to sample $5$ independent and identically distributed (iid) values
 from a standard normal, that is $$
-X_i \overset{\text{iid}}{\sim} \text{N}(0,1), \qquad i=1,\dots,5
+Y_i \overset{\text{iid}}{\sim} \text{N}(0,1), \qquad i=1,\dots,5
 $$ we can use in **R** the following command:
 
 ```{r}
@@ -568,11 +568,11 @@ Unless there are specific security concerns, pseudo-random numbers are the
 
 ## Example: the roll of a six-sided die
 
-A [six-sided die]{.blue} represents a discrete random variable $X$ with probability
+A [six-sided die]{.blue} represents a discrete random variable $Y$ with probability
 mass function called [Discrete Uniform]{.orange}, that is
 
 $$
-\mathbb{P}(X = k) = \frac{1}{6}, \qquad k=1,\dots,6.
+\mathbb{P}(Y = k) = \frac{1}{6}, \qquad k=1,\dots,6.
 $$
 
 To simulate the roll of a six-sided die, we first build a vector containing a
@@ -615,7 +615,7 @@ provide a vector of probabilities of length equal to the number of elements of
 ## Sampling with replacement
 
 Sampling with replacement is equivalent to making $n$ independent draws from the
-same random variable $X$. Therefore, to roll the same die $10$ times:
+same random variable $Y$. Therefore, to roll the same die $10$ times:
 
 ```{r}
 set.seed(140)

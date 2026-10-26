@@ -98,7 +98,7 @@ change is a major threat?
 ## What if exactly half said yes?
 
 Suppose that $\pi = 0.5$. Then the number of yes in a sample of $1008$ people is
-a $\text{Bin}(1008, 0.5)$. With `rbinom` ([Unit H](un_H.html)) we can simulate $R = 1000$
+a $\text{binom}(1008, 0.5)$. With `rbinom` ([Unit H](un_H.html)) we can simulate $R = 1000$
 [new surveys]{.blue}:
 
 ```{r}

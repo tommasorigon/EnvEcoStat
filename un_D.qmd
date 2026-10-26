@@ -378,12 +378,12 @@ right.
 ## The empirical cumulative distribution function I
 
 A second graphical representation of frequent use is the so-called **empirical
-cumulative distribution function** $F(x)$.
+cumulative distribution function** $F(y)$.
 
-Let $x_1,\dots,x_n$ be a collection of data, then we define $$
-F(x) = \frac{1}{n} \sum_{i=1}^n \mathbb{1}(x_i \le x),
-$$ where $\mathbb{1}(x_i \le x)$ is the [indicator function]{.blue} and equals $1$ if
-$x_i \le x$ and $0$ if $x_i > x$.
+Let $y_1,\dots,y_n$ be a collection of data, then we define $$
+F(y) = \frac{1}{n} \sum_{i=1}^n \mathbb{1}(y_i \le y),
+$$ where $\mathbb{1}(y_i \le y)$ is the [indicator function]{.blue} and equals $1$ if
+$y_i \le y$ and $0$ if $y_i > y$.
 
 In **R**, one uses the command `ecdf` (*empirical cumulative distribution
 function*), for example:
@@ -457,8 +457,8 @@ The median (Me) of a variable is the [central value]{.blue} of the distribution,
 is:
 
 $$
-\text{Me} = \begin{cases}x_{\left(\frac{n+1}{2}\right)}, &\qquad \text{ if } n \text{ is odd},  \\[10pt] \left(x_{(n/2)} + x_{(n/2+1)}\right)/2,&\qquad \text{ if } n \text{ is even},\end{cases}
-$$ where $x_{(1)},\dots,x_{(n)}$ represents the ordered sample.
+\text{Me} = \begin{cases}y_{\left(\frac{n+1}{2}\right)}, &\qquad \text{ if } n \text{ is odd},  \\[10pt] \left(y_{(n/2)} + y_{(n/2+1)}\right)/2,&\qquad \text{ if } n \text{ is even},\end{cases}
+$$ where $y_{(1)},\dots,y_{(n)}$ represents the ordered sample.
 
 In **R** there is a dedicated command:
 
@@ -503,12 +503,12 @@ number of elements.
 
 ## Location indices: the quantiles I
 
-Let $x_1,\dots,x_n$ be a set of data, let $p \in (0,1)$ and let $F(x)$ be the
+Let $y_1,\dots,y_n$ be a set of data, let $p \in (0,1)$ and let $F(y)$ be the
 empirical cumulative distribution function. The [$p$-quantile]{.orange} is then equal
 to
 
 $$
-\mathcal{Q}_p = \inf\{ x : F(x) \ge p \}.
+\mathcal{Q}_p = \inf\{ y : F(y) \ge p \}.
 $$
 
 In **R**, considering $p = (0.1,0.25,0.75,0.9)$, that is the first decile, the

@@ -207,11 +207,11 @@ window.Quarto = {
 <section id="random-variables-recap" class="level2">
 <h2 class="anchored" data-anchor-id="random-variables-recap">Random variables (recap)</h2>
 <p>The <span class="orange">formal definition</span> of a <span class="blue">random variable</span> involves concepts from measure theory (<span class="math inline">\sigma</span>-algebras, probability measures, and so on), which we will leave in the background.</p>
-<p>For the purposes of this course, it is enough to recall that a real-valued random variable <span class="math inline">X</span> is uniquely identified by its <strong>cumulative distribution function</strong>, that is <span class="math display">
-F(x) := \mathbb{P}(X \le x).
+<p>For the purposes of this course, it is enough to recall that a real-valued random variable <span class="math inline">Y</span> is uniquely identified by its <strong>cumulative distribution function</strong>, that is <span class="math display">
+F(y) := \mathbb{P}(Y \le y).
 </span></p>
-<p>If the function <span class="math inline">F(x)</span> is piecewise constant, we say that <span class="math inline">X</span> is a <span class="orange">discrete</span> random variable.</p>
-<p>If the function <span class="math inline">F(x)</span> is continuous, we say that <span class="math inline">X</span> is a <span class="blue">continuous</span> random variable.</p>
+<p>If the function <span class="math inline">F(y)</span> is piecewise constant, we say that <span class="math inline">Y</span> is a <span class="orange">discrete</span> random variable.</p>
+<p>If the function <span class="math inline">F(y)</span> is continuous, we say that <span class="math inline">Y</span> is a <span class="blue">continuous</span> random variable.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -228,33 +228,33 @@ F(x) := \mathbb{P}(X \le x).
 </section>
 <section id="discrete-random-variables-i-recap" class="level2">
 <h2 class="anchored" data-anchor-id="discrete-random-variables-i-recap">Discrete random variables I (recap)</h2>
-<p>As anticipated, a random variable is said to be discrete if <span class="math inline">F(x)</span> is piecewise constant.</p>
-<p>More precisely, we say that <span class="math inline">X</span> is a discrete random variable if there exists a set of <span class="orange">countable cardinality</span> <span class="math inline">\mathcal{S} \subseteq \mathbb{R}</span>, called the <span class="blue">support</span>, such that <span class="math display">
-\mathbb{P}(X \in \mathcal{S}) = \sum_{x \in \mathcal{S}} \mathbb{P}(X = x) = 1.
+<p>As anticipated, a random variable is said to be discrete if <span class="math inline">F(y)</span> is piecewise constant.</p>
+<p>More precisely, we say that <span class="math inline">Y</span> is a discrete random variable if there exists a set of <span class="orange">countable cardinality</span> <span class="math inline">\mathcal{S} \subseteq \mathbb{R}</span>, called the <span class="blue">support</span>, such that <span class="math display">
+\mathbb{P}(Y \in \mathcal{S}) = \sum_{y \in \mathcal{S}} \mathbb{P}(Y = y) = 1.
 </span></p>
 <p>In practice, we will often have that the support <span class="math inline">\mathcal{S} \subseteq \{0, 1, 2, \dots\}</span> is a subset of the natural numbers. Moreover, the support <span class="math inline">\mathcal{S}</span> can be <span class="orange">finite</span>.</p>
-<p>Intuitively, we say that the random variable <span class="math inline">X</span> can only take the values in the support <span class="math inline">\mathcal{S}</span>.</p>
+<p>Intuitively, we say that the random variable <span class="math inline">Y</span> can only take the values in the support <span class="math inline">\mathcal{S}</span>.</p>
 </section>
 <section id="discrete-random-variables-ii-recap" class="level2">
 <h2 class="anchored" data-anchor-id="discrete-random-variables-ii-recap">Discrete random variables II (recap)</h2>
 <p>The <span class="blue">probability mass function</span> of a discrete random variable is equal to <span class="math display">
-p(x) = \mathbb{P}(X = x).
+f(y) = \mathbb{P}(Y = y).
 </span></p>
-<p>The function <span class="math inline">p(x)</span> <span class="orange">identifies</span> a discrete random variable.</p>
-<p>Therefore, of course, it holds that <span class="math inline">p(x) \ge 0</span> and that <span class="math inline">\sum_{x \in \mathcal{S}} p(x) = 1</span>.</p>
+<p>The function <span class="math inline">f(y)</span> <span class="orange">identifies</span> a discrete random variable.</p>
+<p>Therefore, of course, it holds that <span class="math inline">f(y) \ge 0</span> and that <span class="math inline">\sum_{y \in \mathcal{S}} f(y) = 1</span>.</p>
 <p>The <span class="blue">expected value</span> of a random variable is moreover defined, if it exists, as <span class="math display">
-\mathbb{E}(X) = \sum_{x \in \mathcal{S}} x \: p(x).
+\mathbb{E}[Y] = \sum_{y \in \mathcal{S}} y \: f(y).
 </span></p>
-<p>More generally, the expected value of a transformation <span class="math inline">g(X)</span>, if it exists, is equal to <span class="math display">
-\mathbb{E}\{g(X)\} = \sum_{x \in \mathcal{S}} g(x) \: p(x).
+<p>More generally, the expected value of a transformation <span class="math inline">g(Y)</span>, if it exists, is equal to <span class="math display">
+\mathbb{E}[g(Y)] = \sum_{y \in \mathcal{S}} g(y) \: f(y).
 </span></p>
 </section>
 <section id="binomial-distribution-probability-mass-function" class="level2">
 <h2 class="anchored" data-anchor-id="binomial-distribution-probability-mass-function">Binomial distribution (probability mass function)</h2>
-<p>Let <span class="math inline">X \sim \text{Bin}(n, \pi)</span> be a <span class="orange">binomial</span> random variable, so that the probability mass function is <span class="math display">
-\mathbb{P}(X = k) = {n \choose k } \pi^k (1-\pi)^{n-k}, \qquad k=0,1,\dots,n.
+<p>Let <span class="math inline">Y \sim \text{binom}(n, \pi)</span> be a <span class="orange">binomial</span> random variable, so that the probability mass function is <span class="math display">
+\mathbb{P}(Y = k) = {n \choose k } \pi^k (1-\pi)^{n-k}, \qquad k=0,1,\dots,n.
 </span></p>
-<p>Supposing that <span class="math inline">n = 10</span> and <span class="math inline">\pi = 0.6</span>, then <span class="math inline">\mathbb{P}(X=4)</span> is computed as follows:</p>
+<p>Supposing that <span class="math inline">n = 10</span> and <span class="math inline">\pi = 0.6</span>, then <span class="math inline">\mathbb{P}(Y=4)</span> is computed as follows:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># Number of trials</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.6</span> <span class="co"># Probability of success</span></span>
@@ -277,7 +277,7 @@ p(x) = \mathbb{P}(X = x).
 <h2 class="anchored" data-anchor-id="binomial-distribution-cumulative-distribution-function">Binomial distribution (cumulative distribution function)</h2>
 <p>In a similar way, we can also compute the following probability, that is</p>
 <p><span class="math display">
-F(x) =   \mathbb{P}(X \le x) = \sum_{k=0}^x\mathbb{P}(X = k), \qquad X \sim \text{Bin}(n, \pi).
+F(y) =   \mathbb{P}(Y \le y) = \sum_{k=0}^y\mathbb{P}(Y = k), \qquad Y \sim \text{binom}(n, \pi).
 </span></p>
 <p>Supposing that <span class="math inline">n = 10</span> and <span class="math inline">\pi = 0.6</span>, then the value <span class="math inline">F(5)</span> is computed as follows:</p>
 <div class="cell">
@@ -291,7 +291,7 @@ F(x) =   \mathbb{P}(X \le x) = \sum_{k=0}^x\mathbb{P}(X = k), \qquad X \sim \tex
 </div>
 </div>
 <p>Suppose instead that we are interested in the complementary event, that is: <span class="math display">
-\mathbb{P}(X &gt; 5) = 1 - \mathbb{P}(X \le 5).
+\mathbb{P}(Y &gt; 5) = 1 - \mathbb{P}(Y \le 5).
 </span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">5</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -308,7 +308,7 @@ F(x) =   \mathbb{P}(X \le x) = \sum_{k=0}^x\mathbb{P}(X = k), \qquad X \sim \tex
 <h2 class="anchored" data-anchor-id="binomial-distribution-expected-value">Binomial distribution (expected value)</h2>
 <p>The <span class="blue">expected value</span> of a binomial random variable is equal to</p>
 <p><span class="math display">
-\mathbb{E}(X) = \sum_{k=0}^n k \: \mathbb{P}(X = k) =  n\pi, \qquad X \sim \text{Bin}(n,\pi).
+\mathbb{E}[Y] = \sum_{k=0}^n k \: \mathbb{P}(Y = k) =  n\pi, \qquad Y \sim \text{binom}(n,\pi).
 </span></p>
 <p>Supposing as before that <span class="math inline">n = 10</span> and <span class="math inline">\pi = 0.6</span>, we have that:</p>
 <div class="cell">
@@ -321,7 +321,7 @@ F(x) =   \mathbb{P}(X \le x) = \sum_{k=0}^x\mathbb{P}(X = k), \qquad X \sim \tex
 <pre><code>[1] 6</code></pre>
 </div>
 </div>
-<p>Through direct computation, we can moreover evaluate for example <span class="math inline">\mathbb{E}(\sqrt{X})</span>, indeed:</p>
+<p>Through direct computation, we can moreover evaluate for example <span class="math inline">\mathbb{E}[\sqrt{Y}]</span>, indeed:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">sqrt</span>(<span class="dv">0</span><span class="sc">:</span>n) <span class="sc">*</span> <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span>n, <span class="at">size =</span> n, <span class="at">prob =</span> <span class="fl">0.6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -344,12 +344,12 @@ F(x) =   \mathbb{P}(X \le x) = \sum_{k=0}^x\mathbb{P}(X = k), \qquad X \sim \tex
 </section>
 <section id="binomial-distribution-quantiles" class="level2">
 <h2 class="anchored" data-anchor-id="binomial-distribution-quantiles">Binomial distribution (quantiles)</h2>
-<p>The <span class="orange"><span class="math inline">p</span>-quantile</span> of a discrete distribution is the smallest value <span class="math inline">k</span> such that <span class="math inline">\mathbb{P}(X \le k) \ge p</span>. Hence: <span class="math display">
-\mathcal{Q}(p) = \inf\{x \in \mathbb{R} : F(x) \ge p \}.
+<p>The <span class="orange"><span class="math inline">p</span>-quantile</span> of a discrete distribution is the smallest value <span class="math inline">k</span> such that <span class="math inline">\mathbb{P}(Y \le k) \ge p</span>. Hence: <span class="math display">
+\mathcal{Q}(p) = \inf\{y \in \mathbb{R} : F(y) \ge p \}.
 </span></p>
-<p>Supposing that <span class="math inline">X \sim \text{Bin}(10, 0.6)</span>, the <span class="blue">first quartile</span> for example is</p>
+<p>Supposing that <span class="math inline">Y \sim \text{binom}(10, 0.6)</span>, the <span class="blue">first quartile</span> for example is</p>
 <p><span class="math display">
-\mathcal{Q}(0.25) = \inf\{x \in \mathbb{R} : F(x) \ge 0.25 \} = 5.
+\mathcal{Q}(0.25) = \inf\{y \in \mathbb{R} : F(y) \ge 0.25 \} = 5.
 </span></p>
 <p>In <strong>R</strong> we can obtain these results as follows:</p>
 <div class="cell">
@@ -375,7 +375,7 @@ F(x) =   \mathbb{P}(X \le x) = \sum_{k=0}^x\mathbb{P}(X = k), \qquad X \sim \tex
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>kk <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span>n</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span>n, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kk, prob, <span class="at">type =</span> <span class="st">"h"</span>, <span class="at">main =</span> <span class="st">"Bin(10,0.6)"</span>, <span class="at">xlab =</span> <span class="st">"k"</span>, <span class="at">ylab =</span> <span class="st">"P(X=k)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kk, prob, <span class="at">type =</span> <span class="st">"h"</span>, <span class="at">main =</span> <span class="st">"binom(10, 0.6)"</span>, <span class="at">xlab =</span> <span class="st">"k"</span>, <span class="at">ylab =</span> <span class="st">"P(Y=k)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -387,25 +387,25 @@ F(x) =   \mathbb{P}(X \le x) = \sum_{k=0}^x\mathbb{P}(X = k), \qquad X \sim \tex
 </section>
 <section id="continuous-random-variables-i-recap" class="level2">
 <h2 class="anchored" data-anchor-id="continuous-random-variables-i-recap">Continuous random variables I (recap)</h2>
-<p>A random variable is said to be <span class="orange">continuous</span> if <span class="math inline">F(x)</span> is continuous.</p>
-<p>The <span class="blue">density</span> function of a continuous random variable is a function <span class="math inline">f(x) \ge 0</span> such that <span class="math display">
-\mathbb{P}(a &lt; X &lt; b) = \int_a^b f(x) \mathrm{d} x, \qquad f(x) = \frac{\partial}{\partial x} F(x).
+<p>A random variable is said to be <span class="orange">continuous</span> if <span class="math inline">F(y)</span> is continuous.</p>
+<p>The <span class="blue">density</span> function of a continuous random variable is a function <span class="math inline">f(y) \ge 0</span> such that <span class="math display">
+\mathbb{P}(a &lt; Y &lt; b) = \int_a^b f(y) \mathrm{d} y, \qquad f(y) = \frac{\partial}{\partial y} F(y).
 </span></p>
 <p>Therefore, by definition: <span class="math display">
-\mathbb{P}(X \le b) = F(b) = \int_{-\infty}^b f(x) \mathrm{d} x.
+\mathbb{P}(Y \le b) = F(b) = \int_{-\infty}^b f(y) \mathrm{d} y.
 </span></p>
-<p>Moreover, the <span class="orange">expected value</span> of a transformation <span class="math inline">g(X)</span>, if it exists, is equal to <span class="math display">
-\mathbb{E}\{g(X)\} = \int_{\mathbb{R}} g(x) \: f(x) \mathrm{d} x.
+<p>Moreover, the <span class="orange">expected value</span> of a transformation <span class="math inline">g(Y)</span>, if it exists, is equal to <span class="math display">
+\mathbb{E}[g(Y)] = \int_{\mathbb{R}} g(y) \: f(y) \mathrm{d} y.
 </span></p>
 </section>
 <section id="normal-distribution-density-function" class="level2">
 <h2 class="anchored" data-anchor-id="normal-distribution-density-function">Normal distribution (density function)</h2>
-<p>Let <span class="math inline">X \sim \text{N}(\mu, \sigma^2)</span> be a <span class="blue">Gaussian variable</span> with mean <span class="math inline">\mu</span> and variance <span class="math inline">\sigma^2</span>, that is having density <span class="math display">
-f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(x - \mu)^2\right\}.
+<p>Let <span class="math inline">Y \sim \text{N}(\mu, \sigma^2)</span> be a <span class="blue">Gaussian variable</span> with mean <span class="math inline">\mu</span> and variance <span class="math inline">\sigma^2</span>, that is having density <span class="math display">
+f(y) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(y - \mu)^2\right\}.
 </span></p>
-<p>If <span class="math inline">X \sim \text{N}(3, 10)</span> then we can compute the value <span class="math inline">f(1)</span> using the <strong>R</strong> commands:</p>
+<p>If <span class="math inline">Y \sim \text{N}(3, 10)</span> then we can compute the value <span class="math inline">f(1)</span> using the <strong>R</strong> commands:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># Point at which to compute f(x)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># Point at which to compute the density</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># Mean</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># Variance</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -434,8 +434,8 @@ f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(x - \mu)^2
 </section>
 <section id="normal-distribution-cumulative-distribution-function" class="level2">
 <h2 class="anchored" data-anchor-id="normal-distribution-cumulative-distribution-function">Normal distribution (cumulative distribution function)</h2>
-<p>Let <span class="math inline">X \sim \text{N}(0,1)</span> be a <span class="orange">standard normal</span>. We are interested in computing the probability of the following event: <span class="math display">
-\mathbb{P}(|X| \le 1) = \mathbb{P}(-1 \le X \le 1) = \mathbb{P}(X \le 1) - \mathbb{P}(X &lt; -1).
+<p>Let <span class="math inline">Y \sim \text{N}(0,1)</span> be a <span class="orange">standard normal</span>. We are interested in computing the probability of the following event: <span class="math display">
+\mathbb{P}(|Y| \le 1) = \mathbb{P}(-1 \le Y \le 1) = \mathbb{P}(Y \le 1) - \mathbb{P}(Y &lt; -1).
 </span></p>
 <p>We can compute this probability (in an inefficient way) through the command <code>integrate</code>, therefore:</p>
 <div class="cell">
@@ -444,7 +444,7 @@ f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(x - \mu)^2
 <pre><code>0.6826895 with absolute error &lt; 7.6e-15</code></pre>
 </div>
 </div>
-<p>Since we are dealing with a continuous variable, we obtain that <span class="math inline">\mathbb{P}(X &lt; -1) = \mathbb{P}(X \le -1)</span>.</p>
+<p>Since we are dealing with a continuous variable, we obtain that <span class="math inline">\mathbb{P}(Y &lt; -1) = \mathbb{P}(Y \le -1)</span>.</p>
 <p>Hence, we can compute this probability in <strong>R</strong> using the dedicated commands:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -455,7 +455,7 @@ f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(x - \mu)^2
 </section>
 <section id="normal-distribution-quantile-function" class="level2">
 <h2 class="anchored" data-anchor-id="normal-distribution-quantile-function">Normal distribution (quantile function)</h2>
-<p>The continuity of the cumulative distribution function <span class="math inline">F(x)</span> implies that the <span class="blue">quantile function</span> is equal to <span class="math inline">\mathcal{Q}(\cdot) = F^{-1}(\cdot)</span>.</p>
+<p>The continuity of the cumulative distribution function <span class="math inline">F(y)</span> implies that the <span class="blue">quantile function</span> is equal to <span class="math inline">\mathcal{Q}(\cdot) = F^{-1}(\cdot)</span>.</p>
 <p>For example, consider the third quartile of a standard normal distribution, that is</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.75</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -489,12 +489,12 @@ F(\mathcal{Q}(0.75)) = F(F^{-1}(0.75))= 0.75.
 </section>
 <section id="summary-table-i" class="level2">
 <h2 class="anchored" data-anchor-id="summary-table-i">Summary table I</h2>
-<p><strong>R</strong> has an extensive <span class="orange">collection of functions</span> dedicated to the main probability distributions. Let <span class="math inline">X</span> be a random variable.</p>
+<p><strong>R</strong> has an extensive <span class="orange">collection of functions</span> dedicated to the main probability distributions. Let <span class="math inline">Y</span> be a random variable.</p>
 <ul>
-<li><p><code>ddist</code> (where the initial <code>d</code> stands for <span class="blue">density</span>). Computes the <span class="orange">density</span> <span class="math inline">f(x)</span> of a continuous variable <span class="math inline">X</span>, or the probability mass function <span class="math inline">p(x) = \mathbb{P}(X = x)</span> in case <span class="math inline">X</span> is discrete.</p></li>
-<li><p><code>pdist</code> (where the initial <code>p</code> stands for <span class="blue">probability</span>), which makes it possible to compute the value of the <span class="orange">cumulative distribution function</span> at a specified point, that is it computes <span class="math inline">F(x) = \mathbb{P}(X \le x)</span>.</p></li>
+<li><p><code>ddist</code> (where the initial <code>d</code> stands for <span class="blue">density</span>). Computes the <span class="orange">density</span> <span class="math inline">f(y)</span> of a continuous variable <span class="math inline">Y</span>, or the probability mass function <span class="math inline">f(y) = \mathbb{P}(Y = y)</span> in case <span class="math inline">Y</span> is discrete.</p></li>
+<li><p><code>pdist</code> (where the initial <code>p</code> stands for <span class="blue">probability</span>), which makes it possible to compute the value of the <span class="orange">cumulative distribution function</span> at a specified point, that is it computes <span class="math inline">F(y) = \mathbb{P}(Y \le y)</span>.</p></li>
 <li><p><code>qdist</code> (where the initial <code>q</code> stands for <span class="blue">quantile</span>), which represents the <span class="orange">quantile function</span>, that is: <span class="math display">
-\mathcal{Q}(p) = \inf\{x \in \mathbb{R} : F(x) \ge p\}, \qquad p \in (0,1).
+\mathcal{Q}(p) = \inf\{y \in \mathbb{R} : F(y) \ge p\}, \qquad p \in (0,1).
 </span></p></li>
 <li><p><code>rdist</code> (where the initial <code>r</code> stands for <span class="blue">random</span>), which makes it possible to generate <span class="orange">pseudo-random</span> numbers, illustrated below.</p></li>
 </ul>
@@ -589,13 +589,13 @@ F(\mathcal{Q}(0.75)) = F(F^{-1}(0.75))= 0.75.
 <h2 class="anchored" data-anchor-id="pseudo-random-numbers-i">Pseudo-random numbers I</h2>
 <p>The fourth class of functions in our list is the one of type <code>rdist</code>, which makes it possible to obtain <span class="blue">random values</span> from a distribution.</p>
 <p>For example, to sample <span class="math inline">5</span> independent and identically distributed (iid) values from a standard normal, that is <span class="math display">
-X_i \overset{\text{iid}}{\sim} \text{N}(0,1), \qquad i=1,\dots,5
+Y_i \overset{\text{iid}}{\sim} \text{N}(0,1), \qquad i=1,\dots,5
 </span> we can use in <strong>R</strong> the following command:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">5</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(R, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  0.5138006  0.3031726 -0.9020037 -0.4275141  1.0664222</code></pre>
+<pre><code>[1] -2.0214808  0.8310088  0.1507636 -1.4406470 -0.8355410</code></pre>
 </div>
 </div>
 </section>
@@ -717,9 +717,9 @@ X_i \overset{\text{iid}}{\sim} \text{N}(0,1), \qquad i=1,\dots,5
 </section>
 <section id="example-the-roll-of-a-six-sided-die" class="level2">
 <h2 class="anchored" data-anchor-id="example-the-roll-of-a-six-sided-die">Example: the roll of a six-sided die</h2>
-<p>A <span class="blue">six-sided die</span> represents a discrete random variable <span class="math inline">X</span> with probability mass function called <span class="orange">Discrete Uniform</span>, that is</p>
+<p>A <span class="blue">six-sided die</span> represents a discrete random variable <span class="math inline">Y</span> with probability mass function called <span class="orange">Discrete Uniform</span>, that is</p>
 <p><span class="math display">
-\mathbb{P}(X = k) = \frac{1}{6}, \qquad k=1,\dots,6.
+\mathbb{P}(Y = k) = \frac{1}{6}, \qquad k=1,\dots,6.
 </span></p>
 <p>To simulate the roll of a six-sided die, we first build a vector containing a <span class="blue">sequence of numbers</span> from 1 to 6 corresponding to the possible outcomes of the roll.</p>
 <div class="cell">
@@ -759,7 +759,7 @@ X_i \overset{\text{iid}}{\sim} \text{N}(0,1), \qquad i=1,\dots,5
 </section>
 <section id="sampling-with-replacement" class="level2">
 <h2 class="anchored" data-anchor-id="sampling-with-replacement">Sampling with replacement</h2>
-<p>Sampling with replacement is equivalent to making <span class="math inline">n</span> independent draws from the same random variable <span class="math inline">X</span>. Therefore, to roll the same die <span class="math inline">10</span> times:</p>
+<p>Sampling with replacement is equivalent to making <span class="math inline">n</span> independent draws from the same random variable <span class="math inline">Y</span>. Therefore, to roll the same die <span class="math inline">10</span> times:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">140</span>)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>

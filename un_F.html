@@ -140,8 +140,13 @@ window.Quarto = {
   <li><a href="#histogram" id="toc-histogram" class="nav-link" data-scroll-target="#histogram">Histogram</a></li>
   <li><a href="#location-indices" id="toc-location-indices" class="nav-link" data-scroll-target="#location-indices">Location indices</a></li>
   <li><a href="#variability-indices" id="toc-variability-indices" class="nav-link" data-scroll-target="#variability-indices">Variability indices</a></li>
-  <li><a href="#covariance-and-correlation" id="toc-covariance-and-correlation" class="nav-link" data-scroll-target="#covariance-and-correlation">Covariance and correlation</a></li>
-  <li><a href="#the-linear-regression-model" id="toc-the-linear-regression-model" class="nav-link" data-scroll-target="#the-linear-regression-model">The linear regression model</a></li>
+  <li><a href="#the-scatterplot" id="toc-the-scatterplot" class="nav-link" data-scroll-target="#the-scatterplot">The scatterplot</a></li>
+  <li><a href="#covariance" id="toc-covariance" class="nav-link" data-scroll-target="#covariance">Covariance</a></li>
+  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation">Correlation</a></li>
+  <li><a href="#the-least-squares-line-i" id="toc-the-least-squares-line-i" class="nav-link" data-scroll-target="#the-least-squares-line-i">The least squares line I</a></li>
+  <li><a href="#the-least-squares-line-ii" id="toc-the-least-squares-line-ii" class="nav-link" data-scroll-target="#the-least-squares-line-ii">The least squares line II</a></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction">Prediction</a></li>
+  <li><a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link" data-scroll-target="#goodness-of-fit">Goodness of fit</a></li>
   <li><a href="#summary-exercise" id="toc-summary-exercise" class="nav-link" data-scroll-target="#summary-exercise">Summary exercise</a></li>
   </ul>
 </nav>
@@ -211,6 +216,19 @@ window.Quarto = {
 <p>The data come from an experiment carried out by the <strong>Scottish physicist Forbes</strong> in 1857.</p>
 <p>Forbes was interested in estimating the altitude through the pressure. However, at the time the barometer was a heavy and expensive instrument.</p>
 <p>In the mountains water boils at a different temperature, so that one can try to estimate the pressure starting from the boiling temperature.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Research question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Can we predict the atmospheric pressure from the boiling temperature of water?</p>
+</div>
+</div>
 </section>
 <section id="importing-the-forbes-data" class="level2">
 <h2 class="anchored" data-anchor-id="importing-the-forbes-data">Importing the <code>forbes</code> data</h2>
@@ -257,23 +275,7 @@ window.Quarto = {
 </section>
 <section id="histogram" class="level2">
 <h2 class="anchored" data-anchor-id="histogram">Histogram</h2>
-<div class="callout callout-style-simple callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Question 1
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Draw a histogram of the temperature variable, choosing an appropriate number of equally spaced classes and justifying the choice.</p>
-<p>Add to these plots the graphical “embellishments” deemed necessary (names of the variables, title, and so on).</p>
-</div>
-</div>
-<section id="solution" class="level4">
-<h4 class="anchored" data-anchor-id="solution">Solution</h4>
-<p>We can decide to specify the intervals of the classes ourselves, or to leave this choice to <strong>R</strong>.</p>
+<p>Let us first look at the <span class="orange">distribution</span> of the boiling temperature. We can decide to specify the intervals of the classes ourselves, or to leave this choice to <strong>R</strong>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># Split the graphical window into 2 parts</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -291,30 +293,13 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>The solution on the left uses <span class="math inline">6</span> classes. The one on the right uses <span class="math inline">5</span> classes.</p>
-</section>
+<p>The histogram on the left uses <span class="math inline">6</span> classes. The one on the right uses <span class="math inline">5</span> classes.</p>
 </section>
 <section id="location-indices" class="level2">
 <h2 class="anchored" data-anchor-id="location-indices">Location indices</h2>
-<div class="callout callout-style-simple callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Question 2
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Obtain the arithmetic mean of both variables <code>TempC</code> and <code>Pressure</code>. What is the average boiling temperature expressed in degrees Fahrenheit? Answer without computing all the values of the variable <code>TempF</code>.</p>
-</div>
-</div>
-<section id="solution-1" class="level4">
-<h4 class="anchored" data-anchor-id="solution-1">Solution</h4>
 <p>We have already computed the means through the command <code>summary</code>; for completeness:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First part of the question</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(forbes<span class="sc">$</span>TempC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(forbes<span class="sc">$</span>TempC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 94.97353</code></pre>
 </div>
@@ -323,13 +308,13 @@ window.Quarto = {
 <pre><code>[1] 25.05882</code></pre>
 </div>
 </div>
+<p>What is the average boiling temperature in degrees <span class="blue">Fahrenheit</span>? We do not need the values of <code>TempF</code>: it is enough to use the properties of the mean.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Second part of the question</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="dv">32</span> <span class="sc">+</span> <span class="dv">9</span> <span class="sc">/</span> <span class="dv">5</span> <span class="sc">*</span> <span class="fu">mean</span>(forbes<span class="sc">$</span>TempC) <span class="co"># Using the properties of the mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">32</span> <span class="sc">+</span> <span class="dv">9</span> <span class="sc">/</span> <span class="dv">5</span> <span class="sc">*</span> <span class="fu">mean</span>(forbes<span class="sc">$</span>TempC) <span class="co"># Using the properties of the mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 202.9524</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(forbes<span class="sc">$</span>TempF) <span class="co"># Not required: computes the mean from the original data</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(forbes<span class="sc">$</span>TempF) <span class="co"># Computes the mean from the original data</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 202.9529</code></pre>
 </div>
@@ -344,29 +329,13 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Why do the means computed in the second part differ slightly? What can this be due to?</p>
+<p>Why do the two means differ slightly? What can this be due to?</p>
 </div>
 </div>
-</section>
 </section>
 <section id="variability-indices" class="level2">
 <h2 class="anchored" data-anchor-id="variability-indices">Variability indices</h2>
-<div class="callout callout-style-simple callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Question 3
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Obtain the variance of the variables <code>TempC</code> and <code>Pressure</code>.</p>
-</div>
-</div>
-<section id="solution-2" class="level4">
-<h4 class="anchored" data-anchor-id="solution-2">Solution</h4>
-<p>Since it will turn out to be useful later, we define the function <code>my_var</code> that computes the <span class="orange">variance</span>.</p>
+<p>Since it will turn out to be useful later, we define the function <code>my_var</code> that computes the <span class="orange">variance</span>, as in <a href="un_E.html">Unit E</a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Yes, the function is defined on a single line and there is nothing wrong with it</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>my_var <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">mean</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="fu">mean</span>(x)<span class="sc">^</span><span class="dv">2</span></span>
@@ -395,25 +364,9 @@ window.Quarto = {
 </div>
 </div>
 </section>
-</section>
-<section id="covariance-and-correlation" class="level2">
-<h2 class="anchored" data-anchor-id="covariance-and-correlation">Covariance and correlation</h2>
-<div class="callout callout-style-simple callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Question 4
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Draw a suitable plot that helps to understand the relationship between the two variables. Then compute the correlation.</p>
-</div>
-</div>
-<section id="solution-3" class="level4">
-<h4 class="anchored" data-anchor-id="solution-3">Solution</h4>
-<p>For the first part of the question, we need the new command <code>plot</code>, which can be used (among other things!) to build a <span class="blue">scatterplot</span>.</p>
+<section id="the-scatterplot" class="level2">
+<h2 class="anchored" data-anchor-id="the-scatterplot">The scatterplot</h2>
+<p>To understand the relationship between the two variables, we need the new command <code>plot</code>, which can be used (among other things!) to build a <span class="blue">scatterplot</span>.</p>
 <p>We provide two versions of the same plot; the second one contains aesthetic improvements.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)) <span class="co"># We want to show one plot at a time</span></span>
@@ -438,7 +391,10 @@ window.Quarto = {
 </div>
 </div>
 <p>It is therefore evident that the data are approximately (although not perfectly) aligned.</p>
-<p>For the second part of the question (correlation), we first have to obtain the <span class="orange">covariance</span> between two variables.</p>
+</section>
+<section id="covariance" class="level2">
+<h2 class="anchored" data-anchor-id="covariance">Covariance</h2>
+<p>To measure the strength of this relationship, we first have to obtain the <span class="orange">covariance</span> between two variables.</p>
 <p>The <span class="blue">covariance</span> between two sets of data <span class="math inline">x_1,\dots,x_n</span> and <span class="math inline">y_1,\dots,y_n</span> is defined as</p>
 <p><span class="math display">
 \text{cov}(x,y) = \frac{1}{n}\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y}) = \frac{1}{n}\sum_{i=1}^nx_i y_i - \bar{x}\bar{y}.
@@ -458,9 +414,12 @@ window.Quarto = {
 <pre><code>[1] 9.634117</code></pre>
 </div>
 </div>
+</section>
+<section id="correlation" class="level2">
+<h2 class="anchored" data-anchor-id="correlation">Correlation</h2>
 <p>The <span class="blue">correlation</span> index is defined as: <span class="math display">
-\rho = \frac{\text{cov}(x,y)}{\sqrt{\text{var}(x) \text{var}(y)}}.
-</span></p>
+r = \frac{\text{cov}(x,y)}{\sqrt{\text{var}(x) \text{var}(y)}},
+</span> where <span class="math inline">\text{var}(x)</span> and <span class="math inline">\text{var}(y)</span> are the variances <span class="math inline">\hat{\sigma}^2</span> of <a href="un_E.html">Unit E</a>, computed by <code>my_var</code>.</p>
 <p>Therefore, we can compute the correlation as follows:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">my_cov</span>(forbes<span class="sc">$</span>TempC, forbes<span class="sc">$</span>Pressure) <span class="sc">/</span></span>
@@ -496,25 +455,9 @@ window.Quarto = {
 </div>
 </div>
 </section>
-</section>
-<section id="the-linear-regression-model" class="level2">
-<h2 class="anchored" data-anchor-id="the-linear-regression-model">The linear regression model</h2>
-<div class="callout callout-style-simple callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Question 5
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Obtain the least squares line for the relationship between <code>TempC</code> and <code>Pressure</code> and draw it in the plot obtained previously.</p>
-</div>
-</div>
-<section id="solution-4" class="level4">
-<h4 class="anchored" data-anchor-id="solution-4">Solution</h4>
-<p>First of all recall that in a <span class="blue">linear model</span> of the form <span class="math inline">y_i = \alpha + \beta x_i + \epsilon_i</span>, the <span class="orange">least squares</span> estimates are equal to <span class="math display">
+<section id="the-least-squares-line-i" class="level2">
+<h2 class="anchored" data-anchor-id="the-least-squares-line-i">The least squares line I</h2>
+<p>In a <span class="blue">linear model</span> of the form <span class="math inline">y_i = \alpha + \beta x_i + \epsilon_i</span>, the <span class="orange">least squares</span> estimates are equal to <span class="math display">
 \hat{\alpha} = \bar{y} - \hat{\beta}\:\bar{x}, \qquad \hat{\beta}  = \frac{\text{cov}(x,y)}{\text{var}(x)}.
 </span></p>
 <p>Therefore, we can compute them as follows:</p>
@@ -529,6 +472,10 @@ window.Quarto = {
 <pre><code>[1] -64.3587103   0.9414995</code></pre>
 </div>
 </div>
+</section>
+<section id="the-least-squares-line-ii" class="level2">
+<h2 class="anchored" data-anchor-id="the-least-squares-line-ii">The least squares line II</h2>
+<p>We can now draw the estimated line on the scatterplot:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(forbes<span class="sc">$</span>TempC, forbes<span class="sc">$</span>Pressure,</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>,</span>
@@ -568,23 +515,10 @@ Coefficients:
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Question 6
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>According to the estimated model, if the boiling temperature of water is equal to 97 degrees Celsius, what is the pressure?</p>
-</div>
-</div>
 </section>
-<section id="solution-5" class="level4">
-<h4 class="anchored" data-anchor-id="solution-5">Solution</h4>
-<p>Using the estimates obtained, we can quickly compute the fitted values:</p>
+<section id="prediction" class="level2">
+<h2 class="anchored" data-anchor-id="prediction">Prediction</h2>
+<p>Using the estimates obtained, we can quickly compute the <span class="orange">predicted</span> pressure for any boiling temperature:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">90</span>, <span class="at">to =</span> <span class="dv">100</span>, <span class="at">length =</span> <span class="dv">20</span>)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>alpha_hat <span class="sc">+</span> beta_hat <span class="sc">*</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -594,32 +528,19 @@ Coefficients:
 [17] 28.30467 28.80019 29.29572 29.79124</code></pre>
 </div>
 </div>
-<p>In particular, when <code>TempC = 97</code> we have that:</p>
+<p>In particular, if water boils at <span class="math inline">97</span> degrees Celsius, the estimated pressure is:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>alpha_hat <span class="sc">+</span> beta_hat <span class="sc">*</span> <span class="dv">97</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 26.96674</code></pre>
 </div>
 </div>
-<div class="callout callout-style-simple callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Question 7
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Obtain an index of goodness of fit of the curve to the data.</p>
-</div>
-</div>
 </section>
-<section id="solution-6" class="level4">
-<h4 class="anchored" data-anchor-id="solution-6">Solution</h4>
-<p>The coefficient <span class="math inline">R^2</span> for a simple linear regression model is defined as: <span class="math display">
-R^2 = 1 - \frac{\text{var}(r)}{\text{var}(y)} = \rho^2,
-</span> where <span class="math inline">r_1,\dots,r_n</span> are the <span class="blue">residuals</span>.</p>
+<section id="goodness-of-fit" class="level2">
+<h2 class="anchored" data-anchor-id="goodness-of-fit">Goodness of fit</h2>
+<p>How well does the line fit the data? The coefficient <span class="math inline">R^2</span> for a simple linear regression model is defined as: <span class="math display">
+R^2 = 1 - \frac{\text{var}(e)}{\text{var}(y)} = r^2,
+</span> where <span class="math inline">e_1,\dots,e_n</span> are the <span class="blue">residuals</span>.</p>
 <p>First of all we therefore compute the residuals:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> forbes<span class="sc">$</span>Pressure <span class="sc">-</span> (alpha_hat <span class="sc">+</span> beta_hat <span class="sc">*</span> forbes<span class="sc">$</span>TempC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -635,7 +556,6 @@ R^2 = 1 - \frac{\text{var}(r)}{\text{var}(y)} = \rho^2,
 <pre><code>[1] 0.994453</code></pre>
 </div>
 </div>
-</section>
 </section>
 <section id="summary-exercise" class="level2">
 <h2 class="anchored" data-anchor-id="summary-exercise">Summary exercise</h2>
