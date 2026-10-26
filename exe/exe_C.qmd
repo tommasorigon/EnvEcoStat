@@ -35,7 +35,7 @@ editor_options:
 
 ## [Homepage](../index.html)
 
-These exercises accompany Unit [I](../un_I.html).
+These exercises accompany Units [I](../un_I.html) and [J](../un_J.html).
 
 The [solution]{.blue} of each exercise is in a separate **R** script, linked
 from the title of the exercise itself.

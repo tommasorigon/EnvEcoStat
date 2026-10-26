@@ -64,8 +64,6 @@ styler:::style_file("code/un_B.R")
 -   Defining a new function
 -   Control statements: `if`, `else`
 -   `for` loops, `while` loops
--   An outline of the `*apply` functions
--   **R** packages
 
 ::: callout-note
 #### Note
@@ -281,24 +279,24 @@ for (i in values) {
 <!-- they work. -->
 <!-- ::: -->
 
-## **R** packages
+<!-- ## **R** packages -->
 
-**R** is organised in [packages]{.orange}.
+<!-- **R** is organised in [packages]{.orange}. -->
 
-If we want to use the functions of a package, it can be loaded using the
-function `library`, that is:
+<!-- If we want to use the functions of a package, it can be loaded using the -->
+<!-- function `library`, that is: -->
 
-```{r}
-library(MASS) # Loads the MASS package into memory
-library(knitr) # Loads the knitr package into memory
-```
+<!-- ```{r} -->
+<!-- library(MASS) # Loads the MASS package into memory -->
+<!-- library(knitr) # Loads the knitr package into memory -->
+<!-- ``` -->
 
-If a package is not available on the computer, it has to be installed.
+<!-- If a package is not available on the computer, it has to be installed. -->
 
-One can use the following command, or use the "Packages" window available in
-RStudio.
+<!-- One can use the following command, or use the "Packages" window available in -->
+<!-- RStudio. -->
 
-```{r}
-#| eval: false
-install.packages("knitr") # Installs the knitr package
-```
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- install.packages("knitr") # Installs the knitr package -->
+<!-- ``` -->

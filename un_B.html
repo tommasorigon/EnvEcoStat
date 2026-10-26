@@ -99,7 +99,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#while-and-for-loops-i" id="toc-while-and-for-loops-i" class="nav-link" data-scroll-target="#while-and-for-loops-i"><code>while</code> and <code>for</code> loops I</a></li>
   <li><a href="#while-and-for-loops-ii" id="toc-while-and-for-loops-ii" class="nav-link" data-scroll-target="#while-and-for-loops-ii"><code>while</code> and <code>for</code> loops II</a></li>
   <li><a href="#while-and-for-loops-iii" id="toc-while-and-for-loops-iii" class="nav-link" data-scroll-target="#while-and-for-loops-iii"><code>while</code> and <code>for</code> loops III</a></li>
-  <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages"><strong>R</strong> packages</a></li>
   </ul>
 </nav>
 </div>
@@ -147,8 +146,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Defining a new function</li>
 <li>Control statements: <code>if</code>, <code>else</code></li>
 <li><code>for</code> loops, <code>while</code> loops</li>
-<li>An outline of the <code>*apply</code> functions</li>
-<li><strong>R</strong> packages</li>
 </ul>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -383,20 +380,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- Consult the documentation of the `*apply` functions to get a first idea of how -->
 <!-- they work. -->
 <!-- ::: -->
-</section>
-<section id="r-packages" class="level2">
-<h2 class="anchored" data-anchor-id="r-packages"><strong>R</strong> packages</h2>
-<p><strong>R</strong> is organised in <span class="orange">packages</span>.</p>
-<p>If we want to use the functions of a package, it can be loaded using the function <code>library</code>, that is:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS) <span class="co"># Loads the MASS package into memory</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr) <span class="co"># Loads the knitr package into memory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>If a package is not available on the computer, it has to be installed.</p>
-<p>One can use the following command, or use the “Packages” window available in RStudio.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"knitr"</span>) <span class="co"># Installs the knitr package</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<!-- ## **R** packages -->
+<!-- **R** is organised in [packages]{.orange}. -->
+<!-- If we want to use the functions of a package, it can be loaded using the -->
+<!-- function `library`, that is: -->
+<!-- ```{r} -->
+<!-- library(MASS) # Loads the MASS package into memory -->
+<!-- library(knitr) # Loads the knitr package into memory -->
+<!-- ``` -->
+<!-- If a package is not available on the computer, it has to be installed. -->
+<!-- One can use the following command, or use the "Packages" window available in -->
+<!-- RStudio. -->
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- install.packages("knitr") # Installs the knitr package -->
+<!-- ``` -->
 </section>
 
 </main>

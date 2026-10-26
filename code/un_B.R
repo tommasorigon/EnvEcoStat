@@ -98,11 +98,3 @@ for (i in values) {
   # Other operations to be executed
   # ...
 }
-
-## -----------------------------------------------------------------------------
-library(MASS) # Loads the MASS package into memory
-library(knitr) # Loads the knitr package into memory
-
-## -----------------------------------------------------------------------------
-#| eval: false
-# install.packages("knitr") # Installs the knitr package

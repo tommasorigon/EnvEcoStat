@@ -1,0 +1,272 @@
+---
+title: "Confidence intervals and tests"
+subtitle: "Programming and Data Analysis with R"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    smooth-scroll: true
+    fig-dpi: 90
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+## [Homepage](index.html)
+
+```{r}
+#| warning: false
+#| echo: false
+#| include: false
+#| message: false
+#| purl: false
+
+# Please ignore this chunk.
+# A single purl() call: calling it twice in the same knit would clash on the
+# chunk labels. The clean script is derived from the full one, so the two
+# cannot go out of sync.
+
+# 1. Full script, for personal use: code plus the text of the notes as
+#    comments. Not linked from the website (and ignored by git).
+knitr::purl("un_J.qmd", output = "code/un_J_full.R", documentation = 2)
+full <- readLines("code/un_J_full.R")
+# strip the Quarto markup that is only meaningful in the rendered page
+full <- full[!grepl("^#' *:::", full)]
+full <- gsub("\\[([^]]*)\\]\\{[^}]*\\}", "\\1", full)
+squeeze <- function(x) x[!(x == "" & c(FALSE, head(x == "", -1)))]
+writeLines(squeeze(full), "code/un_J_full.R")
+
+# 2. Clean script, linked from the website: code only, obtained by dropping
+#    the text (#') and the chunk headers (#+).
+clean <- squeeze(full[!grepl("^#'|^#\\+", full)])
+writeLines(clean, "code/un_J.R")
+styler:::style_file("code/un_J.R")
+
+rm(clean, squeeze, full)
+```
+## Topics covered
+
+-   Confidence intervals for a mean and for a proportion
+-   The meaning of the confidence level
+-   Significance tests for a proportion and for a mean
+-   Comparing the means of two groups
+
+::: callout-note
+#### Note
+
+The exercises associated with this unit are available at
+[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_C.html).
+:::
+
+## Horseshoe crabs
+
+A study considered $n = 173$ female [horseshoe crabs]{.orange} on an island off
+the coast of Florida. During the spawning season, a female migrates to the
+shore with a male attached to her, and lays her eggs in the sand.
+
+Other males, called [satellites]{.blue}, may cluster around the pair and also
+fertilise the eggs. For each female, the data report:
+
+-   `width`, the width of the carapace (cm);
+-   `y`, equal to $1$ if the female has at least one satellite, $0$ otherwise.
+
+::: callout-note
+#### Research question
+
+How large are female horseshoe crabs? Do larger females attract more males?
+:::
+
+The data are on the [website of the book](https://stat4ds.rwth-aachen.de/data/):
+
+```{r}
+path <- "https://stat4ds.rwth-aachen.de/data/Crabs.dat"
+Crabs <- read.table(path, header = TRUE)
+str(Crabs)
+```
+
+## A confidence interval for the mean
+
+The standard deviation $\sigma$ of the population is unknown. A
+$100(1-\alpha)\%$ confidence interval for the mean width $\mu$ is $$
+\left(\bar{y} - t_{\alpha/2,\,n-1} \frac{s}{\sqrt{n}}, \ \bar{y} + t_{\alpha/2,\,n-1} \frac{s}{\sqrt{n}}\right),
+$$ where $t_{\alpha/2,\,n-1}$ is the quantile of the $t$ distribution with
+$n - 1$ degrees of freedom and [right-tail]{.orange} probability $\alpha/2$:
+
+```{r}
+y <- Crabs$width
+n <- length(y)
+alpha <- 0.05 # 95% confidence level
+t_quant <- qt(1 - alpha / 2, df = n - 1) # Right-tail probability alpha / 2
+
+c(mean(y) - t_quant * sd(y) / sqrt(n), mean(y) + t_quant * sd(y) / sqrt(n))
+```
+
+The command `t.test` computes the same interval, reported in its output as
+`95 percent confidence interval`:
+
+```{r}
+t.test(y, conf.level = 0.95)
+```
+
+Since $n \ge 30$, using the normal quantile $z_{1-\alpha/2}$ would give almost
+the same result: compare `qnorm(0.975)` and `qt(0.975, df = 172)`.
+
+## A confidence interval for a proportion
+
+The proportion of females with at least one satellite is the mean of the
+variable `y`. If $n\hat{\pi} \ge 10$ and $n(1-\hat{\pi}) \ge 10$, a
+$100(1-\alpha)\%$ confidence interval for $\pi$ is $$
+\left(\hat{\pi} - z_{1-\alpha/2}\sqrt{\frac{\hat{\pi}(1-\hat{\pi})}{n}}, \ \hat{\pi} + z_{1-\alpha/2}\sqrt{\frac{\hat{\pi}(1-\hat{\pi})}{n}}\right).
+$$
+
+```{r}
+pi_hat <- mean(Crabs$y) # Sample proportion
+c(n * pi_hat, n * (1 - pi_hat)) # Both larger than 10
+
+z_quant <- qnorm(1 - alpha / 2)
+se_hat <- sqrt(pi_hat * (1 - pi_hat) / n) # Estimated standard error
+c(pi_hat - z_quant * se_hat, pi_hat + z_quant * se_hat)
+```
+
+::: callout-note
+#### Note
+
+The command `prop.test` computes a slightly different (and more accurate)
+interval, which is why here we use the formula directly.
+:::
+
+## What does 95% confidence mean?
+
+Let us go back to the PM2.5 campaign of [Unit I](un_I.html), where we know that
+$\mu = 28$. We simulate $R = 1000$ campaigns of $64$ days and, for each of them,
+we check whether the $95\%$ confidence interval [contains]{.orange} $\mu$. With
+`$conf.int` we extract only the interval from the output of `t.test`, as we do
+with the columns of a data frame:
+
+```{r}
+mu <- 28
+sigma <- 12
+k <- mu^2 / sigma^2
+lambda <- mu / sigma^2
+
+set.seed(123)
+R <- 1000
+covers <- rep(NA, R)
+
+for (r in 1:R) {
+  y_sim <- rgamma(64, shape = k, rate = lambda) # A new campaign
+  ci <- t.test(y_sim)$conf.int # Its 95% confidence interval
+  covers[r] <- (ci[1] < mu) & (mu < ci[2]) # TRUE if the interval contains mu
+}
+
+mean(covers) # Proportion of intervals that contain mu
+```
+
+About $95\%$ of the intervals contain $\mu$. The confidence level is a property
+of the [procedure]{.blue}: a single interval either contains $\mu$ or not.
+
+## A test for a proportion
+
+Let us go back to the [survey on climate change]{.orange} of
+[Unit I](un_I.html): $524$ people out of $1008$ said that climate change is a
+major threat. We test $$
+H_0: \pi = 0.5, \qquad H_a: \pi \neq 0.5.
+$$
+
+Under $H_0$, the test statistic $$
+z = \frac{\hat{\pi} - \pi_0}{\sqrt{\pi_0(1-\pi_0)/n}}
+$$ has approximately a standard normal distribution. The two-sided
+[P-value]{.blue} is $\mathbb{P}(|Z| \ge |z|) = 2\,\mathbb{P}(Z \ge |z|)$:
+
+```{r}
+pi_hat <- 524 / 1008
+pi_0 <- 0.5
+z <- (pi_hat - pi_0) / sqrt(pi_0 * (1 - pi_0) / 1008) # Observed test statistic
+z
+2 * (1 - pnorm(abs(z))) # Two-sided P-value
+```
+
+The P-value is larger than $\alpha = 0.05$: we [do not reject]{.orange} $H_0$,
+as we guessed in Unit I through simulation. The command `prop.test` gives the
+same P-value:
+
+```{r}
+prop.test(524, 1008, p = 0.5, correct = FALSE)
+```
+
+## A test for a mean
+
+A study compared therapies for $72$ young girls suffering from
+[anorexia]{.orange}. For each girl, the weight (in pounds) is measured before and
+after the therapy. Let us consider the $29$ girls who received the cognitive
+behavioural therapy (`cb`):
+
+```{r}
+path <- "https://stat4ds.rwth-aachen.de/data/Anorexia.dat"
+Anorexia <- read.table(path, header = TRUE)
+change <- Anorexia$after - Anorexia$before # Weight change
+change_cb <- change[Anorexia$therapy == "cb"] # Cognitive behavioural therapy
+```
+
+Does the therapy change the weight, on average? We test
+$H_0: \mu = 0$ against $H_a: \mu \neq 0$. Under $H_0$, the test statistic
+$$
+t = \frac{\bar{y} - \mu_0}{s / \sqrt{n}}
+$$ has a $t$ distribution with $n - 1$ degrees of freedom:
+
+```{r}
+n <- length(change_cb)
+t_obs <- (mean(change_cb) - 0) / (sd(change_cb) / sqrt(n)) # Observed test statistic
+2 * (1 - pt(abs(t_obs), df = n - 1)) # Two-sided P-value
+```
+
+```{r}
+t.test(change_cb, mu = 0)
+```
+
+The P-value is smaller than $0.05$: we [reject]{.orange} $H_0$. Coherently, the
+$95\%$ confidence interval does not contain $0$.
+
+## Comparing two groups
+
+Back to the horseshoe crabs: do females with satellites ($y = 1$) have a larger
+carapace than those without ($y = 0$)?
+
+```{r}
+boxplot(width ~ y, data = Crabs, xlab = "Satellites (0 = no, 1 = yes)", ylab = "Width (cm)")
+```
+
+The command `t.test` with a [formula]{.blue} compares the means of the two
+groups, testing $H_0: \mu_0 = \mu_1$ and giving a confidence interval for the
+difference $\mu_0 - \mu_1$:
+
+```{r}
+t.test(width ~ y, data = Crabs, var.equal = TRUE)
+```
+
+The P-value is very small: females with satellites are, on average,
+[larger]{.orange}.
+
+::: callout-note
+#### Note
+
+The option `var.equal = TRUE` assumes that the two groups have the same
+variability. By default, **R** uses a version of the test that does not make
+this assumption.
+:::
