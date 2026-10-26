@@ -64,7 +64,6 @@ styler:::style_file("code/un_G.R")
 -   Qualitative data
 -   Contingency tables
 -   Conditional distributions
--   Independence and the $\chi^2$ index of association
 
 ::: callout-note
 #### Note
@@ -130,8 +129,8 @@ tab_summary
 
 ## Joint frequencies
 
-A summary we can produce consists in building a table, called a **contingency
-table[ or ]{.blue}two-way table**.
+A summary we can produce consists in building a table, called a
+[contingency table]{.blue} or [two-way table]{.orange}.
 
 In **R** one uses, also in this case, the command `table`, with two arguments:
 
@@ -191,7 +190,7 @@ addmargins(tab) # Adds the (absolute) marginal distributions
 ```
 
 ```{r}
-tab_rel <- prop.table(tab) # Alternative command: table(tab) / sum(tab)
+tab_rel <- prop.table(tab) # Alternative command: tab / sum(tab)
 tab_rel
 ```
 
@@ -226,13 +225,13 @@ equivalently, the distribution of $y$ given $x = c_i$.
 The command `prop.table` also makes it possible to compute the relative
 conditional frequencies.
 
-The distribution of each class, conditional on the outcome, is:
+The distribution of the class, conditional on each outcome, is:
 
 ```{r}
 prop.table(tab, 1)
 ```
 
-The distribution of each outcome, conditional on the class, is:
+The distribution of the outcome, conditional on each class, is:
 
 ```{r}
 prop.table(tab, 2)

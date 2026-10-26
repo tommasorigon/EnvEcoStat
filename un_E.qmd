@@ -62,7 +62,7 @@ styler:::style_file("code/un_E.R")
 ## Topics covered
 
 - Variance and standard deviation
-- Other measures of variability (range, interquartile range, MAD)
+- Other measures of variability (range, interquartile range)
 
 ::: callout-note
 #### Note

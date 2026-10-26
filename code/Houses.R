@@ -40,8 +40,13 @@ mean(abs(log_price - mean(log_price)) <= sd(log_price)) # 0.74
 
 # 5 --------------------------------------------------------------------
 table(Houses$new) # Only 11 of the 100 houses are new
-tapply(Houses$price, Houses$new, mean) # 207.9 vs 436.4
-tapply(Houses$price, Houses$new, median) # 190.8 vs 427.5
+price_old <- Houses$price[Houses$new == 0] # Old houses
+price_new <- Houses$price[Houses$new == 1] # New houses
+
+mean(price_old) # 207.9
+mean(price_new) # 436.4
+median(price_old) # 190.8
+median(price_new) # 427.5
 boxplot(price ~ new, data = Houses)
 # New houses are sold at about twice the price, but they are only 11: the
 # comparison is based on a very small group

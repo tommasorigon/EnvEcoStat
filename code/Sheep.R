@@ -13,10 +13,17 @@ nrow(Sheep) # 1359 sheep
 table(Sheep$survival) # 318 did not survive, 1041 did
 
 # 2 --------------------------------------------------------------------
-tapply(Sheep$weight, Sheep$survival, mean) # 16.0 vs 20.6
-tapply(Sheep$weight, Sheep$survival, median) # 14.8 vs 21.6
-tapply(Sheep$weight, Sheep$survival, sd) # 5.3 vs 4.9
-tapply(Sheep$weight, Sheep$survival, summary)
+weight_0 <- Sheep$weight[Sheep$survival == 0] # Did not survive
+weight_1 <- Sheep$weight[Sheep$survival == 1] # Survived
+
+mean(weight_0) # 16.0
+mean(weight_1) # 20.6
+median(weight_0) # 14.8
+median(weight_1) # 21.6
+sd(weight_0) # 5.3
+sd(weight_1) # 4.9
+summary(weight_0)
+summary(weight_1)
 
 # 3 --------------------------------------------------------------------
 boxplot(weight ~ survival, data = Sheep)

@@ -42,7 +42,12 @@ Gini_norm <- function(x) {
 }
 
 # 7 --------------------------------------------------------------------
-G <- tapply(elections$party, elections$district, Gini_norm)
+districts <- levels(elections$district)
+G <- numeric(length(districts))
+names(G) <- districts
+for (j in 1:length(districts)) {
+  G[j] <- Gini_norm(elections$party[elections$district == districts[j]])
+}
 round(G, 4)
 names(which.max(G)) # District 9: the most fragmented
 names(which.min(G)) # District 1: the most concentrated (polarised)
