@@ -57,11 +57,6 @@ The [website of the book](https://stat4ds.rwth-aachen.de/), where the
 [data files](https://stat4ds.rwth-aachen.de/data/) used in the exercises are
 also hosted.
 
-#### Optional
-
-- R Core Team, [*An Introduction to
-  R*](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf).
-
 #### Notes and R scripts
 
 The code is [written live]{.orange} during the classes, following the R
