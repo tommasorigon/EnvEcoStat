@@ -28,7 +28,7 @@ tab
 addmargins(tab) # Adds the (absolute) marginal distributions
 
 ## -----------------------------------------------------------------------------
-tab_rel <- prop.table(tab) # Alternative command: table(tab) / sum(tab)
+tab_rel <- prop.table(tab) # Alternative command: tab / sum(tab)
 tab_rel
 
 ## -----------------------------------------------------------------------------

@@ -191,7 +191,6 @@ window.Quarto = {
 <li>Qualitative data</li>
 <li>Contingency tables</li>
 <li>Conditional distributions</li>
-<li>Independence and the <span class="math inline">\chi^2</span> index of association</li>
 </ul>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -267,7 +266,7 @@ III            706      0.5364742</code></pre>
 </section>
 <section id="joint-frequencies" class="level2">
 <h2 class="anchored" data-anchor-id="joint-frequencies">Joint frequencies</h2>
-<p>A summary we can produce consists in building a table, called a <strong>contingency table<span class="blue">or</span>two-way table</strong>.</p>
+<p>A summary we can produce consists in building a table, called a <span class="blue">contingency table</span> or <span class="orange">two-way table</span>.</p>
 <p>In <strong>R</strong> one uses, also in this case, the command <code>table</code>, with two arguments:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(titanic<span class="sc">$</span>survived, titanic<span class="sc">$</span>class)</span>
@@ -480,7 +479,7 @@ III            706      0.5364742</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tab_rel <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tab) <span class="co"># Alternative command: table(tab) / sum(tab)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tab_rel <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tab) <span class="co"># Alternative command: tab / sum(tab)</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>tab_rel</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     
@@ -598,7 +597,7 @@ III            706      0.5364742</code></pre>
 <section id="conditional-distributions-ii" class="level2">
 <h2 class="anchored" data-anchor-id="conditional-distributions-ii">Conditional distributions II</h2>
 <p>The command <code>prop.table</code> also makes it possible to compute the relative conditional frequencies.</p>
-<p>The distribution of each class, conditional on the outcome, is:</p>
+<p>The distribution of the class, conditional on each outcome, is:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab, <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -608,7 +607,7 @@ III            706      0.5364742</code></pre>
   Yes 0.4068136 0.2364729 0.3567134</code></pre>
 </div>
 </div>
-<p>The distribution of each outcome, conditional on the class, is:</p>
+<p>The distribution of the outcome, conditional on each class, is:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="un_D_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="un_D_files/libs/quarto-html/anchor.min.js"></script>
 <link href="un_D_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="un_D_files/libs/quarto-html/quarto-syntax-highlighting-5968cd3d4e70e451b59e061e3897736e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="un_D_files/libs/quarto-html/quarto-syntax-highlighting-882f132b49beac8344fe1497d568d70b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="un_D_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="un_D_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="un_D_files/libs/bootstrap/bootstrap-55d66b82bfb7e8363875927e87202f7a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -683,15 +683,15 @@ Call: ecdf(dde_non_preterm)
 </span></p>
 <p>In <strong>R</strong>, considering <span class="math inline">p = (0.1,0.25,0.75,0.9)</span>, that is the first decile, the first quartile, the third quartile and the ninth decile, we can use the command <code>quantile</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(dde_preterm, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>), <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(dde_preterm, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  10%   25%   75%   90% 
 15.07 19.94 45.30 68.01 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(dde_non_preterm, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>), <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(dde_non_preterm, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  10%   25%   75%   90% 
-12.23 16.73 35.45 50.72 </code></pre>
+<pre><code>   10%    25%    75%    90% 
+12.230 16.735 35.400 50.720 </code></pre>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
@@ -704,7 +704,7 @@ Call: ecdf(dde_non_preterm)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Convince yourself that the “manual” implementation of the command <code>quantile</code> is the following:</p>
+<p>Convince yourself that the “manual” implementation of the definition above is the following:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(dde_non_preterm[<span class="fu">F_non_preterm</span>(dde_non_preterm) <span class="sc">&gt;=</span> <span class="fl">0.25</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -715,6 +715,7 @@ Call: ecdf(dde_non_preterm)
 <pre><code>[1] 35.45</code></pre>
 </div>
 </div>
+<p>Compare the results with those of <code>quantile</code>: the tiny differences are due to the fact that, by default, <strong>R</strong> uses a slightly different definition.</p>
 </div>
 </div>
 <!-- ## Location indices: the quantiles II -->
