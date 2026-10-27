@@ -68,26 +68,26 @@ numbered §A0, §A1, . . . are those of its [R web
 appendix](https://stat4ds.rwth-aachen.de/pdf/DS_R_webAppendix.pdf).
 
 | Topic | Notes | R script | Textbook |
-|------------------|------------------|------------------|------------------|
-|  | **INTRODUCTION TO R** |  |  |
+|------------------|---------|------------------|------------------|
+|   **INTRODUCTION TO R** |  |  |
 | **A-B-C** | [Unit A](un_A.html) | [`un_A.R`](code/un_A.R) | **AK** §A0.1--A0.3, §A0.6 |
 | **Programming** | [Unit B](un_B.html) | [`un_B.R`](code/un_B.R) | **AK** §A0.3.5, §A0.5 |
 | **Data frames** | [Unit C](un_C.html) | [`un_C.R`](code/un_C.R) | **AK** §A0.3.4, §A0.4 |
 | *Exercises* | [Exercises A](exe/exe_A.html) |  |  |
-|  | **DESCRIPTIVE STATISTICS** |  |  |
+|   **DESCRIPTIVE STATISTICS** |  |  |
 | **The `dde` data** | [Unit D](un_D.html) | [`un_D.R`](code/un_D.R) | **AK** §1.4, §A1.2 |
 | **The `hemoglobin` data** | [Unit E](un_E.html) | [`un_E.R`](code/un_E.R) | **AK** §1.4, §A1.3 |
 | **The `forbes` data** | [Unit F](un_F.html) | [`un_F.R`](code/un_F.R) | **AK** §1.5, §6.1, §A1.5 |
 | **The `titanic` data** | [Unit G](un_G.html) | [`un_G.R`](code/un_G.R) | **AK** §1.5, §A1.6 |
 | *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
-|  | **INFERENCE AND SAMPLING DISTRIBUTIONS** |  |  |
+|   **INFERENCE AND SAMPLING DISTRIBUTIONS** |  |  |
 | **Random variables** | [Unit H](un_H.html) | [`un_H.R`](code/un_H.R) | **AK** Ch. 2, §A2.1 |
 | **Sampling distributions** | [Unit I](un_I.html) | [`un_I.R`](code/un_I.R) | **AK** Ch. 3, §4.1, §A3 |
 | **Confidence intervals and tests** | [Unit J](un_J.html) | [`un_J.R`](code/un_J.R) | **AK** §4.3--4.5, §5.1--5.3, §A4.1 |
 | *Exercises* | [Exercises C](exe/exe_C.html) |  |  |
-|  | **LINEAR MODELS AND LEAST SQUARES** |  |  |
+|   **LINEAR MODELS AND LEAST SQUARES** |  |  |
 | *To be defined* |  |  | **AK** Ch. 6 |
-|  | **DATA ANALYSIS: CASE STUDIES** |  |  |
+|   **DATA ANALYSIS: CASE STUDIES** |  |  |
 | *To be defined* |  |  |  |
 
 ## Exam
