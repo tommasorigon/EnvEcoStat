@@ -98,12 +98,12 @@ change is a major threat?
 ## What if exactly half said yes?
 
 Suppose that $\pi = 0.5$. Then the number of yes in a sample of $1008$ people is
-a $\text{binom}(1008, 0.5)$. With `rbinom` ([Unit H](un_H.html)) we can simulate $R = 1000$
+a $\text{binom}(1008, 0.5)$. With `rbinom` ([Unit H](un_H.html)) we can simulate $R = 5000$
 [new surveys]{.blue}:
 
 ```{r}
 set.seed(123)
-R <- 1000 # Number of simulated surveys
+R <- 5000 # Number of simulated surveys
 pi_hat <- rbinom(R, size = 1008, prob = 0.5) / 1008 # R sample proportions
 head(pi_hat)
 ```
@@ -148,6 +148,8 @@ same $52\%$ would have been very surprising:
 sqrt(0.5 * 0.5 / 10000)
 ```
 
+{{< video video/un_I_survey.mp4 title="The sampling distribution of the sample proportion" >}}
+
 ## Air pollution in a city
 
 An environmental agency wants to estimate the mean daily concentration $\mu$ of
@@ -184,7 +186,7 @@ mean(rgamma(n, shape = k, rate = lambda))
 mean(rgamma(n, shape = k, rate = lambda))
 ```
 
-We want $R = 1000$ campaigns, so we use a `for` loop ([Unit B](un_B.html)):
+We want $R = 5000$ campaigns, so we use a `for` loop ([Unit B](un_B.html)):
 
 ```{r}
 y_bar <- rep(NA, R) # Empty vector, to be filled with the R sample means
@@ -235,6 +237,8 @@ central limit theorem or with the simulated sample means:
 1 - pnorm(31, mean = mu, sd = sigma / sqrt(n)) # Central limit theorem
 mean(y_bar > 31) # Simulation
 ```
+
+{{< video video/un_I_pm25.mp4 title="Repeated campaigns and the central limit theorem" >}}
 
 ## Estimating the variance
 

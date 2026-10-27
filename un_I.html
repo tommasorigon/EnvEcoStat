@@ -76,6 +76,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="un_I_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="un_I_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="un_I_files/libs/bootstrap/bootstrap-55d66b82bfb7e8363875927e87202f7a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="un_I_files/libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="un_I_files/libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -232,10 +234,10 @@ window.Quarto = {
 </section>
 <section id="what-if-exactly-half-said-yes" class="level2">
 <h2 class="anchored" data-anchor-id="what-if-exactly-half-said-yes">What if exactly half said yes?</h2>
-<p>Suppose that <span class="math inline">\pi = 0.5</span>. Then the number of yes in a sample of <span class="math inline">1008</span> people is a <span class="math inline">\text{binom}(1008, 0.5)</span>. With <code>rbinom</code> (<a href="un_H.html">Unit H</a>) we can simulate <span class="math inline">R = 1000</span> <span class="blue">new surveys</span>:</p>
+<p>Suppose that <span class="math inline">\pi = 0.5</span>. Then the number of yes in a sample of <span class="math inline">1008</span> people is a <span class="math inline">\text{binom}(1008, 0.5)</span>. With <code>rbinom</code> (<a href="un_H.html">Unit H</a>) we can simulate <span class="math inline">R = 5000</span> <span class="blue">new surveys</span>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># Number of simulated surveys</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">5000</span> <span class="co"># Number of simulated surveys</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pi_hat <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(R, <span class="at">size =</span> <span class="dv">1008</span>, <span class="at">prob =</span> <span class="fl">0.5</span>) <span class="sc">/</span> <span class="dv">1008</span> <span class="co"># R sample proportions</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pi_hat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -258,7 +260,7 @@ window.Quarto = {
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pi_hat <span class="sc">&gt;=</span> <span class="fl">0.52</span>) <span class="co"># The mean of TRUE / FALSE values is a proportion</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.09</code></pre>
+<pre><code>[1] 0.0964</code></pre>
 </div>
 </div>
 <p>About <span class="math inline">1</span> survey out of <span class="math inline">10</span>: the observed result is <span class="orange">not surprising</span>, and we cannot conclude that there is a majority.</p>
@@ -272,11 +274,11 @@ window.Quarto = {
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pi_hat) <span class="co"># Simulated</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.499881</code></pre>
+<pre><code>[1] 0.499994</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(pi_hat) <span class="co"># Simulated</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.01602631</code></pre>
+<pre><code>[1] 0.01559663</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.5</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">/</span> <span class="dv">1008</span>) <span class="co"># Theoretical standard error</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -290,6 +292,7 @@ window.Quarto = {
 <pre><code>[1] 0.005</code></pre>
 </div>
 </div>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title="The sampling distribution of the sample proportion"><source src="video/un_I_survey.mp4"></video></div>
 </section>
 <section id="air-pollution-in-a-city" class="level2">
 <h2 class="anchored" data-anchor-id="air-pollution-in-a-city">Air pollution in a city</h2>
@@ -342,7 +345,7 @@ window.Quarto = {
 <pre><code>[1] 27.52819</code></pre>
 </div>
 </div>
-<p>We want <span class="math inline">R = 1000</span> campaigns, so we use a <code>for</code> loop (<a href="un_B.html">Unit B</a>):</p>
+<p>We want <span class="math inline">R = 5000</span> campaigns, so we use a <code>for</code> loop (<a href="un_B.html">Unit B</a>):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>y_bar <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R) <span class="co"># Empty vector, to be filled with the R sample means</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -373,11 +376,11 @@ window.Quarto = {
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(y_bar) <span class="co"># Simulated</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 28.0062</code></pre>
+<pre><code>[1] 28.01192</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(y_bar) <span class="co"># Simulated</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.461561</code></pre>
+<pre><code>[1] 1.473737</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n) <span class="co"># Theoretical standard error</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -410,9 +413,10 @@ window.Quarto = {
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(y_bar <span class="sc">&gt;</span> <span class="dv">31</span>) <span class="co"># Simulation</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.025</code></pre>
+<pre><code>[1] 0.028</code></pre>
 </div>
 </div>
+<div class="quarto-video"><video id="video_shortcode_videojs_video2" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title="Repeated campaigns and the central limit theorem"><source src="video/un_I_pm25.mp4"></video></div>
 </section>
 <section id="estimating-the-variance" class="level2">
 <h2 class="anchored" data-anchor-id="estimating-the-variance">Estimating the variance</h2>
@@ -863,6 +867,8 @@ window.Quarto = {
   });
   </script>
 </div> <!-- /content -->
+<script>videojs(video_shortcode_videojs_video1);</script>
+<script>videojs(video_shortcode_videojs_video2);</script>
 
 
 

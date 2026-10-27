@@ -3,7 +3,7 @@
 
 ## -----------------------------------------------------------------------------
 set.seed(123)
-R <- 1000 # Number of simulated surveys
+R <- 5000 # Number of simulated surveys
 pi_hat <- rbinom(R, size = 1008, prob = 0.5) / 1008 # R sample proportions
 head(pi_hat)
 
