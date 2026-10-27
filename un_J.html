@@ -139,7 +139,6 @@ window.Quarto = {
   <li><a href="#horseshoe-crabs" id="toc-horseshoe-crabs" class="nav-link" data-scroll-target="#horseshoe-crabs">Horseshoe crabs</a></li>
   <li><a href="#a-confidence-interval-for-a-proportion" id="toc-a-confidence-interval-for-a-proportion" class="nav-link" data-scroll-target="#a-confidence-interval-for-a-proportion">A confidence interval for a proportion</a></li>
   <li><a href="#what-does-95-confidence-mean" id="toc-what-does-95-confidence-mean" class="nav-link" data-scroll-target="#what-does-95-confidence-mean">What does 95% confidence mean?</a></li>
-  <li><a href="#width-of-the-interval-and-sample-size" id="toc-width-of-the-interval-and-sample-size" class="nav-link" data-scroll-target="#width-of-the-interval-and-sample-size">Width of the interval and sample size</a></li>
   <li><a href="#the-t-distribution" id="toc-the-t-distribution" class="nav-link" data-scroll-target="#the-t-distribution">The <span class="math inline">t</span> distribution</a></li>
   <li><a href="#a-confidence-interval-for-the-mean" id="toc-a-confidence-interval-for-the-mean" class="nav-link" data-scroll-target="#a-confidence-interval-for-the-mean">A confidence interval for the mean</a></li>
   <li><a href="#a-test-for-a-mean" id="toc-a-test-for-a-mean" class="nav-link" data-scroll-target="#a-test-for-a-mean">A test for a mean</a></li>
@@ -309,24 +308,20 @@ window.Quarto = {
 </div>
 <p>About <span class="math inline">95\%</span> of the intervals contain <span class="math inline">\pi</span>. The confidence level is a property of the <span class="blue">procedure</span>: a single interval either contains <span class="math inline">\pi</span> or not.</p>
 <div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title="What does 95% confidence mean?"><source src="video/un_J_confidence.mp4"></video></div>
-</section>
-<section id="width-of-the-interval-and-sample-size" class="level2">
-<h2 class="anchored" data-anchor-id="width-of-the-interval-and-sample-size">Width of the interval and sample size</h2>
-<p>The <span class="orange">width</span> of the interval increases with the confidence level, through the quantile <span class="math inline">z_{1-\alpha/2}</span>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.95</span>, <span class="fl">0.975</span>, <span class="fl">0.995</span>)) <span class="co"># Confidence levels 90%, 95%, 99%</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.644854 1.959964 2.575829</code></pre>
-</div>
-</div>
-<p>Since <span class="math inline">\hat{\pi}(1-\hat{\pi}) \le 1/4</span>, the width is at most <span class="math inline">z_{1-\alpha/2}/\sqrt{n}</span>. To obtain a <span class="math inline">95\%</span> interval with width at most <span class="math inline">w^\star</span>, whatever the value of <span class="math inline">\hat{\pi}</span>, we need <span class="math inline">n \ge (z_{1-\alpha/2}/w^\star)^2</span>. For instance, with <span class="math inline">w^\star = 0.1</span>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>w_star <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="co"># Maximum width</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">/</span> w_star)<span class="sc">^</span><span class="dv">2</span> <span class="co"># Minimum sample size, to be rounded up</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 384.1459</code></pre>
-</div>
-</div>
+<!-- ## Width of the interval and sample size -->
+<!-- The [width]{.orange} of the interval increases with the confidence level, through -->
+<!-- the quantile $z_{1-\alpha/2}$: -->
+<!-- ```{r} -->
+<!-- qnorm(c(0.95, 0.975, 0.995)) # Confidence levels 90%, 95%, 99% -->
+<!-- ``` -->
+<!-- Since $\hat{\pi}(1-\hat{\pi}) \le 1/4$, the width is at most $z_{1-\alpha/2}/\sqrt{n}$. -->
+<!-- To obtain a $95\%$ interval with width at most $w^\star$, whatever the value of -->
+<!-- $\hat{\pi}$, we need $n \ge (z_{1-\alpha/2}/w^\star)^2$. For instance, with -->
+<!-- $w^\star = 0.1$: -->
+<!-- ```{r} -->
+<!-- w_star <- 0.1 # Maximum width -->
+<!-- (qnorm(0.975) / w_star)^2 # Minimum sample size, to be rounded up -->
+<!-- ``` -->
 </section>
 <section id="the-t-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="the-t-distribution">The <span class="math inline">t</span> distribution</h2>
@@ -335,13 +330,13 @@ T = \frac{\bar{Y} - \mu}{S/\sqrt{n}} \sim t_{n-1}.
 </span></p>
 <p>The <span class="math inline">t</span> distribution has <span class="orange">heavier tails</span> than the standard normal, and gets closer to it as the degrees of freedom increase:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x), <span class="at">from =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">to =</span> <span class="dv">4</span>, <span class="at">ylab =</span> <span class="st">"Density"</span>) <span class="co"># Standard normal</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">3</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>) <span class="co"># t with 3 degrees of freedom</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">30</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>) <span class="co"># t with 30 degrees of freedom</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x), <span class="at">from =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">to =</span> <span class="dv">4</span>, <span class="at">ylab =</span> <span class="st">"Density"</span>) <span class="co"># Standard normal</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">3</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>) <span class="co"># t with 3 degrees of freedom</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x, <span class="at">df =</span> <span class="dv">30</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>) <span class="co"># t with 30 degrees of freedom</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="un_J_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="630"></p>
+<p><img src="un_J_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="630"></p>
 </figure>
 </div>
 </div>
@@ -353,16 +348,16 @@ T = \frac{\bar{Y} - \mu}{S/\sqrt{n}} \sim t_{n-1}.
 \left(\bar{y} - t_{\alpha/2,\,n-1} \frac{s}{\sqrt{n}}, \ \bar{y} + t_{\alpha/2,\,n-1} \frac{s}{\sqrt{n}}\right),
 </span> where <span class="math inline">t_{\alpha/2,\,n-1}</span> is the quantile of the <span class="math inline">t</span> distribution with <span class="math inline">n - 1</span> degrees of freedom and <span class="orange">right-tail</span> probability <span class="math inline">\alpha/2</span>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> Crabs<span class="sc">$</span>width</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>t_quant <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Right-tail probability alpha / 2</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(y) <span class="sc">-</span> t_quant <span class="sc">*</span> <span class="fu">sd</span>(y) <span class="sc">/</span> <span class="fu">sqrt</span>(n), <span class="fu">mean</span>(y) <span class="sc">+</span> t_quant <span class="sc">*</span> <span class="fu">sd</span>(y) <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> Crabs<span class="sc">$</span>width</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>t_quant <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Right-tail probability alpha / 2</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(y) <span class="sc">-</span> t_quant <span class="sc">*</span> <span class="fu">sd</span>(y) <span class="sc">/</span> <span class="fu">sqrt</span>(n), <span class="fu">mean</span>(y) <span class="sc">+</span> t_quant <span class="sc">*</span> <span class="fu">sd</span>(y) <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 25.98234 26.61535</code></pre>
 </div>
 </div>
 <p>The command <code>t.test</code> computes the same interval, reported in its output as <code>95 percent confidence interval</code> (the test about <span class="math inline">\mu = 0</span> in the first lines is not of interest here):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(y, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(y, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
@@ -383,33 +378,33 @@ mean of x
 <h2 class="anchored" data-anchor-id="a-test-for-a-mean">A test for a mean</h2>
 <p>A study compared therapies for <span class="math inline">72</span> young girls suffering from <span class="orange">anorexia</span>. For each girl, the weight (in pounds) is measured before and after the therapy. Let us consider the <span class="math inline">29</span> girls who received the cognitive behavioural therapy (<code>cb</code>):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://stat4ds.rwth-aachen.de/data/Anorexia.dat"</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>Anorexia <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>change <span class="ot">&lt;-</span> Anorexia<span class="sc">$</span>after <span class="sc">-</span> Anorexia<span class="sc">$</span>before <span class="co"># Weight change</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>change_cb <span class="ot">&lt;-</span> change[Anorexia<span class="sc">$</span>therapy <span class="sc">==</span> <span class="st">"cb"</span>] <span class="co"># Cognitive behavioural therapy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://stat4ds.rwth-aachen.de/data/Anorexia.dat"</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Anorexia <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>change <span class="ot">&lt;-</span> Anorexia<span class="sc">$</span>after <span class="sc">-</span> Anorexia<span class="sc">$</span>before <span class="co"># Weight change</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>change_cb <span class="ot">&lt;-</span> change[Anorexia<span class="sc">$</span>therapy <span class="sc">==</span> <span class="st">"cb"</span>] <span class="co"># Cognitive behavioural therapy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Does the therapy change the weight, on average? We test <span class="math inline">H_0: \mu = 0</span> against <span class="math inline">H_a: \mu \neq 0</span>. Under <span class="math inline">H_0</span>, the test statistic <span class="math display">
 t = \frac{\bar{y} - \mu_0}{s / \sqrt{n}}
 </span> has a <span class="math inline">t</span> distribution with <span class="math inline">n - 1</span> degrees of freedom.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>n_cb <span class="ot">&lt;-</span> <span class="fu">length</span>(change_cb)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>t_obs <span class="ot">&lt;-</span> (<span class="fu">mean</span>(change_cb) <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> (<span class="fu">sd</span>(change_cb) <span class="sc">/</span> <span class="fu">sqrt</span>(n_cb)) <span class="co"># Observed test statistic</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>t_obs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>n_cb <span class="ot">&lt;-</span> <span class="fu">length</span>(change_cb)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>t_obs <span class="ot">&lt;-</span> (<span class="fu">mean</span>(change_cb) <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> (<span class="fu">sd</span>(change_cb) <span class="sc">/</span> <span class="fu">sqrt</span>(n_cb)) <span class="co"># Observed test statistic</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>t_obs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.215588</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> n_cb <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Critical value, alpha = 0.05</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> n_cb <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Critical value, alpha = 0.05</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.048407</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_obs), <span class="at">df =</span> n_cb <span class="sc">-</span> <span class="dv">1</span>)) <span class="co"># Two-sided P-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_obs), <span class="at">df =</span> n_cb <span class="sc">-</span> <span class="dv">1</span>)) <span class="co"># Two-sided P-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0350226</code></pre>
 </div>
 </div>
 <p>The observed statistic falls in the <span class="blue">critical region</span>, <span class="math inline">|t| &gt; 2.05</span>, and equivalently the P-value is smaller than <span class="math inline">0.05</span>: we <span class="orange">reject</span> <span class="math inline">H_0</span>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(change_cb, <span class="at">mu =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(change_cb, <span class="at">mu =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
@@ -432,20 +427,20 @@ mean of x
 z = \frac{\hat{\pi} - \pi_0}{\sqrt{\pi_0(1-\pi_0)/n}}
 </span> has approximately a standard normal distribution. We first test <span class="math inline">H_0: \pi = 0.5</span> against <span class="math inline">H_a: \pi \neq 0.5</span>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pi_hat <span class="ot">&lt;-</span> <span class="dv">524</span> <span class="sc">/</span> <span class="dv">1008</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>pi_0 <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (pi_hat <span class="sc">-</span> pi_0) <span class="sc">/</span> <span class="fu">sqrt</span>(pi_0 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pi_0) <span class="sc">/</span> <span class="dv">1008</span>) <span class="co"># Observed test statistic</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pi_hat <span class="ot">&lt;-</span> <span class="dv">524</span> <span class="sc">/</span> <span class="dv">1008</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>pi_0 <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (pi_hat <span class="sc">-</span> pi_0) <span class="sc">/</span> <span class="fu">sqrt</span>(pi_0 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pi_0) <span class="sc">/</span> <span class="dv">1008</span>) <span class="co"># Observed test statistic</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.259882</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(z))) <span class="co"># Two-sided P-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(z))) <span class="co"># Two-sided P-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2077121</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="dv">524</span>, <span class="dv">1008</span>, <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="dv">524</span>, <span class="dv">1008</span>, <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     1-sample proportions test without continuity correction
@@ -462,7 +457,7 @@ sample estimates:
 </div>
 <p>Is <span class="blue">more than half</span> of the population worried? With the one-sided alternative <span class="math inline">H_a: \pi &gt; 0.5</span>, the P-value is the right tail only:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z) <span class="co"># One-sided P-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z) <span class="co"># One-sided P-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.103856</code></pre>
 </div>
@@ -473,18 +468,18 @@ sample estimates:
 <h2 class="anchored" data-anchor-id="comparing-two-groups">Comparing two groups</h2>
 <p>Back to the horseshoe crabs: do females with satellites (<span class="math inline">y = 1</span>) have a larger carapace than those without (<span class="math inline">y = 0</span>)?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(width <span class="sc">~</span> y, <span class="at">data =</span> Crabs, <span class="at">xlab =</span> <span class="st">"Satellites (0 = no, 1 = yes)"</span>, <span class="at">ylab =</span> <span class="st">"Width (cm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(width <span class="sc">~</span> y, <span class="at">data =</span> Crabs, <span class="at">xlab =</span> <span class="st">"Satellites (0 = no, 1 = yes)"</span>, <span class="at">ylab =</span> <span class="st">"Width (cm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="un_J_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="630"></p>
+<p><img src="un_J_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="630"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The command <code>t.test</code> with a <span class="blue">formula</span> compares the means of the two groups, testing <span class="math inline">H_0: \mu_0 = \mu_1</span> and giving a confidence interval for the difference <span class="math inline">\mu_0 - \mu_1</span>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(width <span class="sc">~</span> y, <span class="at">data =</span> Crabs, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(width <span class="sc">~</span> y, <span class="at">data =</span> Crabs, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Two Sample t-test

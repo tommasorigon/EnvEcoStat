@@ -26,13 +26,6 @@ head(cbind(lower, upper)) # The first intervals
 mean(lower < pi_true & pi_true < upper) # Proportion of intervals containing pi
 
 ## -----------------------------------------------------------------------------
-qnorm(c(0.95, 0.975, 0.995)) # Confidence levels 90%, 95%, 99%
-
-## -----------------------------------------------------------------------------
-w_star <- 0.1 # Maximum width
-(qnorm(0.975) / w_star)^2 # Minimum sample size, to be rounded up
-
-## -----------------------------------------------------------------------------
 curve(dnorm(x), from = -4, to = 4, ylab = "Density") # Standard normal
 curve(dt(x, df = 3), add = TRUE, col = "red") # t with 3 degrees of freedom
 curve(dt(x, df = 30), add = TRUE, col = "blue") # t with 30 degrees of freedom
