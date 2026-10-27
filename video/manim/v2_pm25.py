@@ -24,8 +24,9 @@ PANEL = HistPanel(
     origin=[-1.0, -2.45, 0], x_length=7.7,
 )
 
-LEFT_X = -4.45                              # centre of the left column
-SLOTS = [-1.2, -1.95, -2.75, -3.5]         # rows for formulas under the population
+LEFT_X = -4.45                  # centre of the left column
+COL_CORNER = np.array([-6.75, -0.55, 0])   # top-left corner of the formulas column
+COL_BUFF = 0.42
 
 
 def dgamma(x):
@@ -34,8 +35,30 @@ def dgamma(x):
     return exp(K * log(LAM) + (K - 1) * log(x) - LAM * x - lgamma(K))
 
 
-def slot(mob, i):
-    return mob.move_to([LEFT_X, SLOTS[i], 0])
+def column_targets(items):
+    """Centres of the items stacked top-down, left-aligned, under the population."""
+    g = VGroup(*[m.copy() for m in items]).arrange(DOWN, buff=COL_BUFF, aligned_edge=LEFT)
+    g.shift(COL_CORNER - np.array([g.get_left()[0], g.get_top()[1], 0]))
+    return [c.get_center() for c in g]
+
+
+def place_column(items):
+    for m, c in zip(items, column_targets(items)):
+        m.move_to(c)
+    return items
+
+
+def column_anims(old, new):
+    """Fade out what leaves, slide what stays, write what is new."""
+    targets = dict(zip(map(id, new), column_targets(new)))
+    anims = [FadeOut(m) for m in old if m not in new]
+    for m in new:
+        if m in old:
+            anims.append(m.animate.move_to(targets[id(m)]))
+        else:
+            m.move_to(targets[id(m)])
+            anims.append(Write(m))
+    return anims
 
 
 class AirPollution(Scene):
@@ -49,17 +72,18 @@ class AirPollution(Scene):
             axis_config={"include_tip": False, "font_size": 22},
             x_axis_config={"numbers_to_include": [0, 20, 40, 60, 80, 100]},
         )
-        pop.shift(np.array([-6.75, -0.35, 0]) - pop.c2p(0, 0))
+        pop.shift(np.array([-6.75, 0.25, 0]) - pop.c2p(0, 0))
         dens = pop.plot(dgamma, x_range=[0.05, 100], color=MAIN, stroke_width=4)
         y_lab_pop = MathTex("y", font_size=32).next_to(pop.x_axis, RIGHT, buff=0.15)
         mu_line = DashedLine(pop.c2p(MU, 0), pop.c2p(MU, 0.04), color=GREY_B, stroke_width=2)
-        params = slot(MathTex(r"\mu = 28, \qquad \sigma = 12", font_size=36), 0)
+        params = MathTex(r"\mu = 28, \qquad \sigma = 12", font_size=36)
+        place_column([params])
         self.play(Create(pop.x_axis), FadeIn(y_lab_pop))
         self.play(Create(dens), run_time=2)
         self.play(Create(mu_line), Write(params))
         self.wait(4)
 
-        n_lab = MathTex(r"n = 64", font_size=40).move_to([LEFT_X, 3.0, 0])
+        n_lab = MathTex(r"n = 64", font_size=40).move_to([LEFT_X, 3.3, 0])
         self.play(Write(n_lab))
         self.wait(1.5)
 
@@ -72,9 +96,9 @@ class AirPollution(Scene):
         r_num = Integer(0, font_size=34, group_with_commas=False)
         r_row = VGroup(MathTex(r"R =", font_size=34), r_num).arrange(RIGHT, buff=0.15)
         r_row.move_to(ax0.c2p(22.8, 0.16), aligned_edge=UL)
-        ybar_num = DecimalNumber(Y_BAR[0], num_decimal_places=2, font_size=40)
-        readout = slot(VGroup(MathTex(r"\bar{y} =", font_size=40), ybar_num)
-                       .arrange(RIGHT, buff=0.15), 1)
+        ybar_num = DecimalNumber(Y_BAR[0], num_decimal_places=4, font_size=40)
+        readout = VGroup(MathTex(r"\bar{y} =", font_size=40), ybar_num).arrange(RIGHT, buff=0.15)
+        place_column([params, readout])
 
         # the 64 days of a campaign: a rug of dots under the density
         base_y = pop.c2p(0, 0)[1]
@@ -167,36 +191,37 @@ class AirPollution(Scene):
         self.wait(2)
 
         # ---- Mean and standard error of the sample mean ----------------------
-        e_tex = slot(MathTex(r"\mathbb{E}[\bar{Y}] = \mu = 28", font_size=36), 1)
-        s_tex = slot(MathTex(r"\sigma_{\bar{Y}} = \frac{\sigma}{\sqrt{n}} = \frac{12}{\sqrt{64}} = 1.5",
-                             font_size=36), 2)
+        e_tex = MathTex(r"\mathbb{E}[\bar{Y}] = \mu = 28", font_size=36)
+        s_tex = MathTex(r"\sigma_{\bar{Y}} = \frac{\sigma}{\sqrt{n}} = \frac{12}{\sqrt{64}} = 1.5",
+                        font_size=36)
         arr_pop = DoubleArrow(pop.c2p(MU - SIGMA, 0.04), pop.c2p(MU + SIGMA, 0.04), buff=0,
                               color=WHITE, stroke_width=4, tip_length=0.16)
         arr_pop_lab = MathTex(r"\pm\,\sigma", font_size=28).next_to(arr_pop, RIGHT, buff=0.1)
         arr = DoubleArrow(ax.c2p(MU - SE, top * 0.99), ax.c2p(MU + SE, top * 0.99), buff=0,
                           color=WHITE, stroke_width=4, tip_length=0.18)
         arr_lab = MathTex(r"\pm\,\sigma_{\bar{Y}}", font_size=30).next_to(arr, UP, buff=0.08)
-        self.play(FadeOut(days), FadeOut(readout), run_time=1)
+        self.play(FadeOut(days), run_time=1)
         self.remove(days, *days)
-        self.play(Write(e_tex))
+        self.play(*column_anims([params, readout], [params, e_tex]), run_time=1.5)
         self.wait(3)
         self.play(GrowFromCenter(arr_pop), FadeIn(arr_pop_lab))
         self.wait(1.5)
-        self.play(GrowFromCenter(arr), FadeIn(arr_lab), Write(s_tex), run_time=1.5)
+        self.play(GrowFromCenter(arr), FadeIn(arr_lab),
+                  *column_anims([params, e_tex], [params, e_tex, s_tex]), run_time=1.5)
         self.wait(6)
 
         # ---- Central limit theorem (density scale, as freq = FALSE) --------
         axd = P.density_axes(top, 0.1, [0.1, 0.2, 0.3], dec=1)
         self.play(FadeOut(arr), FadeOut(arr_lab), FadeOut(arr_pop), FadeOut(arr_pop_lab),
                   Transform(y_axis, axd.y_axis), Transform(y_lab, P.y_label(axd, "density")),
-                  FadeOut(e_tex), s_tex.animate.move_to([LEFT_X, SLOTS[1], 0]),
                   run_time=1.5)
         self.wait(2.5)
-        clt = slot(MathTex(r"\bar{Y} \;\dot{\sim}\; \mathrm{N}\!\left(\mu,\ \frac{\sigma^2}{n}\right)",
-                           font_size=38), 2)
+        clt = MathTex(r"\bar{Y} \;\dot{\sim}\; \mathrm{N}\!\left(\mu,\ \frac{\sigma^2}{n}\right)",
+                      font_size=38)
         g = axd.plot(lambda x: normal_density(x, MU, SE), x_range=[22, 34], color=WHITE,
                      stroke_width=4)
-        self.play(Write(clt), Create(g), run_time=2.5)
+        self.play(*column_anims([params, e_tex, s_tex], [params, s_tex, clt]), Create(g),
+                  run_time=2.5)
         self.wait(4)
         self.play(Indicate(dens, color=MAIN, scale_factor=1.05), run_time=1.5)
         self.wait(4)
@@ -204,23 +229,19 @@ class AirPollution(Scene):
         # ---- P(Ybar > 31): central limit theorem and simulation --------------
         line = DashedLine(axd.c2p(31, 0), axd.c2p(31, top / P.width * 1.05), color=HIGHLIGHT)
         line_lab = MathTex(r"31", font_size=32, color=HIGHLIGHT).next_to(line, UP, buff=0.1)
-        self.play(
-            FadeOut(s_tex),
-            clt.animate.move_to([LEFT_X, SLOTS[1], 0]),
-            Create(line), FadeIn(line_lab), run_time=1.5,
-        )
+        self.play(Create(line), FadeIn(line_lab), run_time=1.5)
         self.wait(2)
 
         p_clt = 0.5 * (1 - erf(2 / sqrt(2)))  # 1 - pnorm(2) = 0.02275
         area = axd.get_area(g, x_range=[31, 34], color=WHITE, opacity=0.45)
-        prob = slot(MathTex(r"\mathbb{P}(\bar{Y} > 31) \approx 1 - \Phi(2) \approx " + f"{p_clt:.4f}",
-                            font_size=34), 2)
-        self.play(FadeIn(area), Write(prob), run_time=2)
+        prob = MathTex(r"\mathbb{P}(\bar{Y} > 31) \approx 1 - \Phi(2) \approx " + f"{p_clt:.4f}",
+                       font_size=34)
+        self.play(FadeIn(area), *column_anims([params, s_tex, clt], [clt, prob]), run_time=2)
         self.wait(5)
 
         n_tail = sum(v > 31 for v in Y_BAR)  # 140
         self.play(P.tail(hist, 31).animate.set_fill(HIGHLIGHT, opacity=0.85), run_time=1.2)
-        sim = slot(MathTex(r"\frac{\#\{\bar{y} > 31\}}{R} = \frac{" + str(n_tail) + "}{" + str(P.R)
-                           + r"} = " + f"{n_tail / P.R:.3f}", font_size=30, color=HIGHLIGHT), 3)
-        self.play(Write(sim))
+        sim = MathTex(r"\frac{\#\{\bar{y} > 31\}}{R} = \frac{" + str(n_tail) + "}{" + str(P.R)
+                      + r"} = " + f"{n_tail / P.R:.3f}", font_size=34, color=HIGHLIGHT)
+        self.play(*column_anims([clt, prob], [clt, prob, sim]))
         self.wait(8)
