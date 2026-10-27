@@ -151,6 +151,8 @@ mean(lower < pi_true & pi_true < upper) # Proportion of intervals containing pi
 About $95\%$ of the intervals contain $\pi$. The confidence level is a property
 of the [procedure]{.blue}: a single interval either contains $\pi$ or not.
 
+{{< video video/un_J_confidence.mp4 title="What does 95% confidence mean?" >}}
+
 ## Width of the interval and sample size
 
 The [width]{.orange} of the interval increases with the confidence level, through
