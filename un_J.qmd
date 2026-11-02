@@ -272,6 +272,9 @@ z
 prop.test(524, 1008, p = 0.5, correct = FALSE)
 ```
 
+The command `prop.test` reports `X-squared`, which is simply $z^2$ (check that
+$1.26^2 = 1.59$): the P-value is the same.
+
 Is [more than half]{.blue} of the population worried? With the one-sided
 alternative $H_a: \pi > 0.5$, the P-value is the right tail only:
 
@@ -293,8 +296,10 @@ boxplot(width ~ y, data = Crabs, xlab = "Satellites (0 = no, 1 = yes)", ylab = "
 ```
 
 The command `t.test` with a [formula]{.blue} compares the means of the two
-groups, testing $H_0: \mu_0 = \mu_1$ and giving a confidence interval for the
-difference $\mu_0 - \mu_1$:
+groups. Let $\mu_\text{no}$ and $\mu_\text{yes}$ be the mean widths of the females
+without and with satellites: the command tests
+$H_0: \mu_\text{no} = \mu_\text{yes}$ and gives a confidence interval for the
+difference $\mu_\text{no} - \mu_\text{yes}$:
 
 ```{r}
 t.test(width ~ y, data = Crabs, var.equal = TRUE)

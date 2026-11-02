@@ -234,19 +234,18 @@ $$
 This definition is [not appropriate]{.blue} if the [intervals]{.orange} have **different
 sizes**.
 
-In that case, the heights of the rectangles must be [proportional]{.blue} to the
-[density]{.orange} of the observations in the individual classes.
-
-To sum up, we will build the histograms setting
+In that case, we build the histogram using the [density]{.orange}, that is
+setting
 
 $$
 \begin{aligned}
 (\text{base of the rectangles}) &= (\text{length of the intervals}) \\
-(\text{height of the rectangles}) &= \lambda \times (\text{density}) = \lambda \times \frac{(\text{absolute frequencies}) }{(\text{length of the intervals})} 
+(\text{height of the rectangles}) &= \frac{(\text{relative frequencies})}{(\text{length of the intervals})}
 \end{aligned}
 $$
 
-where one typically sets $\lambda = 1/n$.
+In this way, the [area]{.blue} of each rectangle is the relative frequency of
+its class, and the total area is equal to $1$.
 
 ## Histograms II
 
@@ -510,14 +509,6 @@ first quartile, the third quartile and the ninth decile, we can use the command
 quantile(dde_preterm, probs = c(0.1, 0.25, 0.75, 0.9))
 quantile(dde_non_preterm, probs = c(0.1, 0.25, 0.75, 0.9))
 ```
-
-::: callout-note
-#### Note
-
-By default, `quantile` uses a slightly different definition, which interpolates
-between consecutive observations. The definition above is obtained with the
-option `type = 1`; for large samples the differences are negligible.
-:::
 
 <!-- ## Location indices: the quantiles II -->
 

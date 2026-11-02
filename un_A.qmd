@@ -210,12 +210,6 @@ cos(x)
 tan(x)
 ```
 
-```{r}
-asin(x) # Inverse trigonometric functions
-acos(x)
-atan(x)
-```
-
 ::: callout-note
 #### Note
 
@@ -530,30 +524,21 @@ x + y # Equivalent to: c(x, x) + y
 
 ## Matrices
 
-A [matrix]{.blue} ${\bf A}$ is a collection of elements $a_{ij}$ for
-$i=1,\dots,n$ and $j=1,\dots,m$.
-
-For example, the square matrix of dimension $2 \times 2$
+A [matrix]{.blue} ${\bf A}$ is a table of numbers $a_{ij}$, where $i$ is the
+row and $j$ is the column. For example, the matrix
 
 $${\bf A} = \begin{pmatrix}
 5 & 2\\
 1 & 4 \\
-\end{pmatrix},$$ can be defined in **R** through the command `matrix` as
-follows:
+\end{pmatrix},$$ can be defined in **R** through the command `matrix`, listing
+the elements column by column:
 
 ```{r}
 A <- matrix(c(5, 1, 2, 4), nrow = 2, ncol = 2)
 A
 ```
 
-It is also possible to list the elements [row by row]{.orange}
-
-```{r}
-# Equivalent definition
-A <- matrix(c(5, 2, 1, 4), nrow = 2, ncol = 2, byrow = TRUE)
-```
-
-## Operations on matrices I
+## Operations on matrices
 
 It is possible to [select the elements]{.blue} of a matrix in a way analogous
 to what was done with vectors.
@@ -568,44 +553,18 @@ Some [basic commands]{.orange} to manipulate matrices are the following
 
 ```{r}
 dim(A) # Returns the dimension of the matrix
-a <- c(A) # Converts the matrix into a vector
-a
-```
-
-```{r}
 diag(A) # Returns the diagonal of the matrix
-sum(A) # Sum of all the elements of A
 ```
 
-## Operations on matrices II
-
-As for vectors, elementary operations (sum, product, `log`, `exp`, etc.)
-are performed [element by element]{.blue}.
-
-```{r}
-exp(A)
-```
-
-Let ${\bf A}$ and ${\bf B}$ be two matrices having the same number of
-columns and let us define
-
-$$
-{\bf C} = \begin{pmatrix}{\bf A} \\ {\bf B} \end{pmatrix}.
-$$
+The commands `cbind` and `rbind` put vectors (or matrices) side by side, as
+[columns]{.blue} or as [rows]{.orange}, respectively. We will use them to
+collect results into a table.
 
 ```{r}
-B <- A # I create a matrix B identical to A, for simplicity
-C <- rbind(A, B)
-C
-```
-
-Analogously, let ${\bf A}$ and ${\bf B}$ be two matrices having the same
-number of rows and let us define
-${\bf C} = \begin{pmatrix}{\bf A} & {\bf B} \end{pmatrix}$.
-
-```{r}
-C <- cbind(A, B)
-C
+x <- c(1, 2, 3)
+y <- c(10, 20, 30)
+cbind(x, y) # x and y as columns
+rbind(x, y) # x and y as rows
 ```
 
 ## References

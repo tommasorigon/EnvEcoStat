@@ -69,21 +69,15 @@ rm(clean, squeeze, full)
 
 ## Random variables (recap)
 
-The [formal definition]{.orange} of a [random variable]{.blue} involves concepts from
-measure theory ($\sigma$-algebras, probability measures, and so on), which we
-will leave in the background.
-
-For the purposes of this course, it is enough to recall that a real-valued
-random variable $Y$ is uniquely identified by its **cumulative distribution
-function**, that is $$
-F(y) := \mathbb{P}(Y \le y).
+A [random variable]{.blue} $Y$ is a quantity whose value is not known in
+advance, such as the number of successes in $10$ trials or tomorrow's PM2.5
+concentration. It is described by its **cumulative distribution function** $$
+F(y) = \mathbb{P}(Y \le y).
 $$
 
-If the function $F(y)$ is piecewise constant, we say that $Y$ is a [discrete]{.orange}
-random variable.
-
-If the function $F(y)$ is continuous, we say that $Y$ is a [continuous]{.blue} random
-variable.
+-   $Y$ is [discrete]{.orange} if it takes a list of separate values, typically
+    $0, 1, 2, \dots$
+-   $Y$ is [continuous]{.blue} if it can take any value in an interval.
 
 ::: callout-tip
 #### Hint
@@ -92,43 +86,15 @@ In case you do not remember the definition of a random variable, it is a good
 idea to go back to the textbook and to your notes on probability.
 :::
 
-## Discrete random variables I (recap)
+## Discrete random variables (recap)
 
-As anticipated, a random variable is said to be discrete if $F(y)$ is piecewise
-constant.
+The [probability mass function]{.blue} of a discrete random variable is $$
+f(y) = \mathbb{P}(Y = y),
+$$ with $f(y) \ge 0$ and probabilities summing to $1$.
 
-More precisely, we say that $Y$ is a discrete random variable if there exists a
-set of [countable cardinality]{.orange} $\mathcal{S} \subseteq \mathbb{R}$, called the
-[support]{.blue}, such that $$
-\mathbb{P}(Y \in \mathcal{S}) = \sum_{y \in \mathcal{S}} \mathbb{P}(Y = y) = 1.
-$$
-
-In practice, we will often have that the support
-$\mathcal{S} \subseteq \{0, 1, 2, \dots\}$ is a subset of the natural numbers.
-Moreover, the support $\mathcal{S}$ can be [finite]{.orange}.
-
-Intuitively, we say that the random variable $Y$ can only take the values in the
-support $\mathcal{S}$.
-
-## Discrete random variables II (recap)
-
-The [probability mass function]{.blue} of a discrete random variable is equal to $$
-f(y) = \mathbb{P}(Y = y).
-$$
-
-The function $f(y)$ [identifies]{.orange} a discrete random variable.
-
-Therefore, of course, it holds that $f(y) \ge 0$ and that
-$\sum_{y \in \mathcal{S}} f(y) = 1$.
-
-The [expected value]{.blue} of a random variable is moreover defined, if it exists,
-as $$
-\mathbb{E}[Y] = \sum_{y \in \mathcal{S}} y \: f(y). 
-$$
-
-More generally, the expected value of a transformation $g(Y)$, if it exists, is
-equal to $$
-\mathbb{E}[g(Y)] = \sum_{y \in \mathcal{S}} g(y) \: f(y).
+The [expected value]{.orange} of $Y$, and more generally of a transformation
+$g(Y)$, is $$
+\mathbb{E}[Y] = \sum_y y \, f(y), \qquad \mathbb{E}[g(Y)] = \sum_y g(y) \, f(y).
 $$
 
 ## Binomial distribution (probability mass function)
@@ -213,16 +179,11 @@ distribution is finite.
 ## Binomial distribution (quantiles)
 
 The [$p$-quantile]{.orange} of a discrete distribution is the smallest value $k$ such
-that $\mathbb{P}(Y \le k) \ge p$. Hence: $$
-\mathcal{Q}(p) = \inf\{y \in \mathbb{R} : F(y) \ge p \}.
-$$
+that $\mathbb{P}(Y \le k) \ge p$.
 
-Supposing that $Y \sim \text{binom}(10, 0.6)$, the [first quartile]{.blue} for example
-is
-
-$$
-\mathcal{Q}(0.25) = \inf\{y \in \mathbb{R} : F(y) \ge 0.25 \} = 5.
-$$
+Supposing that $Y \sim \text{binom}(10, 0.6)$, the [first quartile]{.blue} is
+$\mathcal{Q}(0.25) = 5$, because $5$ is the smallest value $k$ such that
+$\mathbb{P}(Y \le k) \ge 0.25$.
 
 In **R** we can obtain these results as follows:
 
@@ -355,9 +316,9 @@ probability distributions. Let $Y$ be a random variable.
     a specified point, that is it computes $F(y) = \mathbb{P}(Y \le y)$.
 
 -   `qdist` (where the initial `q` stands for [quantile]{.blue}), which represents
-    the [quantile function]{.orange}, that is: $$
-    \mathcal{Q}(p) = \inf\{y \in \mathbb{R} : F(y) \ge p\}, \qquad p \in (0,1).
-    $$
+    the [quantile function]{.orange}: it returns the value $q$ such that
+    $\mathbb{P}(Y \le q) = p$ (for discrete variables, the smallest $k$ such
+    that $\mathbb{P}(Y \le k) \ge p$).
 
 -   `rdist` (where the initial `r` stands for [random]{.blue}), which makes it
     possible to generate [pseudo-random]{.orange} numbers, illustrated below.

@@ -455,6 +455,7 @@ sample estimates:
 0.5198413 </code></pre>
 </div>
 </div>
+<p>The command <code>prop.test</code> reports <code>X-squared</code>, which is simply <span class="math inline">z^2</span> (check that <span class="math inline">1.26^2 = 1.59</span>): the P-value is the same.</p>
 <p>Is <span class="blue">more than half</span> of the population worried? With the one-sided alternative <span class="math inline">H_a: \pi &gt; 0.5</span>, the P-value is the right tail only:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z) <span class="co"># One-sided P-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -477,7 +478,7 @@ sample estimates:
 </div>
 </div>
 </div>
-<p>The command <code>t.test</code> with a <span class="blue">formula</span> compares the means of the two groups, testing <span class="math inline">H_0: \mu_0 = \mu_1</span> and giving a confidence interval for the difference <span class="math inline">\mu_0 - \mu_1</span>:</p>
+<p>The command <code>t.test</code> with a <span class="blue">formula</span> compares the means of the two groups. Let <span class="math inline">\mu_\text{no}</span> and <span class="math inline">\mu_\text{yes}</span> be the mean widths of the females without and with satellites: the command tests <span class="math inline">H_0: \mu_\text{no} = \mu_\text{yes}</span> and gives a confidence interval for the difference <span class="math inline">\mu_\text{no} - \mu_\text{yes}</span>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(width <span class="sc">~</span> y, <span class="at">data =</span> Crabs, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">

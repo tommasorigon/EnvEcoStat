@@ -390,15 +390,14 @@ window.Quarto = {
 \end{aligned}
 </span></p>
 <p>This definition is <span class="blue">not appropriate</span> if the <span class="orange">intervals</span> have <strong>different sizes</strong>.</p>
-<p>In that case, the heights of the rectangles must be <span class="blue">proportional</span> to the <span class="orange">density</span> of the observations in the individual classes.</p>
-<p>To sum up, we will build the histograms setting</p>
+<p>In that case, we build the histogram using the <span class="orange">density</span>, that is setting</p>
 <p><span class="math display">
 \begin{aligned}
 (\text{base of the rectangles}) &amp;= (\text{length of the intervals}) \\
-(\text{height of the rectangles}) &amp;= \lambda \times (\text{density}) = \lambda \times \frac{(\text{absolute frequencies}) }{(\text{length of the intervals})}
+(\text{height of the rectangles}) &amp;= \frac{(\text{relative frequencies})}{(\text{length of the intervals})}
 \end{aligned}
 </span></p>
-<p>where one typically sets <span class="math inline">\lambda = 1/n</span>.</p>
+<p>In this way, the <span class="blue">area</span> of each rectangle is the relative frequency of its class, and the total area is equal to <span class="math inline">1</span>.</p>
 </section>
 <section id="histograms-ii" class="level2">
 <h2 class="anchored" data-anchor-id="histograms-ii">Histograms II</h2>
@@ -678,19 +677,6 @@ Call: ecdf(dde_non_preterm)
 <div class="cell-output cell-output-stdout">
 <pre><code>   10%    25%    75%    90% 
 12.230 16.735 35.400 50.720 </code></pre>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>By default, <code>quantile</code> uses a slightly different definition, which interpolates between consecutive observations. The definition above is obtained with the option <code>type = 1</code>; for large samples the differences are negligible.</p>
 </div>
 </div>
 <!-- ## Location indices: the quantiles II -->

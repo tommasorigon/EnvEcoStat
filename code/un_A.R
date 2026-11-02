@@ -44,11 +44,6 @@ cos(x)
 tan(x)
 
 ## -----------------------------------------------------------------------------
-asin(x) # Inverse trigonometric functions
-acos(x)
-atan(x)
-
-## -----------------------------------------------------------------------------
 x <- 1 / 2 # Real numbers
 y <- 1 / 3
 n <- 5 # Natural numbers
@@ -179,31 +174,16 @@ A <- matrix(c(5, 1, 2, 4), nrow = 2, ncol = 2)
 A
 
 ## -----------------------------------------------------------------------------
-# Equivalent definition
-A <- matrix(c(5, 2, 1, 4), nrow = 2, ncol = 2, byrow = TRUE)
-
-## -----------------------------------------------------------------------------
 A[1, 2] # Extraction of the element in position (1,2)
 A[, 2] # Extraction of the second column
 A[1, ] # Extraction of the first row
 
 ## -----------------------------------------------------------------------------
 dim(A) # Returns the dimension of the matrix
-a <- c(A) # Converts the matrix into a vector
-a
-
-## -----------------------------------------------------------------------------
 diag(A) # Returns the diagonal of the matrix
-sum(A) # Sum of all the elements of A
 
 ## -----------------------------------------------------------------------------
-exp(A)
-
-## -----------------------------------------------------------------------------
-B <- A # I create a matrix B identical to A, for simplicity
-C <- rbind(A, B)
-C
-
-## -----------------------------------------------------------------------------
-C <- cbind(A, B)
-C
+x <- c(1, 2, 3)
+y <- c(10, 20, 30)
+cbind(x, y) # x and y as columns
+rbind(x, y) # x and y as rows

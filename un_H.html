@@ -135,8 +135,7 @@ window.Quarto = {
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a></li>
   <li><a href="#topics-covered" id="toc-topics-covered" class="nav-link" data-scroll-target="#topics-covered">Topics covered</a></li>
   <li><a href="#random-variables-recap" id="toc-random-variables-recap" class="nav-link" data-scroll-target="#random-variables-recap">Random variables (recap)</a></li>
-  <li><a href="#discrete-random-variables-i-recap" id="toc-discrete-random-variables-i-recap" class="nav-link" data-scroll-target="#discrete-random-variables-i-recap">Discrete random variables I (recap)</a></li>
-  <li><a href="#discrete-random-variables-ii-recap" id="toc-discrete-random-variables-ii-recap" class="nav-link" data-scroll-target="#discrete-random-variables-ii-recap">Discrete random variables II (recap)</a></li>
+  <li><a href="#discrete-random-variables-recap" id="toc-discrete-random-variables-recap" class="nav-link" data-scroll-target="#discrete-random-variables-recap">Discrete random variables (recap)</a></li>
   <li><a href="#binomial-distribution-probability-mass-function" id="toc-binomial-distribution-probability-mass-function" class="nav-link" data-scroll-target="#binomial-distribution-probability-mass-function">Binomial distribution (probability mass function)</a></li>
   <li><a href="#binomial-distribution-cumulative-distribution-function" id="toc-binomial-distribution-cumulative-distribution-function" class="nav-link" data-scroll-target="#binomial-distribution-cumulative-distribution-function">Binomial distribution (cumulative distribution function)</a></li>
   <li><a href="#binomial-distribution-expected-value" id="toc-binomial-distribution-expected-value" class="nav-link" data-scroll-target="#binomial-distribution-expected-value">Binomial distribution (expected value)</a></li>
@@ -206,12 +205,13 @@ window.Quarto = {
 </section>
 <section id="random-variables-recap" class="level2">
 <h2 class="anchored" data-anchor-id="random-variables-recap">Random variables (recap)</h2>
-<p>The <span class="orange">formal definition</span> of a <span class="blue">random variable</span> involves concepts from measure theory (<span class="math inline">\sigma</span>-algebras, probability measures, and so on), which we will leave in the background.</p>
-<p>For the purposes of this course, it is enough to recall that a real-valued random variable <span class="math inline">Y</span> is uniquely identified by its <strong>cumulative distribution function</strong>, that is <span class="math display">
-F(y) := \mathbb{P}(Y \le y).
+<p>A <span class="blue">random variable</span> <span class="math inline">Y</span> is a quantity whose value is not known in advance, such as the number of successes in <span class="math inline">10</span> trials or tomorrow’s PM2.5 concentration. It is described by its <strong>cumulative distribution function</strong> <span class="math display">
+F(y) = \mathbb{P}(Y \le y).
 </span></p>
-<p>If the function <span class="math inline">F(y)</span> is piecewise constant, we say that <span class="math inline">Y</span> is a <span class="orange">discrete</span> random variable.</p>
-<p>If the function <span class="math inline">F(y)</span> is continuous, we say that <span class="math inline">Y</span> is a <span class="blue">continuous</span> random variable.</p>
+<ul>
+<li><span class="math inline">Y</span> is <span class="orange">discrete</span> if it takes a list of separate values, typically <span class="math inline">0, 1, 2, \dots</span></li>
+<li><span class="math inline">Y</span> is <span class="blue">continuous</span> if it can take any value in an interval.</li>
+</ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -226,27 +226,13 @@ F(y) := \mathbb{P}(Y \le y).
 </div>
 </div>
 </section>
-<section id="discrete-random-variables-i-recap" class="level2">
-<h2 class="anchored" data-anchor-id="discrete-random-variables-i-recap">Discrete random variables I (recap)</h2>
-<p>As anticipated, a random variable is said to be discrete if <span class="math inline">F(y)</span> is piecewise constant.</p>
-<p>More precisely, we say that <span class="math inline">Y</span> is a discrete random variable if there exists a set of <span class="orange">countable cardinality</span> <span class="math inline">\mathcal{S} \subseteq \mathbb{R}</span>, called the <span class="blue">support</span>, such that <span class="math display">
-\mathbb{P}(Y \in \mathcal{S}) = \sum_{y \in \mathcal{S}} \mathbb{P}(Y = y) = 1.
-</span></p>
-<p>In practice, we will often have that the support <span class="math inline">\mathcal{S} \subseteq \{0, 1, 2, \dots\}</span> is a subset of the natural numbers. Moreover, the support <span class="math inline">\mathcal{S}</span> can be <span class="orange">finite</span>.</p>
-<p>Intuitively, we say that the random variable <span class="math inline">Y</span> can only take the values in the support <span class="math inline">\mathcal{S}</span>.</p>
-</section>
-<section id="discrete-random-variables-ii-recap" class="level2">
-<h2 class="anchored" data-anchor-id="discrete-random-variables-ii-recap">Discrete random variables II (recap)</h2>
-<p>The <span class="blue">probability mass function</span> of a discrete random variable is equal to <span class="math display">
-f(y) = \mathbb{P}(Y = y).
-</span></p>
-<p>The function <span class="math inline">f(y)</span> <span class="orange">identifies</span> a discrete random variable.</p>
-<p>Therefore, of course, it holds that <span class="math inline">f(y) \ge 0</span> and that <span class="math inline">\sum_{y \in \mathcal{S}} f(y) = 1</span>.</p>
-<p>The <span class="blue">expected value</span> of a random variable is moreover defined, if it exists, as <span class="math display">
-\mathbb{E}[Y] = \sum_{y \in \mathcal{S}} y \: f(y).
-</span></p>
-<p>More generally, the expected value of a transformation <span class="math inline">g(Y)</span>, if it exists, is equal to <span class="math display">
-\mathbb{E}[g(Y)] = \sum_{y \in \mathcal{S}} g(y) \: f(y).
+<section id="discrete-random-variables-recap" class="level2">
+<h2 class="anchored" data-anchor-id="discrete-random-variables-recap">Discrete random variables (recap)</h2>
+<p>The <span class="blue">probability mass function</span> of a discrete random variable is <span class="math display">
+f(y) = \mathbb{P}(Y = y),
+</span> with <span class="math inline">f(y) \ge 0</span> and probabilities summing to <span class="math inline">1</span>.</p>
+<p>The <span class="orange">expected value</span> of <span class="math inline">Y</span>, and more generally of a transformation <span class="math inline">g(Y)</span>, is <span class="math display">
+\mathbb{E}[Y] = \sum_y y \, f(y), \qquad \mathbb{E}[g(Y)] = \sum_y g(y) \, f(y).
 </span></p>
 </section>
 <section id="binomial-distribution-probability-mass-function" class="level2">
@@ -344,13 +330,8 @@ F(y) =   \mathbb{P}(Y \le y) = \sum_{k=0}^y\mathbb{P}(Y = k), \qquad Y \sim \tex
 </section>
 <section id="binomial-distribution-quantiles" class="level2">
 <h2 class="anchored" data-anchor-id="binomial-distribution-quantiles">Binomial distribution (quantiles)</h2>
-<p>The <span class="orange"><span class="math inline">p</span>-quantile</span> of a discrete distribution is the smallest value <span class="math inline">k</span> such that <span class="math inline">\mathbb{P}(Y \le k) \ge p</span>. Hence: <span class="math display">
-\mathcal{Q}(p) = \inf\{y \in \mathbb{R} : F(y) \ge p \}.
-</span></p>
-<p>Supposing that <span class="math inline">Y \sim \text{binom}(10, 0.6)</span>, the <span class="blue">first quartile</span> for example is</p>
-<p><span class="math display">
-\mathcal{Q}(0.25) = \inf\{y \in \mathbb{R} : F(y) \ge 0.25 \} = 5.
-</span></p>
+<p>The <span class="orange"><span class="math inline">p</span>-quantile</span> of a discrete distribution is the smallest value <span class="math inline">k</span> such that <span class="math inline">\mathbb{P}(Y \le k) \ge p</span>.</p>
+<p>Supposing that <span class="math inline">Y \sim \text{binom}(10, 0.6)</span>, the <span class="blue">first quartile</span> is <span class="math inline">\mathcal{Q}(0.25) = 5</span>, because <span class="math inline">5</span> is the smallest value <span class="math inline">k</span> such that <span class="math inline">\mathbb{P}(Y \le k) \ge 0.25</span>.</p>
 <p>In <strong>R</strong> we can obtain these results as follows:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qbinom</span>(<span class="fl">0.25</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.6</span>) <span class="co"># First quartile</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -493,9 +474,7 @@ F(\mathcal{Q}(0.75)) = F(F^{-1}(0.75))= 0.75.
 <ul>
 <li><p><code>ddist</code> (where the initial <code>d</code> stands for <span class="blue">density</span>). Computes the <span class="orange">density</span> <span class="math inline">f(y)</span> of a continuous variable <span class="math inline">Y</span>, or the probability mass function <span class="math inline">f(y) = \mathbb{P}(Y = y)</span> in case <span class="math inline">Y</span> is discrete.</p></li>
 <li><p><code>pdist</code> (where the initial <code>p</code> stands for <span class="blue">probability</span>), which makes it possible to compute the value of the <span class="orange">cumulative distribution function</span> at a specified point, that is it computes <span class="math inline">F(y) = \mathbb{P}(Y \le y)</span>.</p></li>
-<li><p><code>qdist</code> (where the initial <code>q</code> stands for <span class="blue">quantile</span>), which represents the <span class="orange">quantile function</span>, that is: <span class="math display">
-\mathcal{Q}(p) = \inf\{y \in \mathbb{R} : F(y) \ge p\}, \qquad p \in (0,1).
-</span></p></li>
+<li><p><code>qdist</code> (where the initial <code>q</code> stands for <span class="blue">quantile</span>), which represents the <span class="orange">quantile function</span>: it returns the value <span class="math inline">q</span> such that <span class="math inline">\mathbb{P}(Y \le q) = p</span> (for discrete variables, the smallest <span class="math inline">k</span> such that <span class="math inline">\mathbb{P}(Y \le k) \ge p</span>).</p></li>
 <li><p><code>rdist</code> (where the initial <code>r</code> stands for <span class="blue">random</span>), which makes it possible to generate <span class="orange">pseudo-random</span> numbers, illustrated below.</p></li>
 </ul>
 </section>
