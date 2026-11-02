@@ -251,7 +251,7 @@ A random variable is said to be [continuous]{.orange} if $F(y)$ is continuous.
 
 The [density]{.blue} function of a continuous random variable is a function
 $f(y) \ge 0$ such that $$
-\mathbb{P}(a < Y < b) = \int_a^b f(y) \mathrm{d} y, \qquad f(y) = \frac{\partial}{\partial y} F(y). 
+\mathbb{P}(a < Y < b) = \int_a^b f(y) \mathrm{d} y, \qquad f(y) = \frac{\mathrm{d}}{\mathrm{d} y} F(y). 
 $$
 
 Therefore, by definition: $$
@@ -279,7 +279,7 @@ mu <- 3 # Mean
 sigma2 <- 10 # Variance
 
 1 / sqrt(2 * pi * sigma2) * exp(-1 / (2 * sigma2) * (x - mu)^2)
-dnorm(x, mean = 3, sd = sqrt(sigma2))
+dnorm(x, mean = mu, sd = sqrt(sigma2))
 ```
 
 ::: callout-note
@@ -391,6 +391,7 @@ Y_i \overset{\text{iid}}{\sim} \text{N}(0,1), \qquad i=1,\dots,5
 $$ we can use in **R** the following command:
 
 ```{r}
+set.seed(123) # Fixes the "seed", see below
 R <- 5
 rnorm(R, mean = 0, sd = 1)
 ```
@@ -635,7 +636,7 @@ If we only specify the following command:
 sample(dice)
 ```
 
-we obtain a random [permutation]{.blue} of the elements of `x`.
+we obtain a random [permutation]{.blue} of the elements of `dice`.
 
 Indeed, the default values are `replace = FALSE` and `size = length(x)`, that is
 a sampling [without replacement]{.orange} of all the elements of the urn.

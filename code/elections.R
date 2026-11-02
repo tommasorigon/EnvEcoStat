@@ -6,7 +6,7 @@
 rm(list = ls())
 
 # 1 --------------------------------------------------------------------
-load("../data/elections.RData")
+load("data/elections.RData")
 # Alternatively, reading the file directly from the website of the course:
 # load(url("https://tommasorigon.github.io/EnvEcoStat/data/elections.RData"))
 

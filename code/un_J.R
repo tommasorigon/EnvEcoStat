@@ -31,12 +31,12 @@ curve(dt(x, df = 3), add = TRUE, col = "red") # t with 3 degrees of freedom
 curve(dt(x, df = 30), add = TRUE, col = "blue") # t with 30 degrees of freedom
 
 ## -----------------------------------------------------------------------------
-y <- Crabs$width
-t_quant <- qt(1 - alpha / 2, df = n - 1) # Right-tail probability alpha / 2
-c(mean(y) - t_quant * sd(y) / sqrt(n), mean(y) + t_quant * sd(y) / sqrt(n))
+width <- Crabs$width # Carapace width
+t_quant <- qt(1 - alpha / 2, df = n - 1) # Quantile of order 1 - alpha / 2
+c(mean(width) - t_quant * sd(width) / sqrt(n), mean(width) + t_quant * sd(width) / sqrt(n))
 
 ## -----------------------------------------------------------------------------
-t.test(y, conf.level = 0.95)
+t.test(width, conf.level = 0.95)
 
 ## -----------------------------------------------------------------------------
 path <- "https://stat4ds.rwth-aachen.de/data/Anorexia.dat"

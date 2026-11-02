@@ -78,7 +78,7 @@ methods, called A and B, for the [measurement of haemoglobin]{.orange}
 in blood.
 
 [Artificial blood]{.blue} containing 15 grams of haemoglobin every
-$100 \text{cm}^3$ has been created in the laboratory.
+$100\,\text{cm}^3$ has been created in the laboratory.
 
 A total of $n = 360$ samples were drawn from the compound.
 
@@ -185,8 +185,8 @@ slightly [different quantity]{.orange}, that is $$
 s^2 = \frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2,
 $$ that is the [unbiased estimator]{.blue} of the variance.
 
-[Not clear why?]{.orange} It will be addressed in the part of the course
-devoted to statistical inference.
+[Not clear why?]{.orange} It will be addressed in [Unit I](un_I.html), devoted to
+sampling distributions and estimators.
 
 ## The variance III
 

@@ -60,7 +60,7 @@ par(mfrow = c(1, 2)) # Splits the plot into two parts
 # First plot, absolute frequencies
 hist(dde_non_preterm,
   freq = TRUE,
-  breaks = 10, # We use 10 sub-intervals
+  breaks = 10, # About 10 sub-intervals (R treats it as a suggestion)
   # From here on we are only adding aesthetic details
   main = "Non-preterm births",
   xlab = "DDE",
@@ -70,7 +70,7 @@ hist(dde_non_preterm,
 # Second plot, density
 hist(dde_non_preterm,
   freq = FALSE, # Frequencies are NOT used
-  breaks = 10, # We use 10 sub-intervals
+  breaks = 10, # About 10 sub-intervals (R treats it as a suggestion)
   # From here on we are only adding aesthetic details
   main = "Non-preterm births",
   xlab = "DDE",
@@ -138,7 +138,7 @@ pos_med_2 <- n / 2 + 1 # Element in position n/2+1
 
 (x_sort[pos_med_1] + x_sort[pos_med_2]) / 2 # Median of x
 
-median(x) # Of course, the result must coincide with:
+median(x) # Of course, the result must coincide
 
 ## -----------------------------------------------------------------------------
 quantile(dde_preterm, probs = c(0.1, 0.25, 0.75, 0.9))

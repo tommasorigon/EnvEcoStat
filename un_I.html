@@ -247,7 +247,7 @@ window.Quarto = {
 <p>Each survey gives a different value: before collecting the data, <span class="math inline">\hat{\pi}</span> is a <span class="orange">random variable</span>. Its distribution is called <span class="blue">sampling distribution</span>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pi_hat, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">main =</span> <span class="st">"Sample proportions (n = 1008)"</span>, <span class="at">xlab =</span> <span class="st">"Sample proportion"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.52</span>, <span class="at">col =</span> <span class="st">"red"</span>) <span class="co"># Observed sample proportion</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">524</span> <span class="sc">/</span> <span class="dv">1008</span>, <span class="at">col =</span> <span class="st">"red"</span>) <span class="co"># Observed sample proportion</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -258,9 +258,9 @@ window.Quarto = {
 </div>
 <p>How often does a survey give <span class="math inline">52\%</span> of yes or more, if <span class="math inline">\pi = 0.5</span>?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pi_hat <span class="sc">&gt;=</span> <span class="fl">0.52</span>) <span class="co"># The mean of TRUE / FALSE values is a proportion</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pi_hat <span class="sc">&gt;=</span> <span class="dv">524</span> <span class="sc">/</span> <span class="dv">1008</span>) <span class="co"># The mean of TRUE / FALSE values is a proportion</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0964</code></pre>
+<pre><code>[1] 0.1068</code></pre>
 </div>
 </div>
 <p>About <span class="math inline">1</span> survey out of <span class="math inline">10</span>: the observed result is <span class="orange">not surprising</span>, and we cannot conclude that there is a majority.</p>

@@ -41,7 +41,7 @@ mu <- 3 # Mean
 sigma2 <- 10 # Variance
 
 1 / sqrt(2 * pi * sigma2) * exp(-1 / (2 * sigma2) * (x - mu)^2)
-dnorm(x, mean = 3, sd = sqrt(sigma2))
+dnorm(x, mean = mu, sd = sqrt(sigma2))
 
 ## -----------------------------------------------------------------------------
 integrate(dnorm, lower = -1, upper = 1)
@@ -59,6 +59,7 @@ pnorm(qnorm(0.75))
 curve(dnorm(x, mean = 0, sd = 1), from = -3, to = 3, ylab = "f(x)", main = "N(0,1)")
 
 ## -----------------------------------------------------------------------------
+set.seed(123) # Fixes the "seed", see below
 R <- 5
 rnorm(R, mean = 0, sd = 1)
 

@@ -122,11 +122,13 @@ To be able to run the next commands, you need to download the file
 The active **R** session is open in a specific [working directory]{.orange}, identified
 by the command `getwd`.
 
-For example, the directory in which this code was executed is the following
-
 ```{r}
+#| eval: false
 getwd() # Identifies the working directory (get working directory)
 ```
+
+The output is a path such as `"C:/Users/student/Documents"` on Windows or
+`"/Users/student/Documents"` on macOS.
 
 To open the file `airquality.csv`, you must provide **R** with the **path of the
 file**, which depends on where it has been saved (on the Desktop, in the
@@ -287,7 +289,7 @@ range(airquality$TempC) # In degrees Celsius
 The [descriptive analyses]{.orange} of a numerical variable will be addressed in the
 next units; for now we limit ourselves to the manipulation of the `data.frame`.
 
-## Variables of type `date`
+## Variables of type `Date`
 
 The variables `Month` and `Day` identify a date, and it is convenient to store
 that date as such. All the observations refer to the year $1973$.

@@ -256,7 +256,7 @@ window.Quarto = {
  $ GAD: int  292 289 252 285 281 283 277 284 293 277 ...</code></pre>
 </div>
 </div>
-<p>Note the presence of a new <span class="orange">type of variable</span>, that is <code>integer</code>, namely <span class="blue">integer numbers</span>.</p>
+<p>Note the variables of type <code>integer</code>, namely <span class="blue">integer numbers</span>, already met in <a href="un_C.html">Unit C</a>.</p>
 </section>
 <section id="preliminary-operations" class="level2">
 <h2 class="anchored" data-anchor-id="preliminary-operations">Preliminary operations</h2>
@@ -409,7 +409,7 @@ window.Quarto = {
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># First plot, absolute frequencies</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dde_non_preterm,</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="dv">10</span>, <span class="co"># We use 10 sub-intervals</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="dv">10</span>, <span class="co"># About 10 sub-intervals (R treats it as a suggestion)</span></span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># From here on we are only adding aesthetic details</span></span>
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Non-preterm births"</span>,</span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"DDE"</span>,</span>
@@ -419,7 +419,7 @@ window.Quarto = {
 <span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Second plot, density</span></span>
 <span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dde_non_preterm,</span>
 <span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="co"># Frequencies are NOT used</span></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="dv">10</span>, <span class="co"># We use 10 sub-intervals</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="dv">10</span>, <span class="co"># About 10 sub-intervals (R treats it as a suggestion)</span></span>
 <span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># From here on we are only adding aesthetic details</span></span>
 <span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Non-preterm births"</span>,</span>
 <span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"DDE"</span>,</span>
@@ -517,7 +517,6 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Possibly, it is possible to select a different rule by setting <code>breaks = "FD"</code>.</p>
 <p>The distribution of “preterm births” turns out to be shifted further to the right.</p>
 </section>
 <section id="the-empirical-cumulative-distribution-function-i" class="level2">
@@ -656,7 +655,7 @@ Call: ecdf(dde_non_preterm)
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 22.5</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(x) <span class="co"># Of course, the result must coincide with:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(x) <span class="co"># Of course, the result must coincide</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 22.5</code></pre>
 </div>
@@ -679,6 +678,19 @@ Call: ecdf(dde_non_preterm)
 <div class="cell-output cell-output-stdout">
 <pre><code>   10%    25%    75%    90% 
 12.230 16.735 35.400 50.720 </code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By default, <code>quantile</code> uses a slightly different definition, which interpolates between consecutive observations. The definition above is obtained with the option <code>type = 1</code>; for large samples the differences are negligible.</p>
 </div>
 </div>
 <!-- ## Location indices: the quantiles II -->

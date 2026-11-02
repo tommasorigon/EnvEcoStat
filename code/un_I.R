@@ -9,10 +9,10 @@ head(pi_hat)
 
 ## -----------------------------------------------------------------------------
 hist(pi_hat, breaks = 30, main = "Sample proportions (n = 1008)", xlab = "Sample proportion")
-abline(v = 0.52, col = "red") # Observed sample proportion
+abline(v = 524 / 1008, col = "red") # Observed sample proportion
 
 ## -----------------------------------------------------------------------------
-mean(pi_hat >= 0.52) # The mean of TRUE / FALSE values is a proportion
+mean(pi_hat >= 524 / 1008) # The mean of TRUE / FALSE values is a proportion
 
 ## -----------------------------------------------------------------------------
 mean(pi_hat) # Simulated

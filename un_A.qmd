@@ -58,7 +58,7 @@ clean <- squeeze(full[!grepl("^#'|^#\\+", full)])
 writeLines(clean, "code/un_A.R")
 styler:::style_file("code/un_A.R")
 
-rm(clean, squeeze, full)
+rm(list = ls()) # Also removes the objects created by Quarto
 ```
 
 ::: columns
@@ -90,6 +90,13 @@ R*) of @AgrestiR, the R appendix of @Agresti2022. For a more extended
 treatment, see @RCoreTeam.
 :::
 
+::: callout-note
+#### Note
+
+The exercises associated with this unit are available at
+[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_A.html).
+:::
+
 # R as a scientific calculator
 
 ## Scientific calculator
@@ -117,7 +124,7 @@ sin(pi / 4)
 ```
 
 ::: callout-note
-## Note
+#### Note
 
 Everything written after a hash (`#`) is treated as a [comment]{.orange}.
 :::
@@ -148,7 +155,7 @@ rm(x) # x is no longer present in the "workspace"
 ```
 
 ::: callout-note
-## Note
+#### Note
 
 **R** is *case sensitive*, therefore the object `x` is different from the
 object `X`.
@@ -210,7 +217,7 @@ atan(x)
 ```
 
 ::: callout-note
-## Note
+#### Note
 
 **R** functions can be combined with one another, for example
 `log(abs(x))`.
@@ -275,7 +282,7 @@ The documentation of **R** is the main source of information.
 
 What is a function for? What is the definition of its arguments? The
 answer should always be looked for in the [official documentation]{.blue} and
-not in these slides.
+not in these notes.
 
 The command `? function` opens a window in which a function is described
 in detail. Example:
@@ -287,7 +294,7 @@ in detail. Example:
 ```
 
 ::: callout-tip
-## A note about the exam
+#### A note about the exam
 
 During the exam it is legitimate --- indeed, it is strongly recommended
 --- to consult the documentation.
@@ -386,7 +393,7 @@ x
 ```
 
 ::: callout-note
-## Note
+#### Note
 
 With the generic term "[vector]{.blue}" in **R** one does not refer to the
 notion of linear algebra but simply to a string of ordered values.
@@ -523,7 +530,7 @@ x + y # Equivalent to: c(x, x) + y
 
 ## Matrices
 
-A [matrix]{.blue} ${\bf A}$ is a collection of elements $(a)_{ij}$ for
+A [matrix]{.blue} ${\bf A}$ is a collection of elements $a_{ij}$ for
 $i=1,\dots,n$ and $j=1,\dots,m$.
 
 For example, the square matrix of dimension $2 \times 2$

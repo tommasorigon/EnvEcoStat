@@ -116,8 +116,8 @@ dde <- read.table("https://tommasorigon.github.io/EnvEcoStat/data/dde.csv",
 str(dde)
 ```
 
-Note the presence of a new [type of variable]{.orange}, that is `integer`, namely
-[integer numbers]{.blue}.
+Note the variables of type `integer`, namely [integer numbers]{.blue}, already
+met in [Unit C](un_C.html).
 
 ## Preliminary operations
 
@@ -259,7 +259,7 @@ par(mfrow = c(1, 2)) # Splits the plot into two parts
 # First plot, absolute frequencies
 hist(dde_non_preterm,
   freq = TRUE,
-  breaks = 10, # We use 10 sub-intervals
+  breaks = 10, # About 10 sub-intervals (R treats it as a suggestion)
   # From here on we are only adding aesthetic details
   main = "Non-preterm births",
   xlab = "DDE",
@@ -269,7 +269,7 @@ hist(dde_non_preterm,
 # Second plot, density
 hist(dde_non_preterm,
   freq = FALSE, # Frequencies are NOT used
-  breaks = 10, # We use 10 sub-intervals
+  breaks = 10, # About 10 sub-intervals (R treats it as a suggestion)
   # From here on we are only adding aesthetic details
   main = "Non-preterm births",
   xlab = "DDE",
@@ -369,8 +369,6 @@ hist(dde_preterm, # Preterm births group
   main = "Preterm births"
 )
 ```
-
-Possibly, it is possible to select a different rule by setting `breaks = "FD"`.
 
 The distribution of "preterm births" turns out to be shifted further to the
 right.
@@ -491,7 +489,7 @@ pos_med_2 <- n / 2 + 1 # Element in position n/2+1
 
 (x_sort[pos_med_1] + x_sort[pos_med_2]) / 2 # Median of x
 
-median(x) # Of course, the result must coincide with:
+median(x) # Of course, the result must coincide
 ```
 
 ## Location indices: the quantiles I
@@ -512,6 +510,14 @@ first quartile, the third quartile and the ninth decile, we can use the command
 quantile(dde_preterm, probs = c(0.1, 0.25, 0.75, 0.9))
 quantile(dde_non_preterm, probs = c(0.1, 0.25, 0.75, 0.9))
 ```
+
+::: callout-note
+#### Note
+
+By default, `quantile` uses a slightly different definition, which interpolates
+between consecutive observations. The definition above is obtained with the
+option `type = 1`; for large samples the differences are negligible.
+:::
 
 <!-- ## Location indices: the quantiles II -->
 

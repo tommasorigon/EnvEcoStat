@@ -76,7 +76,7 @@ The exercises associated with this unit are available at
 
 Besides being a statistical software, **R** is a [programming language]{.orange}.
 
-Most **R** objects are functions. Indeed:
+In **R**, functions are objects like any other. Indeed:
 
 ```{r}
 class(sum) # Identifies the type of object
@@ -186,7 +186,7 @@ If the number provided as input is negative, a `NaN` is returned:
 square_root <- function(x) {
   if (x < 0) {
     # Warning message; it would actually be more appropriate to use "warning"
-    print("The value of x must be positive")
+    print("The value of x must be non-negative")
     out <- NaN # Return Not A Number
   } else {
     out <- sqrt(x)
@@ -201,7 +201,8 @@ square_root(36) # The condition x < 0 is NOT satisfied
 ## `while` and `for` loops I
 
 `for` loops and `while` loops repeat the operation contained between the curly
-brackets `{ }` until a given condition is satisfied.
+brackets `{ }`: `while` loops as long as a given condition is satisfied, `for`
+loops once for each value of a vector.
 
 Let us start with a simple example concerning the `while` function:
 

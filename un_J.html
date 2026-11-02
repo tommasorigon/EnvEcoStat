@@ -275,7 +275,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The command <code>prop.test</code> computes a slightly different (and more accurate) interval, which is why here we use the formula directly.</p>
+<p>The command <code>prop.test</code> computes a slightly different (and more accurate) interval. Here we use the formula above, which is the one of the theory part of the course.</p>
 </div>
 </div>
 </section>
@@ -345,24 +345,24 @@ T = \frac{\bar{Y} - \mu}{S/\sqrt{n}} \sim t_{n-1}.
 <section id="a-confidence-interval-for-the-mean" class="level2">
 <h2 class="anchored" data-anchor-id="a-confidence-interval-for-the-mean">A confidence interval for the mean</h2>
 <p>A <span class="math inline">100(1-\alpha)\%</span> confidence interval for the mean width <span class="math inline">\mu</span> is <span class="math display">
-\left(\bar{y} - t_{\alpha/2,\,n-1} \frac{s}{\sqrt{n}}, \ \bar{y} + t_{\alpha/2,\,n-1} \frac{s}{\sqrt{n}}\right),
-</span> where <span class="math inline">t_{\alpha/2,\,n-1}</span> is the quantile of the <span class="math inline">t</span> distribution with <span class="math inline">n - 1</span> degrees of freedom and <span class="orange">right-tail</span> probability <span class="math inline">\alpha/2</span>:</p>
+\left(\bar{y} - t_{1-\alpha/2,\,n-1} \frac{s}{\sqrt{n}}, \ \bar{y} + t_{1-\alpha/2,\,n-1} \frac{s}{\sqrt{n}}\right),
+</span> where <span class="math inline">t_{1-\alpha/2,\,n-1}</span> is the <span class="orange">quantile</span> of order <span class="math inline">1 - \alpha/2</span> of the <span class="math inline">t</span> distribution with <span class="math inline">n - 1</span> degrees of freedom:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> Crabs<span class="sc">$</span>width</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>t_quant <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Right-tail probability alpha / 2</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(y) <span class="sc">-</span> t_quant <span class="sc">*</span> <span class="fu">sd</span>(y) <span class="sc">/</span> <span class="fu">sqrt</span>(n), <span class="fu">mean</span>(y) <span class="sc">+</span> t_quant <span class="sc">*</span> <span class="fu">sd</span>(y) <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>width <span class="ot">&lt;-</span> Crabs<span class="sc">$</span>width <span class="co"># Carapace width</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>t_quant <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Quantile of order 1 - alpha / 2</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(width) <span class="sc">-</span> t_quant <span class="sc">*</span> <span class="fu">sd</span>(width) <span class="sc">/</span> <span class="fu">sqrt</span>(n), <span class="fu">mean</span>(width) <span class="sc">+</span> t_quant <span class="sc">*</span> <span class="fu">sd</span>(width) <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 25.98234 26.61535</code></pre>
 </div>
 </div>
 <p>The command <code>t.test</code> computes the same interval, reported in its output as <code>95 percent confidence interval</code> (the test about <span class="math inline">\mu = 0</span> in the first lines is not of interest here):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(y, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(width, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
 
-data:  y
+data:  width
 t = 164.01, df = 172, p-value &lt; 2.2e-16
 alternative hypothesis: true mean is not equal to 0
 95 percent confidence interval:
@@ -372,7 +372,7 @@ mean of x
  26.29884 </code></pre>
 </div>
 </div>
-<p>Since <span class="math inline">n \ge 30</span>, the normal quantile <span class="math inline">z_{1-\alpha/2}</span> would give almost the same result: compare <code>qnorm(0.975)</code> and <code>qt(0.975, df = 172)</code>. If <span class="math inline">\sigma</span> were known, we would use <span class="math inline">z_{1-\alpha/2}</span> and <span class="math inline">\sigma</span> in place of <span class="math inline">t_{\alpha/2,\,n-1}</span> and <span class="math inline">s</span>.</p>
+<p>Since <span class="math inline">n \ge 30</span>, the normal quantile <span class="math inline">z_{1-\alpha/2}</span> would give almost the same result: compare <code>qnorm(0.975)</code> and <code>qt(0.975, df = 172)</code>. If <span class="math inline">\sigma</span> were known, we would use <span class="math inline">z_{1-\alpha/2}</span> and <span class="math inline">\sigma</span> in place of <span class="math inline">t_{1-\alpha/2,\,n-1}</span> and <span class="math inline">s</span>.</p>
 </section>
 <section id="a-test-for-a-mean" class="level2">
 <h2 class="anchored" data-anchor-id="a-test-for-a-mean">A test for a mean</h2>

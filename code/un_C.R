@@ -1,5 +1,6 @@
 ## -----------------------------------------------------------------------------
-getwd() # Identifies the working directory (get working directory)
+#| eval: false
+# getwd() # Identifies the working directory (get working directory)
 
 ## -----------------------------------------------------------------------------
 # THE PATH VARIABLE MUST BE CHANGED DEPENDING ON WHERE THE .csv FILE IS SAVED

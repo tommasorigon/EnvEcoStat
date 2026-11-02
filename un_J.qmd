@@ -125,7 +125,8 @@ c(pi_hat - z_quant * se_hat, pi_hat + z_quant * se_hat)
 #### Note
 
 The command `prop.test` computes a slightly different (and more accurate)
-interval, which is why here we use the formula directly.
+interval. Here we use the formula above, which is the one of the theory part of
+the course.
 :::
 
 ## What does 95% confidence mean?
@@ -191,14 +192,14 @@ curve(dt(x, df = 30), add = TRUE, col = "blue") # t with 30 degrees of freedom
 ## A confidence interval for the mean
 
 A $100(1-\alpha)\%$ confidence interval for the mean width $\mu$ is $$
-\left(\bar{y} - t_{\alpha/2,\,n-1} \frac{s}{\sqrt{n}}, \ \bar{y} + t_{\alpha/2,\,n-1} \frac{s}{\sqrt{n}}\right),
-$$ where $t_{\alpha/2,\,n-1}$ is the quantile of the $t$ distribution with
-$n - 1$ degrees of freedom and [right-tail]{.orange} probability $\alpha/2$:
+\left(\bar{y} - t_{1-\alpha/2,\,n-1} \frac{s}{\sqrt{n}}, \ \bar{y} + t_{1-\alpha/2,\,n-1} \frac{s}{\sqrt{n}}\right),
+$$ where $t_{1-\alpha/2,\,n-1}$ is the [quantile]{.orange} of order $1 - \alpha/2$ of the $t$
+distribution with $n - 1$ degrees of freedom:
 
 ```{r}
-y <- Crabs$width
-t_quant <- qt(1 - alpha / 2, df = n - 1) # Right-tail probability alpha / 2
-c(mean(y) - t_quant * sd(y) / sqrt(n), mean(y) + t_quant * sd(y) / sqrt(n))
+width <- Crabs$width # Carapace width
+t_quant <- qt(1 - alpha / 2, df = n - 1) # Quantile of order 1 - alpha / 2
+c(mean(width) - t_quant * sd(width) / sqrt(n), mean(width) + t_quant * sd(width) / sqrt(n))
 ```
 
 The command `t.test` computes the same interval, reported in its output as
@@ -206,12 +207,12 @@ The command `t.test` computes the same interval, reported in its output as
 not of interest here):
 
 ```{r}
-t.test(y, conf.level = 0.95)
+t.test(width, conf.level = 0.95)
 ```
 
 Since $n \ge 30$, the normal quantile $z_{1-\alpha/2}$ would give almost the same
 result: compare `qnorm(0.975)` and `qt(0.975, df = 172)`. If $\sigma$ were known,
-we would use $z_{1-\alpha/2}$ and $\sigma$ in place of $t_{\alpha/2,\,n-1}$ and $s$.
+we would use $z_{1-\alpha/2}$ and $\sigma$ in place of $t_{1-\alpha/2,\,n-1}$ and $s$.
 
 ## A test for a mean
 

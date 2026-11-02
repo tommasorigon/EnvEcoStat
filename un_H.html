@@ -389,7 +389,7 @@ F(y) =   \mathbb{P}(Y \le y) = \sum_{k=0}^y\mathbb{P}(Y = k), \qquad Y \sim \tex
 <h2 class="anchored" data-anchor-id="continuous-random-variables-i-recap">Continuous random variables I (recap)</h2>
 <p>A random variable is said to be <span class="orange">continuous</span> if <span class="math inline">F(y)</span> is continuous.</p>
 <p>The <span class="blue">density</span> function of a continuous random variable is a function <span class="math inline">f(y) \ge 0</span> such that <span class="math display">
-\mathbb{P}(a &lt; Y &lt; b) = \int_a^b f(y) \mathrm{d} y, \qquad f(y) = \frac{\partial}{\partial y} F(y).
+\mathbb{P}(a &lt; Y &lt; b) = \int_a^b f(y) \mathrm{d} y, \qquad f(y) = \frac{\mathrm{d}}{\mathrm{d} y} F(y).
 </span></p>
 <p>Therefore, by definition: <span class="math display">
 \mathbb{P}(Y \le b) = F(b) = \int_{-\infty}^b f(y) \mathrm{d} y.
@@ -413,7 +413,7 @@ f(y) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(y - \mu)^2
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1032883</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">3</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(sigma2))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu, <span class="at">sd =</span> <span class="fu">sqrt</span>(sigma2))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1032883</code></pre>
 </div>
@@ -579,10 +579,11 @@ F(\mathcal{Q}(0.75)) = F(F^{-1}(0.75))= 0.75.
 Y_i \overset{\text{iid}}{\sim} \text{N}(0,1), \qquad i=1,\dots,5
 </span> we can use in <strong>R</strong> the following command:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(R, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Fixes the "seed", see below</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(R, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  0.3985941  1.9593125  0.4388263 -0.6236895 -0.2388413</code></pre>
+<pre><code>[1] -0.56047565 -0.23017749  1.55870831  0.07050839  0.12928774</code></pre>
 </div>
 </div>
 </section>
@@ -775,7 +776,7 @@ Y_i \overset{\text{iid}}{\sim} \text{N}(0,1), \qquad i=1,\dots,5
 <pre><code>[1] 5 3 1 2 6 4</code></pre>
 </div>
 </div>
-<p>we obtain a random <span class="blue">permutation</span> of the elements of <code>x</code>.</p>
+<p>we obtain a random <span class="blue">permutation</span> of the elements of <code>dice</code>.</p>
 <p>Indeed, the default values are <code>replace = FALSE</code> and <code>size = length(x)</code>, that is a sampling <span class="orange">without replacement</span> of all the elements of the urn.</p>
 <!-- ## Summary exercise -->
 <!-- The commands of the `d`, `p`, `q` and `r` families can be combined to check -->

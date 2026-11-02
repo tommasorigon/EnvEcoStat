@@ -164,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="functions-i" class="level2">
 <h2 class="anchored" data-anchor-id="functions-i">Functions I</h2>
 <p>Besides being a statistical software, <strong>R</strong> is a <span class="orange">programming language</span>.</p>
-<p>Most <strong>R</strong> objects are functions. Indeed:</p>
+<p>In <strong>R</strong>, functions are objects like any other. Indeed:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sum) <span class="co"># Identifies the type of object</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -273,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>square_root <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Warning message; it would actually be more appropriate to use "warning"</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"The value of x must be positive"</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"The value of x must be non-negative"</span>)</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="cn">NaN</span> <span class="co"># Return Not A Number</span></span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(x)</span>
@@ -283,7 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">square_root</span>(<span class="sc">-</span><span class="dv">2</span>) <span class="co"># The condition x &lt; 0 is satisfied</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "The value of x must be positive"</code></pre>
+<pre><code>[1] "The value of x must be non-negative"</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NaN</code></pre>
@@ -296,7 +296,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="while-and-for-loops-i" class="level2">
 <h2 class="anchored" data-anchor-id="while-and-for-loops-i"><code>while</code> and <code>for</code> loops I</h2>
-<p><code>for</code> loops and <code>while</code> loops repeat the operation contained between the curly brackets <code>{ }</code> until a given condition is satisfied.</p>
+<p><code>for</code> loops and <code>while</code> loops repeat the operation contained between the curly brackets <code>{ }</code>: <code>while</code> loops as long as a given condition is satisfied, <code>for</code> loops once for each value of a vector.</p>
 <p>Let us start with a simple example concerning the <code>while</code> function:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># We start with i = 5</span></span>

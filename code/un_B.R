@@ -53,7 +53,7 @@ if (condition) {
 square_root <- function(x) {
   if (x < 0) {
     # Warning message; it would actually be more appropriate to use "warning"
-    print("The value of x must be positive")
+    print("The value of x must be non-negative")
     out <- NaN # Return Not A Number
   } else {
     out <- sqrt(x)

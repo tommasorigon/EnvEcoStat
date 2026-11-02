@@ -143,7 +143,7 @@ window.Quarto = {
   <li><a href="#the-airquality-dataset" id="toc-the-airquality-dataset" class="nav-link" data-scroll-target="#the-airquality-dataset">The <code>airquality</code> dataset</a></li>
   <li><a href="#types-of-variables" id="toc-types-of-variables" class="nav-link" data-scroll-target="#types-of-variables">Types of variables</a></li>
   <li><a href="#quantitative-variables" id="toc-quantitative-variables" class="nav-link" data-scroll-target="#quantitative-variables">Quantitative variables</a></li>
-  <li><a href="#variables-of-type-date" id="toc-variables-of-type-date" class="nav-link" data-scroll-target="#variables-of-type-date">Variables of type <code>date</code></a></li>
+  <li><a href="#variables-of-type-date" id="toc-variables-of-type-date" class="nav-link" data-scroll-target="#variables-of-type-date">Variables of type <code>Date</code></a></li>
   <li><a href="#qualitative-variables-i" id="toc-qualitative-variables-i" class="nav-link" data-scroll-target="#qualitative-variables-i">Qualitative variables I</a></li>
   <li><a href="#qualitative-variables-ii" id="toc-qualitative-variables-ii" class="nav-link" data-scroll-target="#qualitative-variables-ii">Qualitative variables II</a></li>
   <li><a href="#qualitative-variables-iii" id="toc-qualitative-variables-iii" class="nav-link" data-scroll-target="#qualitative-variables-iii">Qualitative variables III</a></li>
@@ -251,21 +251,18 @@ window.Quarto = {
 <section id="the-working-directory" class="level2">
 <h2 class="anchored" data-anchor-id="the-working-directory">The working directory</h2>
 <p>The active <strong>R</strong> session is open in a specific <span class="orange">working directory</span>, identified by the command <code>getwd</code>.</p>
-<p>For example, the directory in which this code was executed is the following</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>() <span class="co"># Identifies the working directory (get working directory)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/tommaso/Repositories/EnvEcoStat"</code></pre>
 </div>
-</div>
+<p>The output is a path such as <code>"C:/Users/student/Documents"</code> on Windows or <code>"/Users/student/Documents"</code> on macOS.</p>
 <p>To open the file <code>airquality.csv</code>, you must provide <strong>R</strong> with the <strong>path of the file</strong>, which depends on where it has been saved (on the Desktop, in the downloads folder, and so on).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># THE PATH VARIABLE MUST BE CHANGED DEPENDING ON WHERE THE .csv FILE IS SAVED</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"data/airquality.csv"</span> <span class="co"># This is the path of the file, relative to getwd()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># THE PATH VARIABLE MUST BE CHANGED DEPENDING ON WHERE THE .csv FILE IS SAVED</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"data/airquality.csv"</span> <span class="co"># This is the path of the file, relative to getwd()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The path of the file can also be a <span class="blue">link</span>, as in this case:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://tommasorigon.github.io/EnvEcoStat/data/airquality.csv"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://tommasorigon.github.io/EnvEcoStat/data/airquality.csv"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="importing-the-dataset" class="level2">
@@ -274,7 +271,7 @@ window.Quarto = {
 <p>In RStudio, you can use the option <em>More -&gt; Set as working directory</em> in the <em>Files</em> window, selecting the directory of interest.</p>
 <p>Once the correct <em>path</em> of the file has been identified, to <strong>import the dataset</strong> into memory one uses, for instance, the command <code>read.table</code>. Therefore:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -294,21 +291,21 @@ window.Quarto = {
 </div>
 <p>Finally, note that if the file is contained in the working directory, it is then enough to use:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"airquality.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"airquality.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="exploring-a-data.frame" class="level2">
 <h2 class="anchored" data-anchor-id="exploring-a-data.frame">Exploring a <code>data.frame</code></h2>
 <p>First of all, we are interested in understanding how many <span class="blue">variables</span> and how many <span class="orange">observations</span> are contained in the <code>data.frame</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(airquality) <span class="co"># Equivalent to c(nrow(airquality), ncol(airquality))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(airquality) <span class="co"># Equivalent to c(nrow(airquality), ncol(airquality))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 153   6</code></pre>
 </div>
 </div>
 <p>To check that we have not made gross mistakes in importing the <code>data.frame</code>, we can display the first <span class="math inline">6</span> observations with the command <code>head</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality) <span class="co"># Equivalent command: airquality[1:6, ]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality) <span class="co"># Equivalent command: airquality[1:6, ]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Ozone Solar.R Wind Temp Month Day
 1    41     190  7.4   67     5   1
@@ -321,7 +318,7 @@ window.Quarto = {
 </div>
 <p>The command <code>tail</code> can be used to show the last <span class="math inline">6</span> observations:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(airquality) <span class="co"># Equivalent command: airquality[148:153, ]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(airquality) <span class="co"># Equivalent command: airquality[148:153, ]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Ozone Solar.R Wind Temp Month Day
 148    14      20 16.6   63     9  25
@@ -345,7 +342,7 @@ window.Quarto = {
 </ul>
 <p>To <span class="orange">access</span> and <span class="blue">modify</span> the names of the variables, one uses the command <code>colnames</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(airquality) <span class="co"># To access the names of the variables</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(airquality) <span class="co"># To access the names of the variables</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Ozone"   "Solar.R" "Wind"    "Temp"    "Month"   "Day"    </code></pre>
 </div>
@@ -369,7 +366,7 @@ window.Quarto = {
 <div class="callout-body-container callout-body">
 <p><strong>R</strong> does not always recognise the type of the variables correctly, as highlighted by the command <code>str</code>, which provides a summary of the <code>data.frame</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   153 obs. of  6 variables:
  $ Ozone  : int  41 36 12 18 NA 28 23 19 8 NA ...
@@ -389,15 +386,15 @@ window.Quarto = {
 <p>To <span class="blue">extract a variable</span> from a <code>data.frame</code> one uses the dollar symbol <code>$</code>. The variables can be saved under any name.</p>
 <p>A numerical variable is an <strong>R</strong> vector to all intents and purposes, therefore we can apply the functions we have already met so far</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(airquality<span class="sc">$</span>Wind) <span class="co"># Check that it is a variable of type numeric</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(airquality<span class="sc">$</span>Wind) <span class="co"># Check that it is a variable of type numeric</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(airquality<span class="sc">$</span>Wind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(airquality<span class="sc">$</span>Wind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Wind[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="co"># First 10 elements of an R vector</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Wind[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="co"># First 10 elements of an R vector</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  7.4  8.0 12.6 11.5 14.3 14.9  8.6 13.8 20.1  8.6</code></pre>
 </div>
@@ -408,9 +405,9 @@ window.Quarto = {
 </span></p>
 <p>we add to the <code>data.frame</code> a column with the temperature in degrees Celsius:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>TempC <span class="ot">&lt;-</span> (airquality<span class="sc">$</span>Temp <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">9</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality[, <span class="fu">c</span>(<span class="st">"Temp"</span>, <span class="st">"TempC"</span>)]) <span class="co"># The two scales side by side</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>TempC <span class="ot">&lt;-</span> (airquality<span class="sc">$</span>Temp <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">9</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality[, <span class="fu">c</span>(<span class="st">"Temp"</span>, <span class="st">"TempC"</span>)]) <span class="co"># The two scales side by side</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Temp    TempC
 1   67 19.44444
@@ -423,11 +420,11 @@ window.Quarto = {
 </div>
 <p>Note that the operation is <span class="blue">vectorised</span>: it is applied to all <span class="math inline">153</span> days at once, without any loop.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(airquality<span class="sc">$</span>Temp) <span class="co"># In degrees Fahrenheit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(airquality<span class="sc">$</span>Temp) <span class="co"># In degrees Fahrenheit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 56 97</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(airquality<span class="sc">$</span>TempC) <span class="co"># In degrees Celsius</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(airquality<span class="sc">$</span>TempC) <span class="co"># In degrees Celsius</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 13.33333 36.11111</code></pre>
 </div>
@@ -435,21 +432,21 @@ window.Quarto = {
 <p>The <span class="orange">descriptive analyses</span> of a numerical variable will be addressed in the next units; for now we limit ourselves to the manipulation of the <code>data.frame</code>.</p>
 </section>
 <section id="variables-of-type-date" class="level2">
-<h2 class="anchored" data-anchor-id="variables-of-type-date">Variables of type <code>date</code></h2>
+<h2 class="anchored" data-anchor-id="variables-of-type-date">Variables of type <code>Date</code></h2>
 <p>The variables <code>Month</code> and <code>Day</code> identify a date, and it is convenient to store that date as such. All the observations refer to the year <span class="math inline">1973</span>.</p>
 <p>In <strong>R</strong> the conversion is performed by the command <code>as.Date</code>, followed by the <span class="blue">format</span> in which the date is expressed:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="dv">1973</span>, airquality<span class="sc">$</span>Month, airquality<span class="sc">$</span>Day, <span class="at">sep =</span> <span class="st">"-"</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>dates[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="co"># Character strings of the form "1973-5-1"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="dv">1973</span>, airquality<span class="sc">$</span>Month, airquality<span class="sc">$</span>Day, <span class="at">sep =</span> <span class="st">"-"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>dates[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="co"># Character strings of the form "1973-5-1"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "1973-5-1" "1973-5-2" "1973-5-3"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dates, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(airquality<span class="sc">$</span>Date)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dates, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(airquality<span class="sc">$</span>Date)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Date"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Date[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Date[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "1973-05-01" "1973-05-02" "1973-05-03" "1973-05-04" "1973-05-05"
  [6] "1973-05-06" "1973-05-07" "1973-05-08" "1973-05-09" "1973-05-10"</code></pre>
@@ -457,11 +454,11 @@ window.Quarto = {
 </div>
 <p>Once converted into <code>Date</code> format, it is possible to carry out some additional operations. For example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(airquality<span class="sc">$</span>Date) <span class="co"># First day of the series</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(airquality<span class="sc">$</span>Date) <span class="co"># First day of the series</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "1973-05-01"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(airquality<span class="sc">$</span>Date) <span class="co"># Last day of the series</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(airquality<span class="sc">$</span>Date) <span class="co"># Last day of the series</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "1973-09-30"</code></pre>
 </div>
@@ -483,8 +480,8 @@ window.Quarto = {
 <p>Qualitative variables with repeated values should instead be coded as <code>factor</code>. This is the case of <code>Month</code>: the numbers from <span class="math inline">5</span> to <span class="math inline">9</span> are <span class="blue">labels</span>, not quantities, and computing their mean would make no sense.</p>
 <p>We therefore <span class="orange">convert</span> the variable as follows:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Month <span class="ot">&lt;-</span> <span class="fu">factor</span>(airquality<span class="sc">$</span>Month)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(airquality<span class="sc">$</span>Month)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Month <span class="ot">&lt;-</span> <span class="fu">factor</span>(airquality<span class="sc">$</span>Month)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(airquality<span class="sc">$</span>Month)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "factor"</code></pre>
 </div>
@@ -508,11 +505,11 @@ window.Quarto = {
 <p>In variables of type <code>factor</code> the various <span class="blue">categories</span> are listed, called <code>levels</code> in <strong>R</strong>.</p>
 <p>To access the categories one uses the command <code>levels</code>, which lists the categories of the variable in increasing order:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(airquality<span class="sc">$</span>Month)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(airquality<span class="sc">$</span>Month)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "5" "6" "7" "8" "9"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(airquality<span class="sc">$</span>Month) <span class="co"># Number of days observed in each month</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(airquality<span class="sc">$</span>Month) <span class="co"># Number of days observed in each month</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  5  6  7  8  9 
@@ -524,13 +521,13 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="qualitative-variables-iii">Qualitative variables III</h2>
 <p>The command <code>levels</code> makes it possible to <span class="orange">rename the categories</span>, for example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Month[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Month[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 5 5 5 5 5 5 5 5 5 5
 Levels: 5 6 7 8 9</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(airquality<span class="sc">$</span>Month) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"May"</span>, <span class="st">"June"</span>, <span class="st">"July"</span>, <span class="st">"August"</span>, <span class="st">"September"</span>)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Month[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(airquality<span class="sc">$</span>Month) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"May"</span>, <span class="st">"June"</span>, <span class="st">"July"</span>, <span class="st">"August"</span>, <span class="st">"September"</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Month[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] May May May May May May May May May May
 Levels: May June July August September</code></pre>
@@ -538,11 +535,11 @@ Levels: May June July August September</code></pre>
 </div>
 <p>The command <code>levels</code> also makes it possible to <span class="blue">merge</span> the categories of a qualitative variable:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Season <span class="ot">&lt;-</span> airquality<span class="sc">$</span>Month <span class="co"># Create a copy of Month called Season</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># June, July and August are the peak months for ozone: merge them</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(airquality<span class="sc">$</span>Season) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Off-peak"</span>, <span class="st">"Peak"</span>, <span class="st">"Peak"</span>, <span class="st">"Peak"</span>, <span class="st">"Off-peak"</span>)</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(airquality<span class="sc">$</span>Season)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Season <span class="ot">&lt;-</span> airquality<span class="sc">$</span>Month <span class="co"># Create a copy of Month called Season</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># June, July and August are the peak months for ozone: merge them</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(airquality<span class="sc">$</span>Season) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Off-peak"</span>, <span class="st">"Peak"</span>, <span class="st">"Peak"</span>, <span class="st">"Peak"</span>, <span class="st">"Off-peak"</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(airquality<span class="sc">$</span>Season)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Off-peak     Peak 
@@ -554,7 +551,7 @@ Off-peak     Peak
 <h2 class="anchored" data-anchor-id="manipulating-a-dataset">Manipulating a dataset</h2>
 <p>To <span class="orange">select the rows</span> of a dataset one proceeds as in the case of matrices:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>airquality[<span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">62</span>, <span class="dv">9</span>), ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>airquality[<span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">62</span>, <span class="dv">9</span>), ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Ozone Solar.R Wind Temp  Month Day    TempC       Date   Season
 120    76     203  9.7   97 August  28 36.11111 1973-08-28     Peak
@@ -565,12 +562,12 @@ Off-peak     Peak
 <p>It is of course possible (and typically much more useful) to select the observations that satisfy a given <span class="blue">condition</span>.</p>
 <p>Suppose for example that we want to identify the hottest days, those above <span class="math inline">90</span> degrees Fahrenheit:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>airquality_hot <span class="ot">&lt;-</span> airquality[airquality<span class="sc">$</span>Temp <span class="sc">&gt;</span> <span class="dv">90</span>, ]</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(airquality_hot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>airquality_hot <span class="ot">&lt;-</span> airquality[airquality<span class="sc">$</span>Temp <span class="sc">&gt;</span> <span class="dv">90</span>, ]</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(airquality_hot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 14  9</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_hot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_hot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Ozone Solar.R Wind Temp  Month Day    TempC       Date Season
 42     NA     259 10.9   93   June  11 33.88889 1973-06-11   Peak
@@ -586,12 +583,12 @@ Off-peak     Peak
 <h2 class="anchored" data-anchor-id="missing-values">Missing values</h2>
 <p>Suppose now that we want to identify the days on which the ozone concentration exceeded <span class="math inline">100</span> parts per billion:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>airquality_ozone <span class="ot">&lt;-</span> airquality[airquality<span class="sc">$</span>Ozone <span class="sc">&gt;</span> <span class="dv">100</span>, ]</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(airquality_ozone)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>airquality_ozone <span class="ot">&lt;-</span> airquality[airquality<span class="sc">$</span>Ozone <span class="sc">&gt;</span> <span class="dv">100</span>, ]</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(airquality_ozone)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 44  9</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_ozone)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_ozone)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Ozone Solar.R Wind Temp Month Day    TempC       Date   Season
 NA      NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;NA&gt;
@@ -615,11 +612,11 @@ NA.4    NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;N
 <p>The reason why the command produces apparently strange results is due to the presence of some <span class="orange">missing data</span>, coded as <code>NA</code> (<em>Not Available</em>).</p>
 <p>The comparison <code>NA &gt; 100</code> does not return <code>TRUE</code> or <code>FALSE</code>: it returns <code>NA</code>, because the value is unknown. Consequently the selection returns one row for every missing value.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(airquality<span class="sc">$</span>Ozone)) <span class="co"># How many days lack the ozone measurement</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(airquality<span class="sc">$</span>Ozone)) <span class="co"># How many days lack the ozone measurement</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 37</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(airquality)) <span class="co"># The same count, variable by variable</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(airquality)) <span class="co"># The same count, variable by variable</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Ozone Solar.R    Wind    Temp   Month     Day   TempC    Date  Season 
      37       7       0       0       0       0       0       0       0 </code></pre>
@@ -629,7 +626,7 @@ NA.4    NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;N
 <p>The function <code>rowSums(matrix)</code> produces a vector whose values are the sum of the elements of each row of the <code>matrix</code>.</p>
 <p>As a consequence, <code>rowSums(is.na(airquality))</code> indicates how many missing values are present in each row.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(<span class="fu">is.na</span>(airquality)) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="co"># Number of incomplete days</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(<span class="fu">is.na</span>(airquality)) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="co"># Number of incomplete days</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 42</code></pre>
 </div>
@@ -640,8 +637,8 @@ NA.4    NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;N
 <p>The statistical treatment of missing data is not among the objectives of this course.</p>
 <p>The easiest solution, although a potentially very dangerous one, consists simply in <span class="orange">removing</span> the incomplete rows through the command <code>na.omit</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>airquality_no_na <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(airquality)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(airquality_no_na)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>airquality_no_na <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(airquality)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(airquality_no_na)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 111   9</code></pre>
 </div>
@@ -658,8 +655,8 @@ NA.4    NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;N
 </div>
 <p>To solve the original problem, that is identifying the days with a high ozone concentration, one can use <code>subset</code>, which discards the missing values:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>airquality_ozone <span class="ot">&lt;-</span> <span class="fu">subset</span>(airquality, <span class="at">subset =</span> Ozone <span class="sc">&gt;</span> <span class="dv">100</span>)</span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>airquality_ozone</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>airquality_ozone <span class="ot">&lt;-</span> <span class="fu">subset</span>(airquality, <span class="at">subset =</span> Ozone <span class="sc">&gt;</span> <span class="dv">100</span>)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>airquality_ozone</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Ozone Solar.R Wind Temp  Month Day    TempC       Date   Season
 30    115     223  5.7   79    May  30 26.11111 1973-05-30 Off-peak
@@ -677,8 +674,8 @@ NA.4    NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;N
 <p>The command <code>subset</code> can be used both to <span class="orange">select the rows</span> (observations) and to <span class="blue">select the columns</span> (variables).</p>
 <p>In the second case, one can proceed through the option <code>select</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>airquality_pollution <span class="ot">&lt;-</span> <span class="fu">subset</span>(airquality, <span class="at">select =</span> <span class="fu">c</span>(Date, Ozone, Temp, Wind))</span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_pollution)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>airquality_pollution <span class="ot">&lt;-</span> <span class="fu">subset</span>(airquality, <span class="at">select =</span> <span class="fu">c</span>(Date, Ozone, Temp, Wind))</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_pollution)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        Date Ozone Temp Wind
 1 1973-05-01    41   67  7.4
@@ -691,7 +688,7 @@ NA.4    NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;N
 </div>
 <p>Of course it is also possible to select <span class="orange">simultaneously</span> both the rows and the columns.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(airquality, <span class="at">subset =</span> Ozone <span class="sc">&gt;</span> <span class="dv">100</span>, <span class="at">select =</span> <span class="fu">c</span>(Date, Ozone, Temp))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(airquality, <span class="at">subset =</span> Ozone <span class="sc">&gt;</span> <span class="dv">100</span>, <span class="at">select =</span> <span class="fu">c</span>(Date, Ozone, Temp))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          Date Ozone Temp
 30  1973-05-30   115   79
@@ -720,7 +717,7 @@ NA.4    NA      NA   NA   NA  &lt;NA&gt;  NA       NA       &lt;NA&gt;     &lt;N
 <p>After all these operations, the dataset turns out to be much modified with respect to its initial version.</p>
 <p>Running the command <code>str</code> again we indeed obtain that</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   153 obs. of  9 variables:
  $ Ozone  : int  41 36 12 18 NA 28 23 19 8 NA ...
