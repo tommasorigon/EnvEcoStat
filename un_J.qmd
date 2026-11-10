@@ -286,32 +286,32 @@ In both cases the P-value is larger than $\alpha = 0.05$: we [do not reject]{.or
 $H_0$. This does not mean that $H_0$ is true: the data are simply not enough to
 rule it out.
 
-## Comparing two groups
+<!-- ## Comparing two groups -->
 
-Back to the horseshoe crabs: do females with satellites ($y = 1$) have a larger
-carapace than those without ($y = 0$)?
+<!-- Back to the horseshoe crabs: do females with satellites ($y = 1$) have a larger -->
+<!-- carapace than those without ($y = 0$)? -->
 
-```{r}
-boxplot(width ~ y, data = Crabs, xlab = "Satellites (0 = no, 1 = yes)", ylab = "Width (cm)")
-```
+<!-- ```{r} -->
+<!-- boxplot(width ~ y, data = Crabs, xlab = "Satellites (0 = no, 1 = yes)", ylab = "Width (cm)") -->
+<!-- ``` -->
 
-The command `t.test` with a [formula]{.blue} compares the means of the two
-groups. Let $\mu_\text{no}$ and $\mu_\text{yes}$ be the mean widths of the females
-without and with satellites: the command tests
-$H_0: \mu_\text{no} = \mu_\text{yes}$ and gives a confidence interval for the
-difference $\mu_\text{no} - \mu_\text{yes}$:
+<!-- The command `t.test` with a [formula]{.blue} compares the means of the two -->
+<!-- groups. Let $\mu_\text{no}$ and $\mu_\text{yes}$ be the mean widths of the females -->
+<!-- without and with satellites: the command tests -->
+<!-- $H_0: \mu_\text{no} = \mu_\text{yes}$ and gives a confidence interval for the -->
+<!-- difference $\mu_\text{no} - \mu_\text{yes}$: -->
 
-```{r}
-t.test(width ~ y, data = Crabs, var.equal = TRUE)
-```
+<!-- ```{r} -->
+<!-- t.test(width ~ y, data = Crabs, var.equal = TRUE) -->
+<!-- ``` -->
 
-The P-value is very small: females with satellites are, on average,
-[larger]{.orange}.
+<!-- The P-value is very small: females with satellites are, on average, -->
+<!-- [larger]{.orange}. -->
 
-::: callout-note
-#### Note
+<!-- ::: callout-note -->
+<!-- #### Note -->
 
-The option `var.equal = TRUE` assumes that the two groups have the same
-variability. By default, **R** uses a version of the test that does not make
-this assumption.
-:::
+<!-- The option `var.equal = TRUE` assumes that the two groups have the same -->
+<!-- variability. By default, **R** uses a version of the test that does not make -->
+<!-- this assumption. -->
+<!-- ::: -->
