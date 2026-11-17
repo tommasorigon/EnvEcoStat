@@ -121,14 +121,6 @@ se_hat <- sqrt(pi_hat * (1 - pi_hat) / n) # Estimated standard error
 c(pi_hat - z_quant * se_hat, pi_hat + z_quant * se_hat)
 ```
 
-::: callout-note
-#### Note
-
-The command `prop.test` computes a slightly different (and more accurate)
-interval. Here we use the formula above, which is the one of the theory part of
-the course.
-:::
-
 ## What does 95% confidence mean?
 
 Suppose that the true proportion is $\pi = 0.65$. We simulate $R = 1000$
@@ -267,13 +259,6 @@ z <- (pi_hat - pi_0) / sqrt(pi_0 * (1 - pi_0) / 1008) # Observed test statistic
 z
 2 * (1 - pnorm(abs(z))) # Two-sided P-value
 ```
-
-```{r}
-prop.test(524, 1008, p = 0.5, correct = FALSE)
-```
-
-The command `prop.test` reports `X-squared`, which is simply $z^2$ (check that
-$1.26^2 = 1.59$): the P-value is the same.
 
 Is [more than half]{.blue} of the population worried? With the one-sided
 alternative $H_a: \pi > 0.5$, the P-value is the right tail only:

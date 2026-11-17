@@ -264,19 +264,6 @@ window.Quarto = {
 <pre><code>[1] 0.5701629 0.7130741</code></pre>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The command <code>prop.test</code> computes a slightly different (and more accurate) interval. Here we use the formula above, which is the one of the theory part of the course.</p>
-</div>
-</div>
 </section>
 <section id="what-does-95-confidence-mean" class="level2">
 <h2 class="anchored" data-anchor-id="what-does-95-confidence-mean">What does 95% confidence mean?</h2>
@@ -438,26 +425,9 @@ z = \frac{\hat{\pi} - \pi_0}{\sqrt{\pi_0(1-\pi_0)/n}}
 <pre><code>[1] 0.2077121</code></pre>
 </div>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="dv">524</span>, <span class="dv">1008</span>, <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    1-sample proportions test without continuity correction
-
-data:  524 out of 1008, null probability 0.5
-X-squared = 1.5873, df = 1, p-value = 0.2077
-alternative hypothesis: true p is not equal to 0.5
-95 percent confidence interval:
- 0.4889822 0.5505497
-sample estimates:
-        p 
-0.5198413 </code></pre>
-</div>
-</div>
-<p>The command <code>prop.test</code> reports <code>X-squared</code>, which is simply <span class="math inline">z^2</span> (check that <span class="math inline">1.26^2 = 1.59</span>): the P-value is the same.</p>
 <p>Is <span class="blue">more than half</span> of the population worried? With the one-sided alternative <span class="math inline">H_a: \pi &gt; 0.5</span>, the P-value is the right tail only:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z) <span class="co"># One-sided P-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z) <span class="co"># One-sided P-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.103856</code></pre>
 </div>
