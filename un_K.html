@@ -76,6 +76,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="un_K_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="un_K_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="un_K_files/libs/bootstrap/bootstrap-55d66b82bfb7e8363875927e87202f7a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="un_K_files/libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="un_K_files/libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -375,6 +377,8 @@ R^2 = 1 - \frac{\text{var}(e)}{\text{var}(y)} = \text{cor}(x,y)^2.
 </div>
 </div>
 </div>
+<p>Why exactly this line? Among all the lines <span class="math inline">\alpha + \beta x</span>, the least squares line is the one with the <span class="orange">smallest sum of squared residuals</span> <span class="math inline">\sum_{i=1}^n e_i^2</span>, as the following video shows.</p>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title="Least squares: the line and the sum of squared residuals"><source src="video/un_K_least_squares.mp4"></video></div>
 </section>
 <section id="the-linear-regression-model" class="level2">
 <h2 class="anchored" data-anchor-id="the-linear-regression-model">The linear regression model</h2>
@@ -988,6 +992,7 @@ diameter     0.0508432  0.06212972</code></pre>
   });
   </script>
 </div> <!-- /content -->
+<script>videojs(video_shortcode_videojs_video1);</script>
 
 
 
