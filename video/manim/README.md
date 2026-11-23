@@ -10,6 +10,8 @@ Sources of the animations embedded in `un_I.qmd`, `un_J.qmd` and `un_K.qmd`:
   interval for a proportion (horseshoe crabs, `n = 173`, `pi = 0.65`).
 - `un_K_least_squares.mp4` (`v4_least_squares.py`): black cherry trees, how the
   line and the sum of squared residuals change with the coefficients.
+- `un_K_least_squares_3d.mp4` (`v5_least_squares_3d.py`): the same with diameter
+  and height, a plane instead of a line.
 
 `common.py` holds the shared parts (data, histogram classes as in `hist()`,
 smooth growth of the simulation).
@@ -28,6 +30,7 @@ smooth growth of the simulation).
    manim -r 1920,1080 --fps 30 v2_pm25.py AirPollution
    manim -r 1920,1080 --fps 30 v3_confidence.py Confidence
    manim -r 1920,1080 --fps 30 v4_least_squares.py LeastSquares
+   manim -r 1920,1080 --fps 30 v5_least_squares_3d.py LeastSquares3D
    ```
 
 3. Compress and copy to `video/`:
