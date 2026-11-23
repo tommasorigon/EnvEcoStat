@@ -78,8 +78,8 @@ The exercises associated with this unit are available at
 ## Back to Unit K
 
 In [Unit K](un_K.html) we used two [quantitative]{.blue} explanatory variables,
-the diameter and the height of the black cherry trees. In this unit the
-explanatory variable is [qualitative]{.orange}.
+the diameter and the height of the black cherry trees. In this unit we
+include also [qualitative]{.orange} explanatory variables.
 
 ## A qualitative explanatory variable
 
@@ -227,7 +227,9 @@ The `F value` is the ratio of the two `Mean Sq`, $1676.24 / 394.93 = 4.24$.
 The P-value is $0.018$: there is evidence that [at least two]{.orange} mean
 incomes differ. In the table `Coefficients` of `summary(fit_race)`, the
 difference between Whites and Blacks is significant (P-value $0.012$), while the
-one between Hispanics and Blacks is not (P-value $0.656$).
+one between Hispanics and Blacks is not (P-value $0.656$). Comparing all the
+pairs of groups would require some additional care (*multiple comparisons*),
+which is beyond the scope of this unit.
 
 ## Adjusting for education
 

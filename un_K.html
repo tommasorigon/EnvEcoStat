@@ -418,6 +418,7 @@ s^2 = \frac{1}{n - 2}\sum_{i=1}^n e_i^2,
 <pre><code>[1] 0.1204156</code></pre>
 </div>
 </div>
+<p>Note that <span class="math inline">s</span> is <span class="orange">not</span> the standard deviation of the volumes, computed by <code>sd(y)</code>: it measures how much the volumes vary <span class="blue">around the line</span>.</p>
 </section>
 <section id="the-standard-error-of-hatbeta" class="level2">
 <h2 class="anchored" data-anchor-id="the-standard-error-of-hatbeta">The standard error of <span class="math inline">\hat{\beta}</span></h2>
@@ -568,7 +569,7 @@ diameter     0.0508432  0.06212972</code></pre>
 </section>
 <section id="diagnostic-plots" class="level2">
 <h2 class="anchored" data-anchor-id="diagnostic-plots">Diagnostic plots</h2>
-<p>The tests and the intervals also assume <span class="blue">normal</span> errors. The command <code>plot</code>, applied to the output of <code>lm</code>, draws several <span class="orange">diagnostic plots</span>. We consider the first two:</p>
+<p>The tests and the intervals also assume <span class="blue">normal</span> errors; this matters especially for the prediction intervals. The command <code>plot</code>, applied to the output of <code>lm</code>, draws several <span class="orange">diagnostic plots</span>. We consider the first two:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># Two plots side by side</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

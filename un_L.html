@@ -225,7 +225,7 @@ window.Quarto = {
 </section>
 <section id="back-to-unit-k" class="level2">
 <h2 class="anchored" data-anchor-id="back-to-unit-k">Back to Unit K</h2>
-<p>In <a href="un_K.html">Unit K</a> we used two <span class="blue">quantitative</span> explanatory variables, the diameter and the height of the black cherry trees. In this unit the explanatory variable is <span class="orange">qualitative</span>.</p>
+<p>In <a href="un_K.html">Unit K</a> we used two <span class="blue">quantitative</span> explanatory variables, the diameter and the height of the black cherry trees. In this unit we include also <span class="orange">qualitative</span> explanatory variables.</p>
 </section>
 <section id="a-qualitative-explanatory-variable" class="level2">
 <h2 class="anchored" data-anchor-id="a-qualitative-explanatory-variable">A qualitative explanatory variable</h2>
@@ -422,7 +422,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>the row <code>race</code> measures the variability <span class="orange">between</span> the groups, that is, how far the three sample means are from each other;</li>
 <li>the row <code>Residuals</code> measures the variability <span class="blue">within</span> the groups. Its <code>Mean Sq</code> is <span class="math inline">s^2</span>, the estimate of <span class="math inline">\sigma^2</span>, with <span class="math inline">n - 3 = 77</span> degrees of freedom.</li>
 </ul>
-<p>The <code>F value</code> is the ratio of the two <code>Mean Sq</code>, <span class="math inline">1676.24 / 394.93 = 4.24</span>. The P-value is <span class="math inline">0.018</span>: there is evidence that <span class="orange">at least two</span> mean incomes differ. In the table <code>Coefficients</code> of <code>summary(fit_race)</code>, the difference between Whites and Blacks is significant (P-value <span class="math inline">0.012</span>), while the one between Hispanics and Blacks is not (P-value <span class="math inline">0.656</span>).</p>
+<p>The <code>F value</code> is the ratio of the two <code>Mean Sq</code>, <span class="math inline">1676.24 / 394.93 = 4.24</span>. The P-value is <span class="math inline">0.018</span>: there is evidence that <span class="orange">at least two</span> mean incomes differ. In the table <code>Coefficients</code> of <code>summary(fit_race)</code>, the difference between Whites and Blacks is significant (P-value <span class="math inline">0.012</span>), while the one between Hispanics and Blacks is not (P-value <span class="math inline">0.656</span>). Comparing all the pairs of groups would require some additional care (<em>multiple comparisons</em>), which is beyond the scope of this unit.</p>
 </section>
 <section id="adjusting-for-education" class="level2">
 <h2 class="anchored" data-anchor-id="adjusting-for-education">Adjusting for education</h2>

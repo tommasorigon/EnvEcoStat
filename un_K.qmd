@@ -254,6 +254,9 @@ s
 sigma(fit) # The same value, computed by R
 ```
 
+Note that $s$ is [not]{.orange} the standard deviation of the volumes, computed
+by `sd(y)`: it measures how much the volumes vary [around the line]{.blue}.
+
 ## The standard error of $\hat{\beta}$
 
 Under the model, as for $\bar{Y}$ in [Unit I](un_I.html), we have that $$
@@ -381,7 +384,8 @@ constant.
 
 ## Diagnostic plots
 
-The tests and the intervals also assume [normal]{.blue} errors. The command
+The tests and the intervals also assume [normal]{.blue} errors; this matters
+especially for the prediction intervals. The command
 `plot`, applied to the output of `lm`, draws several [diagnostic plots]{.orange}.
 We consider the first two:
 
