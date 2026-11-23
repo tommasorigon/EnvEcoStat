@@ -50,6 +50,7 @@ abline(fit) # Same as abline(a = alpha_hat, b = beta_hat)
 n <- nrow(cherry)
 s <- sqrt(sum(e^2) / (n - 2))
 s
+sigma(fit) # The same value, computed by R
 
 ## -----------------------------------------------------------------------------
 se_hat <- s / sqrt(sum((x - mean(x))^2)) # Estimated standard error
@@ -84,6 +85,9 @@ plot(fitted(fit), residuals(fit),
   xlab = "Fitted values", ylab = "Residuals"
 )
 abline(h = 0, lty = "dashed") # Horizontal line at zero
+
+## -----------------------------------------------------------------------------
+hist(residuals(fit), main = "", xlab = "Residuals")
 
 ## -----------------------------------------------------------------------------
 predict(fit, newdata = data.frame(diameter = 15))

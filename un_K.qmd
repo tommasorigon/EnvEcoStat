@@ -244,6 +244,7 @@ have been estimated.
 n <- nrow(cherry)
 s <- sqrt(sum(e^2) / (n - 2))
 s
+sigma(fit) # The same value, computed by R
 ```
 
 ## The standard error of $\hat{\beta}$
@@ -366,6 +367,24 @@ abline(h = 0, lty = "dashed") # Horizontal line at zero
 If the model were adequate, we would see a [cloud without patterns]{.blue}
 around zero. Here, instead, the residuals are positive at the two extremes and
 negative in the middle: the relationship is [curved]{.orange}.
+
+The tests and the intervals also assume [normal]{.blue} errors. A histogram of
+the residuals should then be roughly bell-shaped and symmetric around zero:
+
+```{r}
+hist(residuals(fit), main = "", xlab = "Residuals")
+```
+
+With only $31$ trees we cannot expect a perfect bell shape, but there is no
+sign of strong asymmetry or of extreme values.
+
+::: callout-note
+#### Note
+
+The command `plot(fit)` draws the plot of the residuals against the fitted
+values, together with other [diagnostic plots]{.blue} that are beyond the scope
+of this unit.
+:::
 
 There is a second problem. For a small tree, the predicted volume is
 [negative]{.orange}:
