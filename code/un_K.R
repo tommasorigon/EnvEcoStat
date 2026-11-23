@@ -87,7 +87,36 @@ plot(fitted(fit), residuals(fit),
 abline(h = 0, lty = "dashed") # Horizontal line at zero
 
 ## -----------------------------------------------------------------------------
-hist(residuals(fit), main = "", xlab = "Residuals")
+par(mfrow = c(1, 2)) # Two plots side by side
+plot(fit, which = 1:2)
+par(mfrow = c(1, 1))
 
 ## -----------------------------------------------------------------------------
 predict(fit, newdata = data.frame(diameter = 15))
+
+## -----------------------------------------------------------------------------
+pairs(cherry, pch = 16)
+round(cor(cherry), 2)
+
+## -----------------------------------------------------------------------------
+fit2 <- lm(volume ~ diameter + height, data = cherry)
+coef(fit2)
+
+## -----------------------------------------------------------------------------
+summary(fit2)
+
+## -----------------------------------------------------------------------------
+confint(fit2)
+
+## -----------------------------------------------------------------------------
+fit_height <- lm(volume ~ height, data = cherry)
+coef(fit_height)
+
+## -----------------------------------------------------------------------------
+new_trees <- data.frame(diameter = c(40, 40), height = c(20, 25))
+predict(fit2, newdata = new_trees, interval = "prediction")
+
+## -----------------------------------------------------------------------------
+par(mfrow = c(1, 2))
+plot(fit2, which = 1:2)
+par(mfrow = c(1, 1))

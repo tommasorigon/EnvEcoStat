@@ -1,5 +1,5 @@
 ---
-title: "Multiple linear regression"
+title: "Qualitative explanatory variables"
 subtitle: "Programming and Data Analysis with R"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
@@ -63,11 +63,9 @@ rm(clean, squeeze, full)
 ```
 ## Topics covered
 
--   The multiple linear regression model
--   Interpreting the coefficients, at fixed values of the other variables
--   Tests, confidence intervals and predictions with several explanatory
-    variables
--   A qualitative explanatory variable
+-   A qualitative explanatory variable in a linear model
+-   Indicator variables and reference category
+-   Adjusting for a confounding variable
 
 ::: callout-note
 #### Note
@@ -76,179 +74,11 @@ The exercises associated with this unit are available at
 [this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_D.html).
 :::
 
-## Back to the black cherry trees
+## Back to Unit K
 
-In [Unit K](un_K.html) we predicted the volume of timber of $n = 31$ black
-cherry trees from the [diameter]{.blue} of their trunk. The unit ended with an
-observation: the volume does not depend on the diameter only, since taller
-trees have, on average, more timber.
-
-::: callout-note
-#### Research question
-
-Does the [height]{.orange} of a tree help to predict its volume, once the
-diameter is known?
-:::
-
-We build the same data frame of [Unit K](un_K.html):
-
-```{r}
-cherry <- data.frame(
-  diameter = round(trees$Girth * 2.54, 1), # cm
-  height = round(trees$Height * 0.3048, 1), # m
-  volume = round(trees$Volume * 0.0283168, 3) # cubic metres
-)
-summary(cherry)
-```
-
-## Scatterplot matrix
-
-With three variables, the command `pairs` draws all the scatterplots at once,
-and `cor` applied to the data frame returns all the correlations:
-
-```{r}
-pairs(cherry, pch = 16)
-round(cor(cherry), 2)
-```
-
-The volume is strongly related to the diameter and, less strongly, to the
-height. Note also that the two explanatory variables are [related to each
-other]{.orange}: taller trees tend to have a larger diameter.
-
-## The multiple linear regression model
-
-The [multiple linear regression model]{.orange} with two explanatory variables
-assumes that $$
-Y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i, \qquad i = 1,\dots,n,
-$$ where $x_{i1}$ is the diameter and $x_{i2}$ the height of the $i$th tree.
-As in [Unit K](un_K.html), the values $x_{i1}$ and $x_{i2}$ are treated as
-fixed, and the errors $\epsilon_1,\dots,\epsilon_n$ are independent, with
-distribution $\text{N}(0, \sigma^2)$. Therefore:
-
--   $\alpha + \beta_1 x_1 + \beta_2 x_2$ is the [mean]{.blue} volume of the
-    trees with diameter $x_1$ and height $x_2$;
--   $\beta_1$ is the change in the mean volume when the diameter increases by
-    $1$ cm, [at fixed height]{.orange};
--   $\beta_2$ is the change in the mean volume when the height increases by
-    $1$ m, [at fixed diameter]{.orange}.
-
-The estimates $\hat{\alpha}$, $\hat{\beta}_1$ and $\hat{\beta}_2$ are again
-obtained by [least squares]{.blue}, that is by minimising $$
-\sum_{i=1}^n (y_i - \alpha - \beta_1 x_{i1} - \beta_2 x_{i2})^2.
-$$ There is no simple formula as in [Unit F](un_F.html): we let **R** do the
-computations.
-
-## The command `lm`
-
-The explanatory variables are listed in the formula, separated by `+`:
-
-```{r}
-fit <- lm(volume ~ diameter + height, data = cherry)
-coef(fit)
-```
-
-For two trees with the [same height]{.blue}, one additional centimetre of
-diameter corresponds, on average, to $0.053$ m$^3$ of additional timber. For
-two trees with the [same diameter]{.blue}, one additional metre of height
-corresponds, on average, to $0.031$ m$^3$ of additional timber. In short, we
-say that these are the effects of the diameter and of the height, each
-[adjusting for]{.orange} the other variable.
-
-## The command `summary`
-
-```{r}
-summary(fit)
-```
-
-The output is read as in [Unit K](un_K.html), with a few differences:
-
--   in the table `Coefficients`, the rows `diameter` and `height` test
-    $H_0: \beta_1 = 0$ and $H_0: \beta_2 = 0$, that is, whether each variable
-    is useful [given the other one]{.blue}. The test statistics are computed as
-    in [Unit K](un_K.html), estimate divided by standard error, but now have a
-    $t$ distribution with $n - 3$ degrees of freedom. The height has a P-value
-    of $0.016$: it helps to predict the volume, even when the diameter is
-    known;
--   the variance $\sigma^2$ is estimated by $s^2 = \frac{1}{n - 3}\sum_{i=1}^n e_i^2$,
-    because three parameters have been estimated: `Residual standard error` is
-    $s$, with $n - 3 = 28$ degrees of freedom;
--   the last line is the [F test]{.orange} of $H_0: \beta_1 = \beta_2 = 0$,
-    that is, whether [at least one]{.blue} of the variables is useful. Here the
-    P-value is practically zero.
-
-The coefficient $R^2$ increases from $0.935$ (diameter only, [Unit
-K](un_K.html)) to $0.948$. It is still defined as
-$R^2 = 1 - \text{var}(e)/\text{var}(y)$, but it is no longer the square of the
-correlation between $y$ and a single explanatory variable.
-
-## Confidence intervals
-
-As in [Unit K](un_K.html), the $95\%$ confidence intervals are obtained with
-`confint`:
-
-```{r}
-confint(fit)
-```
-
-## Marginal and conditional effects
-
-What if we used the [height only]{.blue}?
-
-```{r}
-fit_height <- lm(volume ~ height, data = cherry)
-coef(fit_height)
-```
-
-Alone, one additional metre of height corresponds to $0.142$ m$^3$ of
-additional timber: almost [five times]{.orange} the value $0.031$ obtained at
-fixed diameter. Why?
-
-Taller trees also tend to have a larger diameter. The simple regression
-attributes to the height also the effect of the diameter, which is not in the
-model. The multiple regression, instead, compares trees with the same
-diameter.
-
-::: callout-warning
-The coefficient of a variable [depends on which other variables]{.orange} are
-in the model. Always interpret it together with the list of the other
-variables: "at fixed ...".
-:::
-
-## Prediction
-
-Two standing trees have the same diameter, $40$ cm, but different heights,
-$20$ m and $25$ m. The data frame given to `predict` must now contain both
-variables:
-
-```{r}
-new_trees <- data.frame(diameter = c(40, 40), height = c(20, 25))
-predict(fit, newdata = new_trees, interval = "prediction")
-```
-
-The taller tree is expected to have about $0.16$ m$^3$ of additional timber.
-As in [Unit K](un_K.html), `interval = "confidence"` would instead give the
-intervals for the mean volume.
-
-## Residual plots
-
-```{r}
-plot(fitted(fit), residuals(fit),
-  pch = 16,
-  xlab = "Fitted values", ylab = "Residuals"
-)
-abline(h = 0, lty = "dashed")
-```
-
-The residuals show the same [curvature]{.orange} seen in [Unit K](un_K.html):
-adding the height improves the predictions, but it does not fix this problem.
-The model is useful, but it is only an approximation.
-
-As in [Unit K](un_K.html), we also check that the residuals are roughly
-bell-shaped:
-
-```{r}
-hist(residuals(fit), main = "", xlab = "Residuals")
-```
+In [Unit K](un_K.html) we used two [quantitative]{.blue} explanatory variables,
+the diameter and the height of the black cherry trees. In this unit the
+explanatory variable is [qualitative]{.orange}.
 
 ## A qualitative explanatory variable
 
@@ -317,7 +147,7 @@ an old one, and not $229$: a large part of the difference between the two
 groups is due to the size. The difference remains statistically significant
 (P-value $0.003$).
 
-This is the same phenomenon seen with the trees: the effect of a variable
+This is the same phenomenon seen with the trees in [Unit K](un_K.html): the effect of a variable
 changes when another variable, related to both, enters the model. The size is
 a [confounding variable]{.orange} for the comparison between new and old
 houses.

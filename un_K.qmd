@@ -1,5 +1,5 @@
 ---
-title: "Simple linear regression"
+title: "Linear regression"
 subtitle: "Programming and Data Analysis with R"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
@@ -66,7 +66,8 @@ rm(clean, squeeze, full)
 -   The simple linear regression model
 -   Tests and confidence intervals for the slope
 -   Confidence and prediction intervals
--   Residual plots
+-   Diagnostic plots: residuals and normal Q-Q plot
+-   Multiple linear regression: interpretation of the coefficients
 
 ::: callout-note
 #### Note
@@ -137,7 +138,7 @@ cherry <- data.frame(
 summary(cherry)
 ```
 
-The height will be used in the next unit.
+The height will be used later in this unit.
 
 ## The scatterplot
 
@@ -374,23 +375,34 @@ If the model were adequate, we would see a [cloud without patterns]{.blue}
 around zero. Here, instead, the residuals are positive at the two extremes and
 negative in the middle: the relationship is [curved]{.orange}.
 
-The tests and the intervals also assume [normal]{.blue} errors. A histogram of
-the residuals should then be roughly bell-shaped and symmetric around zero:
+A [fan-shaped]{.blue} cloud, with residuals more and more spread out as the
+fitted values increase, would instead indicate that the variance is not
+constant.
+
+## Diagnostic plots
+
+The tests and the intervals also assume [normal]{.blue} errors. The command
+`plot`, applied to the output of `lm`, draws several [diagnostic plots]{.orange}.
+We consider the first two:
 
 ```{r}
-hist(residuals(fit), main = "", xlab = "Residuals")
+par(mfrow = c(1, 2)) # Two plots side by side
+plot(fit, which = 1:2)
+par(mfrow = c(1, 1))
 ```
 
-With only $31$ trees we cannot expect a perfect bell shape, but there is no
-sign of strong asymmetry or of extreme values.
+-   `Residuals vs Fitted` is the plot of the previous section. The red line
+    follows the average trend of the residuals: it should be roughly flat
+    around zero, while here it is U-shaped. **R** also labels the three
+    observations with the largest residuals: number $31$ is the largest tree.
+-   `Q-Q Residuals` (normal Q-Q plot) compares the ordered [standardised
+    residuals]{.blue}, that is the residuals divided by their estimated
+    standard deviation, with the quantiles of a standard normal distribution.
+    If the errors are normal, the points lie close to the dotted line. Here
+    they do, apart from small departures at the two extremes: the normality
+    assumption is reasonable.
 
-::: callout-note
-#### Note
-
-The command `plot(fit)` draws the plot of the residuals against the fitted
-values, together with other [diagnostic plots]{.blue} that are beyond the scope
-of this unit.
-:::
+## Extrapolation
 
 There is a second problem. For a small tree, the predicted volume is
 [negative]{.orange}:
@@ -402,6 +414,155 @@ predict(fit, newdata = data.frame(diameter = 15))
 The smallest tree in the data has a diameter of $21.1$ cm: predicting outside
 the range of the observed data ([extrapolation]{.blue}) is dangerous.
 
-Finally, the volume of a tree does not depend on its diameter only: taller
-trees have, on average, more timber. A model with [two explanatory
-variables]{.orange}, diameter and height, is the topic of the next unit.
+## Adding the height
+
+The volume of a tree does not depend on its diameter only: taller trees have,
+on average, more timber.
+
+::: callout-note
+#### Research question
+
+Does the [height]{.orange} of a tree help to predict its volume, once the
+diameter is known?
+:::
+
+## Scatterplot matrix
+
+With three variables, the command `pairs` draws all the scatterplots at once,
+and `cor` applied to the data frame returns all the correlations:
+
+```{r}
+pairs(cherry, pch = 16)
+round(cor(cherry), 2)
+```
+
+The volume is strongly related to the diameter and, less strongly, to the
+height. Note also that the two explanatory variables are [related to each
+other]{.orange}: taller trees tend to have a larger diameter.
+
+## The multiple linear regression model
+
+The [multiple linear regression model]{.orange} with two explanatory variables
+assumes that $$
+Y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i, \qquad i = 1,\dots,n,
+$$ where $x_{i1}$ is the diameter and $x_{i2}$ the height of the $i$th tree.
+As in the simple model, the values $x_{i1}$ and $x_{i2}$ are treated as
+fixed, and the errors $\epsilon_1,\dots,\epsilon_n$ are independent, with
+distribution $\text{N}(0, \sigma^2)$. Therefore:
+
+-   $\alpha + \beta_1 x_1 + \beta_2 x_2$ is the [mean]{.blue} volume of the
+    trees with diameter $x_1$ and height $x_2$;
+-   $\beta_1$ is the change in the mean volume when the diameter increases by
+    $1$ cm, [at fixed height]{.orange};
+-   $\beta_2$ is the change in the mean volume when the height increases by
+    $1$ m, [at fixed diameter]{.orange}.
+
+The estimates $\hat{\alpha}$, $\hat{\beta}_1$ and $\hat{\beta}_2$ are again
+obtained by [least squares]{.blue}, that is by minimising $$
+\sum_{i=1}^n (y_i - \alpha - \beta_1 x_{i1} - \beta_2 x_{i2})^2.
+$$ There is no simple formula as in [Unit F](un_F.html): we let **R** do the
+computations.
+
+## Fitting the model with two variables
+
+The explanatory variables are listed in the formula, separated by `+`:
+
+```{r}
+fit2 <- lm(volume ~ diameter + height, data = cherry)
+coef(fit2)
+```
+
+For two trees with the [same height]{.blue}, one additional centimetre of
+diameter corresponds, on average, to $0.053$ m$^3$ of additional timber. For
+two trees with the [same diameter]{.blue}, one additional metre of height
+corresponds, on average, to $0.031$ m$^3$ of additional timber. In short, we
+say that these are the effects of the diameter and of the height, each
+[adjusting for]{.orange} the other variable.
+
+## The output of `summary`
+
+```{r}
+summary(fit2)
+```
+
+The output is read as for the simple model, with a few differences:
+
+-   in the table `Coefficients`, the rows `diameter` and `height` test
+    $H_0: \beta_1 = 0$ and $H_0: \beta_2 = 0$, that is, whether each variable
+    is useful [given the other one]{.blue}. The test statistics are computed as
+    for the simple model, estimate divided by standard error, but now have a
+    $t$ distribution with $n - 3$ degrees of freedom. The height has a P-value
+    of $0.016$: it helps to predict the volume, even when the diameter is
+    known;
+-   the variance $\sigma^2$ is estimated by $s^2 = \frac{1}{n - 3}\sum_{i=1}^n e_i^2$,
+    because three parameters have been estimated: `Residual standard error` is
+    $s$, with $n - 3 = 28$ degrees of freedom;
+-   the last line is the [F test]{.orange} of $H_0: \beta_1 = \beta_2 = 0$,
+    that is, whether [at least one]{.blue} of the variables is useful. Here the
+    P-value is practically zero.
+
+The coefficient $R^2$ increases from $0.935$ (diameter only) to $0.948$. It is still defined as
+$R^2 = 1 - \text{var}(e)/\text{var}(y)$, but it is no longer the square of the
+correlation between $y$ and a single explanatory variable.
+
+## Confidence intervals
+
+As for the simple model, the $95\%$ confidence intervals are obtained with
+`confint`:
+
+```{r}
+confint(fit2)
+```
+
+## Marginal and conditional effects
+
+What if we used the [height only]{.blue}?
+
+```{r}
+fit_height <- lm(volume ~ height, data = cherry)
+coef(fit_height)
+```
+
+Alone, one additional metre of height corresponds to $0.142$ m$^3$ of
+additional timber: almost [five times]{.orange} the value $0.031$ obtained at
+fixed diameter. Why?
+
+Taller trees also tend to have a larger diameter. The simple regression
+attributes to the height also the effect of the diameter, which is not in the
+model. The multiple regression, instead, compares trees with the same
+diameter.
+
+::: callout-warning
+The coefficient of a variable [depends on which other variables]{.orange} are
+in the model. Always interpret it together with the list of the other
+variables: "at fixed ...".
+:::
+
+## Prediction with two variables
+
+Two standing trees have the same diameter, $40$ cm, but different heights,
+$20$ m and $25$ m. The data frame given to `predict` must now contain both
+variables:
+
+```{r}
+new_trees <- data.frame(diameter = c(40, 40), height = c(20, 25))
+predict(fit2, newdata = new_trees, interval = "prediction")
+```
+
+The taller tree is expected to have about $0.16$ m$^3$ of additional timber.
+As before, `interval = "confidence"` would instead give the
+intervals for the mean volume.
+
+## Diagnostic plots, again
+
+```{r}
+par(mfrow = c(1, 2))
+plot(fit2, which = 1:2)
+par(mfrow = c(1, 1))
+```
+
+The residuals show the same [curvature]{.orange} seen in the simple model:
+adding the height improves the predictions, but it does not fix this problem.
+The normal Q-Q plot, instead, does not show strong departures from normality.
+The model is useful, but it is only an approximation.
+

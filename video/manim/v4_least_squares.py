@@ -79,14 +79,17 @@ class LeastSquares(Scene):
         line = always_redraw(clipped_line)
         res = always_redraw(residuals)
 
-        model = MathTex(r"\hat{y}_i = \alpha + \beta\, x_i", font_size=40)
-        a_num = DecimalNumber(alpha.get_value(), num_decimal_places=3, font_size=36, include_sign=True)
+        model = MathTex(r"y = \alpha + \beta\, x", font_size=38)
+        resid = MathTex(r"e_i = y_i - \alpha - \beta\, x_i", font_size=34)
+        a_num = DecimalNumber(alpha.get_value(), num_decimal_places=3, font_size=36)
         b_num = DecimalNumber(beta.get_value(), num_decimal_places=4, font_size=36)
-        a_row = VGroup(MathTex(r"\alpha =", font_size=36), a_num).arrange(RIGHT, buff=0.15)
-        b_row = VGroup(MathTex(r"\beta =", font_size=36), b_num).arrange(RIGHT, buff=0.15)
+        a_lab = MathTex(r"\alpha =", font_size=36)
+        b_lab = MathTex(r"\beta =", font_size=36)
+        a_row = VGroup(a_lab, a_num).arrange(RIGHT, buff=0.15)
+        b_row = VGroup(b_lab, b_num).arrange(RIGHT, buff=0.15)
         s_num = DecimalNumber(sse(0.3, 0.0), num_decimal_places=3, font_size=36)
-        s_row = VGroup(MathTex(r"\sum_{i=1}^n e_i^2 =", font_size=36), s_num).arrange(RIGHT, buff=0.15)
-        right = VGroup(model, a_row, b_row, s_row).arrange(DOWN, buff=0.3, aligned_edge=LEFT)
+        s_row = VGroup(MathTex(r"\textstyle\sum_{i=1}^n e_i^2 =", font_size=36), s_num).arrange(RIGHT, buff=0.15)
+        right = VGroup(model, resid, a_row, b_row, s_row).arrange(DOWN, buff=0.25, aligned_edge=LEFT)
         right.to_corner(UR, buff=0.35).set_x(RIGHT_X + right.width / 2)
 
         a_num.add_updater(lambda m: m.set_value(alpha.get_value()))
@@ -96,7 +99,7 @@ class LeastSquares(Scene):
         self.play(Write(model))
         self.play(Create(line), FadeIn(a_row), FadeIn(b_row))
         self.wait(1)
-        self.play(Create(res), run_time=2)
+        self.play(Create(res), Write(resid), run_time=2)
         self.play(FadeIn(s_row))
         self.wait(3)
 
@@ -115,7 +118,10 @@ class LeastSquares(Scene):
 
         # ---- Phase 2: rotate around (x_bar, y_bar) ----------------------------------
         centre = Dot(ax.c2p(X_BAR, Y_BAR), radius=0.08, color=WHITE).set_z_index(4)
-        centre_lab = MathTex(r"(\bar{x}, \bar{y})", font_size=28).next_to(centre, UL, buff=0.1)
+        centre_lab = MathTex(r"(\bar{x}, \bar{y})", font_size=28).move_to(ax.c2p(30.8, 1.3))
+        centre_arrow = Arrow(centre_lab.get_bottom(), centre.get_center(), buff=0.12,
+                             stroke_width=2, max_tip_length_to_length_ratio=0.2, color=WHITE)
+        centre_lab = VGroup(centre_lab, centre_arrow)
         note2 = VGroup(
             Tex(r"Lines through $(\bar{x}, \bar{y})$:", font_size=30, color=GREY_A),
             MathTex(r"\alpha = \bar{y} - \beta\,\bar{x}", font_size=32, color=GREY_A),
@@ -137,7 +143,7 @@ class LeastSquares(Scene):
         )
         pan.shift(np.array([RIGHT_X + 0.55, -3.45, 0]) - pan.c2p(0, 0))
         pan_x = MathTex(r"\beta", font_size=30).next_to(pan.x_axis, RIGHT, buff=0.15)
-        pan_y = MathTex(r"\sum e_i^2", font_size=28).next_to(pan.y_axis, UP, buff=0.12)
+        pan_y = MathTex(r"\textstyle\sum_{i=1}^n e_i^2", font_size=28).move_to(pan.c2p(0.066, 5.2))
         self.play(Create(pan), FadeIn(pan_x), FadeIn(pan_y))
 
         trace = TracedPath(lambda: pan.c2p(beta.get_value(),
@@ -166,12 +172,16 @@ class LeastSquares(Scene):
         ).next_to(right, DOWN, buff=0.35).align_to(right, LEFT)
         drop = DashedLine(pan.c2p(BETA_HAT, sse(ALPHA_HAT, BETA_HAT)), pan.c2p(BETA_HAT, 0),
                           color=HIGHLIGHT)
+        a_hat = MathTex(r"\hat{\alpha} =", font_size=36, color=HIGHLIGHT).move_to(a_lab, aligned_edge=RIGHT)
+        b_hat = MathTex(r"\hat{\beta} =", font_size=36, color=HIGHLIGHT).move_to(b_lab, aligned_edge=RIGHT)
         self.play(Create(drop), ReplacementTransform(note2, best),
+                  ReplacementTransform(a_lab, a_hat), ReplacementTransform(b_lab, b_hat),
                   Indicate(s_row, color=HIGHLIGHT, scale_factor=1.1), run_time=2)
         self.wait(3)
         r2 = MathTex(
-            r"R^2 = 1 - \frac{\sum e_i^2}{\sum (y_i - \bar{y})^2} = 1 - \frac{0.420}{6.497} = 0.935",
-            font_size=28,
+            r"R^2 = 1 - \frac{\sum_{i=1}^n e_i^2}{\sum_{i=1}^n (y_i - \bar{y})^2}"
+            r" = 1 - \frac{0.420}{6.497} = 0.935",
+            font_size=26,
         ).move_to(best, aligned_edge=LEFT)
         self.play(FadeOut(best), run_time=0.8)
         self.play(Write(r2), run_time=2)

@@ -8,7 +8,7 @@
 
 <meta name="author" content="Tommaso Rigon">
 
-<title>Simple linear regression</title>
+<title>Linear regression</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -150,6 +150,17 @@ window.Quarto = {
   <li><a href="#a-confidence-interval-for-the-slope" id="toc-a-confidence-interval-for-the-slope" class="nav-link" data-scroll-target="#a-confidence-interval-for-the-slope">A confidence interval for the slope</a></li>
   <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction">Prediction</a></li>
   <li><a href="#residual-plots" id="toc-residual-plots" class="nav-link" data-scroll-target="#residual-plots">Residual plots</a></li>
+  <li><a href="#diagnostic-plots" id="toc-diagnostic-plots" class="nav-link" data-scroll-target="#diagnostic-plots">Diagnostic plots</a></li>
+  <li><a href="#extrapolation" id="toc-extrapolation" class="nav-link" data-scroll-target="#extrapolation">Extrapolation</a></li>
+  <li><a href="#adding-the-height" id="toc-adding-the-height" class="nav-link" data-scroll-target="#adding-the-height">Adding the height</a></li>
+  <li><a href="#scatterplot-matrix" id="toc-scatterplot-matrix" class="nav-link" data-scroll-target="#scatterplot-matrix">Scatterplot matrix</a></li>
+  <li><a href="#the-multiple-linear-regression-model" id="toc-the-multiple-linear-regression-model" class="nav-link" data-scroll-target="#the-multiple-linear-regression-model">The multiple linear regression model</a></li>
+  <li><a href="#fitting-the-model-with-two-variables" id="toc-fitting-the-model-with-two-variables" class="nav-link" data-scroll-target="#fitting-the-model-with-two-variables">Fitting the model with two variables</a></li>
+  <li><a href="#the-output-of-summary" id="toc-the-output-of-summary" class="nav-link" data-scroll-target="#the-output-of-summary">The output of <code>summary</code></a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">Confidence intervals</a></li>
+  <li><a href="#marginal-and-conditional-effects" id="toc-marginal-and-conditional-effects" class="nav-link" data-scroll-target="#marginal-and-conditional-effects">Marginal and conditional effects</a></li>
+  <li><a href="#prediction-with-two-variables" id="toc-prediction-with-two-variables" class="nav-link" data-scroll-target="#prediction-with-two-variables">Prediction with two variables</a></li>
+  <li><a href="#diagnostic-plots-again" id="toc-diagnostic-plots-again" class="nav-link" data-scroll-target="#diagnostic-plots-again">Diagnostic plots, again</a></li>
   </ul>
 </nav>
 </div>
@@ -157,7 +168,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Simple linear regression</h1>
+<h1 class="title">Linear regression</h1>
 <p class="subtitle lead">Programming and Data Analysis with R</p>
 </div>
 
@@ -198,7 +209,8 @@ window.Quarto = {
 <li>The simple linear regression model</li>
 <li>Tests and confidence intervals for the slope</li>
 <li>Confidence and prediction intervals</li>
-<li>Residual plots</li>
+<li>Diagnostic plots: residuals and normal Q-Q plot</li>
+<li>Multiple linear regression: interpretation of the coefficients</li>
 </ul>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -281,7 +293,7 @@ window.Quarto = {
  Max.   :52.30   Max.   :26.50   Max.   :2.1800  </code></pre>
 </div>
 </div>
-<p>The height will be used in the next unit.</p>
+<p>The height will be used later in this unit.</p>
 </section>
 <section id="the-scatterplot" class="level2">
 <h2 class="anchored" data-anchor-id="the-scatterplot">The scatterplot</h2>
@@ -552,9 +564,14 @@ diameter     0.0508432  0.06212972</code></pre>
 </div>
 </div>
 <p>If the model were adequate, we would see a <span class="blue">cloud without patterns</span> around zero. Here, instead, the residuals are positive at the two extremes and negative in the middle: the relationship is <span class="orange">curved</span>.</p>
-<p>The tests and the intervals also assume <span class="blue">normal</span> errors. A histogram of the residuals should then be roughly bell-shaped and symmetric around zero:</p>
+<p>A <span class="blue">fan-shaped</span> cloud, with residuals more and more spread out as the fitted values increase, would instead indicate that the variance is not constant.</p>
+</section>
+<section id="diagnostic-plots" class="level2">
+<h2 class="anchored" data-anchor-id="diagnostic-plots">Diagnostic plots</h2>
+<p>The tests and the intervals also assume <span class="blue">normal</span> errors. The command <code>plot</code>, applied to the output of <code>lm</code>, draws several <span class="orange">diagnostic plots</span>. We consider the first two:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">residuals</span>(fit), <span class="at">main =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"Residuals"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># Two plots side by side</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -562,31 +579,191 @@ diameter     0.0508432  0.06212972</code></pre>
 </figure>
 </div>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>With only <span class="math inline">31</span> trees we cannot expect a perfect bell shape, but there is no sign of strong asymmetry or of extreme values.</p>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The command <code>plot(fit)</code> draws the plot of the residuals against the fitted values, together with other <span class="blue">diagnostic plots</span> that are beyond the scope of this unit.</p>
-</div>
-</div>
+<ul>
+<li><code>Residuals vs Fitted</code> is the plot of the previous section. The red line follows the average trend of the residuals: it should be roughly flat around zero, while here it is U-shaped. <strong>R</strong> also labels the three observations with the largest residuals: number <span class="math inline">31</span> is the largest tree.</li>
+<li><code>Q-Q Residuals</code> (normal Q-Q plot) compares the ordered <span class="blue">standardised residuals</span>, that is the residuals divided by their estimated standard deviation, with the quantiles of a standard normal distribution. If the errors are normal, the points lie close to the dotted line. Here they do, apart from small departures at the two extremes: the normality assumption is reasonable.</li>
+</ul>
+</section>
+<section id="extrapolation" class="level2">
+<h2 class="anchored" data-anchor-id="extrapolation">Extrapolation</h2>
 <p>There is a second problem. For a small tree, the predicted volume is <span class="orange">negative</span>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">diameter =</span> <span class="dv">15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">diameter =</span> <span class="dv">15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         1 
 -0.1993587 </code></pre>
 </div>
 </div>
 <p>The smallest tree in the data has a diameter of <span class="math inline">21.1</span> cm: predicting outside the range of the observed data (<span class="blue">extrapolation</span>) is dangerous.</p>
-<p>Finally, the volume of a tree does not depend on its diameter only: taller trees have, on average, more timber. A model with <span class="orange">two explanatory variables</span>, diameter and height, is the topic of the next unit.</p>
+</section>
+<section id="adding-the-height" class="level2">
+<h2 class="anchored" data-anchor-id="adding-the-height">Adding the height</h2>
+<p>The volume of a tree does not depend on its diameter only: taller trees have, on average, more timber.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Research question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Does the <span class="orange">height</span> of a tree help to predict its volume, once the diameter is known?</p>
+</div>
+</div>
+</section>
+<section id="scatterplot-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="scatterplot-matrix">Scatterplot matrix</h2>
+<p>With three variables, the command <code>pairs</code> draws all the scatterplots at once, and <code>cor</code> applied to the data frame returns all the correlations:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(cherry, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_K_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(cherry), <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         diameter height volume
+diameter     1.00   0.52   0.97
+height       0.52   1.00   0.60
+volume       0.97   0.60   1.00</code></pre>
+</div>
+</div>
+<p>The volume is strongly related to the diameter and, less strongly, to the height. Note also that the two explanatory variables are <span class="orange">related to each other</span>: taller trees tend to have a larger diameter.</p>
+</section>
+<section id="the-multiple-linear-regression-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-multiple-linear-regression-model">The multiple linear regression model</h2>
+<p>The <span class="orange">multiple linear regression model</span> with two explanatory variables assumes that <span class="math display">
+Y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i, \qquad i = 1,\dots,n,
+</span> where <span class="math inline">x_{i1}</span> is the diameter and <span class="math inline">x_{i2}</span> the height of the <span class="math inline">i</span>th tree. As in the simple model, the values <span class="math inline">x_{i1}</span> and <span class="math inline">x_{i2}</span> are treated as fixed, and the errors <span class="math inline">\epsilon_1,\dots,\epsilon_n</span> are independent, with distribution <span class="math inline">\text{N}(0, \sigma^2)</span>. Therefore:</p>
+<ul>
+<li><span class="math inline">\alpha + \beta_1 x_1 + \beta_2 x_2</span> is the <span class="blue">mean</span> volume of the trees with diameter <span class="math inline">x_1</span> and height <span class="math inline">x_2</span>;</li>
+<li><span class="math inline">\beta_1</span> is the change in the mean volume when the diameter increases by <span class="math inline">1</span> cm, <span class="orange">at fixed height</span>;</li>
+<li><span class="math inline">\beta_2</span> is the change in the mean volume when the height increases by <span class="math inline">1</span> m, <span class="orange">at fixed diameter</span>.</li>
+</ul>
+<p>The estimates <span class="math inline">\hat{\alpha}</span>, <span class="math inline">\hat{\beta}_1</span> and <span class="math inline">\hat{\beta}_2</span> are again obtained by <span class="blue">least squares</span>, that is by minimising <span class="math display">
+\sum_{i=1}^n (y_i - \alpha - \beta_1 x_{i1} - \beta_2 x_{i2})^2.
+</span> There is no simple formula as in <a href="un_F.html">Unit F</a>: we let <strong>R</strong> do the computations.</p>
+</section>
+<section id="fitting-the-model-with-two-variables" class="level2">
+<h2 class="anchored" data-anchor-id="fitting-the-model-with-two-variables">Fitting the model with two variables</h2>
+<p>The explanatory variables are listed in the formula, separated by <code>+</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(volume <span class="sc">~</span> diameter <span class="sc">+</span> height, <span class="at">data =</span> cherry)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)    diameter      height 
+-1.63410974  0.05254189  0.03108235 </code></pre>
+</div>
+</div>
+<p>For two trees with the <span class="blue">same height</span>, one additional centimetre of diameter corresponds, on average, to <span class="math inline">0.053</span> m<span class="math inline">^3</span> of additional timber. For two trees with the <span class="blue">same diameter</span>, one additional metre of height corresponds, on average, to <span class="math inline">0.031</span> m<span class="math inline">^3</span> of additional timber. In short, we say that these are the effects of the diameter and of the height, each <span class="orange">adjusting for</span> the other variable.</p>
+</section>
+<section id="the-output-of-summary" class="level2">
+<h2 class="anchored" data-anchor-id="the-output-of-summary">The output of <code>summary</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = volume ~ diameter + height, data = cherry)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.180164 -0.074464 -0.005866  0.062388  0.242487 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -1.634110   0.244261  -6.690 2.92e-07 ***
+diameter     0.052542   0.002953  17.790  &lt; 2e-16 ***
+height       0.031082   0.012071   2.575   0.0156 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1102 on 28 degrees of freedom
+Multiple R-squared:  0.9477,    Adjusted R-squared:  0.9439 
+F-statistic: 253.5 on 2 and 28 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>The output is read as for the simple model, with a few differences:</p>
+<ul>
+<li>in the table <code>Coefficients</code>, the rows <code>diameter</code> and <code>height</code> test <span class="math inline">H_0: \beta_1 = 0</span> and <span class="math inline">H_0: \beta_2 = 0</span>, that is, whether each variable is useful <span class="blue">given the other one</span>. The test statistics are computed as for the simple model, estimate divided by standard error, but now have a <span class="math inline">t</span> distribution with <span class="math inline">n - 3</span> degrees of freedom. The height has a P-value of <span class="math inline">0.016</span>: it helps to predict the volume, even when the diameter is known;</li>
+<li>the variance <span class="math inline">\sigma^2</span> is estimated by <span class="math inline">s^2 = \frac{1}{n - 3}\sum_{i=1}^n e_i^2</span>, because three parameters have been estimated: <code>Residual standard error</code> is <span class="math inline">s</span>, with <span class="math inline">n - 3 = 28</span> degrees of freedom;</li>
+<li>the last line is the <span class="orange">F test</span> of <span class="math inline">H_0: \beta_1 = \beta_2 = 0</span>, that is, whether <span class="blue">at least one</span> of the variables is useful. Here the P-value is practically zero.</li>
+</ul>
+<p>The coefficient <span class="math inline">R^2</span> increases from <span class="math inline">0.935</span> (diameter only) to <span class="math inline">0.948</span>. It is still defined as <span class="math inline">R^2 = 1 - \text{var}(e)/\text{var}(y)</span>, but it is no longer the square of the correlation between <span class="math inline">y</span> and a single explanatory variable.</p>
+</section>
+<section id="confidence-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-intervals">Confidence intervals</h2>
+<p>As for the simple model, the <span class="math inline">95\%</span> confidence intervals are obtained with <code>confint</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   2.5 %      97.5 %
+(Intercept) -2.134456110 -1.13376336
+diameter     0.046492187  0.05859159
+height       0.006355497  0.05580920</code></pre>
+</div>
+</div>
+</section>
+<section id="marginal-and-conditional-effects" class="level2">
+<h2 class="anchored" data-anchor-id="marginal-and-conditional-effects">Marginal and conditional effects</h2>
+<p>What if we used the <span class="blue">height only</span>?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>fit_height <span class="ot">&lt;-</span> <span class="fu">lm</span>(volume <span class="sc">~</span> height, <span class="at">data =</span> cherry)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit_height)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)      height 
+ -2.4469264   0.1424763 </code></pre>
+</div>
+</div>
+<p>Alone, one additional metre of height corresponds to <span class="math inline">0.142</span> m<span class="math inline">^3</span> of additional timber: almost <span class="orange">five times</span> the value <span class="math inline">0.031</span> obtained at fixed diameter. Why?</p>
+<p>Taller trees also tend to have a larger diameter. The simple regression attributes to the height also the effect of the diameter, which is not in the model. The multiple regression, instead, compares trees with the same diameter.</p>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The coefficient of a variable <span class="orange">depends on which other variables</span> are in the model. Always interpret it together with the list of the other variables: “at fixed …”.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="prediction-with-two-variables" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-with-two-variables">Prediction with two variables</h2>
+<p>Two standing trees have the same diameter, <span class="math inline">40</span> cm, but different heights, <span class="math inline">20</span> m and <span class="math inline">25</span> m. The data frame given to <code>predict</code> must now contain both variables:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>new_trees <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">diameter =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">40</span>), <span class="at">height =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">25</span>))</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit2, <span class="at">newdata =</span> new_trees, <span class="at">interval =</span> <span class="st">"prediction"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit       lwr      upr
+1 1.089213 0.8375444 1.340881
+2 1.244624 1.0115770 1.477672</code></pre>
+</div>
+</div>
+<p>The taller tree is expected to have about <span class="math inline">0.16</span> m<span class="math inline">^3</span> of additional timber. As before, <code>interval = "confidence"</code> would instead give the intervals for the mean volume.</p>
+</section>
+<section id="diagnostic-plots-again" class="level2">
+<h2 class="anchored" data-anchor-id="diagnostic-plots-again">Diagnostic plots, again</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit2, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_K_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The residuals show the same <span class="orange">curvature</span> seen in the simple model: adding the height improves the predictions, but it does not fix this problem. The normal Q-Q plot, instead, does not show strong departures from normality. The model is useful, but it is only an approximation.</p>
 </section>
 
 </main>
