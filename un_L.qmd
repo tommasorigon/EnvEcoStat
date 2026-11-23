@@ -160,6 +160,29 @@ the data (the neighbourhood, the quality of the materials, ...) could still
 explain part of the difference.
 :::
 
+## Diagnostic plots for the `Houses` data
+
+As in [Unit K](un_K.html), we check the assumptions of the model with the first
+two diagnostic plots:
+
+```{r}
+par(mfrow = c(1, 2)) # Two plots side by side
+plot(fit_size_new, which = 1:2)
+par(mfrow = c(1, 1))
+```
+
+-   `Residuals vs Fitted`: the cloud is [fan-shaped]{.orange}, since the
+    residuals are more spread out for the more expensive houses. The variance
+    is therefore not constant. House $64$, the largest one, has a very negative
+    residual: its price is much lower than predicted from its size.
+-   `Q-Q Residuals`: in the upper part, the points lie clearly above the dotted
+    line. The distribution of the residuals is [skewed to the right]{.orange},
+    as the prices themselves in [Exercises B](exe/exe_B.html).
+
+The normality and constant variance assumptions are therefore questionable: the
+estimates are still meaningful, but the P-values and the intervals should be
+taken as [approximate]{.blue}.
+
 ## Comparing three groups
 
 The `Income` data file of @Agresti2022 reports, for $n = 80$ adult Americans
@@ -245,4 +268,18 @@ summary(fit_race_edu)
 -   Adjusting for education, the difference between the mean incomes of Whites
     and Blacks is $10.9$ thousand dollars, instead of $14.7$: part of the
     difference between the groups is due to education.
+
+## Diagnostic plots for the `Income` data
+
+```{r}
+par(mfrow = c(1, 2))
+plot(fit_race_edu, which = 1:2)
+par(mfrow = c(1, 1))
+```
+
+The red line of `Residuals vs Fitted` is roughly flat, but two people, numbers
+$67$ and $72$, have incomes much higher than predicted. In the `Q-Q Residuals`
+plot, the points in the upper part lie above the dotted line: as is typical for
+incomes, the residuals are [skewed to the right]{.orange}. Also here, the
+P-values should be taken as approximate.
 

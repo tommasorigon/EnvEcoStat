@@ -21,6 +21,11 @@ fit_size_new <- lm(price ~ size + new, data = Houses)
 summary(fit_size_new)
 
 ## -----------------------------------------------------------------------------
+par(mfrow = c(1, 2)) # Two plots side by side
+plot(fit_size_new, which = 1:2)
+par(mfrow = c(1, 1))
+
+## -----------------------------------------------------------------------------
 path <- "https://stat4ds.rwth-aachen.de/data/Income.dat"
 Income <- read.table(path, header = TRUE)
 Income$race <- factor(Income$race)
@@ -44,3 +49,8 @@ anova(fit_race)
 ## -----------------------------------------------------------------------------
 fit_race_edu <- lm(income ~ race + education, data = Income)
 summary(fit_race_edu)
+
+## -----------------------------------------------------------------------------
+par(mfrow = c(1, 2))
+plot(fit_race_edu, which = 1:2)
+par(mfrow = c(1, 1))
