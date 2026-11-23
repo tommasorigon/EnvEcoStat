@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tommaso Rigon">
+
+<title>Simple linear regression</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="un_K_files/libs/clipboard/clipboard.min.js"></script>
+<script src="un_K_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="un_K_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="un_K_files/libs/quarto-html/popper.min.js"></script>
+<script src="un_K_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="un_K_files/libs/quarto-html/anchor.min.js"></script>
+<link href="un_K_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="un_K_files/libs/quarto-html/quarto-syntax-highlighting-882f132b49beac8344fe1497d568d70b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="un_K_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="un_K_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="un_K_files/libs/bootstrap/bootstrap-55d66b82bfb7e8363875927e87202f7a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a></li>
+  <li><a href="#topics-covered" id="toc-topics-covered" class="nav-link" data-scroll-target="#topics-covered">Topics covered</a></li>
+  <li><a href="#back-to-unit-f" id="toc-back-to-unit-f" class="nav-link" data-scroll-target="#back-to-unit-f">Back to Unit F</a></li>
+  <li><a href="#black-cherry-trees" id="toc-black-cherry-trees" class="nav-link" data-scroll-target="#black-cherry-trees">Black cherry trees</a></li>
+  <li><a href="#importing-the-trees-data" id="toc-importing-the-trees-data" class="nav-link" data-scroll-target="#importing-the-trees-data">Importing the <code>trees</code> data</a></li>
+  <li><a href="#preliminary-operations" id="toc-preliminary-operations" class="nav-link" data-scroll-target="#preliminary-operations">Preliminary operations</a></li>
+  <li><a href="#the-scatterplot" id="toc-the-scatterplot" class="nav-link" data-scroll-target="#the-scatterplot">The scatterplot</a></li>
+  <li><a href="#the-least-squares-line" id="toc-the-least-squares-line" class="nav-link" data-scroll-target="#the-least-squares-line">The least squares line</a></li>
+  <li><a href="#the-command-lm" id="toc-the-command-lm" class="nav-link" data-scroll-target="#the-command-lm">The command <code>lm</code></a></li>
+  <li><a href="#the-linear-regression-model" id="toc-the-linear-regression-model" class="nav-link" data-scroll-target="#the-linear-regression-model">The linear regression model</a></li>
+  <li><a href="#the-standard-error-of-hatbeta" id="toc-the-standard-error-of-hatbeta" class="nav-link" data-scroll-target="#the-standard-error-of-hatbeta">The standard error of <span class="math inline">\hat{\beta}</span></a></li>
+  <li><a href="#a-test-for-the-slope" id="toc-a-test-for-the-slope" class="nav-link" data-scroll-target="#a-test-for-the-slope">A test for the slope</a></li>
+  <li><a href="#the-command-summary" id="toc-the-command-summary" class="nav-link" data-scroll-target="#the-command-summary">The command <code>summary</code></a></li>
+  <li><a href="#a-confidence-interval-for-the-slope" id="toc-a-confidence-interval-for-the-slope" class="nav-link" data-scroll-target="#a-confidence-interval-for-the-slope">A confidence interval for the slope</a></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction">Prediction</a></li>
+  <li><a href="#residual-plots" id="toc-residual-plots" class="nav-link" data-scroll-target="#residual-plots">Residual plots</a></li>
+  <li><a href="#a-linearised-model" id="toc-a-linearised-model" class="nav-link" data-scroll-target="#a-linearised-model">A linearised model</a></li>
+  <li><a href="#is-the-volume-proportional-to-the-squared-diameter" id="toc-is-the-volume-proportional-to-the-squared-diameter" class="nav-link" data-scroll-target="#is-the-volume-proportional-to-the-squared-diameter">Is the volume proportional to the squared diameter?</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Simple linear regression</h1>
+<p class="subtitle lead">Programming and Data Analysis with R</p>
+</div>
+
+
+<div class="quarto-title-meta-author column-page-left">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><span class="orange">Tommaso Rigon</span> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <em>Università degli Studi di Milano-Bicocca</em>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta column-page-left">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="homepage" class="level2">
+<h2 class="anchored" data-anchor-id="homepage"><a href="index.html">Homepage</a></h2>
+</section>
+<section id="topics-covered" class="level2">
+<h2 class="anchored" data-anchor-id="topics-covered">Topics covered</h2>
+<ul>
+<li>Least squares (recap of Unit F) and the command <code>lm</code></li>
+<li>The simple linear regression model</li>
+<li>Tests and confidence intervals for the slope</li>
+<li>Confidence and prediction intervals</li>
+<li>Residual plots and a linearised model</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The exercises associated with this unit are available at <a href="https://tommasorigon.github.io/EnvEcoStat/exe/exe_D.html">this link</a>.</p>
+</div>
+</div>
+</section>
+<section id="back-to-unit-f" class="level2">
+<h2 class="anchored" data-anchor-id="back-to-unit-f">Back to Unit F</h2>
+<p>We have already met the <span class="orange">simple linear regression</span> in <a href="un_F.html">Unit F</a>, with the <code>forbes</code> data: we predicted the atmospheric pressure from the boiling temperature of water. There, we computed:</p>
+<ul>
+<li>the <span class="blue">least squares</span> estimates <span class="math inline">\hat{\alpha}</span> and <span class="math inline">\hat{\beta}</span>;</li>
+<li>the <span class="blue">predicted</span> values, for instance the pressure when water boils at <span class="math inline">97</span> degrees Celsius;</li>
+<li>the coefficient <span class="math inline">R^2</span>, to measure the goodness of fit.</li>
+</ul>
+<p>That analysis was purely <span class="orange">descriptive</span>: it only concerned the <span class="math inline">n = 17</span> observed locations. In this unit, we make <span class="orange">inference</span>, using the tools of <a href="un_I.html">Unit I</a> and <a href="un_J.html">Unit J</a>: standard errors, tests and confidence intervals.</p>
+</section>
+<section id="black-cherry-trees" class="level2">
+<h2 class="anchored" data-anchor-id="black-cherry-trees">Black cherry trees</h2>
+<p>For <span class="math inline">n = 31</span> <span class="orange">black cherry trees</span> in the Allegheny National Forest (Pennsylvania, USA), the data report:</p>
+<ul>
+<li>the <span class="blue">diameter</span> of the trunk, measured at about <span class="math inline">1.37</span> m above the ground;</li>
+<li>the <span class="blue">height</span> of the tree;</li>
+<li>the <span class="orange">volume</span> of timber obtained from the tree, after felling it.</li>
+</ul>
+<p>The diameter is easy to measure on a standing tree. The volume, instead, is known only after the tree has been cut down.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Research question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Can we predict the volume of timber of a tree from its diameter, <span class="orange">before</span> cutting it down? How precise is the prediction?</p>
+</div>
+</div>
+</section>
+<section id="importing-the-trees-data" class="level2">
+<h2 class="anchored" data-anchor-id="importing-the-trees-data">Importing the <code>trees</code> data</h2>
+<p>The data are already available in <strong>R</strong>, in the data frame <code>trees</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(trees)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   31 obs. of  3 variables:
+ $ Girth : num  8.3 8.6 8.8 10.5 10.7 10.8 11 11 11.1 11.2 ...
+ $ Height: num  70 65 63 72 81 83 66 75 80 75 ...
+ $ Volume: num  10.3 10.3 10.2 16.4 18.8 19.7 15.6 18.2 22.6 19.9 ...</code></pre>
+</div>
+</div>
+<p>The variable <code>Girth</code> is, despite its name, the diameter of the trunk.</p>
+</section>
+<section id="preliminary-operations" class="level2">
+<h2 class="anchored" data-anchor-id="preliminary-operations">Preliminary operations</h2>
+<p>The original measurements are in inches, feet and cubic feet. We convert them into <span class="blue">centimetres</span>, <span class="blue">metres</span> and <span class="blue">cubic metres</span>, recalling that <span class="math inline">1</span> inch <span class="math inline">= 2.54</span> cm, <span class="math inline">1</span> foot <span class="math inline">= 0.3048</span> m and <span class="math inline">1</span> cubic foot <span class="math inline">= 0.0283</span> m<span class="math inline">^3</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cherry <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">diameter =</span> <span class="fu">round</span>(trees<span class="sc">$</span>Girth <span class="sc">*</span> <span class="fl">2.54</span>, <span class="dv">1</span>), <span class="co"># cm</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="fu">round</span>(trees<span class="sc">$</span>Height <span class="sc">*</span> <span class="fl">0.3048</span>, <span class="dv">1</span>), <span class="co"># m</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">volume =</span> <span class="fu">round</span>(trees<span class="sc">$</span>Volume <span class="sc">*</span> <span class="fl">0.0283168</span>, <span class="dv">3</span>) <span class="co"># cubic metres</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cherry)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    diameter         height          volume      
+ Min.   :21.10   Min.   :19.20   Min.   :0.2890  
+ 1st Qu.:28.05   1st Qu.:21.90   1st Qu.:0.5495  
+ Median :32.80   Median :23.20   Median :0.6850  
+ Mean   :33.65   Mean   :23.17   Mean   :0.8544  
+ 3rd Qu.:38.70   3rd Qu.:24.40   3rd Qu.:1.0565  
+ Max.   :52.30   Max.   :26.50   Max.   :2.1800  </code></pre>
+</div>
+</div>
+<p>The height will be used in the next unit.</p>
+</section>
+<section id="the-scatterplot" class="level2">
+<h2 class="anchored" data-anchor-id="the-scatterplot">The scatterplot</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cherry<span class="sc">$</span>diameter, cherry<span class="sc">$</span>volume,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Diameter (cm)"</span>, <span class="at">ylab =</span> <span class="st">"Volume (cubic metres)"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_K_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(cherry<span class="sc">$</span>diameter, cherry<span class="sc">$</span>volume)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9670996</code></pre>
+</div>
+</div>
+<p>The relationship is strong and approximately <span class="orange">linear</span>.</p>
+</section>
+<section id="the-least-squares-line" class="level2">
+<h2 class="anchored" data-anchor-id="the-least-squares-line">The least squares line</h2>
+<p>Exactly as in <a href="un_F.html">Unit F</a>, in a <span class="blue">linear model</span> of the form <span class="math inline">y_i = \alpha + \beta x_i + \epsilon_i</span>, the <span class="orange">least squares</span> estimates are equal to <span class="math display">
+\hat{\alpha} = \bar{y} - \hat{\beta}\:\bar{x}, \qquad \hat{\beta}  = \frac{\text{cov}(x,y)}{\text{var}(x)}.
+</span></p>
+<p>We use again the functions <code>my_var</code> and <code>my_cov</code> of <a href="un_F.html">Unit F</a>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>my_var <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">mean</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="fu">mean</span>(x)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>my_cov <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="fu">mean</span>(x <span class="sc">*</span> y) <span class="sc">-</span> <span class="fu">mean</span>(x) <span class="sc">*</span> <span class="fu">mean</span>(y)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> cherry<span class="sc">$</span>diameter</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> cherry<span class="sc">$</span>volume</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>beta_hat <span class="ot">&lt;-</span> <span class="fu">my_cov</span>(x, y) <span class="sc">/</span> <span class="fu">my_var</span>(x) <span class="co"># Slope</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>alpha_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta_hat <span class="sc">*</span> <span class="fu">mean</span>(x) <span class="co"># Intercept</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(alpha_hat, beta_hat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.04665563  0.05648646</code></pre>
+</div>
+</div>
+<p>Each additional centimetre of diameter corresponds, on average, to <span class="math inline">0.056</span> m<span class="math inline">^3</span> of additional timber.</p>
+</section>
+<section id="the-command-lm" class="level2">
+<h2 class="anchored" data-anchor-id="the-command-lm">The command <code>lm</code></h2>
+<p>In <a href="un_F.html">Unit F</a> we mentioned that the command <code>lm</code> (<em>linear model</em>) computes the same estimates. The <span class="blue">formula</span> <code>volume ~ diameter</code> reads “volume as a function of diameter”:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(volume <span class="sc">~</span> diameter, <span class="at">data =</span> cherry)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit) <span class="co"># Least squares estimates</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)    diameter 
+-1.04665563  0.05648646 </code></pre>
+</div>
+</div>
+<p>The object <code>fit</code> contains much more. For instance, the fitted values <span class="math inline">\hat{y}_i = \hat{\alpha} + \hat{\beta}x_i</span> and the residuals <span class="math inline">e_i = y_i - \hat{y}_i</span>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">fitted</span>(fit))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        1         2         3         4         5         6 
+0.1452087 0.1847492 0.2186411 0.4615329 0.4897761 0.5010734 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">residuals</span>(fit))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          1           2           3           4           5           6 
+0.146791308 0.107250786 0.070358909 0.002467128 0.042223897 0.056926605 </code></pre>
+</div>
+</div>
+<p>As in <a href="un_F.html">Unit F</a>, the coefficient <span class="math inline">R^2</span> can be obtained in two different ways: <span class="math display">
+R^2 = 1 - \frac{\text{var}(e)}{\text{var}(y)} = \text{cor}(x,y)^2.
+</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">my_var</span>(e) <span class="sc">/</span> <span class="fu">my_var</span>(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9352816</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x, y)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9352816</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cherry<span class="sc">$</span>diameter, cherry<span class="sc">$</span>volume,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Diameter (cm)"</span>, <span class="at">ylab =</span> <span class="st">"Volume (cubic metres)"</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit) <span class="co"># Same as abline(a = alpha_hat, b = beta_hat)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_K_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-linear-regression-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-linear-regression-model">The linear regression model</h2>
+<p>So far, as in <a href="un_F.html">Unit F</a>, we have only <span class="blue">described</span> the <span class="math inline">31</span> trees. But these trees are a sample: we are interested in the relationship between diameter and volume for <span class="orange">all</span> the black cherry trees of the forest.</p>
+<p>The <span class="orange">simple linear regression model</span> assumes that <span class="math display">
+Y_i = \alpha + \beta x_i + \epsilon_i, \qquad i = 1,\dots,n,
+</span> where the errors <span class="math inline">\epsilon_1,\dots,\epsilon_n</span> are independent, with distribution <span class="math inline">N(0, \sigma^2)</span>. As in <a href="un_I.html">Unit I</a>, capital letters denote random variables. Therefore:</p>
+<ul>
+<li><span class="math inline">\alpha</span> and <span class="math inline">\beta</span> are <span class="blue">parameters</span>, and <span class="math inline">\hat{\alpha}</span> and <span class="math inline">\hat{\beta}</span> are their <span class="blue">estimates</span>;</li>
+<li><span class="math inline">\alpha + \beta x</span> is the <span class="orange">mean</span> volume of the trees with diameter <span class="math inline">x</span>;</li>
+<li><span class="math inline">\sigma</span> measures how much the volumes vary around this mean.</li>
+</ul>
+<p>The variance <span class="math inline">\sigma^2</span> is estimated by <span class="math display">
+s^2 = \frac{1}{n - 2}\sum_{i=1}^n e_i^2,
+</span> where we divide by <span class="math inline">n - 2</span> because two parameters, <span class="math inline">\alpha</span> and <span class="math inline">\beta</span>, have been estimated.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(cherry)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(e<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">2</span>))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>s</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1204156</code></pre>
+</div>
+</div>
+</section>
+<section id="the-standard-error-of-hatbeta" class="level2">
+<h2 class="anchored" data-anchor-id="the-standard-error-of-hatbeta">The standard error of <span class="math inline">\hat{\beta}</span></h2>
+<p>Under the model, as for <span class="math inline">\bar{Y}</span> in <a href="un_I.html">Unit I</a>, we have that <span class="math display">
+\mathbb{E}[\hat{\beta}] = \beta, \qquad \sigma_{\hat{\beta}} = \frac{\sigma}{\sqrt{n\,\text{var}(x)}}.
+</span> The estimator <span class="math inline">\hat{\beta}</span> is therefore <span class="blue">unbiased</span>, and its <span class="orange">standard error</span> decreases with <span class="math inline">n</span>. Replacing <span class="math inline">\sigma</span> with <span class="math inline">s</span>, we obtain the estimated standard error:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>se_hat <span class="ot">&lt;-</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> <span class="fu">my_var</span>(x)) <span class="co"># Estimated standard error</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>se_hat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.00275923</code></pre>
+</div>
+</div>
+<p>As for the mean in <a href="un_J.html">Unit J</a>, we have that <span class="math display">
+T = \frac{\hat{\beta} - \beta}{S/\sqrt{n\,\text{var}(x)}} \sim t_{n-2}.
+</span> Hence, the tests and the confidence intervals for <span class="math inline">\beta</span> follow the same recipe of <a href="un_J.html">Unit J</a>, with <span class="math inline">n - 2</span> degrees of freedom instead of <span class="math inline">n - 1</span>.</p>
+</section>
+<section id="a-test-for-the-slope" class="level2">
+<h2 class="anchored" data-anchor-id="a-test-for-the-slope">A test for the slope</h2>
+<p>Is the diameter related to the volume? If <span class="math inline">\beta = 0</span>, the mean volume does not depend on the diameter. We test <span class="math inline">H_0: \beta = 0</span> against <span class="math inline">H_a: \beta \neq 0</span>. Under <span class="math inline">H_0</span>, the test statistic <span class="math display">
+t = \frac{\hat{\beta} - 0}{s/\sqrt{n\,\text{var}(x)}}
+</span> has a <span class="math inline">t</span> distribution with <span class="math inline">n - 2</span> degrees of freedom.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>t_obs <span class="ot">&lt;-</span> (beta_hat <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> se_hat <span class="co"># Observed test statistic</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>t_obs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.47182</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">2</span>) <span class="co"># Critical value, significance level 5%</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.04523</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_obs), <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">2</span>)) <span class="co"># Two-sided P-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>The observed statistic falls in the <span class="blue">critical region</span>, <span class="math inline">|t| &gt; 2.05</span>, and the P-value is practically zero: we <span class="orange">reject</span> <span class="math inline">H_0</span>. Not a surprise, looking at the scatterplot.</p>
+</section>
+<section id="the-command-summary" class="level2">
+<h2 class="anchored" data-anchor-id="the-command-summary">The command <code>summary</code></h2>
+<p>All these quantities are reported by the command <code>summary</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = volume ~ diameter, data = cherry)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.231019 -0.086952  0.003548  0.100494  0.272414 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -1.046656   0.095347  -10.98 7.64e-12 ***
+diameter     0.056486   0.002759   20.47  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1204 on 29 degrees of freedom
+Multiple R-squared:  0.9353,    Adjusted R-squared:  0.933 
+F-statistic: 419.1 on 1 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>In the table <code>Coefficients</code>, for each parameter:</p>
+<ul>
+<li><code>Estimate</code> is the estimate, <span class="math inline">\hat{\alpha}</span> or <span class="math inline">\hat{\beta}</span>;</li>
+<li><code>Std. Error</code> is its estimated standard error;</li>
+<li><code>t value</code> is the test statistic for <span class="math inline">H_0: \alpha = 0</span> or <span class="math inline">H_0: \beta = 0</span>;</li>
+<li><code>Pr(&gt;|t|)</code> is the two-sided P-value.</li>
+</ul>
+<p>Moreover, <code>Residual standard error</code> is <span class="math inline">s</span>, with its <span class="math inline">n - 2 = 29</span> degrees of freedom, and <code>Multiple R-squared</code> is <span class="math inline">R^2</span>. The last line will be discussed in the next unit.</p>
+</section>
+<section id="a-confidence-interval-for-the-slope" class="level2">
+<h2 class="anchored" data-anchor-id="a-confidence-interval-for-the-slope">A confidence interval for the slope</h2>
+<p>As in <a href="un_J.html">Unit J</a>, a <span class="math inline">95\%</span> confidence interval for <span class="math inline">\beta</span> is <span class="math display">
+\left(\hat{\beta} - t_{0.975,\,n-2} \frac{s}{\sqrt{n\,\text{var}(x)}}, \ \hat{\beta} + t_{0.975,\,n-2} \frac{s}{\sqrt{n\,\text{var}(x)}}\right).
+</span> Here we write the level explicitly, since in this unit <span class="math inline">\alpha</span> denotes the intercept.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>t_quant <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">2</span>) <span class="co"># Quantile of order 0.975</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(beta_hat <span class="sc">-</span> t_quant <span class="sc">*</span> se_hat, beta_hat <span class="sc">+</span> t_quant <span class="sc">*</span> se_hat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.05084320 0.06212972</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit) <span class="co"># Both alpha and beta, 95% by default</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %      97.5 %
+(Intercept) -1.2416615 -0.85164981
+diameter     0.0508432  0.06212972</code></pre>
+</div>
+</div>
+<p>With <span class="math inline">95\%</span> confidence, each additional centimetre of diameter corresponds to between <span class="math inline">0.051</span> and <span class="math inline">0.062</span> m<span class="math inline">^3</span> of additional timber, on average.</p>
+</section>
+<section id="prediction" class="level2">
+<h2 class="anchored" data-anchor-id="prediction">Prediction</h2>
+<p>A forester measures a standing tree with a diameter of <span class="math inline">40</span> cm. As in <a href="un_F.html">Unit F</a>, the predicted volume is <span class="math inline">\hat{\alpha} + \hat{\beta} \cdot 40</span>. The command <code>predict</code> gives the same value, and requires a data frame with the new values of the explanatory variable:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>alpha_hat <span class="sc">+</span> beta_hat <span class="sc">*</span> <span class="dv">40</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.212803</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>new_tree <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">diameter =</span> <span class="dv">40</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> new_tree)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+1.212803 </code></pre>
+</div>
+</div>
+<p>How precise is this prediction? There are <span class="orange">two different questions</span>:</p>
+<ul>
+<li>what is the <span class="blue">mean volume</span> of all the trees with diameter <span class="math inline">40</span> cm? This is the parameter <span class="math inline">\alpha + \beta \cdot 40</span>, and we need a <span class="blue">confidence interval</span>;</li>
+<li>what is the volume of <span class="blue">this particular tree</span>? This is a random variable, and we need a <span class="blue">prediction interval</span>.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> new_tree, <span class="at">interval =</span> <span class="st">"confidence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit      lwr      upr
+1 1.212803 1.155893 1.269712</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> new_tree, <span class="at">interval =</span> <span class="st">"prediction"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit       lwr     upr
+1 1.212803 0.9600355 1.46557</code></pre>
+</div>
+</div>
+<p>The prediction interval is much <span class="orange">wider</span>: besides the uncertainty about <span class="math inline">\alpha</span> and <span class="math inline">\beta</span>, it also accounts for the variability <span class="math inline">\sigma</span> of the single trees around the mean.</p>
+</section>
+<section id="residual-plots" class="level2">
+<h2 class="anchored" data-anchor-id="residual-plots">Residual plots</h2>
+<p>The model relies on <span class="orange">assumptions</span>: a linear relationship and errors with constant variance. We check them by plotting the residuals <span class="math inline">e_i</span> against the fitted values <span class="math inline">\hat{y}_i</span>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(fit), <span class="fu">residuals</span>(fit),</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Fitted values"</span>, <span class="at">ylab =</span> <span class="st">"Residuals"</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>) <span class="co"># Horizontal line at zero</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_K_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If the model were adequate, we would see a <span class="blue">cloud without patterns</span> around zero. Here, instead, the residuals are positive at the two extremes and negative in the middle: the relationship is <span class="orange">curved</span>.</p>
+<p>There is a second problem. For a small tree, the predicted volume is <span class="orange">negative</span>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">diameter =</span> <span class="dv">15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         1 
+-0.1993587 </code></pre>
+</div>
+</div>
+<p>The smallest tree in the data has a diameter of <span class="math inline">21.1</span> cm: predicting outside the range of the observed data (<span class="blue">extrapolation</span>) is dangerous.</p>
+</section>
+<section id="a-linearised-model" class="level2">
+<h2 class="anchored" data-anchor-id="a-linearised-model">A linearised model</h2>
+<p>The geometry suggests a better model. The volume of a solid is proportional to the <span class="blue">area</span> of its base, which in turn is proportional to the square of the diameter. Let us then assume that <span class="math display">
+(\text{volume}) = \eta \times (\text{diameter})^\lambda.
+</span> Taking the logarithms, the relationship becomes linear: <span class="math display">
+\log(\text{volume}) = \log\eta + \lambda\log(\text{diameter}),
+</span> that is, a simple linear regression model with <span class="math inline">y_i = \log(\text{volume}_i)</span> and <span class="math inline">x_i = \log(\text{diameter}_i)</span>, with <span class="math inline">\alpha = \log\eta</span> and <span class="math inline">\beta = \lambda</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>fit_log <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(volume) <span class="sc">~</span> <span class="fu">log</span>(diameter), <span class="at">data =</span> cherry)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_log)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log(volume) ~ log(diameter), data = cherry)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.208960 -0.067714  0.002265  0.070753  0.245740 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   -7.96836    0.31382  -25.39   &lt;2e-16 ***
+log(diameter)  2.19992    0.08973   24.52   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1148 on 29 degrees of freedom
+Multiple R-squared:  0.954, Adjusted R-squared:  0.9524 
+F-statistic:   601 on 1 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>The slope has a nice interpretation: when the diameter increases by <span class="math inline">1\%</span>, the volume increases by about <span class="math inline">\hat{\lambda} = 2.2\%</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(fit_log), <span class="fu">residuals</span>(fit_log),</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Fitted values"</span>, <span class="at">ylab =</span> <span class="st">"Residuals"</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_K_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The curvature has disappeared. Going back to the <span class="orange">original scale</span>, we have <span class="math inline">\hat{\eta} = e^{\hat{\alpha}}</span>, and the fitted curve is <span class="math inline">\hat{\eta}\,x^{\hat{\lambda}}</span>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>eta_hat <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(fit_log)[<span class="dv">1</span>])</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>lambda_hat <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit_log)[<span class="dv">2</span>]</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cherry<span class="sc">$</span>diameter, cherry<span class="sc">$</span>volume,</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Diameter (cm)"</span>, <span class="at">ylab =</span> <span class="st">"Volume (cubic metres)"</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit, <span class="at">lty =</span> <span class="st">"dashed"</span>) <span class="co"># Linear model</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(eta_hat <span class="sc">*</span> x<span class="sc">^</span>lambda_hat, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>) <span class="co"># Linearised model</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_K_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="630"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The prediction interval for the tree with diameter <span class="math inline">40</span> cm is obtained on the log scale and then <span class="blue">back-transformed</span> with <code>exp</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">predict</span>(fit_log, <span class="at">newdata =</span> new_tree, <span class="at">interval =</span> <span class="st">"prediction"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      fit       lwr      upr
+1 1.15822 0.9098788 1.474344</code></pre>
+</div>
+</div>
+<p>Note that the values of <span class="math inline">R^2</span> of the two models are <span class="orange">not comparable</span>: the response is <span class="math inline">y_i</span> in the first case and <span class="math inline">\log y_i</span> in the second.</p>
+</section>
+<section id="is-the-volume-proportional-to-the-squared-diameter" class="level2">
+<h2 class="anchored" data-anchor-id="is-the-volume-proportional-to-the-squared-diameter">Is the volume proportional to the squared diameter?</h2>
+<p>If the volume were proportional to the area of the base, we would have <span class="math inline">\lambda = 2</span>. We test <span class="math inline">H_0: \lambda = 2</span> against <span class="math inline">H_a: \lambda \neq 2</span>. The output of <code>summary</code> refers to <span class="math inline">H_0: \lambda = 0</span>, so we compute the test statistic ourselves:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>x_log <span class="ot">&lt;-</span> <span class="fu">log</span>(cherry<span class="sc">$</span>diameter)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>s_log <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">residuals</span>(fit_log)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">2</span>))</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>se_hat <span class="ot">&lt;-</span> s_log <span class="sc">/</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> <span class="fu">my_var</span>(x_log)) <span class="co"># Estimated standard error</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>se_hat <span class="co"># The same value as in the column Std. Error</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.08973352</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>t_obs <span class="ot">&lt;-</span> (lambda_hat <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> se_hat <span class="co"># Observed test statistic</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>t_obs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>log(diameter) 
+      2.22795 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_obs), <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">2</span>)) <span class="co"># Two-sided P-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>log(diameter) 
+   0.03380215 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit_log)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  2.5 %    97.5 %
+(Intercept)   -8.610186 -7.326538
+log(diameter)  2.016396  2.383447</code></pre>
+</div>
+</div>
+<p>The P-value is smaller than <span class="math inline">0.05</span> and the confidence interval does not contain <span class="math inline">2</span>: the volume grows <span class="orange">faster</span> than the squared diameter.</p>
+<p>Why? Larger trees are typically also <span class="blue">taller</span>, and the volume depends on the height too. We need a model with two explanatory variables: this is the topic of the next unit.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="un_K_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

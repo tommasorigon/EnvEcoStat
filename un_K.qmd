@@ -1,0 +1,455 @@
+---
+title: "Simple linear regression"
+subtitle: "Programming and Data Analysis with R"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    smooth-scroll: true
+    fig-dpi: 90
+editor:
+  markdown:
+    wrap: 72
+editor_options:
+  chunk_output_type: console
+---
+
+## [Homepage](index.html)
+
+```{r}
+#| warning: false
+#| echo: false
+#| include: false
+#| message: false
+#| purl: false
+
+# Please ignore this chunk.
+# A single purl() call: calling it twice in the same knit would clash on the
+# chunk labels. The clean script is derived from the full one, so the two
+# cannot go out of sync.
+
+# 1. Full script, for personal use: code plus the text of the notes as
+#    comments. Not linked from the website (and ignored by git).
+knitr::purl("un_K.qmd", output = "code/un_K_full.R", documentation = 2)
+full <- readLines("code/un_K_full.R")
+# strip the Quarto markup that is only meaningful in the rendered page
+full <- full[!grepl("^#' *:::", full)]
+full <- gsub("\\[([^]]*)\\]\\{[^}]*\\}", "\\1", full)
+squeeze <- function(x) x[!(x == "" & c(FALSE, head(x == "", -1)))]
+writeLines(squeeze(full), "code/un_K_full.R")
+
+# 2. Clean script, linked from the website: code only, obtained by dropping
+#    the text (#') and the chunk headers (#+).
+clean <- squeeze(full[!grepl("^#'|^#\\+", full)])
+writeLines(clean, "code/un_K.R")
+styler:::style_file("code/un_K.R")
+
+rm(clean, squeeze, full)
+```
+## Topics covered
+
+-   Least squares (recap of Unit F) and the command `lm`
+-   The simple linear regression model
+-   Tests and confidence intervals for the slope
+-   Confidence and prediction intervals
+-   Residual plots and a linearised model
+
+::: callout-note
+#### Note
+
+The exercises associated with this unit are available at
+[this link](https://tommasorigon.github.io/EnvEcoStat/exe/exe_D.html).
+:::
+
+## Back to Unit F
+
+We have already met the [simple linear regression]{.orange} in
+[Unit F](un_F.html), with the `forbes` data: we predicted the atmospheric
+pressure from the boiling temperature of water. There, we computed:
+
+-   the [least squares]{.blue} estimates $\hat{\alpha}$ and $\hat{\beta}$;
+-   the [predicted]{.blue} values, for instance the pressure when water boils at
+    $97$ degrees Celsius;
+-   the coefficient $R^2$, to measure the goodness of fit.
+
+That analysis was purely [descriptive]{.orange}: it only concerned the $n = 17$
+observed locations. In this unit, we make [inference]{.orange}, using the tools of
+[Unit I](un_I.html) and [Unit J](un_J.html): standard errors, tests and
+confidence intervals.
+
+## Black cherry trees
+
+For $n = 31$ [black cherry trees]{.orange} in the Allegheny National Forest
+(Pennsylvania, USA), the data report:
+
+-   the [diameter]{.blue} of the trunk, measured at about $1.37$ m above the
+    ground;
+-   the [height]{.blue} of the tree;
+-   the [volume]{.orange} of timber obtained from the tree, after felling it.
+
+The diameter is easy to measure on a standing tree. The volume, instead, is
+known only after the tree has been cut down.
+
+::: callout-note
+#### Research question
+
+Can we predict the volume of timber of a tree from its diameter, [before]{.orange}
+cutting it down? How precise is the prediction?
+:::
+
+## Importing the `trees` data
+
+The data are already available in **R**, in the data frame `trees`:
+
+```{r}
+str(trees)
+```
+
+The variable `Girth` is, despite its name, the diameter of the trunk.
+
+## Preliminary operations
+
+The original measurements are in inches, feet and cubic feet. We convert them
+into [centimetres]{.blue}, [metres]{.blue} and [cubic metres]{.blue}, recalling
+that $1$ inch $= 2.54$ cm, $1$ foot $= 0.3048$ m and $1$ cubic foot
+$= 0.0283$ m$^3$.
+
+```{r}
+cherry <- data.frame(
+  diameter = round(trees$Girth * 2.54, 1), # cm
+  height = round(trees$Height * 0.3048, 1), # m
+  volume = round(trees$Volume * 0.0283168, 3) # cubic metres
+)
+summary(cherry)
+```
+
+The height will be used in the next unit.
+
+## The scatterplot
+
+```{r}
+plot(cherry$diameter, cherry$volume,
+  pch = 16,
+  xlab = "Diameter (cm)", ylab = "Volume (cubic metres)"
+)
+cor(cherry$diameter, cherry$volume)
+```
+
+The relationship is strong and approximately [linear]{.orange}.
+
+## The least squares line
+
+Exactly as in [Unit F](un_F.html), in a [linear model]{.blue} of the form
+$y_i = \alpha + \beta x_i + \epsilon_i$, the [least squares]{.orange} estimates
+are equal to $$
+\hat{\alpha} = \bar{y} - \hat{\beta}\:\bar{x}, \qquad \hat{\beta}  = \frac{\text{cov}(x,y)}{\text{var}(x)}.
+$$
+
+We use again the functions `my_var` and `my_cov` of [Unit F](un_F.html):
+
+```{r}
+my_var <- function(x) mean(x^2) - mean(x)^2
+my_cov <- function(x, y) mean(x * y) - mean(x) * mean(y)
+
+x <- cherry$diameter
+y <- cherry$volume
+beta_hat <- my_cov(x, y) / my_var(x) # Slope
+alpha_hat <- mean(y) - beta_hat * mean(x) # Intercept
+c(alpha_hat, beta_hat)
+```
+
+Each additional centimetre of diameter corresponds, on average, to
+$0.056$ m$^3$ of additional timber.
+
+## The command `lm`
+
+In [Unit F](un_F.html) we mentioned that the command `lm` (*linear model*)
+computes the same estimates. The [formula]{.blue} `volume ~ diameter` reads
+"volume as a function of diameter":
+
+```{r}
+fit <- lm(volume ~ diameter, data = cherry)
+coef(fit) # Least squares estimates
+```
+
+The object `fit` contains much more. For instance, the fitted values
+$\hat{y}_i = \hat{\alpha} + \hat{\beta}x_i$ and the residuals
+$e_i = y_i - \hat{y}_i$:
+
+```{r}
+head(fitted(fit))
+head(residuals(fit))
+```
+
+As in [Unit F](un_F.html), the coefficient $R^2$ can be obtained in two
+different ways: $$
+R^2 = 1 - \frac{\text{var}(e)}{\text{var}(y)} = \text{cor}(x,y)^2.
+$$
+
+```{r}
+e <- residuals(fit)
+1 - my_var(e) / my_var(y)
+cor(x, y)^2
+```
+
+```{r}
+plot(cherry$diameter, cherry$volume,
+  pch = 16,
+  xlab = "Diameter (cm)", ylab = "Volume (cubic metres)"
+)
+abline(fit) # Same as abline(a = alpha_hat, b = beta_hat)
+```
+
+## The linear regression model
+
+So far, as in [Unit F](un_F.html), we have only [described]{.blue} the $31$
+trees. But these trees are a sample: we are interested in the relationship
+between diameter and volume for [all]{.orange} the black cherry trees of the
+forest.
+
+The [simple linear regression model]{.orange} assumes that $$
+Y_i = \alpha + \beta x_i + \epsilon_i, \qquad i = 1,\dots,n,
+$$ where the errors $\epsilon_1,\dots,\epsilon_n$ are independent, with
+distribution $N(0, \sigma^2)$. As in [Unit I](un_I.html), capital letters
+denote random variables. Therefore:
+
+-   $\alpha$ and $\beta$ are [parameters]{.blue}, and $\hat{\alpha}$ and
+    $\hat{\beta}$ are their [estimates]{.blue};
+-   $\alpha + \beta x$ is the [mean]{.orange} volume of the trees with
+    diameter $x$;
+-   $\sigma$ measures how much the volumes vary around this mean.
+
+The variance $\sigma^2$ is estimated by $$
+s^2 = \frac{1}{n - 2}\sum_{i=1}^n e_i^2,
+$$ where we divide by $n - 2$ because two parameters, $\alpha$ and $\beta$,
+have been estimated.
+
+```{r}
+n <- nrow(cherry)
+s <- sqrt(sum(e^2) / (n - 2))
+s
+```
+
+## The standard error of $\hat{\beta}$
+
+Under the model, as for $\bar{Y}$ in [Unit I](un_I.html), we have that $$
+\mathbb{E}[\hat{\beta}] = \beta, \qquad \sigma_{\hat{\beta}} = \frac{\sigma}{\sqrt{n\,\text{var}(x)}}.
+$$ The estimator $\hat{\beta}$ is therefore [unbiased]{.blue}, and its
+[standard error]{.orange} decreases with $n$. Replacing $\sigma$ with $s$, we
+obtain the estimated standard error:
+
+```{r}
+se_hat <- s / sqrt(n * my_var(x)) # Estimated standard error
+se_hat
+```
+
+As for the mean in [Unit J](un_J.html), we have that $$
+T = \frac{\hat{\beta} - \beta}{S/\sqrt{n\,\text{var}(x)}} \sim t_{n-2}.
+$$ Hence, the tests and the confidence intervals for $\beta$ follow the same
+recipe of [Unit J](un_J.html), with $n - 2$ degrees of freedom instead of
+$n - 1$.
+
+## A test for the slope
+
+Is the diameter related to the volume? If $\beta = 0$, the mean volume does
+not depend on the diameter. We test $H_0: \beta = 0$ against
+$H_a: \beta \neq 0$. Under $H_0$, the test statistic $$
+t = \frac{\hat{\beta} - 0}{s/\sqrt{n\,\text{var}(x)}}
+$$ has a $t$ distribution with $n - 2$ degrees of freedom.
+
+```{r}
+t_obs <- (beta_hat - 0) / se_hat # Observed test statistic
+t_obs
+qt(0.975, df = n - 2) # Critical value, significance level 5%
+2 * (1 - pt(abs(t_obs), df = n - 2)) # Two-sided P-value
+```
+
+The observed statistic falls in the [critical region]{.blue}, $|t| > 2.05$, and
+the P-value is practically zero: we [reject]{.orange} $H_0$. Not a surprise,
+looking at the scatterplot.
+
+## The command `summary`
+
+All these quantities are reported by the command `summary`:
+
+```{r}
+summary(fit)
+```
+
+In the table `Coefficients`, for each parameter:
+
+-   `Estimate` is the estimate, $\hat{\alpha}$ or $\hat{\beta}$;
+-   `Std. Error` is its estimated standard error;
+-   `t value` is the test statistic for $H_0: \alpha = 0$ or $H_0: \beta = 0$;
+-   `Pr(>|t|)` is the two-sided P-value.
+
+Moreover, `Residual standard error` is $s$, with its $n - 2 = 29$ degrees of
+freedom, and `Multiple R-squared` is $R^2$. The last line will be discussed in
+the next unit.
+
+## A confidence interval for the slope
+
+As in [Unit J](un_J.html), a $95\%$ confidence interval for $\beta$ is $$
+\left(\hat{\beta} - t_{0.975,\,n-2} \frac{s}{\sqrt{n\,\text{var}(x)}}, \ \hat{\beta} + t_{0.975,\,n-2} \frac{s}{\sqrt{n\,\text{var}(x)}}\right).
+$$ Here we write the level explicitly, since in this unit $\alpha$ denotes the
+intercept.
+
+```{r}
+t_quant <- qt(0.975, df = n - 2) # Quantile of order 0.975
+c(beta_hat - t_quant * se_hat, beta_hat + t_quant * se_hat)
+confint(fit) # Both alpha and beta, 95% by default
+```
+
+With $95\%$ confidence, each additional centimetre of diameter corresponds to
+between $0.051$ and $0.062$ m$^3$ of additional timber, on average.
+
+## Prediction
+
+A forester measures a standing tree with a diameter of $40$ cm. As in
+[Unit F](un_F.html), the predicted volume is $\hat{\alpha} + \hat{\beta} \cdot 40$.
+The command `predict` gives the same value, and requires a data frame with
+the new values of the explanatory variable:
+
+```{r}
+alpha_hat + beta_hat * 40
+new_tree <- data.frame(diameter = 40)
+predict(fit, newdata = new_tree)
+```
+
+How precise is this prediction? There are [two different questions]{.orange}:
+
+-   what is the [mean volume]{.blue} of all the trees with diameter $40$ cm?
+    This is the parameter $\alpha + \beta \cdot 40$, and we need a
+    [confidence interval]{.blue};
+-   what is the volume of [this particular tree]{.blue}? This is a random
+    variable, and we need a [prediction interval]{.blue}.
+
+```{r}
+predict(fit, newdata = new_tree, interval = "confidence")
+predict(fit, newdata = new_tree, interval = "prediction")
+```
+
+The prediction interval is much [wider]{.orange}: besides the uncertainty
+about $\alpha$ and $\beta$, it also accounts for the variability $\sigma$ of the
+single trees around the mean.
+
+## Residual plots
+
+The model relies on [assumptions]{.orange}: a linear relationship and errors
+with constant variance. We check them by plotting the residuals $e_i$ against the
+fitted values $\hat{y}_i$:
+
+```{r}
+plot(fitted(fit), residuals(fit),
+  pch = 16,
+  xlab = "Fitted values", ylab = "Residuals"
+)
+abline(h = 0, lty = "dashed") # Horizontal line at zero
+```
+
+If the model were adequate, we would see a [cloud without patterns]{.blue}
+around zero. Here, instead, the residuals are positive at the two extremes and
+negative in the middle: the relationship is [curved]{.orange}.
+
+There is a second problem. For a small tree, the predicted volume is
+[negative]{.orange}:
+
+```{r}
+predict(fit, newdata = data.frame(diameter = 15))
+```
+
+The smallest tree in the data has a diameter of $21.1$ cm: predicting outside
+the range of the observed data ([extrapolation]{.blue}) is dangerous.
+
+## A linearised model
+
+The geometry suggests a better model. The volume of a solid is proportional to
+the [area]{.blue} of its base, which in turn is proportional to the square of
+the diameter. Let us then assume that $$
+(\text{volume}) = \eta \times (\text{diameter})^\lambda.
+$$ Taking the logarithms, the relationship becomes linear: $$
+\log(\text{volume}) = \log\eta + \lambda\log(\text{diameter}),
+$$ that is, a simple linear regression model with $y_i = \log(\text{volume}_i)$
+and $x_i = \log(\text{diameter}_i)$, with $\alpha = \log\eta$ and $\beta = \lambda$.
+
+```{r}
+fit_log <- lm(log(volume) ~ log(diameter), data = cherry)
+summary(fit_log)
+```
+
+The slope has a nice interpretation: when the diameter increases by $1\%$, the
+volume increases by about $\hat{\lambda} = 2.2\%$.
+
+```{r}
+plot(fitted(fit_log), residuals(fit_log),
+  pch = 16,
+  xlab = "Fitted values", ylab = "Residuals"
+)
+abline(h = 0, lty = "dashed")
+```
+
+The curvature has disappeared. Going back to the [original scale]{.orange}, we
+have $\hat{\eta} = e^{\hat{\alpha}}$, and the fitted curve is
+$\hat{\eta}\,x^{\hat{\lambda}}$:
+
+```{r}
+eta_hat <- exp(coef(fit_log)[1])
+lambda_hat <- coef(fit_log)[2]
+
+plot(cherry$diameter, cherry$volume,
+  pch = 16,
+  xlab = "Diameter (cm)", ylab = "Volume (cubic metres)"
+)
+abline(fit, lty = "dashed") # Linear model
+curve(eta_hat * x^lambda_hat, add = TRUE, col = "red") # Linearised model
+```
+
+The prediction interval for the tree with diameter $40$ cm is obtained on the
+log scale and then [back-transformed]{.blue} with `exp`:
+
+```{r}
+exp(predict(fit_log, newdata = new_tree, interval = "prediction"))
+```
+
+Note that the values of $R^2$ of the two models are [not comparable]{.orange}:
+the response is $y_i$ in the first case and $\log y_i$ in the second.
+
+## Is the volume proportional to the squared diameter?
+
+If the volume were proportional to the area of the base, we would have
+$\lambda = 2$. We test $H_0: \lambda = 2$ against $H_a: \lambda \neq 2$. The
+output of `summary` refers to $H_0: \lambda = 0$, so we compute the test
+statistic ourselves:
+
+```{r}
+x_log <- log(cherry$diameter)
+s_log <- sqrt(sum(residuals(fit_log)^2) / (n - 2))
+se_hat <- s_log / sqrt(n * my_var(x_log)) # Estimated standard error
+se_hat # The same value as in the column Std. Error
+
+t_obs <- (lambda_hat - 2) / se_hat # Observed test statistic
+t_obs
+2 * (1 - pt(abs(t_obs), df = n - 2)) # Two-sided P-value
+confint(fit_log)
+```
+
+The P-value is smaller than $0.05$ and the confidence interval does not
+contain $2$: the volume grows [faster]{.orange} than the squared diameter.
+
+Why? Larger trees are typically also [taller]{.blue}, and the volume depends on
+the height too. We need a model with two explanatory variables: this is the
+topic of the next unit.
