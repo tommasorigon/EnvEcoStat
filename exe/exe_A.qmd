@@ -78,8 +78,10 @@ $$
 ::: {.callout-note collapse="true"}
 #### Exercise B - Solution: [`binomial.R`](../code/binomial.R)
 
-Verify numerically the following identities for $n = 10, 100, 1000$
-(where possible).
+For $n = 10, 100, 1000$, compute the left-hand side of each of the following
+identities with the commands `sum` and `choose`, and compare it with the
+right-hand side. For which values of $n$ does **R** return a wrong result, and
+why?
 
 1.  $$
     \sum_{k=0}^n(-1)^k\binom{n}{k} = 0.
@@ -109,7 +111,7 @@ zero.
 
 2.  Compute `roots(1, 2, 1)`;
 
-3.  Compute `roots(1, 1, 1)` and comment on the result.
+3.  Compute `roots(1, 1, 1)`. What does **R** return, and why?
 :::
 
 ::: {.callout-note collapse="true"}
@@ -140,9 +142,13 @@ $$||{\bf A}||_F = \sqrt{\sum_{i=1}^n \sum_{j=1}^m a_{ij}^2}.$$
 ::: {.callout-note collapse="true"}
 #### Exercise E - Solution: [`diagonal.R`](../code/diagonal.R)
 
-Let ${\bf A}$ be a matrix of dimension $n \times n$. Implement a function
-that extracts the diagonal elements $a_{ii}$, for $i = 1,\dots,n$, of the
-matrix ${\bf A}$. Then compare it with the `diag` function of **R**.
+Let ${\bf A}$ be a matrix of dimension $n \times n$.
+
+1.  Write a function `diag2(A)` that, using a `for` loop, returns the vector of
+    the diagonal elements $a_{11}, \dots, a_{nn}$ of the matrix ${\bf A}$.
+
+2.  Check that `diag2(A)` and `diag(A)` return the same vector for
+    `A <- matrix(1:25, nrow = 5)`.
 :::
 
 ::: {.callout-note collapse="true"}

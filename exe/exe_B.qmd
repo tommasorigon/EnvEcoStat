@@ -70,8 +70,8 @@ $$\text{var}(y) = \frac{1}{2 n^2} \sum_{i=1}^n \sum_{j = 1}^n (y_i - y_j)^2.$$
 3.  Suppose that `x = c(1, 4, 2, 2, 10)`. Check that the two functions `var2(x)`
     and `var3(x)` return the same result.
 
-4.  Suppose now that `x <- 1:3000`. Do you notice any difference with respect to
-    the previous point?
+4.  Suppose now that `x <- 1:3000`. Compute `var2(x)` and `var3(x)`. Which of
+    the two functions is slower, and why?
 
 5.  Compare the functions `var2` and `var3` with the function `var` implemented
     in **R**, using the data of point 3. Why do the results differ, even if only
@@ -96,11 +96,12 @@ variable `party` reports the list the vote was cast for, and the variable
 2.  Which variables does the dataset `elections` contain? Of which type are
     they?
 
-3.  Obtain the number of votes obtained by each party in the different districts
-    of Milan.
+3.  Build the contingency table of `party` and `district`, that is the number
+    of votes obtained by each party in each district.
 
-4.  Obtain the number of votes obtained by each party and draw a plot of it.
-    Obtain moreover the percentage of votes obtained by each party.
+4.  Compute the number of votes obtained by each party in the whole city and
+    draw a barplot of it. Compute moreover the percentage of votes obtained by
+    each party, rounded to two decimal digits.
 
 5.  Write the function `Gini(x)` that computes the Gini index for a qualitative
     variable. The Gini index is defined as $$
@@ -134,11 +135,11 @@ At first, [leave the observation relative to `DC` aside]{.blue}.
 1.  Import the data into **R** and create a second data frame, without the row
     relative to `DC`.
 
-2.  Using the data without `DC`, find the mean and the standard deviation, and
-    interpret their values.
+2.  Using the data without `DC`, compute the mean and the standard deviation
+    of `murder`. In which unit of measurement are they expressed?
 
-3.  Still without `DC`, find the quartiles with the command `summary` and
-    construct the boxplot. Interpret them.
+3.  Still without `DC`, find the quartiles of `murder` with the command
+    `summary` and draw its boxplot. Is there any outlier? Which state is it?
 
 4.  Include `DC` again. What is affected more by this outlier: the mean or the
     median? The range or the interquartile range? Why?
@@ -158,22 +159,26 @@ for $100$ home sales in Gainesville, Florida.
 
 1.  Import the data into **R**. The `read.table` function accepts a [web
     address]{.orange} in place of a file name, so there is no need to download
-    the file first. Construct a frequency distribution and a histogram of
-    `price`, and describe the shape of the distribution.
+    the file first. Construct the frequency table and the histogram of
+    `price`, using the classes $(0, 100], (100, 200], \dots, (800, 900]$. Is
+    the distribution symmetric or skewed?
 
 2.  Construct a boxplot of `price` and interpret it. Are there unusually high
     prices?
 
-3.  Repeat the two previous points on the [logarithm of the
-    price]{.orange}. Is the distribution more symmetric? Compare the mean and
-    the median of `price` and of its logarithm.
+3.  Draw the histogram and the boxplot of the [logarithm of the
+    price]{.orange}. Is the distribution more symmetric than the one of
+    `price`? Compute the mean and the median of `price` and of `log(price)`:
+    in which case are they closer?
 
-4.  Use descriptive statistics to compare the selling prices of new and old
-    houses. How many houses are new? Is the comparison based on enough data?
+4.  How many houses are new? Compute the summary statistics (command
+    `summary`) of `price` separately for new and old houses, and draw the two
+    boxplots side by side. Which group is more expensive? Is the comparison
+    based on enough data?
 
-5.  Let now $y =$ `price` and $x =$ `size`. Construct a scatterplot and
-    interpret it. Identify the largest house: is its price in line with those
-    of the other houses?
+5.  Let now $y =$ `price` and $x =$ `size`. Draw the scatterplot. Is the
+    relationship positive or negative? Identify the largest house: is its price
+    in line with those of the other houses?
 
 6.  Find the correlation and interpret it. Then find the least squares
     estimates $\hat{\alpha}$ and $\hat{\beta}$, as in [Unit F](../un_F.html),
@@ -212,8 +217,9 @@ $42$ nations on the following variables:
 
 ------------------------------------------------------------------------
 
-1.  Import the data into **R** and conduct a descriptive analysis of the prison
-    rates, highlighting any unusual observation.
+1.  Import the data into **R**. Compute the summary statistics and the
+    standard deviation of `Prison`, and draw its boxplot. Which nation has the
+    highest prison rate?
 
 2.  Construct the correlation matrix of the eight quantitative variables: the
     command `cor`, applied to a data frame of numerical variables, returns
@@ -244,11 +250,11 @@ link](https://stat4ds.rwth-aachen.de/data/Sheep.dat).
 1.  Import the data into **R**. How many sheep are there? How many of them
     survived?
 
-2.  Compare the weights of the sheep that survived with the weights of the
-    sheep that did not, using numerical descriptive statistics.
+2.  Compute the mean, the median and the standard deviation of `weight`,
+    separately for the sheep that survived and for those that did not.
 
-3.  Compare the same two distributions graphically.
+3.  Draw the boxplots of `weight` for the two groups side by side.
 
-4.  Summarise the results of your analysis in a few sentences. Can you conclude
-    that being heavier [causes]{.orange} a sheep to survive?
+4.  Are the sheep that survived heavier, on average? Can you conclude that
+    being heavier [causes]{.orange} a sheep to survive?
 :::

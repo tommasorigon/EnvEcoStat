@@ -264,7 +264,7 @@ window.Quarto = {
 <hr>
 <ol type="1">
 <li><p>Find the mean and the standard error of the sample proportion of defective chips.</p></li>
-<li><p>Is it reasonable to approximate its distribution with a normal one?</p></li>
+<li><p>Check the conditions <span class="math inline">n\pi \ge 10</span> and <span class="math inline">n(1-\pi) \ge 10</span>. Is it reasonable to approximate the distribution of the sample proportion with a normal one?</p></li>
 <li><p>Find the probability that the shipment is returned in three ways: through a simulation with <code>rbinom</code>, through the central limit theorem and exactly, with <code>pbinom</code>. Why do the last two answers differ?</p></li>
 </ol>
 </div>
@@ -315,7 +315,7 @@ window.Quarto = {
 <p>In a survey, <span class="math inline">1223</span> people out of <span class="math inline">1353</span> said that the government should impose strict laws to make industry do less damage to the environment.</p>
 <hr>
 <ol type="1">
-<li><p>Are the conditions for a confidence interval for the population proportion <span class="math inline">\pi</span> satisfied?</p></li>
+<li><p>Check the conditions <span class="math inline">n\hat{\pi} \ge 10</span> and <span class="math inline">n(1-\hat{\pi}) \ge 10</span> for a confidence interval for the population proportion <span class="math inline">\pi</span>.</p></li>
 <li><p>Compute and interpret the <span class="math inline">95\%</span> confidence interval for <span class="math inline">\pi</span>.</p></li>
 <li><p>Is there evidence that a majority of the population is in favour? Test <span class="math inline">H_0: \pi = 0.5</span> against <span class="math inline">H_a: \pi &gt; 0.5</span>.</p></li>
 </ol>
@@ -358,9 +358,9 @@ window.Quarto = {
 <p>The <code>Students</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>, already met in <a href="exe_A.html">Exercises A</a>, is available at <a href="https://stat4ds.rwth-aachen.de/data/Students.dat">this link</a>. The variable <code>tv</code> is the weekly number of hours spent watching TV.</p>
 <hr>
 <ol type="1">
-<li><p>Import the data and describe the distribution of <code>tv</code>.</p></li>
+<li><p>Import the data. Compute the summary statistics of <code>tv</code> and draw its histogram. Is the distribution symmetric?</p></li>
 <li><p>Compute the <span class="math inline">95\%</span> confidence interval for the mean weekly number of hours spent watching TV, first with the formula of <a href="../un_J.html">Unit J</a> and then with <code>t.test</code>.</p></li>
-<li><p>Which assumptions are needed? Are they reasonable here?</p></li>
+<li><p>The interval of <a href="../un_J.html">Unit J</a> assumes a random sample from a normal population. Is the distribution of <code>tv</code> normal? Why is the interval still approximately valid, with <span class="math inline">n = 60</span> students?</p></li>
 </ol>
 </div>
 </div>

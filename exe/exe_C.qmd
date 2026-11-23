@@ -109,7 +109,9 @@ defective. Assume that the claim of the supplier is true.
 1.  Find the mean and the standard error of the sample proportion of
     defective chips.
 
-2.  Is it reasonable to approximate its distribution with a normal one?
+2.  Check the conditions $n\pi \ge 10$ and $n(1-\pi) \ge 10$. Is it reasonable
+    to approximate the distribution of the sample proportion with a normal
+    one?
 
 3.  Find the probability that the shipment is returned in three ways: through
     a simulation with `rbinom`, through the central limit theorem and exactly,
@@ -154,8 +156,8 @@ strict laws to make industry do less damage to the environment.
 
 ------------------------------------------------------------------------
 
-1.  Are the conditions for a confidence interval for the population proportion
-    $\pi$ satisfied?
+1.  Check the conditions $n\hat{\pi} \ge 10$ and $n(1-\hat{\pi}) \ge 10$ for a
+    confidence interval for the population proportion $\pi$.
 
 2.  Compute and interpret the $95\%$ confidence interval for $\pi$.
 
@@ -191,11 +193,14 @@ the weekly number of hours spent watching TV.
 
 ------------------------------------------------------------------------
 
-1.  Import the data and describe the distribution of `tv`.
+1.  Import the data. Compute the summary statistics of `tv` and draw its
+    histogram. Is the distribution symmetric?
 
 2.  Compute the $95\%$ confidence interval for the mean weekly number of hours
     spent watching TV, first with the formula of [Unit J](../un_J.html) and
     then with `t.test`.
 
-3.  Which assumptions are needed? Are they reasonable here?
+3.  The interval of [Unit J](../un_J.html) assumes a random sample from a
+    normal population. Is the distribution of `tv` normal? Why is the interval
+    still approximately valid, with $n = 60$ students?
 :::

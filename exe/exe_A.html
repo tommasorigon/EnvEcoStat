@@ -241,7 +241,7 @@ I = \int_a^b f(x)\mathrm{d}x,
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Verify numerically the following identities for <span class="math inline">n = 10, 100, 1000</span> (where possible).</p>
+<p>For <span class="math inline">n = 10, 100, 1000</span>, compute the left-hand side of each of the following identities with the commands <code>sum</code> and <code>choose</code>, and compare it with the right-hand side. For which values of <span class="math inline">n</span> does <strong>R</strong> return a wrong result, and why?</p>
 <ol type="1">
 <li><p><span class="math display">
 \sum_{k=0}^n(-1)^k\binom{n}{k} = 0.
@@ -275,7 +275,7 @@ a x^2 + b x + c,
 <ol type="1">
 <li><p>Compute <code>roots(1, 5, 2)</code>;</p></li>
 <li><p>Compute <code>roots(1, 2, 1)</code>;</p></li>
-<li><p>Compute <code>roots(1, 1, 1)</code> and comment on the result.</p></li>
+<li><p>Compute <code>roots(1, 1, 1)</code>. What does <strong>R</strong> return, and why?</p></li>
 </ol>
 </div>
 </div>
@@ -315,7 +315,11 @@ a x^2 + b x + c,
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">{\bf A}</span> be a matrix of dimension <span class="math inline">n \times n</span>. Implement a function that extracts the diagonal elements <span class="math inline">a_{ii}</span>, for <span class="math inline">i = 1,\dots,n</span>, of the matrix <span class="math inline">{\bf A}</span>. Then compare it with the <code>diag</code> function of <strong>R</strong>.</p>
+<p>Let <span class="math inline">{\bf A}</span> be a matrix of dimension <span class="math inline">n \times n</span>.</p>
+<ol type="1">
+<li><p>Write a function <code>diag2(A)</code> that, using a <code>for</code> loop, returns the vector of the diagonal elements <span class="math inline">a_{11}, \dots, a_{nn}</span> of the matrix <span class="math inline">{\bf A}</span>.</p></li>
+<li><p>Check that <code>diag2(A)</code> and <code>diag(A)</code> return the same vector for <code>A &lt;- matrix(1:25, nrow = 5)</code>.</p></li>
+</ol>
 </div>
 </div>
 </div>

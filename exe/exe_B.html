@@ -188,7 +188,7 @@ window.Quarto = {
 <li><p>Write a function <code>var2(x)</code> that computes the variance using the definition.</p></li>
 <li><p>Write a function <code>var3(x)</code> that computes the variance using the formula based on the distances between pairs of elements.</p></li>
 <li><p>Suppose that <code>x = c(1, 4, 2, 2, 10)</code>. Check that the two functions <code>var2(x)</code> and <code>var3(x)</code> return the same result.</p></li>
-<li><p>Suppose now that <code>x &lt;- 1:3000</code>. Do you notice any difference with respect to the previous point?</p></li>
+<li><p>Suppose now that <code>x &lt;- 1:3000</code>. Compute <code>var2(x)</code> and <code>var3(x)</code>. Which of the two functions is slower, and why?</p></li>
 <li><p>Compare the functions <code>var2</code> and <code>var3</code> with the function <code>var</code> implemented in <strong>R</strong>, using the data of point 3. Why do the results differ, even if only slightly? Consult the documentation to answer.</p></li>
 </ol>
 </div>
@@ -214,8 +214,8 @@ window.Quarto = {
 <ol type="1">
 <li><p>Load the data into memory. The file has the <code>.RData</code> format: use the command <code>load</code> (see the documentation).</p></li>
 <li><p>Which variables does the dataset <code>elections</code> contain? Of which type are they?</p></li>
-<li><p>Obtain the number of votes obtained by each party in the different districts of Milan.</p></li>
-<li><p>Obtain the number of votes obtained by each party and draw a plot of it. Obtain moreover the percentage of votes obtained by each party.</p></li>
+<li><p>Build the contingency table of <code>party</code> and <code>district</code>, that is the number of votes obtained by each party in each district.</p></li>
+<li><p>Compute the number of votes obtained by each party in the whole city and draw a barplot of it. Compute moreover the percentage of votes obtained by each party, rounded to two decimal digits.</p></li>
 <li><p>Write the function <code>Gini(x)</code> that computes the Gini index for a qualitative variable. The Gini index is defined as <span class="math display">
 G = 1 - \sum_{j=1}^k f_j^2,
 </span> where <span class="math inline">f_1,\dots,f_k</span> are the relative frequencies of the <span class="math inline">k</span> categories.</p></li>
@@ -242,8 +242,8 @@ G = 1 - \sum_{j=1}^k f_j^2,
 <hr>
 <ol type="1">
 <li><p>Import the data into <strong>R</strong> and create a second data frame, without the row relative to <code>DC</code>.</p></li>
-<li><p>Using the data without <code>DC</code>, find the mean and the standard deviation, and interpret their values.</p></li>
-<li><p>Still without <code>DC</code>, find the quartiles with the command <code>summary</code> and construct the boxplot. Interpret them.</p></li>
+<li><p>Using the data without <code>DC</code>, compute the mean and the standard deviation of <code>murder</code>. In which unit of measurement are they expressed?</p></li>
+<li><p>Still without <code>DC</code>, find the quartiles of <code>murder</code> with the command <code>summary</code> and draw its boxplot. Is there any outlier? Which state is it?</p></li>
 <li><p>Include <code>DC</code> again. What is affected more by this outlier: the mean or the median? The range or the interquartile range? Why?</p></li>
 </ol>
 </div>
@@ -264,11 +264,11 @@ G = 1 - \sum_{j=1}^k f_j^2,
 <p>The <code>Houses</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>, available at <a href="https://stat4ds.rwth-aachen.de/data/Houses.dat">this link</a>, lists the selling price (<code>price</code>, in thousands of dollars), the size (<code>size</code>, in square feet), the tax bill (<code>taxes</code>, in dollars), the number of bedrooms (<code>bedrooms</code>) and of bathrooms (<code>baths</code>), and whether the house is new (<code>new</code>, <span class="math inline">1 =</span> yes, <span class="math inline">0 =</span> no) for <span class="math inline">100</span> home sales in Gainesville, Florida.</p>
 <hr>
 <ol type="1">
-<li><p>Import the data into <strong>R</strong>. The <code>read.table</code> function accepts a <span class="orange">web address</span> in place of a file name, so there is no need to download the file first. Construct a frequency distribution and a histogram of <code>price</code>, and describe the shape of the distribution.</p></li>
+<li><p>Import the data into <strong>R</strong>. The <code>read.table</code> function accepts a <span class="orange">web address</span> in place of a file name, so there is no need to download the file first. Construct the frequency table and the histogram of <code>price</code>, using the classes <span class="math inline">(0, 100], (100, 200], \dots, (800, 900]</span>. Is the distribution symmetric or skewed?</p></li>
 <li><p>Construct a boxplot of <code>price</code> and interpret it. Are there unusually high prices?</p></li>
-<li><p>Repeat the two previous points on the <span class="orange">logarithm of the price</span>. Is the distribution more symmetric? Compare the mean and the median of <code>price</code> and of its logarithm.</p></li>
-<li><p>Use descriptive statistics to compare the selling prices of new and old houses. How many houses are new? Is the comparison based on enough data?</p></li>
-<li><p>Let now <span class="math inline">y =</span> <code>price</code> and <span class="math inline">x =</span> <code>size</code>. Construct a scatterplot and interpret it. Identify the largest house: is its price in line with those of the other houses?</p></li>
+<li><p>Draw the histogram and the boxplot of the <span class="orange">logarithm of the price</span>. Is the distribution more symmetric than the one of <code>price</code>? Compute the mean and the median of <code>price</code> and of <code>log(price)</code>: in which case are they closer?</p></li>
+<li><p>How many houses are new? Compute the summary statistics (command <code>summary</code>) of <code>price</code> separately for new and old houses, and draw the two boxplots side by side. Which group is more expensive? Is the comparison based on enough data?</p></li>
+<li><p>Let now <span class="math inline">y =</span> <code>price</code> and <span class="math inline">x =</span> <code>size</code>. Draw the scatterplot. Is the relationship positive or negative? Identify the largest house: is its price in line with those of the other houses?</p></li>
 <li><p>Find the correlation and interpret it. Then find the least squares estimates <span class="math inline">\hat{\alpha}</span> and <span class="math inline">\hat{\beta}</span>, as in <a href="../un_F.html">Unit F</a>, interpret the slope, and find the predicted selling price for a house of</p>
 <ol type="i">
 <li><span class="math inline">1000</span> square feet, (ii) <span class="math inline">4000</span> square feet.</li>
@@ -303,7 +303,7 @@ G = 1 - \sum_{j=1}^k f_j^2,
 </ul>
 <hr>
 <ol type="1">
-<li><p>Import the data into <strong>R</strong> and conduct a descriptive analysis of the prison rates, highlighting any unusual observation.</p></li>
+<li><p>Import the data into <strong>R</strong>. Compute the summary statistics and the standard deviation of <code>Prison</code>, and draw its boxplot. Which nation has the highest prison rate?</p></li>
 <li><p>Construct the correlation matrix of the eight quantitative variables: the command <code>cor</code>, applied to a data frame of numerical variables, returns the correlations of all the pairs. Which pair has the strongest association?</p></li>
 <li><p>Study the association between <code>CO2</code> and <code>GDP</code> through a scatterplot, the correlation and the least squares line, as in <a href="../un_F.html">Unit F</a>. Find the predicted CO<span class="math inline">_2</span> for the smallest and for the largest <code>GDP</code> in this sample.</p></li>
 <li><p>The correlation between <code>GDP</code> and <code>Prison</code> is essentially zero. Does this mean that the two variables are unrelated? Look at the scatterplot, and then repeat the computation without the United States.</p></li>
@@ -327,9 +327,9 @@ G = 1 - \sum_{j=1}^k f_j^2,
 <hr>
 <ol type="1">
 <li><p>Import the data into <strong>R</strong>. How many sheep are there? How many of them survived?</p></li>
-<li><p>Compare the weights of the sheep that survived with the weights of the sheep that did not, using numerical descriptive statistics.</p></li>
-<li><p>Compare the same two distributions graphically.</p></li>
-<li><p>Summarise the results of your analysis in a few sentences. Can you conclude that being heavier <span class="orange">causes</span> a sheep to survive?</p></li>
+<li><p>Compute the mean, the median and the standard deviation of <code>weight</code>, separately for the sheep that survived and for those that did not.</p></li>
+<li><p>Draw the boxplots of <code>weight</code> for the two groups side by side.</p></li>
+<li><p>Are the sheep that survived heavier, on average? Can you conclude that being heavier <span class="orange">causes</span> a sheep to survive?</p></li>
 </ol>
 </div>
 </div>

@@ -115,6 +115,6 @@ Internet (`Internet`).
     correlation between `GDP` and `Internet`, and recall that each $t$ test
     asks whether a variable is useful [given the other one]{.orange}.
 
-4.  Compare the values of $R^2$ of the two models. Is it worth adding
-    `Internet`?
+4.  Compare the values of $R^2$ of the two models. Does `Internet` improve the
+    fit appreciably?
 :::
