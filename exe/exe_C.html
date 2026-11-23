@@ -27,7 +27,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="exe_C_files/libs/clipboard/clipboard.min.js"></script>
@@ -99,6 +154,7 @@ window.Quarto = {
   <ul>
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a></li>
   <li><a href="#sampling-distributions-and-estimators" id="toc-sampling-distributions-and-estimators" class="nav-link" data-scroll-target="#sampling-distributions-and-estimators">Sampling distributions and estimators</a></li>
+  <li><a href="#confidence-intervals-and-tests" id="toc-confidence-intervals-and-tests" class="nav-link" data-scroll-target="#confidence-intervals-and-tests">Confidence intervals and tests</a></li>
   </ul>
 </nav>
 </div>
@@ -140,6 +196,7 @@ window.Quarto = {
 <section id="homepage" class="level2">
 <h2 class="anchored" data-anchor-id="homepage"><a href="../index.html">Homepage</a></h2>
 <p>These exercises accompany Units <a href="../un_I.html">I</a> and <a href="../un_J.html">J</a>.</p>
+<p>The exercises whose title carries a number such as <span class="grey">(<strong>AK</strong> 3.2)</span> are taken from <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>; their data are those of the <a href="https://stat4ds.rwth-aachen.de/data/">website of the book</a>.</p>
 <p>The <span class="blue">solution</span> of each exercise is in a separate <strong>R</strong> script, linked from the title of the exercise itself.</p>
 </section>
 <section id="sampling-distributions-and-estimators" class="level2">
@@ -169,9 +226,153 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exit poll in Arizona <span class="grey">(<strong>AK</strong> 3.2)</span> - Solution: <a href="../code/exit_poll.R"><code>exit_poll.R</code></a>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In an exit poll of <span class="math inline">n = 1648</span> voters in the 2020 Arizona Senate race, <span class="math inline">51.5\%</span> said they voted for Kelly.</p>
+<hr>
+<ol type="1">
+<li><p>Suppose that exactly <span class="math inline">50\%</span> of the population voted for Kelly. Compute the standard error of the sample proportion.</p></li>
+<li><p>Under the same assumption, simulate <span class="math inline">R = 5000</span> exit polls with <code>rbinom</code>, as in <a href="../un_I.html">Unit I</a>, and draw the histogram of the simulated sample proportions. Compare their standard deviation with the result of point 1.</p></li>
+<li><p>How often does an exit poll give <span class="math inline">51.5\%</span> or more, if <span class="math inline">\pi = 0.5</span>? Answer both with the simulation and with the central limit theorem. Would you be confident in predicting the winner?</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Defective chips - Solution: <a href="../code/chips.R"><code>chips.R</code></a>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A supplier of electronic chips claims that only <span class="math inline">4\%</span> of its chips are defective. A manufacturer tests <span class="math inline">n = 500</span> chips, randomly selected from a large shipment, and will return the whole shipment if more than <span class="math inline">5\%</span> of them are defective. Assume that the claim of the supplier is true.</p>
+<hr>
+<ol type="1">
+<li><p>Find the mean and the standard error of the sample proportion of defective chips.</p></li>
+<li><p>Is it reasonable to approximate its distribution with a normal one?</p></li>
+<li><p>Find the probability that the shipment is returned in three ways: through a simulation with <code>rbinom</code>, through the central limit theorem and exactly, with <code>pbinom</code>. Why do the last two answers differ?</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="confidence-intervals-and-tests" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-intervals-and-tests">Confidence intervals and tests</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Calibration of a CO<span class="math inline">_2</span> sensor - Solution: <a href="../code/sensor.R"><code>sensor.R</code></a>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A laboratory checks a CO<span class="math inline">_2</span> sensor with a reference gas of <span class="math inline">100</span> ppm. Nine independent measurements (ppm) give</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">100.8</span>, <span class="fl">99.7</span>, <span class="fl">100.2</span>, <span class="fl">101.0</span>, <span class="fl">99.8</span>, <span class="fl">100.3</span>, <span class="fl">100.9</span>, <span class="fl">100.1</span>, <span class="fl">100.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The measurements can be assumed normally distributed, and the sensor is well calibrated if their mean <span class="math inline">\mu</span> is <span class="math inline">100</span> ppm.</p>
+<hr>
+<ol type="1">
+<li><p>State <span class="math inline">H_0</span> and <span class="math inline">H_a</span> to test whether the sensor is miscalibrated.</p></li>
+<li><p>Compute <span class="math inline">\bar{y}</span>, <span class="math inline">s</span> and the observed test statistic. Decide using the critical region, with significance level <span class="math inline">0.05</span> and <span class="math inline">0.01</span>.</p></li>
+<li><p>Compute the P-value. Do the decisions agree?</p></li>
+<li><p>Check your results with <code>t.test</code>. Find the <span class="math inline">95\%</span> and the <span class="math inline">99\%</span> confidence intervals for <span class="math inline">\mu</span> (option <code>conf.level</code>). Do they contain <span class="math inline">100</span>? Compare with point 2.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Laws to protect the environment - Solution: <a href="../code/environment.R"><code>environment.R</code></a>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In a survey, <span class="math inline">1223</span> people out of <span class="math inline">1353</span> said that the government should impose strict laws to make industry do less damage to the environment.</p>
+<hr>
+<ol type="1">
+<li><p>Are the conditions for a confidence interval for the population proportion <span class="math inline">\pi</span> satisfied?</p></li>
+<li><p>Compute and interpret the <span class="math inline">95\%</span> confidence interval for <span class="math inline">\pi</span>.</p></li>
+<li><p>Is there evidence that a majority of the population is in favour? Test <span class="math inline">H_0: \pi = 0.5</span> against <span class="math inline">H_a: \pi &gt; 0.5</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solar panels - Solution: <a href="../code/solar.R"><code>solar.R</code></a>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A company claims that a rooftop solar panel installation produces, on average, <span class="math inline">18</span> kWh of electricity per day. The daily production of <span class="math inline">n = 144</span> randomly chosen installations has sample mean <span class="math inline">\bar{y} = 17.60</span> and sample standard deviation <span class="math inline">s = 2.40</span>.</p>
+<hr>
+<ol type="1">
+<li><p>Is there evidence that the mean production is <span class="orange">lower</span> than claimed? State <span class="math inline">H_0</span> and <span class="math inline">H_a</span>, compute the observed test statistic and decide with significance level <span class="math inline">0.01</span>, using the critical region.</p></li>
+<li><p>Compute the P-value. Does the decision change with significance level <span class="math inline">0.05</span>?</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><code>Students</code> dataset <span class="grey">(<strong>AK</strong> 4.14(a))</span> - Solution: <a href="../code/tv.R"><code>tv.R</code></a>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <code>Students</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>, already met in <a href="exe_A.html">Exercises A</a>, is available at <a href="https://stat4ds.rwth-aachen.de/data/Students.dat">this link</a>. The variable <code>tv</code> is the weekly number of hours spent watching TV.</p>
+<hr>
+<ol type="1">
+<li><p>Import the data and describe the distribution of <code>tv</code>.</p></li>
+<li><p>Compute the <span class="math inline">95\%</span> confidence interval for the mean weekly number of hours spent watching TV, first with the formula of <a href="../un_J.html">Unit J</a> and then with <code>t.test</code>.</p></li>
+<li><p>Which assumptions are needed? Are they reasonable here?</p></li>
+</ol>
+</div>
+</div>
+</div>
+
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Agresti2022" class="csl-entry" role="listitem">
+Agresti, A., and Kateri, M. (2022), <em>Foundations of statistics for data scientists</em>, CRC Press.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

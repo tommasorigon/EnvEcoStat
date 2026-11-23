@@ -37,6 +37,10 @@ editor_options:
 
 These exercises accompany Units [I](../un_I.html) and [J](../un_J.html).
 
+The exercises whose title carries a number such as [(**AK** 3.2)]{.grey} are
+taken from @Agresti2022; their data are those of the [website of the
+book](https://stat4ds.rwth-aachen.de/data/).
+
 The [solution]{.blue} of each exercise is in a separate **R** script, linked
 from the title of the exercise itself.
 
@@ -69,4 +73,129 @@ To estimate $\mu$ from a campaign of $n$ days, the agency could use either the
 5.  Repeat points 1 and 3 for a [normal]{.blue} population with the same $\mu$
     and $\sigma$. Check that both estimators are now unbiased, and that the
     standard error of the median is about $1.25\,\sigma/\sqrt{n}$.
+:::
+
+::: {.callout-note collapse="true"}
+#### Exit poll in Arizona [(**AK** 3.2)]{.grey} - Solution: [`exit_poll.R`](../code/exit_poll.R)
+
+In an exit poll of $n = 1648$ voters in the 2020 Arizona Senate race,
+$51.5\%$ said they voted for Kelly.
+
+------------------------------------------------------------------------
+
+1.  Suppose that exactly $50\%$ of the population voted for Kelly. Compute the
+    standard error of the sample proportion.
+
+2.  Under the same assumption, simulate $R = 5000$ exit polls with `rbinom`,
+    as in [Unit I](../un_I.html), and draw the histogram of the simulated
+    sample proportions. Compare their standard deviation with the result of
+    point 1.
+
+3.  How often does an exit poll give $51.5\%$ or more, if $\pi = 0.5$? Answer
+    both with the simulation and with the central limit theorem. Would you be
+    confident in predicting the winner?
+:::
+
+::: {.callout-note collapse="true"}
+#### Defective chips - Solution: [`chips.R`](../code/chips.R)
+
+A supplier of electronic chips claims that only $4\%$ of its chips are
+defective. A manufacturer tests $n = 500$ chips, randomly selected from a large
+shipment, and will return the whole shipment if more than $5\%$ of them are
+defective. Assume that the claim of the supplier is true.
+
+------------------------------------------------------------------------
+
+1.  Find the mean and the standard error of the sample proportion of
+    defective chips.
+
+2.  Is it reasonable to approximate its distribution with a normal one?
+
+3.  Find the probability that the shipment is returned in three ways: through
+    a simulation with `rbinom`, through the central limit theorem and exactly,
+    with `pbinom`. Why do the last two answers differ?
+:::
+
+## Confidence intervals and tests
+
+::: {.callout-note collapse="true"}
+#### Calibration of a CO$_2$ sensor - Solution: [`sensor.R`](../code/sensor.R)
+
+A laboratory checks a CO$_2$ sensor with a reference gas of $100$ ppm. Nine
+independent measurements (ppm) give
+
+```{r}
+#| eval: false
+y <- c(100.8, 99.7, 100.2, 101.0, 99.8, 100.3, 100.9, 100.1, 100.8)
+```
+
+The measurements can be assumed normally distributed, and the sensor is well
+calibrated if their mean $\mu$ is $100$ ppm.
+
+------------------------------------------------------------------------
+
+1.  State $H_0$ and $H_a$ to test whether the sensor is miscalibrated.
+
+2.  Compute $\bar{y}$, $s$ and the observed test statistic. Decide using the
+    critical region, with significance level $0.05$ and $0.01$.
+
+3.  Compute the P-value. Do the decisions agree?
+
+4.  Check your results with `t.test`. Find the $95\%$ and the $99\%$
+    confidence intervals for $\mu$ (option `conf.level`). Do they contain
+    $100$? Compare with point 2.
+:::
+
+::: {.callout-note collapse="true"}
+#### Laws to protect the environment - Solution: [`environment.R`](../code/environment.R)
+
+In a survey, $1223$ people out of $1353$ said that the government should impose
+strict laws to make industry do less damage to the environment.
+
+------------------------------------------------------------------------
+
+1.  Are the conditions for a confidence interval for the population proportion
+    $\pi$ satisfied?
+
+2.  Compute and interpret the $95\%$ confidence interval for $\pi$.
+
+3.  Is there evidence that a majority of the population is in favour? Test
+    $H_0: \pi = 0.5$ against $H_a: \pi > 0.5$.
+:::
+
+::: {.callout-note collapse="true"}
+#### Solar panels - Solution: [`solar.R`](../code/solar.R)
+
+A company claims that a rooftop solar panel installation produces, on average,
+$18$ kWh of electricity per day. The daily production of $n = 144$ randomly
+chosen installations has sample mean $\bar{y} = 17.60$ and sample standard
+deviation $s = 2.40$.
+
+------------------------------------------------------------------------
+
+1.  Is there evidence that the mean production is [lower]{.orange} than
+    claimed? State $H_0$ and $H_a$, compute the observed test statistic and
+    decide with significance level $0.01$, using the critical region.
+
+2.  Compute the P-value. Does the decision change with significance level
+    $0.05$?
+:::
+
+::: {.callout-note collapse="true"}
+#### `Students` dataset [(**AK** 4.14(a))]{.grey} - Solution: [`tv.R`](../code/tv.R)
+
+The `Students` data file of @Agresti2022, already met in [Exercises
+A](exe_A.html), is available at [this
+link](https://stat4ds.rwth-aachen.de/data/Students.dat). The variable `tv` is
+the weekly number of hours spent watching TV.
+
+------------------------------------------------------------------------
+
+1.  Import the data and describe the distribution of `tv`.
+
+2.  Compute the $95\%$ confidence interval for the mean weekly number of hours
+    spent watching TV, first with the formula of [Unit J](../un_J.html) and
+    then with `t.test`.
+
+3.  Which assumptions are needed? Are they reasonable here?
 :::
