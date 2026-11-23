@@ -483,13 +483,6 @@ corresponds, on average, to $0.031$ m$^3$ of additional timber. In short, we
 say that these are the effects of the diameter and of the height, each
 [adjusting for]{.orange} the other variable.
 
-With two explanatory variables, the least squares line becomes a
-[plane]{.orange}: among all the planes $\alpha + \beta_1 x_1 + \beta_2 x_2$, the
-least squares one has the smallest sum of squared residuals, as the following
-video shows.
-
-{{< video video/un_K_least_squares_3d.mp4 title="Least squares with two explanatory variables: the plane" >}}
-
 ## The output of `summary`
 
 ```{r}
