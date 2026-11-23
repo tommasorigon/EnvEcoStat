@@ -87,8 +87,6 @@ appendix](https://stat4ds.rwth-aachen.de/pdf/DS_R_webAppendix.pdf).
 | *Exercises* | [Exercises C](exe/exe_C.html) |  |  |
 |   **LINEAR MODELS AND LEAST SQUARES** |  |  |
 | Simple linear regression | [Unit K](un_K.html) | [`un_K.R`](code/un_K.R) | **AK** §6.1, §6.3--6.4, §A6.1 |
-|   **DATA ANALYSIS: CASE STUDIES** |  |  |
-| *To be defined* |  |  |  |
 
 ## Exam
 
