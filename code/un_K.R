@@ -52,7 +52,7 @@ s <- sqrt(sum(e^2) / (n - 2))
 s
 
 ## -----------------------------------------------------------------------------
-se_hat <- s / sqrt(n * my_var(x)) # Estimated standard error
+se_hat <- s / sqrt(sum((x - mean(x))^2)) # Estimated standard error
 se_hat
 
 ## -----------------------------------------------------------------------------
@@ -87,39 +87,3 @@ abline(h = 0, lty = "dashed") # Horizontal line at zero
 
 ## -----------------------------------------------------------------------------
 predict(fit, newdata = data.frame(diameter = 15))
-
-## -----------------------------------------------------------------------------
-fit_log <- lm(log(volume) ~ log(diameter), data = cherry)
-summary(fit_log)
-
-## -----------------------------------------------------------------------------
-plot(fitted(fit_log), residuals(fit_log),
-  pch = 16,
-  xlab = "Fitted values", ylab = "Residuals"
-)
-abline(h = 0, lty = "dashed")
-
-## -----------------------------------------------------------------------------
-eta_hat <- exp(coef(fit_log)[1])
-lambda_hat <- coef(fit_log)[2]
-
-plot(cherry$diameter, cherry$volume,
-  pch = 16,
-  xlab = "Diameter (cm)", ylab = "Volume (cubic metres)"
-)
-abline(fit, lty = "dashed") # Linear model
-curve(eta_hat * x^lambda_hat, add = TRUE, col = "red") # Linearised model
-
-## -----------------------------------------------------------------------------
-exp(predict(fit_log, newdata = new_tree, interval = "prediction"))
-
-## -----------------------------------------------------------------------------
-x_log <- log(cherry$diameter)
-s_log <- sqrt(sum(residuals(fit_log)^2) / (n - 2))
-se_hat <- s_log / sqrt(n * my_var(x_log)) # Estimated standard error
-se_hat # The same value as in the column Std. Error
-
-t_obs <- (lambda_hat - 2) / se_hat # Observed test statistic
-t_obs
-2 * (1 - pt(abs(t_obs), df = n - 2)) # Two-sided P-value
-confint(fit_log)

@@ -66,7 +66,7 @@ rm(clean, squeeze, full)
 -   The simple linear regression model
 -   Tests and confidence intervals for the slope
 -   Confidence and prediction intervals
--   Residual plots and a linearised model
+-   Residual plots
 
 ::: callout-note
 #### Note
@@ -224,8 +224,10 @@ forest.
 The [simple linear regression model]{.orange} assumes that $$
 Y_i = \alpha + \beta x_i + \epsilon_i, \qquad i = 1,\dots,n,
 $$ where the errors $\epsilon_1,\dots,\epsilon_n$ are independent, with
-distribution $N(0, \sigma^2)$. As in [Unit I](un_I.html), capital letters
-denote random variables. Therefore:
+distribution $N(0, \sigma^2)$. The values $x_1,\dots,x_n$ of the diameter are
+treated as [fixed]{.blue}, non-random, numbers: only the errors $\epsilon_i$,
+and therefore the volumes $Y_i$, are random. As in [Unit I](un_I.html), capital
+letters denote random variables. Therefore:
 
 -   $\alpha$ and $\beta$ are [parameters]{.blue}, and $\hat{\alpha}$ and
     $\hat{\beta}$ are their [estimates]{.blue};
@@ -247,18 +249,18 @@ s
 ## The standard error of $\hat{\beta}$
 
 Under the model, as for $\bar{Y}$ in [Unit I](un_I.html), we have that $$
-\mathbb{E}[\hat{\beta}] = \beta, \qquad \sigma_{\hat{\beta}} = \frac{\sigma}{\sqrt{n\,\text{var}(x)}}.
+\mathbb{E}[\hat{\beta}] = \beta, \qquad \sigma_{\hat{\beta}} = \frac{\sigma}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}.
 $$ The estimator $\hat{\beta}$ is therefore [unbiased]{.blue}, and its
 [standard error]{.orange} decreases with $n$. Replacing $\sigma$ with $s$, we
 obtain the estimated standard error:
 
 ```{r}
-se_hat <- s / sqrt(n * my_var(x)) # Estimated standard error
+se_hat <- s / sqrt(sum((x - mean(x))^2)) # Estimated standard error
 se_hat
 ```
 
 As for the mean in [Unit J](un_J.html), we have that $$
-T = \frac{\hat{\beta} - \beta}{S/\sqrt{n\,\text{var}(x)}} \sim t_{n-2}.
+T = \frac{\hat{\beta} - \beta}{S/\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}} \sim t_{n-2}.
 $$ Hence, the tests and the confidence intervals for $\beta$ follow the same
 recipe of [Unit J](un_J.html), with $n - 2$ degrees of freedom instead of
 $n - 1$.
@@ -268,7 +270,7 @@ $n - 1$.
 Is the diameter related to the volume? If $\beta = 0$, the mean volume does
 not depend on the diameter. We test $H_0: \beta = 0$ against
 $H_a: \beta \neq 0$. Under $H_0$, the test statistic $$
-t = \frac{\hat{\beta} - 0}{s/\sqrt{n\,\text{var}(x)}}
+t = \frac{\hat{\beta} - 0}{s/\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}
 $$ has a $t$ distribution with $n - 2$ degrees of freedom.
 
 ```{r}
@@ -304,7 +306,7 @@ the next unit.
 ## A confidence interval for the slope
 
 As in [Unit J](un_J.html), a $95\%$ confidence interval for $\beta$ is $$
-\left(\hat{\beta} - t_{0.975,\,n-2} \frac{s}{\sqrt{n\,\text{var}(x)}}, \ \hat{\beta} + t_{0.975,\,n-2} \frac{s}{\sqrt{n\,\text{var}(x)}}\right).
+\left(\hat{\beta} - t_{0.975,\,n-2} \frac{s}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}, \ \hat{\beta} + t_{0.975,\,n-2} \frac{s}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}\right).
 $$ Here we write the level explicitly, since in this unit $\alpha$ denotes the
 intercept.
 
@@ -375,81 +377,6 @@ predict(fit, newdata = data.frame(diameter = 15))
 The smallest tree in the data has a diameter of $21.1$ cm: predicting outside
 the range of the observed data ([extrapolation]{.blue}) is dangerous.
 
-## A linearised model
-
-The geometry suggests a better model. The volume of a solid is proportional to
-the [area]{.blue} of its base, which in turn is proportional to the square of
-the diameter. Let us then assume that $$
-(\text{volume}) = \eta \times (\text{diameter})^\lambda.
-$$ Taking the logarithms, the relationship becomes linear: $$
-\log(\text{volume}) = \log\eta + \lambda\log(\text{diameter}),
-$$ that is, a simple linear regression model with $y_i = \log(\text{volume}_i)$
-and $x_i = \log(\text{diameter}_i)$, with $\alpha = \log\eta$ and $\beta = \lambda$.
-
-```{r}
-fit_log <- lm(log(volume) ~ log(diameter), data = cherry)
-summary(fit_log)
-```
-
-The slope has a nice interpretation: when the diameter increases by $1\%$, the
-volume increases by about $\hat{\lambda} = 2.2\%$.
-
-```{r}
-plot(fitted(fit_log), residuals(fit_log),
-  pch = 16,
-  xlab = "Fitted values", ylab = "Residuals"
-)
-abline(h = 0, lty = "dashed")
-```
-
-The curvature has disappeared. Going back to the [original scale]{.orange}, we
-have $\hat{\eta} = e^{\hat{\alpha}}$, and the fitted curve is
-$\hat{\eta}\,x^{\hat{\lambda}}$:
-
-```{r}
-eta_hat <- exp(coef(fit_log)[1])
-lambda_hat <- coef(fit_log)[2]
-
-plot(cherry$diameter, cherry$volume,
-  pch = 16,
-  xlab = "Diameter (cm)", ylab = "Volume (cubic metres)"
-)
-abline(fit, lty = "dashed") # Linear model
-curve(eta_hat * x^lambda_hat, add = TRUE, col = "red") # Linearised model
-```
-
-The prediction interval for the tree with diameter $40$ cm is obtained on the
-log scale and then [back-transformed]{.blue} with `exp`:
-
-```{r}
-exp(predict(fit_log, newdata = new_tree, interval = "prediction"))
-```
-
-Note that the values of $R^2$ of the two models are [not comparable]{.orange}:
-the response is $y_i$ in the first case and $\log y_i$ in the second.
-
-## Is the volume proportional to the squared diameter?
-
-If the volume were proportional to the area of the base, we would have
-$\lambda = 2$. We test $H_0: \lambda = 2$ against $H_a: \lambda \neq 2$. The
-output of `summary` refers to $H_0: \lambda = 0$, so we compute the test
-statistic ourselves:
-
-```{r}
-x_log <- log(cherry$diameter)
-s_log <- sqrt(sum(residuals(fit_log)^2) / (n - 2))
-se_hat <- s_log / sqrt(n * my_var(x_log)) # Estimated standard error
-se_hat # The same value as in the column Std. Error
-
-t_obs <- (lambda_hat - 2) / se_hat # Observed test statistic
-t_obs
-2 * (1 - pt(abs(t_obs), df = n - 2)) # Two-sided P-value
-confint(fit_log)
-```
-
-The P-value is smaller than $0.05$ and the confidence interval does not
-contain $2$: the volume grows [faster]{.orange} than the squared diameter.
-
-Why? Larger trees are typically also [taller]{.blue}, and the volume depends on
-the height too. We need a model with two explanatory variables: this is the
-topic of the next unit.
+Finally, the volume of a tree does not depend on its diameter only: taller
+trees have, on average, more timber. A model with [two explanatory
+variables]{.orange}, diameter and height, is the topic of the next unit.

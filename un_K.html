@@ -148,8 +148,6 @@ window.Quarto = {
   <li><a href="#a-confidence-interval-for-the-slope" id="toc-a-confidence-interval-for-the-slope" class="nav-link" data-scroll-target="#a-confidence-interval-for-the-slope">A confidence interval for the slope</a></li>
   <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction">Prediction</a></li>
   <li><a href="#residual-plots" id="toc-residual-plots" class="nav-link" data-scroll-target="#residual-plots">Residual plots</a></li>
-  <li><a href="#a-linearised-model" id="toc-a-linearised-model" class="nav-link" data-scroll-target="#a-linearised-model">A linearised model</a></li>
-  <li><a href="#is-the-volume-proportional-to-the-squared-diameter" id="toc-is-the-volume-proportional-to-the-squared-diameter" class="nav-link" data-scroll-target="#is-the-volume-proportional-to-the-squared-diameter">Is the volume proportional to the squared diameter?</a></li>
   </ul>
 </nav>
 </div>
@@ -198,7 +196,7 @@ window.Quarto = {
 <li>The simple linear regression model</li>
 <li>Tests and confidence intervals for the slope</li>
 <li>Confidence and prediction intervals</li>
-<li>Residual plots and a linearised model</li>
+<li>Residual plots</li>
 </ul>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -383,7 +381,7 @@ R^2 = 1 - \frac{\text{var}(e)}{\text{var}(y)} = \text{cor}(x,y)^2.
 <p>So far, as in <a href="un_F.html">Unit F</a>, we have only <span class="blue">described</span> the <span class="math inline">31</span> trees. But these trees are a sample: we are interested in the relationship between diameter and volume for <span class="orange">all</span> the black cherry trees of the forest.</p>
 <p>The <span class="orange">simple linear regression model</span> assumes that <span class="math display">
 Y_i = \alpha + \beta x_i + \epsilon_i, \qquad i = 1,\dots,n,
-</span> where the errors <span class="math inline">\epsilon_1,\dots,\epsilon_n</span> are independent, with distribution <span class="math inline">N(0, \sigma^2)</span>. As in <a href="un_I.html">Unit I</a>, capital letters denote random variables. Therefore:</p>
+</span> where the errors <span class="math inline">\epsilon_1,\dots,\epsilon_n</span> are independent, with distribution <span class="math inline">N(0, \sigma^2)</span>. The values <span class="math inline">x_1,\dots,x_n</span> of the diameter are treated as <span class="blue">fixed</span>, non-random, numbers: only the errors <span class="math inline">\epsilon_i</span>, and therefore the volumes <span class="math inline">Y_i</span>, are random. As in <a href="un_I.html">Unit I</a>, capital letters denote random variables. Therefore:</p>
 <ul>
 <li><span class="math inline">\alpha</span> and <span class="math inline">\beta</span> are <span class="blue">parameters</span>, and <span class="math inline">\hat{\alpha}</span> and <span class="math inline">\hat{\beta}</span> are their <span class="blue">estimates</span>;</li>
 <li><span class="math inline">\alpha + \beta x</span> is the <span class="orange">mean</span> volume of the trees with diameter <span class="math inline">x</span>;</li>
@@ -404,23 +402,23 @@ s^2 = \frac{1}{n - 2}\sum_{i=1}^n e_i^2,
 <section id="the-standard-error-of-hatbeta" class="level2">
 <h2 class="anchored" data-anchor-id="the-standard-error-of-hatbeta">The standard error of <span class="math inline">\hat{\beta}</span></h2>
 <p>Under the model, as for <span class="math inline">\bar{Y}</span> in <a href="un_I.html">Unit I</a>, we have that <span class="math display">
-\mathbb{E}[\hat{\beta}] = \beta, \qquad \sigma_{\hat{\beta}} = \frac{\sigma}{\sqrt{n\,\text{var}(x)}}.
+\mathbb{E}[\hat{\beta}] = \beta, \qquad \sigma_{\hat{\beta}} = \frac{\sigma}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}.
 </span> The estimator <span class="math inline">\hat{\beta}</span> is therefore <span class="blue">unbiased</span>, and its <span class="orange">standard error</span> decreases with <span class="math inline">n</span>. Replacing <span class="math inline">\sigma</span> with <span class="math inline">s</span>, we obtain the estimated standard error:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>se_hat <span class="ot">&lt;-</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> <span class="fu">my_var</span>(x)) <span class="co"># Estimated standard error</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>se_hat <span class="ot">&lt;-</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">2</span>)) <span class="co"># Estimated standard error</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>se_hat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.00275923</code></pre>
 </div>
 </div>
 <p>As for the mean in <a href="un_J.html">Unit J</a>, we have that <span class="math display">
-T = \frac{\hat{\beta} - \beta}{S/\sqrt{n\,\text{var}(x)}} \sim t_{n-2}.
+T = \frac{\hat{\beta} - \beta}{S/\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}} \sim t_{n-2}.
 </span> Hence, the tests and the confidence intervals for <span class="math inline">\beta</span> follow the same recipe of <a href="un_J.html">Unit J</a>, with <span class="math inline">n - 2</span> degrees of freedom instead of <span class="math inline">n - 1</span>.</p>
 </section>
 <section id="a-test-for-the-slope" class="level2">
 <h2 class="anchored" data-anchor-id="a-test-for-the-slope">A test for the slope</h2>
 <p>Is the diameter related to the volume? If <span class="math inline">\beta = 0</span>, the mean volume does not depend on the diameter. We test <span class="math inline">H_0: \beta = 0</span> against <span class="math inline">H_a: \beta \neq 0</span>. Under <span class="math inline">H_0</span>, the test statistic <span class="math display">
-t = \frac{\hat{\beta} - 0}{s/\sqrt{n\,\text{var}(x)}}
+t = \frac{\hat{\beta} - 0}{s/\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}
 </span> has a <span class="math inline">t</span> distribution with <span class="math inline">n - 2</span> degrees of freedom.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>t_obs <span class="ot">&lt;-</span> (beta_hat <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> se_hat <span class="co"># Observed test statistic</span></span>
@@ -477,7 +475,7 @@ F-statistic: 419.1 on 1 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
 <section id="a-confidence-interval-for-the-slope" class="level2">
 <h2 class="anchored" data-anchor-id="a-confidence-interval-for-the-slope">A confidence interval for the slope</h2>
 <p>As in <a href="un_J.html">Unit J</a>, a <span class="math inline">95\%</span> confidence interval for <span class="math inline">\beta</span> is <span class="math display">
-\left(\hat{\beta} - t_{0.975,\,n-2} \frac{s}{\sqrt{n\,\text{var}(x)}}, \ \hat{\beta} + t_{0.975,\,n-2} \frac{s}{\sqrt{n\,\text{var}(x)}}\right).
+\left(\hat{\beta} - t_{0.975,\,n-2} \frac{s}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}, \ \hat{\beta} + t_{0.975,\,n-2} \frac{s}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}\right).
 </span> Here we write the level explicitly, since in this unit <span class="math inline">\alpha</span> denotes the intercept.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>t_quant <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">2</span>) <span class="co"># Quantile of order 0.975</span></span>
@@ -555,113 +553,7 @@ diameter     0.0508432  0.06212972</code></pre>
 </div>
 </div>
 <p>The smallest tree in the data has a diameter of <span class="math inline">21.1</span> cm: predicting outside the range of the observed data (<span class="blue">extrapolation</span>) is dangerous.</p>
-</section>
-<section id="a-linearised-model" class="level2">
-<h2 class="anchored" data-anchor-id="a-linearised-model">A linearised model</h2>
-<p>The geometry suggests a better model. The volume of a solid is proportional to the <span class="blue">area</span> of its base, which in turn is proportional to the square of the diameter. Let us then assume that <span class="math display">
-(\text{volume}) = \eta \times (\text{diameter})^\lambda.
-</span> Taking the logarithms, the relationship becomes linear: <span class="math display">
-\log(\text{volume}) = \log\eta + \lambda\log(\text{diameter}),
-</span> that is, a simple linear regression model with <span class="math inline">y_i = \log(\text{volume}_i)</span> and <span class="math inline">x_i = \log(\text{diameter}_i)</span>, with <span class="math inline">\alpha = \log\eta</span> and <span class="math inline">\beta = \lambda</span>.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>fit_log <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(volume) <span class="sc">~</span> <span class="fu">log</span>(diameter), <span class="at">data =</span> cherry)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_log)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = log(volume) ~ log(diameter), data = cherry)
-
-Residuals:
-      Min        1Q    Median        3Q       Max 
--0.208960 -0.067714  0.002265  0.070753  0.245740 
-
-Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)   -7.96836    0.31382  -25.39   &lt;2e-16 ***
-log(diameter)  2.19992    0.08973   24.52   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.1148 on 29 degrees of freedom
-Multiple R-squared:  0.954, Adjusted R-squared:  0.9524 
-F-statistic:   601 on 1 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<p>The slope has a nice interpretation: when the diameter increases by <span class="math inline">1\%</span>, the volume increases by about <span class="math inline">\hat{\lambda} = 2.2\%</span>.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(fit_log), <span class="fu">residuals</span>(fit_log),</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>,</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Fitted values"</span>, <span class="at">ylab =</span> <span class="st">"Residuals"</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="un_K_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="630"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The curvature has disappeared. Going back to the <span class="orange">original scale</span>, we have <span class="math inline">\hat{\eta} = e^{\hat{\alpha}}</span>, and the fitted curve is <span class="math inline">\hat{\eta}\,x^{\hat{\lambda}}</span>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>eta_hat <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(fit_log)[<span class="dv">1</span>])</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>lambda_hat <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit_log)[<span class="dv">2</span>]</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cherry<span class="sc">$</span>diameter, cherry<span class="sc">$</span>volume,</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>,</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Diameter (cm)"</span>, <span class="at">ylab =</span> <span class="st">"Volume (cubic metres)"</span></span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit, <span class="at">lty =</span> <span class="st">"dashed"</span>) <span class="co"># Linear model</span></span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(eta_hat <span class="sc">*</span> x<span class="sc">^</span>lambda_hat, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>) <span class="co"># Linearised model</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="un_K_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="630"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The prediction interval for the tree with diameter <span class="math inline">40</span> cm is obtained on the log scale and then <span class="blue">back-transformed</span> with <code>exp</code>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">predict</span>(fit_log, <span class="at">newdata =</span> new_tree, <span class="at">interval =</span> <span class="st">"prediction"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      fit       lwr      upr
-1 1.15822 0.9098788 1.474344</code></pre>
-</div>
-</div>
-<p>Note that the values of <span class="math inline">R^2</span> of the two models are <span class="orange">not comparable</span>: the response is <span class="math inline">y_i</span> in the first case and <span class="math inline">\log y_i</span> in the second.</p>
-</section>
-<section id="is-the-volume-proportional-to-the-squared-diameter" class="level2">
-<h2 class="anchored" data-anchor-id="is-the-volume-proportional-to-the-squared-diameter">Is the volume proportional to the squared diameter?</h2>
-<p>If the volume were proportional to the area of the base, we would have <span class="math inline">\lambda = 2</span>. We test <span class="math inline">H_0: \lambda = 2</span> against <span class="math inline">H_a: \lambda \neq 2</span>. The output of <code>summary</code> refers to <span class="math inline">H_0: \lambda = 0</span>, so we compute the test statistic ourselves:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>x_log <span class="ot">&lt;-</span> <span class="fu">log</span>(cherry<span class="sc">$</span>diameter)</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>s_log <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">residuals</span>(fit_log)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">2</span>))</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>se_hat <span class="ot">&lt;-</span> s_log <span class="sc">/</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> <span class="fu">my_var</span>(x_log)) <span class="co"># Estimated standard error</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>se_hat <span class="co"># The same value as in the column Std. Error</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.08973352</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>t_obs <span class="ot">&lt;-</span> (lambda_hat <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> se_hat <span class="co"># Observed test statistic</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>t_obs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>log(diameter) 
-      2.22795 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_obs), <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">2</span>)) <span class="co"># Two-sided P-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>log(diameter) 
-   0.03380215 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit_log)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                  2.5 %    97.5 %
-(Intercept)   -8.610186 -7.326538
-log(diameter)  2.016396  2.383447</code></pre>
-</div>
-</div>
-<p>The P-value is smaller than <span class="math inline">0.05</span> and the confidence interval does not contain <span class="math inline">2</span>: the volume grows <span class="orange">faster</span> than the squared diameter.</p>
-<p>Why? Larger trees are typically also <span class="blue">taller</span>, and the volume depends on the height too. We need a model with two explanatory variables: this is the topic of the next unit.</p>
+<p>Finally, the volume of a tree does not depend on its diameter only: taller trees have, on average, more timber. A model with <span class="orange">two explanatory variables</span>, diameter and height, is the topic of the next unit.</p>
 </section>
 
 </main>
