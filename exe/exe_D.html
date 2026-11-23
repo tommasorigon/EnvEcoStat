@@ -120,6 +120,7 @@ window.Quarto = {
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a></li>
   <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression">Simple linear regression</a></li>
   <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression">Multiple linear regression</a></li>
+  <li><a href="#qualitative-explanatory-variables-and-anova" id="toc-qualitative-explanatory-variables-and-anova" class="nav-link" data-scroll-target="#qualitative-explanatory-variables-and-anova">Qualitative explanatory variables and ANOVA</a></li>
   </ul>
 </nav>
 </div>
@@ -233,6 +234,54 @@ window.Quarto = {
 <li><p>Add <code>Internet</code> to the model. Are the two variables statistically significant? What does the F test in the last line of <code>summary</code> say?</p></li>
 <li><p>The results of point 2 may look contradictory. <span class="blue">Hint</span>: compute the correlation between <code>GDP</code> and <code>Internet</code>, and recall that each <span class="math inline">t</span> test asks whether a variable is useful <span class="orange">given the other one</span>.</p></li>
 <li><p>Compare the values of <span class="math inline">R^2</span> of the two models. Does <code>Internet</code> improve the fit appreciably?</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="qualitative-explanatory-variables-and-anova" class="level2">
+<h2 class="anchored" data-anchor-id="qualitative-explanatory-variables-and-anova">Qualitative explanatory variables and ANOVA</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><code>Income</code> dataset - Solution: <a href="../code/Income.R"><code>Income.R</code></a>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <code>Income</code> data of <a href="../un_L.html">Unit L</a> are available at <a href="https://stat4ds.rwth-aachen.de/data/Income.dat">this link</a>: the annual income (<code>income</code>, thousands of dollars), the years of education (<code>education</code>) and the racial-ethnic group (<code>race</code>: <code>B</code>, <code>H</code>, <code>W</code>) of <span class="math inline">80</span> adult Americans.</p>
+<hr>
+<ol type="1">
+<li><p>Fit the model with response <code>income</code> and explanatory variable <code>education</code>. Interpret the slope and its <span class="math inline">95\%</span> confidence interval.</p></li>
+<li><p>Convert <code>race</code> into a <code>factor</code> with Hispanics as the reference category, using <code>factor(Income$race, levels = c("H", "B", "W"))</code>. Fit the model <code>income ~ race</code>: which coefficient is the difference between the mean incomes of Whites and Hispanics? Is it significant at the <span class="math inline">5\%</span> level?</p></li>
+<li><p>Fit the model <code>income ~ race + education</code> and compute, with <code>predict</code>, the predicted income of a Black, a Hispanic and a White person with <span class="math inline">12</span> years of education. How do the differences between the three predictions relate to the coefficients of the model?</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><code>Polid</code> dataset <span class="grey">(adapted from <strong>AK</strong> 6.13)</span> - Solution: <a href="../code/Polid.R"><code>Polid.R</code></a>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <code>Polid</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>, available at <a href="https://stat4ds.rwth-aachen.de/data/Polid.dat">this link</a>, reports the political ideology (<code>ideology</code>, from <span class="math inline">1 =</span> extremely liberal to <span class="math inline">7 =</span> extremely conservative) and the racial-ethnic group (<code>race</code>) of <span class="math inline">2575</span> respondents to the General Social Survey.</p>
+<hr>
+<ol type="1">
+<li><p>Import the data and convert <code>race</code> into a <code>factor</code>. How many respondents are there in each group? Compute the mean ideology of each group.</p></li>
+<li><p>Fit the model <code>ideology ~ race</code>. Which is the reference category? Check that the coefficients are the differences between the means of point 1.</p></li>
+<li><p>Use <code>anova</code> to test whether the three groups have the same mean ideology. Report the <code>F value</code> and the P-value, and draw a conclusion.</p></li>
+<li><p>The largest difference between the means is about <span class="math inline">0.35</span> points on a scale from <span class="math inline">1</span> to <span class="math inline">7</span>. Is it large in practice? Why is it nonetheless statistically significant?</p></li>
 </ol>
 </div>
 </div>

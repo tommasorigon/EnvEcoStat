@@ -118,3 +118,54 @@ Internet (`Internet`).
 4.  Compare the values of $R^2$ of the two models. Does `Internet` improve the
     fit appreciably?
 :::
+
+## Qualitative explanatory variables and ANOVA
+
+::: {.callout-note collapse="true"}
+#### `Income` dataset - Solution: [`Income.R`](../code/Income.R)
+
+The `Income` data of [Unit L](../un_L.html) are available at [this
+link](https://stat4ds.rwth-aachen.de/data/Income.dat): the annual income
+(`income`, thousands of dollars), the years of education (`education`) and the
+racial-ethnic group (`race`: `B`, `H`, `W`) of $80$ adult Americans.
+
+------------------------------------------------------------------------
+
+1.  Fit the model with response `income` and explanatory variable `education`.
+    Interpret the slope and its $95\%$ confidence interval.
+
+2.  Convert `race` into a `factor` with Hispanics as the reference category,
+    using `factor(Income$race, levels = c("H", "B", "W"))`. Fit the model
+    `income ~ race`: which coefficient is the difference between the mean
+    incomes of Whites and Hispanics? Is it significant at the $5\%$ level?
+
+3.  Fit the model `income ~ race + education` and compute, with `predict`, the
+    predicted income of a Black, a Hispanic and a White person with $12$ years
+    of education. How do the differences between the three predictions relate
+    to the coefficients of the model?
+:::
+
+::: {.callout-note collapse="true"}
+#### `Polid` dataset [(adapted from **AK** 6.13)]{.grey} - Solution: [`Polid.R`](../code/Polid.R)
+
+The `Polid` data file of @Agresti2022, available at [this
+link](https://stat4ds.rwth-aachen.de/data/Polid.dat), reports the political
+ideology (`ideology`, from $1 =$ extremely liberal to $7 =$ extremely
+conservative) and the racial-ethnic group (`race`) of $2575$ respondents to the
+General Social Survey.
+
+------------------------------------------------------------------------
+
+1.  Import the data and convert `race` into a `factor`. How many respondents
+    are there in each group? Compute the mean ideology of each group.
+
+2.  Fit the model `ideology ~ race`. Which is the reference category? Check
+    that the coefficients are the differences between the means of point 1.
+
+3.  Use `anova` to test whether the three groups have the same mean ideology.
+    Report the `F value` and the P-value, and draw a conclusion.
+
+4.  The largest difference between the means is about $0.35$ points on a scale
+    from $1$ to $7$. Is it large in practice? Why is it nonetheless
+    statistically significant?
+:::
