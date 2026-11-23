@@ -66,6 +66,7 @@ rm(clean, squeeze, full)
 -   A qualitative explanatory variable in a linear model
 -   Indicator variables and reference category
 -   Adjusting for a confounding variable
+-   Comparing several groups: the analysis of variance (ANOVA)
 
 ::: callout-note
 #### Note
@@ -158,3 +159,88 @@ Adjusting for the size removes its effect, but other variables that are not in
 the data (the neighbourhood, the quality of the materials, ...) could still
 explain part of the difference.
 :::
+
+## Comparing three groups
+
+The `Income` data file of @Agresti2022 reports, for $n = 80$ adult Americans
+aged over 25, the annual income (`income`, thousands of dollars), the number of
+years of education (`education`) and the racial-ethnic group (`race`: `B` for
+Black, `H` for Hispanic, `W` for White).
+
+::: callout-note
+#### Research question
+
+Does the mean income differ among the three groups?
+:::
+
+```{r}
+path <- "https://stat4ds.rwth-aachen.de/data/Income.dat"
+Income <- read.table(path, header = TRUE)
+Income$race <- factor(Income$race)
+table(Income$race)
+boxplot(income ~ race, data = Income)
+```
+
+With $c = 3$ categories, **R** creates $c - 1 = 2$ indicators, `raceH` and
+`raceW`, and the first category, `B`, is the reference:
+
+```{r}
+fit_race <- lm(income ~ race, data = Income)
+coef(fit_race)
+```
+
+The model is $Y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i$, where
+$x_{i1}$ and $x_{i2}$ are the indicators of Hispanics and Whites. Denoting by
+$\mu_B$, $\mu_H$ and $\mu_W$ the mean incomes of the three groups, we have
+$\alpha = \mu_B$, $\beta_1 = \mu_H - \mu_B$ and $\beta_2 = \mu_W - \mu_B$.
+Indeed, the estimates are the differences between the sample means:
+
+```{r}
+income_B <- Income$income[Income$race == "B"]
+income_H <- Income$income[Income$race == "H"]
+income_W <- Income$income[Income$race == "W"]
+c(mean(income_B), mean(income_H), mean(income_W))
+c(mean(income_H) - mean(income_B), mean(income_W) - mean(income_B))
+```
+
+## The analysis of variance
+
+The three groups have the same mean if $H_0: \mu_B = \mu_H = \mu_W$, that is,
+if $H_0: \beta_1 = \beta_2 = 0$. This is exactly the hypothesis of the
+[F test]{.orange} in the last line of `summary`, also obtained with the command
+`anova`:
+
+```{r}
+anova(fit_race)
+```
+
+This table is called [analysis of variance]{.blue} (ANOVA), because the test
+compares two sources of variability:
+
+-   the row `race` measures the variability [between]{.orange} the groups, that
+    is, how far the three sample means are from each other;
+-   the row `Residuals` measures the variability [within]{.blue} the groups. Its
+    `Mean Sq` is $s^2$, the estimate of $\sigma^2$, with $n - 3 = 77$ degrees of
+    freedom.
+
+The `F value` is the ratio of the two `Mean Sq`, $1676.24 / 394.93 = 4.24$.
+The P-value is $0.018$: there is evidence that [at least two]{.orange} mean
+incomes differ. In the table `Coefficients` of `summary(fit_race)`, the
+difference between Whites and Blacks is significant (P-value $0.012$), while the
+one between Hispanics and Blacks is not (P-value $0.656$).
+
+## Adjusting for education
+
+As in [Unit K](un_K.html), we can add a quantitative variable to the model:
+
+```{r}
+fit_race_edu <- lm(income ~ race + education, data = Income)
+summary(fit_race_edu)
+```
+
+-   Each additional year of education corresponds, on average, to $4.43$
+    thousand dollars of additional income, adjusting for the group.
+-   Adjusting for education, the difference between the mean incomes of Whites
+    and Blacks is $10.9$ thousand dollars, instead of $14.7$: part of the
+    difference between the groups is due to education.
+

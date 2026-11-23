@@ -87,7 +87,7 @@ appendix](https://stat4ds.rwth-aachen.de/pdf/DS_R_webAppendix.pdf).
 | *Exercises* | [Exercises C](exe/exe_C.html) |  |  |
 |   **LINEAR MODELS AND LEAST SQUARES** |  |  |
 | The `trees` data | [Unit K](un_K.html) | [`un_K.R`](code/un_K.R) | **AK** §6.1--6.4, §A6.1--A6.2 |
-| The `Houses` data | [Unit L](un_L.html) | [`un_L.R`](code/un_L.R) | **AK** §6.2.4, §6.5 |
+| The `Houses` and `Income` data | [Unit L](un_L.html) | [`un_L.R`](code/un_L.R) | **AK** §6.2.4, §6.5.1--6.5.3, §6.5.5 |
 | *Exercises* | [Exercises D](exe/exe_D.html) |  |  |
 
 ## Exam
