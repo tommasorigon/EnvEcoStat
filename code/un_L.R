@@ -36,6 +36,9 @@ plot(fitted(fit), residuals(fit),
 abline(h = 0, lty = "dashed")
 
 ## -----------------------------------------------------------------------------
+hist(residuals(fit), main = "", xlab = "Residuals")
+
+## -----------------------------------------------------------------------------
 path <- "https://stat4ds.rwth-aachen.de/data/Houses.dat"
 Houses <- read.table(path, header = TRUE)
 Houses$new <- factor(Houses$new, levels = c(0, 1), labels = c("no", "yes"))

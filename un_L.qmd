@@ -162,10 +162,13 @@ summary(fit)
 
 The output is read as in [Unit K](un_K.html), with a few differences:
 
--   in the table `Coefficients`, each row tests $H_0: \beta_j = 0$, that is,
-    whether the variable is useful [given the other one]{.blue}. The height has
-    a P-value of $0.016$: it helps to predict the volume, even when the
-    diameter is known;
+-   in the table `Coefficients`, the rows `diameter` and `height` test
+    $H_0: \beta_1 = 0$ and $H_0: \beta_2 = 0$, that is, whether each variable
+    is useful [given the other one]{.blue}. The test statistics are computed as
+    in [Unit K](un_K.html), estimate divided by standard error, but now have a
+    $t$ distribution with $n - 3$ degrees of freedom. The height has a P-value
+    of $0.016$: it helps to predict the volume, even when the diameter is
+    known;
 -   the variance $\sigma^2$ is estimated by $s^2 = \frac{1}{n - 3}\sum_{i=1}^n e_i^2$,
     because three parameters have been estimated: `Residual standard error` is
     $s$, with $n - 3 = 28$ degrees of freedom;
@@ -174,7 +177,9 @@ The output is read as in [Unit K](un_K.html), with a few differences:
     P-value is practically zero.
 
 The coefficient $R^2$ increases from $0.935$ (diameter only, [Unit
-K](un_K.html)) to $0.948$.
+K](un_K.html)) to $0.948$. It is still defined as
+$R^2 = 1 - \text{var}(e)/\text{var}(y)$, but it is no longer the square of the
+correlation between $y$ and a single explanatory variable.
 
 ## Confidence intervals
 
@@ -234,8 +239,16 @@ plot(fitted(fit), residuals(fit),
 abline(h = 0, lty = "dashed")
 ```
 
-As in [Unit K](un_K.html), a slight [curvature]{.orange} is still visible: the
-model is useful, but it is only an approximation.
+The residuals show the same [curvature]{.orange} seen in [Unit K](un_K.html):
+adding the height improves the predictions, but it does not fix this problem.
+The model is useful, but it is only an approximation.
+
+As in [Unit K](un_K.html), we also check that the residuals are roughly
+bell-shaped:
+
+```{r}
+hist(residuals(fit), main = "", xlab = "Residuals")
+```
 
 ## A qualitative explanatory variable
 
@@ -264,10 +277,13 @@ coef(fit_new)
 ```
 
 **R** creates the [indicator]{.blue} variable `newyes`, equal to $1$ for new
-houses and $0$ for old ones. The model is then
-$\text{price} = \alpha + \beta \cdot \text{newyes}$, so that $\alpha$ is the
-mean price of old houses and $\beta$ is the [difference]{.orange} between the
-mean prices of new and old houses. The first category, `no`, is the
+houses and $0$ for old ones. Denoting it by $x_i$, the model is the simple
+linear regression model of [Unit K](un_K.html), $$
+Y_i = \alpha + \beta x_i + \epsilon_i,
+$$ so that $\alpha$ is the mean price of old houses ($x_i = 0$) and
+$\alpha + \beta$ is the mean price of new houses ($x_i = 1$). Therefore,
+$\beta$ is the [difference]{.orange} between the mean prices of new and old
+houses. The first category, `no`, is the
 [reference category]{.blue}: it has no indicator. With $c$ categories, **R**
 creates $c - 1$ indicators, one for each category except the first.
 
@@ -286,7 +302,10 @@ New houses are, however, also [larger]{.orange}:
 boxplot(size ~ new, data = Houses)
 ```
 
-Let us compare new and old houses [of the same size]{.blue}:
+Let us compare new and old houses [of the same size]{.blue}, with the model
+$Y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i$, where $x_{i1}$ is
+the size and $x_{i2}$ is the indicator of new houses. Now $\beta_2$ is the
+difference between the mean prices of new and old houses, at fixed size:
 
 ```{r}
 fit_size_new <- lm(price ~ size + new, data = Houses)
