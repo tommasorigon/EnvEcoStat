@@ -490,7 +490,7 @@ F-statistic: 419.1 on 1 and 29 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li><code>t value</code> is the test statistic for <span class="math inline">H_0: \alpha = 0</span> or <span class="math inline">H_0: \beta = 0</span>;</li>
 <li><code>Pr(&gt;|t|)</code> is the two-sided P-value.</li>
 </ul>
-<p>Moreover, <code>Residual standard error</code> is <span class="math inline">s</span>, with its <span class="math inline">n - 2 = 29</span> degrees of freedom, and <code>Multiple R-squared</code> is <span class="math inline">R^2</span>. The last line will be discussed in the next unit.</p>
+<p>Moreover, <code>Residual standard error</code> is <span class="math inline">s</span>, with its <span class="math inline">n - 2 = 29</span> degrees of freedom, and <code>Multiple R-squared</code> is <span class="math inline">R^2</span>. The last line will be discussed later in this unit.</p>
 </section>
 <section id="a-confidence-interval-for-the-slope" class="level2">
 <h2 class="anchored" data-anchor-id="a-confidence-interval-for-the-slope">A confidence interval for the slope</h2>
@@ -588,7 +588,7 @@ diameter     0.0508432  0.06212972</code></pre>
 </section>
 <section id="extrapolation" class="level2">
 <h2 class="anchored" data-anchor-id="extrapolation">Extrapolation</h2>
-<p>There is a second problem. For a small tree, the predicted volume is <span class="orange">negative</span>:</p>
+<p>Besides the curvature, there is a second problem. For a small tree, the predicted volume is <span class="orange">negative</span>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">diameter =</span> <span class="dv">15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">

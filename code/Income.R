@@ -26,5 +26,6 @@ summary(fit_race)
 fit_both <- lm(income ~ race + education, data = Income)
 new_people <- data.frame(race = c("B", "H", "W"), education = c(12, 12, 12))
 predict(fit_both, newdata = new_people) # 26.6, 32.6 and 37.5
-# With the same education, the differences between the three predictions are
-# the coefficients of race: the lines of the three groups are parallel
+# With the same education, the differences from the Hispanic person are the
+# coefficients raceB (-5.94) and raceW (4.93), whatever the years of education:
+# the lines of the three groups are parallel

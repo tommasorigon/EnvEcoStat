@@ -45,7 +45,7 @@ of the [website of the book](https://stat4ds.rwth-aachen.de/data/).
 The [solution]{.blue} of each exercise is in a separate **R** script, linked
 from the title of the exercise itself.
 
-## Simple linear regression
+## Linear regression
 
 ::: {.callout-note collapse="true"}
 #### `forbes` dataset - Solution: [`forbes.R`](../code/forbes.R)
@@ -72,7 +72,7 @@ Alps. As in Unit F, convert the temperature into degrees Celsius.
 :::
 
 ::: {.callout-note collapse="true"}
-#### `Houses` dataset [(**AK** 6.15)]{.grey} - Solution: [`Houses_lm.R`](../code/Houses_lm.R)
+#### `Houses` dataset [(adapted from **AK** 6.15)]{.grey} - Solution: [`Houses_lm.R`](../code/Houses_lm.R)
 
 The `Houses` data of [Exercises B](exe_B.html) are available at [this
 link](https://stat4ds.rwth-aachen.de/data/Houses.dat). Consider the selling
@@ -91,8 +91,6 @@ annual tax bill (`taxes`, dollars).
 3.  Add `taxes` to the model. How does the effect of `size` change? Why?
     [Hint]{.blue}: compute the correlation between `size` and `taxes`.
 :::
-
-## Multiple linear regression
 
 ::: {.callout-note collapse="true"}
 #### `UN` dataset [(adapted from **AK** 6.12)]{.grey} - Solution: [`UN_lm.R`](../code/UN_lm.R)

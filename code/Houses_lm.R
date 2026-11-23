@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # Programming and Data Analysis with R - Exercises D
-# Houses dataset (AK 6.15)
+# Houses dataset (adapted from AK 6.15)
 # ----------------------------------------------------------------------
 
 rm(list = ls())

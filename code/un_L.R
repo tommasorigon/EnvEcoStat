@@ -29,7 +29,7 @@ boxplot(income ~ race, data = Income)
 
 ## -----------------------------------------------------------------------------
 fit_race <- lm(income ~ race, data = Income)
-coef(fit_race)
+summary(fit_race)
 
 ## -----------------------------------------------------------------------------
 income_B <- Income$income[Income$race == "B"]

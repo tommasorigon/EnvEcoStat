@@ -363,10 +363,27 @@ F-statistic: 126.3 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>With <span class="math inline">c = 3</span> categories, <strong>R</strong> creates <span class="math inline">c - 1 = 2</span> indicators, <code>raceH</code> and <code>raceW</code>, and the first category, <code>B</code>, is the reference:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fit_race <span class="ot">&lt;-</span> <span class="fu">lm</span>(income <span class="sc">~</span> race, <span class="at">data =</span> Income)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit_race)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_race)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(Intercept)       raceH       raceW 
-      27.75        3.25       14.73 </code></pre>
+<pre><code>
+Call:
+lm(formula = income ~ race, data = Income)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-24.48 -12.48  -4.48   7.52  77.52 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   27.750      4.968   5.586 3.37e-07 ***
+raceH          3.250      7.273   0.447   0.6562    
+raceW         14.730      5.708   2.581   0.0118 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 19.87 on 77 degrees of freedom
+Multiple R-squared:  0.0993,    Adjusted R-squared:  0.0759 
+F-statistic: 4.244 on 2 and 77 DF,  p-value: 0.01784</code></pre>
 </div>
 </div>
 <p>The model is <span class="math inline">Y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i</span>, where <span class="math inline">x_{i1}</span> and <span class="math inline">x_{i2}</span> are the indicators of Hispanics and Whites. Denoting by <span class="math inline">\mu_B</span>, <span class="math inline">\mu_H</span> and <span class="math inline">\mu_W</span> the mean incomes of the three groups, we have <span class="math inline">\alpha = \mu_B</span>, <span class="math inline">\beta_1 = \mu_H - \mu_B</span> and <span class="math inline">\beta_2 = \mu_W - \mu_B</span>. Indeed, the estimates are the differences between the sample means:</p>
@@ -386,7 +403,7 @@ F-statistic: 126.3 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 <section id="the-analysis-of-variance" class="level2">
 <h2 class="anchored" data-anchor-id="the-analysis-of-variance">The analysis of variance</h2>
-<p>The three groups have the same mean if <span class="math inline">H_0: \mu_B = \mu_H = \mu_W</span>, that is, if <span class="math inline">H_0: \beta_1 = \beta_2 = 0</span>. This is exactly the hypothesis of the <span class="orange">F test</span> in the last line of <code>summary</code>, also obtained with the command <code>anova</code>:</p>
+<p>The three groups have the same mean if <span class="math inline">H_0: \mu_B = \mu_H = \mu_W</span>, that is, if <span class="math inline">H_0: \beta_1 = \beta_2 = 0</span>. This is exactly the hypothesis of the <span class="orange">F test</span> in the last line of <code>summary(fit_race)</code>, also obtained with the command <code>anova</code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_race)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">

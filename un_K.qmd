@@ -308,8 +308,8 @@ In the table `Coefficients`, for each parameter:
 -   `Pr(>|t|)` is the two-sided P-value.
 
 Moreover, `Residual standard error` is $s$, with its $n - 2 = 29$ degrees of
-freedom, and `Multiple R-squared` is $R^2$. The last line will be discussed in
-the next unit.
+freedom, and `Multiple R-squared` is $R^2$. The last line will be discussed
+later in this unit.
 
 ## A confidence interval for the slope
 
@@ -404,7 +404,7 @@ par(mfrow = c(1, 1))
 
 ## Extrapolation
 
-There is a second problem. For a small tree, the predicted volume is
+Besides the curvature, there is a second problem. For a small tree, the predicted volume is
 [negative]{.orange}:
 
 ```{r}

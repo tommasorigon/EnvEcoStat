@@ -186,7 +186,7 @@ With $c = 3$ categories, **R** creates $c - 1 = 2$ indicators, `raceH` and
 
 ```{r}
 fit_race <- lm(income ~ race, data = Income)
-coef(fit_race)
+summary(fit_race)
 ```
 
 The model is $Y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i$, where
@@ -207,8 +207,8 @@ c(mean(income_H) - mean(income_B), mean(income_W) - mean(income_B))
 
 The three groups have the same mean if $H_0: \mu_B = \mu_H = \mu_W$, that is,
 if $H_0: \beta_1 = \beta_2 = 0$. This is exactly the hypothesis of the
-[F test]{.orange} in the last line of `summary`, also obtained with the command
-`anova`:
+[F test]{.orange} in the last line of `summary(fit_race)`, also obtained with the
+command `anova`:
 
 ```{r}
 anova(fit_race)
