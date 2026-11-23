@@ -154,10 +154,12 @@ The relationship is strong and approximately [linear]{.orange}.
 
 ## The least squares line
 
-Exactly as in [Unit F](un_F.html), in a [linear model]{.blue} of the form
-$y_i = \alpha + \beta x_i + \epsilon_i$, the [least squares]{.orange} estimates
+In [Unit F](un_F.html), as in the course of Statistics, we denoted the intercept
+and the slope by $\alpha$ and $\beta$. From now on, as in the theory lectures,
+we denote them by $\beta_0$ and $\beta_1$. In a [linear model]{.blue} of the form
+$y_i = \beta_0 + \beta_1 x_i + \epsilon_i$, the [least squares]{.orange} estimates
 are equal to $$
-\hat{\alpha} = \bar{y} - \hat{\beta}\:\bar{x}, \qquad \hat{\beta}  = \frac{\text{cov}(x,y)}{\text{var}(x)}.
+\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\:\bar{x}, \qquad \hat{\beta}_1  = \frac{\text{cov}(x,y)}{\text{var}(x)}.
 $$
 
 We use again the functions `my_var` and `my_cov` of [Unit F](un_F.html):
@@ -168,9 +170,9 @@ my_cov <- function(x, y) mean(x * y) - mean(x) * mean(y)
 
 x <- cherry$diameter
 y <- cherry$volume
-beta_hat <- my_cov(x, y) / my_var(x) # Slope
-alpha_hat <- mean(y) - beta_hat * mean(x) # Intercept
-c(alpha_hat, beta_hat)
+beta1_hat <- my_cov(x, y) / my_var(x) # Slope
+beta0_hat <- mean(y) - beta1_hat * mean(x) # Intercept
+c(beta0_hat, beta1_hat)
 ```
 
 Each additional centimetre of diameter corresponds, on average, to
@@ -188,8 +190,8 @@ coef(fit) # Least squares estimates
 ```
 
 The object `fit` contains much more. For instance, the fitted values
-$\hat{y}_i = \hat{\alpha} + \hat{\beta}x_i$ and the residuals
-$e_i = y_i - \hat{y}_i$:
+$\hat{\mu}_i = \hat{\beta}_0 + \hat{\beta}_1x_i$ and the residuals
+$e_i = y_i - \hat{\mu}_i$:
 
 ```{r}
 head(fitted(fit))
@@ -212,10 +214,10 @@ plot(cherry$diameter, cherry$volume,
   pch = 16,
   xlab = "Diameter (cm)", ylab = "Volume (cubic metres)"
 )
-abline(fit) # Same as abline(a = alpha_hat, b = beta_hat)
+abline(fit) # Same as abline(a = beta0_hat, b = beta1_hat)
 ```
 
-Why exactly this line? Among all the lines $\alpha + \beta x$, the least squares
+Why exactly this line? Among all the lines $\beta_0 + \beta_1 x$, the least squares
 line is the one with the [smallest sum of squared residuals]{.orange}
 $\sum_{i=1}^n e_i^2$, as the following video shows.
 
@@ -229,22 +231,22 @@ between diameter and volume for [all]{.orange} the black cherry trees of the
 forest.
 
 The [simple linear regression model]{.orange} assumes that $$
-Y_i = \alpha + \beta x_i + \epsilon_i, \qquad i = 1,\dots,n,
+Y_i = \beta_0 + \beta_1 x_i + \epsilon_i, \qquad i = 1,\dots,n,
 $$ where the errors $\epsilon_1,\dots,\epsilon_n$ are independent, with
 distribution $\text{N}(0, \sigma^2)$. The values $x_1,\dots,x_n$ of the diameter are
 treated as [fixed]{.blue}, non-random, numbers: only the errors $\epsilon_i$,
 and therefore the volumes $Y_i$, are random. As in [Unit I](un_I.html), capital
 letters denote random variables. Therefore:
 
--   $\alpha$ and $\beta$ are [parameters]{.blue}, and $\hat{\alpha}$ and
-    $\hat{\beta}$ are their [estimates]{.blue};
--   $\alpha + \beta x$ is the [mean]{.orange} volume of the trees with
+-   $\beta_0$ and $\beta_1$ are [parameters]{.blue}, and $\hat{\beta}_0$ and
+    $\hat{\beta}_1$ are their [estimates]{.blue};
+-   $\beta_0 + \beta_1 x$ is the [mean]{.orange} volume of the trees with
     diameter $x$;
 -   $\sigma$ measures how much the volumes vary around this mean.
 
 The variance $\sigma^2$ is estimated by $$
 s^2 = \frac{1}{n - 2}\sum_{i=1}^n e_i^2,
-$$ where we divide by $n - 2$ because two parameters, $\alpha$ and $\beta$,
+$$ where we divide by $n - 2$ because two parameters, $\beta_0$ and $\beta_1$,
 have been estimated.
 
 ```{r}
@@ -257,13 +259,14 @@ sigma(fit) # The same value, computed by R
 Note that $s$ is [not]{.orange} the standard deviation of the volumes, computed
 by `sd(y)`: it measures how much the volumes vary [around the line]{.blue}.
 
-## The standard error of $\hat{\beta}$
+## The standard error of $\hat{\beta}_1$
 
 Under the model, as for $\bar{Y}$ in [Unit I](un_I.html), we have that $$
-\mathbb{E}[\hat{\beta}] = \beta, \qquad \sigma_{\hat{\beta}} = \frac{\sigma}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}.
-$$ The estimator $\hat{\beta}$ is therefore [unbiased]{.blue}, and its
+\mathbb{E}[\hat{\beta}_1] = \beta_1, \qquad \sigma_{\hat{\beta}_1} = \frac{\sigma}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}.
+$$ The estimator $\hat{\beta}_1$ is therefore [unbiased]{.blue}, and its
 [standard error]{.orange} decreases with $n$. Replacing $\sigma$ with $s$, we
-obtain the estimated standard error:
+obtain the estimated standard error, denoted by $\text{s.e.}(\hat{\beta}_1)$ in
+the theory lectures:
 
 ```{r}
 se_hat <- s / sqrt(sum((x - mean(x))^2)) # Estimated standard error
@@ -271,21 +274,21 @@ se_hat
 ```
 
 As for the mean in [Unit J](un_J.html), we have that $$
-T = \frac{\hat{\beta} - \beta}{S/\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}} \sim t_{n-2}.
-$$ Hence, the tests and the confidence intervals for $\beta$ follow the same
+T = \frac{\hat{\beta}_1 - \beta_1}{S/\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}} \sim t_{n-2}.
+$$ Hence, the tests and the confidence intervals for $\beta_1$ follow the same
 recipe of [Unit J](un_J.html), with $n - 2$ degrees of freedom instead of
 $n - 1$.
 
 ## A test for the slope
 
-Is the diameter related to the volume? If $\beta = 0$, the mean volume does
-not depend on the diameter. We test $H_0: \beta = 0$ against
-$H_a: \beta \neq 0$. Under $H_0$, the test statistic $$
-t = \frac{\hat{\beta} - 0}{s/\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}
+Is the diameter related to the volume? If $\beta_1 = 0$, the mean volume does
+not depend on the diameter. We test $H_0: \beta_1 = 0$ against
+$H_a: \beta_1 \neq 0$. Under $H_0$, the test statistic $$
+t = \frac{\hat{\beta}_1 - 0}{s/\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}
 $$ has a $t$ distribution with $n - 2$ degrees of freedom.
 
 ```{r}
-t_obs <- (beta_hat - 0) / se_hat # Observed test statistic
+t_obs <- (beta1_hat - 0) / se_hat # Observed test statistic
 t_obs
 qt(0.975, df = n - 2) # Critical value, significance level 5%
 2 * (1 - pt(abs(t_obs), df = n - 2)) # Two-sided P-value
@@ -305,9 +308,9 @@ summary(fit)
 
 In the table `Coefficients`, for each parameter:
 
--   `Estimate` is the estimate, $\hat{\alpha}$ or $\hat{\beta}$;
+-   `Estimate` is the estimate, $\hat{\beta}_0$ or $\hat{\beta}_1$;
 -   `Std. Error` is its estimated standard error;
--   `t value` is the test statistic for $H_0: \alpha = 0$ or $H_0: \beta = 0$;
+-   `t value` is the test statistic for $H_0: \beta_0 = 0$ or $H_0: \beta_1 = 0$;
 -   `Pr(>|t|)` is the two-sided P-value.
 
 Moreover, `Residual standard error` is $s$, with its $n - 2 = 29$ degrees of
@@ -316,15 +319,14 @@ later in this unit.
 
 ## A confidence interval for the slope
 
-As in [Unit J](un_J.html), a $95\%$ confidence interval for $\beta$ is $$
-\left(\hat{\beta} - t_{0.975,\,n-2} \frac{s}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}, \ \hat{\beta} + t_{0.975,\,n-2} \frac{s}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}\right).
-$$ Here we write the level explicitly, since in this unit $\alpha$ denotes the
-intercept.
+As in [Unit J](un_J.html), a $95\%$ confidence interval for $\beta_1$ is $$
+\left(\hat{\beta}_1 - t_{0.975,\,n-2} \frac{s}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}, \ \hat{\beta}_1 + t_{0.975,\,n-2} \frac{s}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}\right).
+$$
 
 ```{r}
 t_quant <- qt(0.975, df = n - 2) # Quantile of order 0.975
-c(beta_hat - t_quant * se_hat, beta_hat + t_quant * se_hat)
-confint(fit) # Both alpha and beta, 95% by default
+c(beta1_hat - t_quant * se_hat, beta1_hat + t_quant * se_hat)
+confint(fit) # Both beta_0 and beta_1, 95% by default
 ```
 
 With $95\%$ confidence, each additional centimetre of diameter corresponds to
@@ -333,12 +335,12 @@ between $0.051$ and $0.062$ m$^3$ of additional timber, on average.
 ## Prediction
 
 A forester measures a standing tree with a diameter of $40$ cm. As in
-[Unit F](un_F.html), the predicted volume is $\hat{\alpha} + \hat{\beta} \cdot 40$.
+[Unit F](un_F.html), the predicted volume is $\hat{\beta}_0 + \hat{\beta}_1 \cdot 40$.
 The command `predict` gives the same value, and requires a data frame with
 the new values of the explanatory variable:
 
 ```{r}
-alpha_hat + beta_hat * 40
+beta0_hat + beta1_hat * 40
 new_tree <- data.frame(diameter = 40)
 predict(fit, newdata = new_tree)
 ```
@@ -346,7 +348,7 @@ predict(fit, newdata = new_tree)
 How precise is this prediction? There are [two different questions]{.orange}:
 
 -   what is the [mean volume]{.blue} of all the trees with diameter $40$ cm?
-    This is the parameter $\alpha + \beta \cdot 40$, and we need a
+    This is the parameter $\beta_0 + \beta_1 \cdot 40$, and we need a
     [confidence interval]{.blue};
 -   what is the volume of [this particular tree]{.blue}? This is a random
     variable, and we need a [prediction interval]{.blue}.
@@ -357,14 +359,17 @@ predict(fit, newdata = new_tree, interval = "prediction")
 ```
 
 The prediction interval is much [wider]{.orange}: besides the uncertainty
-about $\alpha$ and $\beta$, it also accounts for the variability $\sigma$ of the
+about $\beta_0$ and $\beta_1$, it also accounts for the variability $\sigma$ of the
 single trees around the mean.
 
 ## Residual plots
 
-The model relies on [assumptions]{.orange}: a linear relationship and errors
-with constant variance. We check them by plotting the residuals $e_i$ against the
-fitted values $\hat{y}_i$:
+The normal linear model relies on four [assumptions]{.orange}, summarised in
+the theory lectures by the acronym L.I.N.E.: [L]{.blue}inearity,
+[I]{.blue}ndependence, [N]{.blue}ormality and [E]{.blue}qual variance of the
+errors. Independence depends on how the data were collected; the other three are
+checked through the residuals. First, we plot the residuals $e_i$ against the
+fitted values $\hat{\mu}_i$:
 
 ```{r}
 plot(fitted(fit), residuals(fit),
@@ -448,22 +453,22 @@ other]{.orange}: taller trees tend to have a larger diameter.
 
 The [multiple linear regression model]{.orange} with two explanatory variables
 assumes that $$
-Y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i, \qquad i = 1,\dots,n,
+Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i, \qquad i = 1,\dots,n,
 $$ where $x_{i1}$ is the diameter and $x_{i2}$ the height of the $i$th tree.
 As in the simple model, the values $x_{i1}$ and $x_{i2}$ are treated as
 fixed, and the errors $\epsilon_1,\dots,\epsilon_n$ are independent, with
 distribution $\text{N}(0, \sigma^2)$. Therefore:
 
--   $\alpha + \beta_1 x_1 + \beta_2 x_2$ is the [mean]{.blue} volume of the
+-   $\beta_0 + \beta_1 x_1 + \beta_2 x_2$ is the [mean]{.blue} volume of the
     trees with diameter $x_1$ and height $x_2$;
 -   $\beta_1$ is the change in the mean volume when the diameter increases by
     $1$ cm, [at fixed height]{.orange};
 -   $\beta_2$ is the change in the mean volume when the height increases by
     $1$ m, [at fixed diameter]{.orange}.
 
-The estimates $\hat{\alpha}$, $\hat{\beta}_1$ and $\hat{\beta}_2$ are again
+The estimates $\hat{\beta}_0$, $\hat{\beta}_1$ and $\hat{\beta}_2$ are again
 obtained by [least squares]{.blue}, that is by minimising $$
-\sum_{i=1}^n (y_i - \alpha - \beta_1 x_{i1} - \beta_2 x_{i2})^2.
+\sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_{i1} - \beta_2 x_{i2})^2.
 $$ There is no simple formula as in [Unit F](un_F.html): we let **R** do the
 computations.
 

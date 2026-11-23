@@ -79,12 +79,12 @@ class LeastSquares(Scene):
         line = always_redraw(clipped_line)
         res = always_redraw(residuals)
 
-        model = MathTex(r"y = \alpha + \beta\, x", font_size=38)
-        resid = MathTex(r"e_i = y_i - \alpha - \beta\, x_i", font_size=34)
+        model = MathTex(r"y = \beta_0 + \beta_1 x", font_size=38)
+        resid = MathTex(r"e_i = y_i - \beta_0 - \beta_1 x_i", font_size=34)
         a_num = DecimalNumber(alpha.get_value(), num_decimal_places=3, font_size=36)
         b_num = DecimalNumber(beta.get_value(), num_decimal_places=4, font_size=36)
-        a_lab = MathTex(r"\alpha =", font_size=36)
-        b_lab = MathTex(r"\beta =", font_size=36)
+        a_lab = MathTex(r"\beta_0 =", font_size=36)
+        b_lab = MathTex(r"\beta_1 =", font_size=36)
         a_row = VGroup(a_lab, a_num).arrange(RIGHT, buff=0.15)
         b_row = VGroup(b_lab, b_num).arrange(RIGHT, buff=0.15)
         s_num = DecimalNumber(sse(0.3, 0.0), num_decimal_places=3, font_size=36)
@@ -104,14 +104,14 @@ class LeastSquares(Scene):
         self.wait(3)
 
         # ---- Phase 1: horizontal lines, beta = 0 ------------------------------------
-        note1 = Tex(r"Horizontal lines: $\beta = 0$", font_size=30, color=GREY_A)
+        note1 = Tex(r"Horizontal lines: $\beta_1 = 0$", font_size=30, color=GREY_A)
         note1.next_to(right, DOWN, buff=0.4).align_to(right, LEFT)
         self.play(FadeIn(note1))
         self.play(alpha.animate.set_value(1.5), run_time=4)
         self.wait(1)
         self.play(alpha.animate.set_value(Y_BAR), run_time=3)
         self.wait(1)
-        ybar_txt = MathTex(r"\text{best: } \alpha = \bar{y} = 0.854", font_size=30, color=GREY_A)
+        ybar_txt = MathTex(r"\text{best: } \beta_0 = \bar{y} = 0.854", font_size=30, color=GREY_A)
         ybar_txt.next_to(note1, DOWN, buff=0.2).align_to(note1, LEFT)
         self.play(Write(ybar_txt))
         self.wait(3)
@@ -124,7 +124,7 @@ class LeastSquares(Scene):
         centre_lab = VGroup(centre_lab, centre_arrow)
         note2 = VGroup(
             Tex(r"Lines through $(\bar{x}, \bar{y})$:", font_size=30, color=GREY_A),
-            MathTex(r"\alpha = \bar{y} - \beta\,\bar{x}", font_size=32, color=GREY_A),
+            MathTex(r"\beta_0 = \bar{y} - \beta_1 \bar{x}", font_size=32, color=GREY_A),
         ).arrange(DOWN, buff=0.15, aligned_edge=LEFT)
         note2.next_to(right, DOWN, buff=0.4).align_to(right, LEFT)
         self.play(FadeIn(centre), Write(centre_lab), FadeOut(ybar_txt),
@@ -142,7 +142,7 @@ class LeastSquares(Scene):
             y_axis_config={"numbers_to_include": [2, 4, 6]},
         )
         pan.shift(np.array([RIGHT_X + 0.55, -3.45, 0]) - pan.c2p(0, 0))
-        pan_x = MathTex(r"\beta", font_size=30).next_to(pan.x_axis, RIGHT, buff=0.15)
+        pan_x = MathTex(r"\beta_1", font_size=30).next_to(pan.x_axis, RIGHT, buff=0.15)
         pan_y = MathTex(r"\textstyle\sum_{i=1}^n e_i^2", font_size=28).move_to(pan.c2p(0.066, 5.2))
         self.play(Create(pan), FadeIn(pan_x), FadeIn(pan_y))
 
@@ -166,14 +166,14 @@ class LeastSquares(Scene):
 
         # ---- The minimum ------------------------------------------------------------
         best = MathTex(
-            r"\hat{\beta} = \frac{\text{cov}(x,y)}{\text{var}(x)}, \quad "
-            r"\hat{\alpha} = \bar{y} - \hat{\beta}\,\bar{x}",
+            r"\hat{\beta}_1 = \frac{\text{cov}(x,y)}{\text{var}(x)}, \quad "
+            r"\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}",
             font_size=30, color=HIGHLIGHT,
         ).next_to(right, DOWN, buff=0.35).align_to(right, LEFT)
         drop = DashedLine(pan.c2p(BETA_HAT, sse(ALPHA_HAT, BETA_HAT)), pan.c2p(BETA_HAT, 0),
                           color=HIGHLIGHT)
-        a_hat = MathTex(r"\hat{\alpha} =", font_size=36, color=HIGHLIGHT).move_to(a_lab, aligned_edge=RIGHT)
-        b_hat = MathTex(r"\hat{\beta} =", font_size=36, color=HIGHLIGHT).move_to(b_lab, aligned_edge=RIGHT)
+        a_hat = MathTex(r"\hat{\beta}_0 =", font_size=36, color=HIGHLIGHT).move_to(a_lab, aligned_edge=RIGHT)
+        b_hat = MathTex(r"\hat{\beta}_1 =", font_size=36, color=HIGHLIGHT).move_to(b_lab, aligned_edge=RIGHT)
         self.play(Create(drop), ReplacementTransform(note2, best),
                   ReplacementTransform(a_lab, a_hat), ReplacementTransform(b_lab, b_hat),
                   Indicate(s_row, color=HIGHLIGHT, scale_factor=1.1), run_time=2)

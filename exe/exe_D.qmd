@@ -60,8 +60,8 @@ Alps. As in Unit F, convert the temperature into degrees Celsius.
     explanatory variable `TempC` using `lm`. Check that the estimates are those
     obtained in Unit F, and interpret the slope.
 
-2.  Is the temperature related to the pressure? Test $H_0: \beta = 0$ and
-    compute the $95\%$ confidence interval for $\beta$.
+2.  Is the temperature related to the pressure? Test $H_0: \beta_1 = 0$ and
+    compute the $95\%$ confidence interval for $\beta_1$.
 
 3.  Water boils at $97$ degrees Celsius. Compute the confidence interval for
     the mean pressure and the prediction interval for the pressure at that

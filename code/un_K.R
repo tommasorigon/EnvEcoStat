@@ -22,9 +22,9 @@ my_cov <- function(x, y) mean(x * y) - mean(x) * mean(y)
 
 x <- cherry$diameter
 y <- cherry$volume
-beta_hat <- my_cov(x, y) / my_var(x) # Slope
-alpha_hat <- mean(y) - beta_hat * mean(x) # Intercept
-c(alpha_hat, beta_hat)
+beta1_hat <- my_cov(x, y) / my_var(x) # Slope
+beta0_hat <- mean(y) - beta1_hat * mean(x) # Intercept
+c(beta0_hat, beta1_hat)
 
 ## -----------------------------------------------------------------------------
 fit <- lm(volume ~ diameter, data = cherry)
@@ -44,7 +44,7 @@ plot(cherry$diameter, cherry$volume,
   pch = 16,
   xlab = "Diameter (cm)", ylab = "Volume (cubic metres)"
 )
-abline(fit) # Same as abline(a = alpha_hat, b = beta_hat)
+abline(fit) # Same as abline(a = beta0_hat, b = beta1_hat)
 
 ## -----------------------------------------------------------------------------
 n <- nrow(cherry)
@@ -57,7 +57,7 @@ se_hat <- s / sqrt(sum((x - mean(x))^2)) # Estimated standard error
 se_hat
 
 ## -----------------------------------------------------------------------------
-t_obs <- (beta_hat - 0) / se_hat # Observed test statistic
+t_obs <- (beta1_hat - 0) / se_hat # Observed test statistic
 t_obs
 qt(0.975, df = n - 2) # Critical value, significance level 5%
 2 * (1 - pt(abs(t_obs), df = n - 2)) # Two-sided P-value
@@ -67,11 +67,11 @@ summary(fit)
 
 ## -----------------------------------------------------------------------------
 t_quant <- qt(0.975, df = n - 2) # Quantile of order 0.975
-c(beta_hat - t_quant * se_hat, beta_hat + t_quant * se_hat)
-confint(fit) # Both alpha and beta, 95% by default
+c(beta1_hat - t_quant * se_hat, beta1_hat + t_quant * se_hat)
+confint(fit) # Both beta_0 and beta_1, 95% by default
 
 ## -----------------------------------------------------------------------------
-alpha_hat + beta_hat * 40
+beta0_hat + beta1_hat * 40
 new_tree <- data.frame(diameter = 40)
 predict(fit, newdata = new_tree)
 

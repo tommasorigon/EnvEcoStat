@@ -110,10 +110,10 @@ coef(fit_new)
 **R** creates the [indicator]{.blue} variable `newyes`, equal to $1$ for new
 houses and $0$ for old ones. Denoting it by $x_i$, the model is the simple
 linear regression model of [Unit K](un_K.html), $$
-Y_i = \alpha + \beta x_i + \epsilon_i,
-$$ so that $\alpha$ is the mean price of old houses ($x_i = 0$) and
-$\alpha + \beta$ is the mean price of new houses ($x_i = 1$). Therefore,
-$\beta$ is the [difference]{.orange} between the mean prices of new and old
+Y_i = \beta_0 + \beta_1 x_i + \epsilon_i,
+$$ so that $\beta_0$ is the mean price of old houses ($x_i = 0$) and
+$\beta_0 + \beta_1$ is the mean price of new houses ($x_i = 1$). Therefore,
+$\beta_1$ is the [difference]{.orange} between the mean prices of new and old
 houses. The first category, `no`, is the
 [reference category]{.blue}: it has no indicator. With $c$ categories, **R**
 creates $c - 1$ indicators, one for each category except the first.
@@ -134,7 +134,7 @@ boxplot(size ~ new, data = Houses)
 ```
 
 Let us compare new and old houses [of the same size]{.blue}, with the model
-$Y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i$, where $x_{i1}$ is
+$Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i$, where $x_{i1}$ is
 the size and $x_{i2}$ is the indicator of new houses. Now $\beta_2$ is the
 difference between the mean prices of new and old houses, at fixed size:
 
@@ -212,10 +212,10 @@ fit_race <- lm(income ~ race, data = Income)
 summary(fit_race)
 ```
 
-The model is $Y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i$, where
+The model is $Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i$, where
 $x_{i1}$ and $x_{i2}$ are the indicators of Hispanics and Whites. Denoting by
 $\mu_B$, $\mu_H$ and $\mu_W$ the mean incomes of the three groups, we have
-$\alpha = \mu_B$, $\beta_1 = \mu_H - \mu_B$ and $\beta_2 = \mu_W - \mu_B$.
+$\beta_0 = \mu_B$, $\beta_1 = \mu_H - \mu_B$ and $\beta_2 = \mu_W - \mu_B$.
 Indeed, the estimates are the differences between the sample means:
 
 ```{r}
