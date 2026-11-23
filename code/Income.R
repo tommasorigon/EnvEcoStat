@@ -5,8 +5,7 @@
 
 rm(list = ls())
 
-path <- "https://stat4ds.rwth-aachen.de/data/Income.dat"
-Income <- read.table(path, header = TRUE)
+Income <- read.table("data/income.csv", header = TRUE, sep = ",")
 
 # 1 --------------------------------------------------------------------
 fit_edu <- lm(income ~ education, data = Income)

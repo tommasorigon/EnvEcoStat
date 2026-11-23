@@ -5,8 +5,7 @@
 
 rm(list = ls())
 
-path <- "https://stat4ds.rwth-aachen.de/data/UN.dat"
-UN <- read.table(path, header = TRUE)
+UN <- read.table("data/un.csv", header = TRUE, sep = ",")
 
 # 1 --------------------------------------------------------------------
 fit_gdp <- lm(CO2 ~ GDP, data = UN)

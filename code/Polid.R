@@ -5,8 +5,7 @@
 
 rm(list = ls())
 
-path <- "https://stat4ds.rwth-aachen.de/data/Polid.dat"
-Polid <- read.table(path, header = TRUE)
+Polid <- read.table("data/polid.csv", header = TRUE, sep = ",")
 Polid$race <- factor(Polid$race)
 
 # 1 --------------------------------------------------------------------

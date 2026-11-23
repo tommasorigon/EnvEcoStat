@@ -161,7 +161,7 @@ window.Quarto = {
 <section id="homepage" class="level2">
 <h2 class="anchored" data-anchor-id="homepage"><a href="../index.html">Homepage</a></h2>
 <p>These exercises accompany Units <a href="../un_K.html">K</a> and <a href="../un_L.html">L</a>.</p>
-<p>The exercises whose title carries a number such as <span class="grey">(<strong>AK</strong> 6.15)</span> are taken, sometimes in a simplified form, from <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>; their data are those of the <a href="https://stat4ds.rwth-aachen.de/data/">website of the book</a>.</p>
+<p>The exercises whose title carries a number such as <span class="grey">(<strong>AK</strong> 6.15)</span> are taken, sometimes in a simplified form, from <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>; their data are those of the <a href="https://stat4ds.rwth-aachen.de/data/">website of the book</a>; a copy of each file is available on this website, at the link given in each exercise.</p>
 <p>The <span class="blue">solution</span> of each exercise is in a separate <strong>R</strong> script, linked from the title of the exercise itself.</p>
 </section>
 <section id="linear-regression" class="level2">
@@ -201,7 +201,7 @@ window.Quarto = {
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The <code>Houses</code> data of <a href="exe_B.html">Exercises B</a> are available at <a href="https://stat4ds.rwth-aachen.de/data/Houses.dat">this link</a>. Consider the selling price (<code>price</code>, thousands of dollars), the size (<code>size</code>, square feet) and the annual tax bill (<code>taxes</code>, dollars).</p>
+<p>The <code>Houses</code> data of <a href="exe_B.html">Exercises B</a> are available at <a href="../data/houses.csv">this link</a>. Consider the selling price (<code>price</code>, thousands of dollars), the size (<code>size</code>, square feet) and the annual tax bill (<code>taxes</code>, dollars).</p>
 <hr>
 <ol type="1">
 <li><p>Fit the model with response <code>price</code> and explanatory variable <code>size</code>. Interpret the slope and its <span class="math inline">95\%</span> confidence interval.</p></li>
@@ -223,7 +223,7 @@ window.Quarto = {
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The <code>UN</code> data of <a href="exe_B.html">Exercises B</a> are available at <a href="https://stat4ds.rwth-aachen.de/data/UN.dat">this link</a>. Consider the carbon dioxide emissions per capita (<code>CO2</code>, metric tons), the per capita gross domestic product (<code>GDP</code>, thousands of dollars) and the percentage of people using the Internet (<code>Internet</code>).</p>
+<p>The <code>UN</code> data of <a href="exe_B.html">Exercises B</a> are available at <a href="../data/un.csv">this link</a>. Consider the carbon dioxide emissions per capita (<code>CO2</code>, metric tons), the per capita gross domestic product (<code>GDP</code>, thousands of dollars) and the percentage of people using the Internet (<code>Internet</code>).</p>
 <hr>
 <ol type="1">
 <li><p>Fit the model with response <code>CO2</code> and explanatory variable <code>GDP</code>. Is the effect of <code>GDP</code> statistically significant?</p></li>
@@ -249,7 +249,7 @@ window.Quarto = {
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The <code>Income</code> data of <a href="../un_L.html">Unit L</a> are available at <a href="https://stat4ds.rwth-aachen.de/data/Income.dat">this link</a>: the annual income (<code>income</code>, thousands of dollars), the years of education (<code>education</code>) and the racial-ethnic group (<code>race</code>: <code>B</code>, <code>H</code>, <code>W</code>) of <span class="math inline">80</span> adult Americans.</p>
+<p>The <code>Income</code> data of <a href="../un_L.html">Unit L</a> are available at <a href="../data/income.csv">this link</a>: the annual income (<code>income</code>, thousands of dollars), the years of education (<code>education</code>) and the racial-ethnic group (<code>race</code>: <code>B</code>, <code>H</code>, <code>W</code>) of <span class="math inline">80</span> adult Americans.</p>
 <hr>
 <ol type="1">
 <li><p>Fit the model with response <code>income</code> and explanatory variable <code>education</code>. Interpret the slope and its <span class="math inline">95\%</span> confidence interval.</p></li>
@@ -271,7 +271,7 @@ window.Quarto = {
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The <code>Polid</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>, available at <a href="https://stat4ds.rwth-aachen.de/data/Polid.dat">this link</a>, reports the political ideology (<code>ideology</code>, from <span class="math inline">1 =</span> extremely liberal to <span class="math inline">7 =</span> extremely conservative) and the racial-ethnic group (<code>race</code>) of <span class="math inline">2575</span> respondents to the General Social Survey.</p>
+<p>The <code>Polid</code> data file of <span class="citation" data-cites="Agresti2022">Agresti and Kateri (<a href="#ref-Agresti2022" role="doc-biblioref">2022</a>)</span>, available at <a href="../data/polid.csv">this link</a>, reports the political ideology (<code>ideology</code>, from <span class="math inline">1 =</span> extremely liberal to <span class="math inline">7 =</span> extremely conservative) and the racial-ethnic group (<code>race</code>) of <span class="math inline">2575</span> respondents to the General Social Survey.</p>
 <hr>
 <ol type="1">
 <li><p>Import the data and convert <code>race</code> into a <code>factor</code>. How many respondents are there in each group? Compute the mean ideology of each group.</p></li>

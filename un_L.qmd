@@ -88,9 +88,22 @@ selling price (`price`, thousands of dollars) and the size (`size`, square
 feet) of $100$ houses, and whether the house is new (`new`, $1 =$ yes,
 $0 =$ no).
 
+As done previously, first of all you need to download the file `houses.csv` and
+save it on your computer. [Link to the file](data/houses.csv)
+
 ```{r}
-path <- "https://stat4ds.rwth-aachen.de/data/Houses.dat"
-Houses <- read.table(path, header = TRUE)
+Houses <- read.table("data/houses.csv", header = TRUE, sep = ",")
+```
+
+Alternatively, we can simply obtain them using the link:
+
+```{r}
+#| eval: false
+path <- "https://tommasorigon.github.io/EnvEcoStat/data/houses.csv"
+Houses <- read.table(path, header = TRUE, sep = ",")
+```
+
+```{r}
 Houses$new <- factor(Houses$new, levels = c(0, 1), labels = c("no", "yes"))
 ```
 
@@ -196,9 +209,22 @@ Black, `H` for Hispanic, `W` for White).
 Does the mean income differ among the three groups?
 :::
 
+As done previously, first of all you need to download the file `income.csv` and
+save it on your computer. [Link to the file](data/income.csv)
+
 ```{r}
-path <- "https://stat4ds.rwth-aachen.de/data/Income.dat"
-Income <- read.table(path, header = TRUE)
+Income <- read.table("data/income.csv", header = TRUE, sep = ",")
+```
+
+Alternatively, we can simply obtain them using the link:
+
+```{r}
+#| eval: false
+path <- "https://tommasorigon.github.io/EnvEcoStat/data/income.csv"
+Income <- read.table(path, header = TRUE, sep = ",")
+```
+
+```{r}
 Income$race <- factor(Income$race)
 table(Income$race)
 boxplot(income ~ race, data = Income)

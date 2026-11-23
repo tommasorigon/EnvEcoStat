@@ -40,7 +40,8 @@ These exercises accompany Units [K](../un_K.html) and [L](../un_L.html).
 
 The exercises whose title carries a number such as [(**AK** 6.15)]{.grey} are
 taken, sometimes in a simplified form, from @Agresti2022; their data are those
-of the [website of the book](https://stat4ds.rwth-aachen.de/data/).
+of the [website of the book](https://stat4ds.rwth-aachen.de/data/); a copy of
+each file is available on this website, at the link given in each exercise.
 
 The [solution]{.blue} of each exercise is in a separate **R** script, linked
 from the title of the exercise itself.
@@ -75,7 +76,7 @@ Alps. As in Unit F, convert the temperature into degrees Celsius.
 #### `Houses` dataset [(adapted from **AK** 6.15)]{.grey} - Solution: [`Houses_lm.R`](../code/Houses_lm.R)
 
 The `Houses` data of [Exercises B](exe_B.html) are available at [this
-link](https://stat4ds.rwth-aachen.de/data/Houses.dat). Consider the selling
+link](../data/houses.csv). Consider the selling
 price (`price`, thousands of dollars), the size (`size`, square feet) and the
 annual tax bill (`taxes`, dollars).
 
@@ -96,7 +97,7 @@ annual tax bill (`taxes`, dollars).
 #### `UN` dataset [(adapted from **AK** 6.12)]{.grey} - Solution: [`UN_lm.R`](../code/UN_lm.R)
 
 The `UN` data of [Exercises B](exe_B.html) are available at [this
-link](https://stat4ds.rwth-aachen.de/data/UN.dat). Consider the carbon dioxide
+link](../data/un.csv). Consider the carbon dioxide
 emissions per capita (`CO2`, metric tons), the per capita gross domestic
 product (`GDP`, thousands of dollars) and the percentage of people using the
 Internet (`Internet`).
@@ -123,7 +124,7 @@ Internet (`Internet`).
 #### `Income` dataset - Solution: [`Income.R`](../code/Income.R)
 
 The `Income` data of [Unit L](../un_L.html) are available at [this
-link](https://stat4ds.rwth-aachen.de/data/Income.dat): the annual income
+link](../data/income.csv): the annual income
 (`income`, thousands of dollars), the years of education (`education`) and the
 racial-ethnic group (`race`: `B`, `H`, `W`) of $80$ adult Americans.
 
@@ -147,7 +148,7 @@ racial-ethnic group (`race`: `B`, `H`, `W`) of $80$ adult Americans.
 #### `Polid` dataset [(adapted from **AK** 6.13)]{.grey} - Solution: [`Polid.R`](../code/Polid.R)
 
 The `Polid` data file of @Agresti2022, available at [this
-link](https://stat4ds.rwth-aachen.de/data/Polid.dat), reports the political
+link](../data/polid.csv), reports the political
 ideology (`ideology`, from $1 =$ extremely liberal to $7 =$ extremely
 conservative) and the racial-ethnic group (`race`) of $2575$ respondents to the
 General Social Survey.

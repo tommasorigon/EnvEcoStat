@@ -1,6 +1,12 @@
 ## -----------------------------------------------------------------------------
-path <- "https://stat4ds.rwth-aachen.de/data/Houses.dat"
-Houses <- read.table(path, header = TRUE)
+Houses <- read.table("data/houses.csv", header = TRUE, sep = ",")
+
+## -----------------------------------------------------------------------------
+#| eval: false
+# path <- "https://tommasorigon.github.io/EnvEcoStat/data/houses.csv"
+# Houses <- read.table(path, header = TRUE, sep = ",")
+
+## -----------------------------------------------------------------------------
 Houses$new <- factor(Houses$new, levels = c(0, 1), labels = c("no", "yes"))
 
 ## -----------------------------------------------------------------------------
@@ -26,8 +32,14 @@ plot(fit_size_new, which = 1:2)
 par(mfrow = c(1, 1))
 
 ## -----------------------------------------------------------------------------
-path <- "https://stat4ds.rwth-aachen.de/data/Income.dat"
-Income <- read.table(path, header = TRUE)
+Income <- read.table("data/income.csv", header = TRUE, sep = ",")
+
+## -----------------------------------------------------------------------------
+#| eval: false
+# path <- "https://tommasorigon.github.io/EnvEcoStat/data/income.csv"
+# Income <- read.table(path, header = TRUE, sep = ",")
+
+## -----------------------------------------------------------------------------
 Income$race <- factor(Income$race)
 table(Income$race)
 boxplot(income ~ race, data = Income)

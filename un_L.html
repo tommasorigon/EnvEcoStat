@@ -232,10 +232,17 @@ window.Quarto = {
 <section id="a-qualitative-explanatory-variable" class="level2">
 <h2 class="anchored" data-anchor-id="a-qualitative-explanatory-variable">A qualitative explanatory variable</h2>
 <p>Let us go back to the <code>Houses</code> data of <a href="exe/exe_B.html">Exercises B</a>: the selling price (<code>price</code>, thousands of dollars) and the size (<code>size</code>, square feet) of <span class="math inline">100</span> houses, and whether the house is new (<code>new</code>, <span class="math inline">1 =</span> yes, <span class="math inline">0 =</span> no).</p>
+<p>As done previously, first of all you need to download the file <code>houses.csv</code> and save it on your computer. <a href="data/houses.csv">Link to the file</a></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://stat4ds.rwth-aachen.de/data/Houses.dat"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Houses <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Houses<span class="sc">$</span>new <span class="ot">&lt;-</span> <span class="fu">factor</span>(Houses<span class="sc">$</span>new, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"yes"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Houses <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/houses.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Alternatively, we can simply obtain them using the link:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://tommasorigon.github.io/EnvEcoStat/data/houses.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Houses <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Houses<span class="sc">$</span>new <span class="ot">&lt;-</span> <span class="fu">factor</span>(Houses<span class="sc">$</span>new, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"yes"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -252,8 +259,8 @@ window.Quarto = {
 </div>
 <p>A qualitative variable can be included in <code>lm</code> as any other variable:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fit_new <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> new, <span class="at">data =</span> Houses)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit_new)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fit_new <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> new, <span class="at">data =</span> Houses)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit_new)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)      newyes 
    207.8511    228.5943 </code></pre>
@@ -263,13 +270,13 @@ window.Quarto = {
 Y_i = \beta_0 + \beta_1 x_i + \epsilon_i,
 </span> so that <span class="math inline">\beta_0</span> is the mean price of old houses (<span class="math inline">x_i = 0</span>) and <span class="math inline">\beta_0 + \beta_1</span> is the mean price of new houses (<span class="math inline">x_i = 1</span>). Therefore, <span class="math inline">\beta_1</span> is the <span class="orange">difference</span> between the mean prices of new and old houses. The first category, <code>no</code>, is the <span class="blue">reference category</span>: it has no indicator. With <span class="math inline">c</span> categories, <strong>R</strong> creates <span class="math inline">c - 1</span> indicators, one for each category except the first.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>price_no <span class="ot">&lt;-</span> Houses<span class="sc">$</span>price[Houses<span class="sc">$</span>new <span class="sc">==</span> <span class="st">"no"</span>]</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>price_yes <span class="ot">&lt;-</span> Houses<span class="sc">$</span>price[Houses<span class="sc">$</span>new <span class="sc">==</span> <span class="st">"yes"</span>]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(price_no)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>price_no <span class="ot">&lt;-</span> Houses<span class="sc">$</span>price[Houses<span class="sc">$</span>new <span class="sc">==</span> <span class="st">"no"</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>price_yes <span class="ot">&lt;-</span> Houses<span class="sc">$</span>price[Houses<span class="sc">$</span>new <span class="sc">==</span> <span class="st">"yes"</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(price_no)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 207.8511</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(price_yes) <span class="sc">-</span> <span class="fu">mean</span>(price_no)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(price_yes) <span class="sc">-</span> <span class="fu">mean</span>(price_no)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 228.5943</code></pre>
 </div>
@@ -279,19 +286,19 @@ Y_i = \beta_0 + \beta_1 x_i + \epsilon_i,
 <h2 class="anchored" data-anchor-id="adjusting-for-the-size">Adjusting for the size</h2>
 <p>New houses are, however, also <span class="orange">larger</span>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> new, <span class="at">data =</span> Houses)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> new, <span class="at">data =</span> Houses)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="un_L_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="630"></p>
+<p><img src="un_L_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="630"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Let us compare new and old houses <span class="blue">of the same size</span>, with the model <span class="math inline">Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i</span>, where <span class="math inline">x_{i1}</span> is the size and <span class="math inline">x_{i2}</span> is the indicator of new houses. Now <span class="math inline">\beta_2</span> is the difference between the mean prices of new and old houses, at fixed size:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fit_size_new <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> size <span class="sc">+</span> new, <span class="at">data =</span> Houses)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_size_new)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fit_size_new <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> size <span class="sc">+</span> new, <span class="at">data =</span> Houses)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_size_new)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -331,16 +338,16 @@ F-statistic: 126.3 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
 <h2 class="anchored" data-anchor-id="diagnostic-plots-for-the-houses-data">Diagnostic plots for the <code>Houses</code> data</h2>
 <p>As in <a href="un_K.html">Unit K</a>, we check the assumptions of the model with the first two diagnostic plots:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># Two plots side by side</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_size_new, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># Two plots side by side</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_size_new, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="un_L_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="630"></p>
+<p><img src="un_L_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="630"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li><code>Residuals vs Fitted</code>: the cloud is <span class="orange">fan-shaped</span>, since the residuals are more spread out for the more expensive houses. The variance is therefore not constant. House <span class="math inline">64</span>, the largest one, has a very negative residual: its price is much lower than predicted from its size.</li>
@@ -364,29 +371,36 @@ F-statistic: 126.3 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Does the mean income differ among the three groups?</p>
 </div>
 </div>
+<p>As done previously, first of all you need to download the file <code>income.csv</code> and save it on your computer. <a href="data/income.csv">Link to the file</a></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://stat4ds.rwth-aachen.de/data/Income.dat"</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Income <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Income<span class="sc">$</span>race <span class="ot">&lt;-</span> <span class="fu">factor</span>(Income<span class="sc">$</span>race)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Income<span class="sc">$</span>race)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Income <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/income.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Alternatively, we can simply obtain them using the link:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">"https://tommasorigon.github.io/EnvEcoStat/data/income.csv"</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Income <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Income<span class="sc">$</span>race <span class="ot">&lt;-</span> <span class="fu">factor</span>(Income<span class="sc">$</span>race)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Income<span class="sc">$</span>race)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  B  H  W 
 16 14 50 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(income <span class="sc">~</span> race, <span class="at">data =</span> Income)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(income <span class="sc">~</span> race, <span class="at">data =</span> Income)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="un_L_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="630"></p>
+<p><img src="un_L_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="630"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>With <span class="math inline">c = 3</span> categories, <strong>R</strong> creates <span class="math inline">c - 1 = 2</span> indicators, <code>raceH</code> and <code>raceW</code>, and the first category, <code>B</code>, is the reference:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fit_race <span class="ot">&lt;-</span> <span class="fu">lm</span>(income <span class="sc">~</span> race, <span class="at">data =</span> Income)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_race)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fit_race <span class="ot">&lt;-</span> <span class="fu">lm</span>(income <span class="sc">~</span> race, <span class="at">data =</span> Income)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_race)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -411,14 +425,14 @@ F-statistic: 4.244 on 2 and 77 DF,  p-value: 0.01784</code></pre>
 </div>
 <p>The model is <span class="math inline">Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i</span>, where <span class="math inline">x_{i1}</span> and <span class="math inline">x_{i2}</span> are the indicators of Hispanics and Whites. Denoting by <span class="math inline">\mu_B</span>, <span class="math inline">\mu_H</span> and <span class="math inline">\mu_W</span> the mean incomes of the three groups, we have <span class="math inline">\beta_0 = \mu_B</span>, <span class="math inline">\beta_1 = \mu_H - \mu_B</span> and <span class="math inline">\beta_2 = \mu_W - \mu_B</span>. Indeed, the estimates are the differences between the sample means:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>income_B <span class="ot">&lt;-</span> Income<span class="sc">$</span>income[Income<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"B"</span>]</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>income_H <span class="ot">&lt;-</span> Income<span class="sc">$</span>income[Income<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"H"</span>]</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>income_W <span class="ot">&lt;-</span> Income<span class="sc">$</span>income[Income<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"W"</span>]</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(income_B), <span class="fu">mean</span>(income_H), <span class="fu">mean</span>(income_W))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>income_B <span class="ot">&lt;-</span> Income<span class="sc">$</span>income[Income<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"B"</span>]</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>income_H <span class="ot">&lt;-</span> Income<span class="sc">$</span>income[Income<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"H"</span>]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>income_W <span class="ot">&lt;-</span> Income<span class="sc">$</span>income[Income<span class="sc">$</span>race <span class="sc">==</span> <span class="st">"W"</span>]</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(income_B), <span class="fu">mean</span>(income_H), <span class="fu">mean</span>(income_W))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 27.75 31.00 42.48</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(income_H) <span class="sc">-</span> <span class="fu">mean</span>(income_B), <span class="fu">mean</span>(income_W) <span class="sc">-</span> <span class="fu">mean</span>(income_B))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(income_H) <span class="sc">-</span> <span class="fu">mean</span>(income_B), <span class="fu">mean</span>(income_W) <span class="sc">-</span> <span class="fu">mean</span>(income_B))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  3.25 14.73</code></pre>
 </div>
@@ -428,7 +442,7 @@ F-statistic: 4.244 on 2 and 77 DF,  p-value: 0.01784</code></pre>
 <h2 class="anchored" data-anchor-id="the-analysis-of-variance">The analysis of variance</h2>
 <p>The three groups have the same mean if <span class="math inline">H_0: \mu_B = \mu_H = \mu_W</span>, that is, if <span class="math inline">H_0: \beta_1 = \beta_2 = 0</span>. This is exactly the hypothesis of the <span class="orange">F test</span> in the last line of <code>summary(fit_race)</code>, also obtained with the command <code>anova</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_race)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_race)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -451,8 +465,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h2 class="anchored" data-anchor-id="adjusting-for-education">Adjusting for education</h2>
 <p>As in <a href="un_K.html">Unit K</a>, we can add a quantitative variable to the model:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fit_race_edu <span class="ot">&lt;-</span> <span class="fu">lm</span>(income <span class="sc">~</span> race <span class="sc">+</span> education, <span class="at">data =</span> Income)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_race_edu)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fit_race_edu <span class="ot">&lt;-</span> <span class="fu">lm</span>(income <span class="sc">~</span> race <span class="sc">+</span> education, <span class="at">data =</span> Income)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_race_edu)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -484,16 +498,16 @@ F-statistic: 21.75 on 3 and 76 DF,  p-value: 2.853e-10</code></pre>
 <section id="diagnostic-plots-for-the-income-data" class="level2">
 <h2 class="anchored" data-anchor-id="diagnostic-plots-for-the-income-data">Diagnostic plots for the <code>Income</code> data</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_race_edu, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_race_edu, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="un_L_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="630"></p>
+<p><img src="un_L_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="630"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The red line of <code>Residuals vs Fitted</code> is roughly flat, but two people, numbers <span class="math inline">67</span> and <span class="math inline">72</span>, have incomes much higher than predicted. In the <code>Q-Q Residuals</code> plot, the points in the upper part lie above the dotted line: as is typical for incomes, the residuals are <span class="orange">skewed to the right</span>. Also here, the P-values should be taken as approximate.</p>
 

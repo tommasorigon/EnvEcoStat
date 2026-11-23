@@ -114,7 +114,20 @@ cutting it down? How precise is the prediction?
 
 ## Importing the `trees` data
 
-The data are already available in **R**, in the data frame `trees`:
+As done previously, first of all you need to download the file `trees.csv` and
+save it on your computer. [Link to the file](data/trees.csv)
+
+```{r}
+trees <- read.table("data/trees.csv", header = TRUE, sep = ",")
+```
+
+Alternatively, we can simply obtain them using the link:
+
+```{r}
+#| eval: false
+path <- "https://tommasorigon.github.io/EnvEcoStat/data/trees.csv"
+trees <- read.table(path, header = TRUE, sep = ",")
+```
 
 ```{r}
 str(trees)

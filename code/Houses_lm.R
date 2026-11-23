@@ -5,8 +5,7 @@
 
 rm(list = ls())
 
-path <- "https://stat4ds.rwth-aachen.de/data/Houses.dat"
-Houses <- read.table(path, header = TRUE)
+Houses <- read.table("data/houses.csv", header = TRUE, sep = ",")
 
 # 1 --------------------------------------------------------------------
 fit_size <- lm(price ~ size, data = Houses)
