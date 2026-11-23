@@ -212,7 +212,7 @@ window.Quarto = {
 <p>At <a href="../data/elections.RData">this link</a> the data of the 2016 municipal elections in the city of Milan are available. Each statistical unit is a single vote; the variable <code>party</code> reports the list the vote was cast for, and the variable <code>district</code> the borough (<em>Municipio</em>) in which it was cast.</p>
 <hr>
 <ol type="1">
-<li><p>Load the data into memory.</p></li>
+<li><p>Load the data into memory. The file has the <code>.RData</code> format: use the command <code>load</code> (see the documentation).</p></li>
 <li><p>Which variables does the dataset <code>elections</code> contain? Of which type are they?</p></li>
 <li><p>Obtain the number of votes obtained by each party in the different districts of Milan.</p></li>
 <li><p>Obtain the number of votes obtained by each party and draw a plot of it. Obtain moreover the percentage of votes obtained by each party.</p></li>
@@ -243,7 +243,7 @@ G = 1 - \sum_{j=1}^k f_j^2,
 <ol type="1">
 <li><p>Import the data into <strong>R</strong> and create a second data frame, without the row relative to <code>DC</code>.</p></li>
 <li><p>Using the data without <code>DC</code>, find the mean and the standard deviation, and interpret their values.</p></li>
-<li><p>Still without <code>DC</code>, find the five-number summary and construct the corresponding boxplot. Interpret them.</p></li>
+<li><p>Still without <code>DC</code>, find the quartiles with the command <code>summary</code> and construct the boxplot. Interpret them.</p></li>
 <li><p>Include <code>DC</code> again. What is affected more by this outlier: the mean or the median? The range or the interquartile range? Why?</p></li>
 </ol>
 </div>
@@ -265,16 +265,15 @@ G = 1 - \sum_{j=1}^k f_j^2,
 <hr>
 <ol type="1">
 <li><p>Import the data into <strong>R</strong>. The <code>read.table</code> function accepts a <span class="orange">web address</span> in place of a file name, so there is no need to download the file first. Construct a frequency distribution and a histogram of <code>price</code>, and describe the shape of the distribution.</p></li>
-<li><p>Find the percentage of observations that fall within one standard deviation of the mean, that is in the interval <span class="math inline">(\bar{x} - s, \bar{x} + s)</span>. Why is this percentage not close to <span class="math inline">68\%</span>?</p></li>
-<li><p>Construct a boxplot of <code>price</code> and interpret it.</p></li>
-<li><p>Repeat the three previous points on the <span class="orange">logarithm of the price</span>. Does the empirical rule work better on this scale? Why?</p></li>
-<li><p>Use descriptive statistics to compare the selling prices of new and old houses. Would you regard this comparison as reliable?</p></li>
-<li><p>Let now <span class="math inline">y =</span> <code>price</code> and <span class="math inline">x =</span> <code>size</code>. Construct a scatterplot and interpret it. Identify the observation that seems to fall apart from the others.</p></li>
-<li><p>Find the correlation and interpret it. Then find the regression line, interpret the slope, and find the predicted selling price for a house of</p>
+<li><p>Construct a boxplot of <code>price</code> and interpret it. Are there unusually high prices?</p></li>
+<li><p>Repeat the two previous points on the <span class="orange">logarithm of the price</span>. Is the distribution more symmetric? Compare the mean and the median of <code>price</code> and of its logarithm.</p></li>
+<li><p>Use descriptive statistics to compare the selling prices of new and old houses. How many houses are new? Is the comparison based on enough data?</p></li>
+<li><p>Let now <span class="math inline">y =</span> <code>price</code> and <span class="math inline">x =</span> <code>size</code>. Construct a scatterplot and interpret it. Identify the largest house: is its price in line with those of the other houses?</p></li>
+<li><p>Find the correlation and interpret it. Then find the least squares estimates <span class="math inline">\hat{\alpha}</span> and <span class="math inline">\hat{\beta}</span>, as in <a href="../un_F.html">Unit F</a>, interpret the slope, and find the predicted selling price for a house of</p>
 <ol type="i">
 <li><span class="math inline">1000</span> square feet, (ii) <span class="math inline">4000</span> square feet.</li>
 </ol></li>
-<li><p>Remove the observation identified at point 6 and obtain the regression line again. How much do the estimates change?</p></li>
+<li><p>Remove the largest house and compute the least squares estimates again. How much do they change?</p></li>
 </ol>
 </div>
 </div>
@@ -305,8 +304,8 @@ G = 1 - \sum_{j=1}^k f_j^2,
 <hr>
 <ol type="1">
 <li><p>Import the data into <strong>R</strong> and conduct a descriptive analysis of the prison rates, highlighting any unusual observation.</p></li>
-<li><p>Construct the correlation matrix of the eight quantitative variables. Which pair has the strongest association?</p></li>
-<li><p>Study the association between <code>CO2</code> and <code>GDP</code> through a scatterplot, the correlation and the regression line. Show how the predicted CO<span class="math inline">_2</span> varies as <code>GDP</code> goes from its minimum to its maximum value in this sample.</p></li>
+<li><p>Construct the correlation matrix of the eight quantitative variables: the command <code>cor</code>, applied to a data frame of numerical variables, returns the correlations of all the pairs. Which pair has the strongest association?</p></li>
+<li><p>Study the association between <code>CO2</code> and <code>GDP</code> through a scatterplot, the correlation and the least squares line, as in <a href="../un_F.html">Unit F</a>. Find the predicted CO<span class="math inline">_2</span> for the smallest and for the largest <code>GDP</code> in this sample.</p></li>
 <li><p>The correlation between <code>GDP</code> and <code>Prison</code> is essentially zero. Does this mean that the two variables are unrelated? Look at the scatterplot, and then repeat the computation without the United States.</p></li>
 </ol>
 </div>

@@ -591,3 +591,14 @@ boxplot.stats(dde_preterm)
 ```{r}
 boxplot(dde_preterm, dde_non_preterm) # Produces the plot
 ```
+
+How to read a boxplot:
+
+-   the [box]{.orange} goes from the first to the third quartile, and the line
+    inside it is the [median]{.blue};
+-   the lines outside the box (*whiskers*) reach the most extreme values that
+    are not too far from the box, that is within $1.5$ times the length of the
+    box;
+-   the observations beyond the whiskers are drawn as single points: they are
+    [unusual values]{.orange} (*outliers*), listed in the `$out` component of
+    `boxplot.stats`.

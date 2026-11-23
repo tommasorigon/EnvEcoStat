@@ -15,60 +15,51 @@ hist(Houses$price, breaks = classes)
 # The distribution is strongly skewed to the right
 
 # 2 --------------------------------------------------------------------
-price_mean <- mean(Houses$price) # 233.0
-price_sd <- sd(Houses$price) # 151.9
-mean(abs(Houses$price - price_mean) <= price_sd) # 0.85, that is 85%
-# The empirical rule concerns bell-shaped distributions. Here the distribution
-# is strongly asymmetric, so the rule does not apply
+boxplot(Houses$price)
+# Several unusually high prices, all on the right
 
 # 3 --------------------------------------------------------------------
-fivenum(Houses$price) # 31.5, 138.8, 198.9, 257.6, 880.5
-boxplot(Houses$price) # Several outliers, all on the right
-
-# 4 --------------------------------------------------------------------
 log_price <- log(Houses$price)
 hist(log_price, breaks = seq(3, 7, by = 0.5))
 boxplot(log_price)
 
-mean(log_price) # 5.291
-median(log_price) # 5.293, essentially the same value
-mean(abs(log_price - mean(log_price)) <= sd(log_price)) # 0.74
+c(mean(Houses$price), median(Houses$price)) # 233.0 and 198.9: the mean is larger
+c(mean(log_price), median(log_price)) # 5.291 and 5.293: essentially the same value
+# On the logarithmic scale the distribution is almost symmetric
 
-# On the logarithmic scale the distribution is almost symmetric and the
-# percentage is much closer to 68%: the empirical rule is a statement about
-# the shape of the distribution, not about the variable itself
-
-# 5 --------------------------------------------------------------------
+# 4 --------------------------------------------------------------------
 table(Houses$new) # Only 11 of the 100 houses are new
 price_old <- Houses$price[Houses$new == 0] # Old houses
 price_new <- Houses$price[Houses$new == 1] # New houses
 
-mean(price_old) # 207.9
-mean(price_new) # 436.4
-median(price_old) # 190.8
-median(price_new) # 427.5
+summary(price_old)
+summary(price_new)
 boxplot(price ~ new, data = Houses)
 # New houses are sold at about twice the price, but they are only 11: the
 # comparison is based on a very small group
 
-# 6 --------------------------------------------------------------------
+# 5 --------------------------------------------------------------------
 plot(Houses$size, Houses$price)
-# One house is the largest of the sample but is sold at an average price
-Houses[which.max(Houses$size), ] # Case 64: 4050 square feet, 337.5
+Houses[which.max(Houses$size), ] # Case 64: the largest house, 4050 square feet
+# Its price is in line with houses of about half its size
 
-# 7 --------------------------------------------------------------------
+# 6 --------------------------------------------------------------------
+my_var <- function(x) mean(x^2) - mean(x)^2
+my_cov <- function(x, y) mean(x * y) - mean(x) * mean(y)
+
 cor(Houses$size, Houses$price) # 0.834, a strong positive linear relationship
 
-fit <- lm(price ~ size, data = Houses)
-coef(fit) # Intercept -76.39, slope 0.1899
+beta_hat <- my_cov(Houses$size, Houses$price) / my_var(Houses$size)
+alpha_hat <- mean(Houses$price) - beta_hat * mean(Houses$size)
+c(alpha_hat, beta_hat) # Intercept -76.39, slope 0.1899
 # One additional square foot is worth, on average, about 190 dollars
-abline(fit)
+abline(a = alpha_hat, b = beta_hat)
 
-predict(fit, newdata = data.frame(size = c(1000, 4000))) # 113.5 and 683.2
+alpha_hat + beta_hat * c(1000, 4000) # 113.5 and 683.2 thousand dollars
 
-# 8 --------------------------------------------------------------------
+# 7 --------------------------------------------------------------------
 Houses_no64 <- subset(Houses, case != 64)
-fit2 <- lm(price ~ size, data = Houses_no64)
-coef(fit2) # Intercept -109.37, slope 0.2127
-cor(Houses_no64$size, Houses_no64$price) # 0.871
+beta_hat2 <- my_cov(Houses_no64$size, Houses_no64$price) / my_var(Houses_no64$size)
+alpha_hat2 <- mean(Houses_no64$price) - beta_hat2 * mean(Houses_no64$size)
+c(alpha_hat2, beta_hat2) # Intercept -109.37, slope 0.2127
 # A single observation out of 100 changes the slope by more than 10%

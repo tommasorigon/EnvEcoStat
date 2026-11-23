@@ -7,7 +7,7 @@ rm(list = ls())
 
 diag2 <- function(A) {
   n <- nrow(A)
-  diagonal <- numeric(n)
+  diagonal <- rep(NA, n) # Empty vector, to be filled
   for (i in 1:n) {
     diagonal[i] <- A[i, i]
   }

@@ -9,11 +9,10 @@ rm(list = ls())
 path <- "https://stat4ds.rwth-aachen.de/data/UN.dat"
 UN <- read.table(path, header = TRUE)
 
-summary(UN$Prison) # Median 119.5, mean 153.9: the distribution is skewed
+summary(UN$Prison) # The mean is much larger than the median: skewed distribution
 sd(UN$Prison) # 124.3
-boxplot(UN$Prison)
-UN$Nation[order(UN$Prison, decreasing = TRUE)][1:3]
-# The United States (716) are far above every other nation, Russia is second
+boxplot(UN$Prison) # One very large value
+UN[which.max(UN$Prison), ] # The United States, far above every other nation
 
 # 2 --------------------------------------------------------------------
 round(cor(UN[, -1]), 2) # The first column contains the names of the nations
@@ -24,14 +23,18 @@ round(cor(UN[, -1]), 2) # The first column contains the names of the nations
 plot(UN$GDP, UN$CO2)
 cor(UN$GDP, UN$CO2) # 0.674
 
-fit <- lm(CO2 ~ GDP, data = UN)
-coef(fit) # Intercept 1.926, slope 0.1778
-abline(fit)
+my_var <- function(x) mean(x^2) - mean(x)^2
+my_cov <- function(x, y) mean(x * y) - mean(x) * mean(y)
 
-predict(fit, newdata = data.frame(GDP = range(UN$GDP))) # From 2.71 to 13.11
+beta_hat <- my_cov(UN$GDP, UN$CO2) / my_var(UN$GDP)
+alpha_hat <- mean(UN$CO2) - beta_hat * mean(UN$GDP)
+c(alpha_hat, beta_hat) # Intercept 1.926, slope 0.1778
+abline(a = alpha_hat, b = beta_hat)
+
+alpha_hat + beta_hat * range(UN$GDP) # From 2.71 to 13.11 metric tons
 
 # 4 --------------------------------------------------------------------
-cor(UN$GDP, UN$Prison) # -0.003
+cor(UN$GDP, UN$Prison) # -0.003, essentially zero
 plot(UN$GDP, UN$Prison) # The United States are an extreme observation
 
 UN_no_US <- subset(UN, Nation != "US")

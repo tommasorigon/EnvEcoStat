@@ -224,7 +224,7 @@ forest.
 The [simple linear regression model]{.orange} assumes that $$
 Y_i = \alpha + \beta x_i + \epsilon_i, \qquad i = 1,\dots,n,
 $$ where the errors $\epsilon_1,\dots,\epsilon_n$ are independent, with
-distribution $N(0, \sigma^2)$. The values $x_1,\dots,x_n$ of the diameter are
+distribution $\text{N}(0, \sigma^2)$. The values $x_1,\dots,x_n$ of the diameter are
 treated as [fixed]{.blue}, non-random, numbers: only the errors $\epsilon_i$,
 and therefore the volumes $Y_i$, are random. As in [Unit I](un_I.html), capital
 letters denote random variables. Therefore:

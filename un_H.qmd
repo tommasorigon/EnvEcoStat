@@ -182,7 +182,7 @@ The [$p$-quantile]{.orange} of a discrete distribution is the smallest value $k$
 that $\mathbb{P}(Y \le k) \ge p$.
 
 Supposing that $Y \sim \text{binom}(10, 0.6)$, the [first quartile]{.blue} is
-$\mathcal{Q}(0.25) = 5$, because $5$ is the smallest value $k$ such that
+$\mathcal{Q}_{0.25} = 5$, because $5$ is the smallest value $k$ such that
 $\mathbb{P}(Y \le k) \ge 0.25$.
 
 In **R** we can obtain these results as follows:
@@ -276,7 +276,7 @@ pnorm(1) - pnorm(-1)
 ## Normal distribution (quantile function)
 
 The continuity of the cumulative distribution function $F(y)$ implies that the
-[quantile function]{.blue} is equal to $\mathcal{Q}(\cdot) = F^{-1}(\cdot)$.
+[quantile function]{.blue} is equal to $F^{-1}(\cdot)$, that is $\mathcal{Q}_p = F^{-1}(p)$.
 
 For example, consider the third quartile of a standard normal distribution, that
 is
@@ -287,7 +287,7 @@ qnorm(0.75)
 
 As a consequence, the quantile and the cumulative distribution functions are
 such that $$
-F(\mathcal{Q}(0.75)) = F(F^{-1}(0.75))= 0.75.
+F(\mathcal{Q}_{0.75}) = F(F^{-1}(0.75))= 0.75.
 $$
 
 Indeed:

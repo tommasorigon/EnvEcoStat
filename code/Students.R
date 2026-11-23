@@ -30,7 +30,7 @@ students[, c("age", "hsgpa", "cogpa")]
 
 # 5 --------------------------------------------------------------------
 sum(students$veg) # 9 vegetarians
-nrow(subset(students, age > 30)) # 18 students
+sum(students$veg == 1 & students$age > 30) # 2 vegetarians are older than 30
 
 # 6 --------------------------------------------------------------------
 students$gpa_change <- students$cogpa - students$hsgpa

@@ -245,7 +245,8 @@ others, the following variables:
 
 3.  Note that `gender` and `life` are [qualitative]{.blue} variables, even
     though they are stored as numbers. Convert them into `factor` objects with
-    meaningful labels, then obtain the frequency table of `life`.
+    meaningful labels (see the option `labels` of `factor` in the
+    documentation), then obtain the frequency table of `life`.
 
 4.  Extract the sub-data-frame containing the variables `age`, `hsgpa` and
     `cogpa` only.

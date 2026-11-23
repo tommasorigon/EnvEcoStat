@@ -331,7 +331,7 @@ F(y) =   \mathbb{P}(Y \le y) = \sum_{k=0}^y\mathbb{P}(Y = k), \qquad Y \sim \tex
 <section id="binomial-distribution-quantiles" class="level2">
 <h2 class="anchored" data-anchor-id="binomial-distribution-quantiles">Binomial distribution (quantiles)</h2>
 <p>The <span class="orange"><span class="math inline">p</span>-quantile</span> of a discrete distribution is the smallest value <span class="math inline">k</span> such that <span class="math inline">\mathbb{P}(Y \le k) \ge p</span>.</p>
-<p>Supposing that <span class="math inline">Y \sim \text{binom}(10, 0.6)</span>, the <span class="blue">first quartile</span> is <span class="math inline">\mathcal{Q}(0.25) = 5</span>, because <span class="math inline">5</span> is the smallest value <span class="math inline">k</span> such that <span class="math inline">\mathbb{P}(Y \le k) \ge 0.25</span>.</p>
+<p>Supposing that <span class="math inline">Y \sim \text{binom}(10, 0.6)</span>, the <span class="blue">first quartile</span> is <span class="math inline">\mathcal{Q}_{0.25} = 5</span>, because <span class="math inline">5</span> is the smallest value <span class="math inline">k</span> such that <span class="math inline">\mathbb{P}(Y \le k) \ge 0.25</span>.</p>
 <p>In <strong>R</strong> we can obtain these results as follows:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qbinom</span>(<span class="fl">0.25</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.6</span>) <span class="co"># First quartile</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -436,7 +436,7 @@ f(y) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(y - \mu)^2
 </section>
 <section id="normal-distribution-quantile-function" class="level2">
 <h2 class="anchored" data-anchor-id="normal-distribution-quantile-function">Normal distribution (quantile function)</h2>
-<p>The continuity of the cumulative distribution function <span class="math inline">F(y)</span> implies that the <span class="blue">quantile function</span> is equal to <span class="math inline">\mathcal{Q}(\cdot) = F^{-1}(\cdot)</span>.</p>
+<p>The continuity of the cumulative distribution function <span class="math inline">F(y)</span> implies that the <span class="blue">quantile function</span> is equal to <span class="math inline">F^{-1}(\cdot)</span>, that is <span class="math inline">\mathcal{Q}_p = F^{-1}(p)</span>.</p>
 <p>For example, consider the third quartile of a standard normal distribution, that is</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.75</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -445,7 +445,7 @@ f(y) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(y - \mu)^2
 </div>
 </div>
 <p>As a consequence, the quantile and the cumulative distribution functions are such that <span class="math display">
-F(\mathcal{Q}(0.75)) = F(F^{-1}(0.75))= 0.75.
+F(\mathcal{Q}_{0.75}) = F(F^{-1}(0.75))= 0.75.
 </span></p>
 <p>Indeed:</p>
 <div class="cell">

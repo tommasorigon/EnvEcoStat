@@ -32,4 +32,7 @@ var2(x)
 var3(x) # Much slower than var2(x)
 
 # 5 --------------------------------------------------------------------
-var(x) # It divides by n - 1 and not by n
+x <- c(1, 4, 2, 2, 10) # The data of point 3
+var2(x)
+var(x) # Larger: it divides by n - 1 and not by n
+var2(x) * 5 / 4 # The same value as var(x), since n = 5

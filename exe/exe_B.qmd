@@ -90,7 +90,8 @@ variable `party` reports the list the vote was cast for, and the variable
 
 ------------------------------------------------------------------------
 
-1.  Load the data into memory.
+1.  Load the data into memory. The file has the `.RData` format: use the
+    command `load` (see the documentation).
 
 2.  Which variables does the dataset `elections` contain? Of which type are
     they?
@@ -136,8 +137,8 @@ At first, [leave the observation relative to `DC` aside]{.blue}.
 2.  Using the data without `DC`, find the mean and the standard deviation, and
     interpret their values.
 
-3.  Still without `DC`, find the five-number summary and construct the
-    corresponding boxplot. Interpret them.
+3.  Still without `DC`, find the quartiles with the command `summary` and
+    construct the boxplot. Interpret them.
 
 4.  Include `DC` again. What is affected more by this outlier: the mean or the
     median? The range or the interquartile range? Why?
@@ -160,28 +161,27 @@ for $100$ home sales in Gainesville, Florida.
     the file first. Construct a frequency distribution and a histogram of
     `price`, and describe the shape of the distribution.
 
-2.  Find the percentage of observations that fall within one standard deviation
-    of the mean, that is in the interval $(\bar{x} - s, \bar{x} + s)$. Why is
-    this percentage not close to $68\%$?
+2.  Construct a boxplot of `price` and interpret it. Are there unusually high
+    prices?
 
-3.  Construct a boxplot of `price` and interpret it.
+3.  Repeat the two previous points on the [logarithm of the
+    price]{.orange}. Is the distribution more symmetric? Compare the mean and
+    the median of `price` and of its logarithm.
 
-4.  Repeat the three previous points on the [logarithm of the
-    price]{.orange}. Does the empirical rule work better on this scale? Why?
+4.  Use descriptive statistics to compare the selling prices of new and old
+    houses. How many houses are new? Is the comparison based on enough data?
 
-5.  Use descriptive statistics to compare the selling prices of new and old
-    houses. Would you regard this comparison as reliable?
+5.  Let now $y =$ `price` and $x =$ `size`. Construct a scatterplot and
+    interpret it. Identify the largest house: is its price in line with those
+    of the other houses?
 
-6.  Let now $y =$ `price` and $x =$ `size`. Construct a scatterplot and
-    interpret it. Identify the observation that seems to fall apart from the
-    others.
-
-7.  Find the correlation and interpret it. Then find the regression line,
+6.  Find the correlation and interpret it. Then find the least squares
+    estimates $\hat{\alpha}$ and $\hat{\beta}$, as in [Unit F](../un_F.html),
     interpret the slope, and find the predicted selling price for a house of
     (i) $1000$ square feet, (ii) $4000$ square feet.
 
-8.  Remove the observation identified at point 6 and obtain the regression line
-    again. How much do the estimates change?
+7.  Remove the largest house and compute the least squares estimates again.
+    How much do they change?
 :::
 
 ::: {.callout-note collapse="true"}
@@ -215,12 +215,15 @@ $42$ nations on the following variables:
 1.  Import the data into **R** and conduct a descriptive analysis of the prison
     rates, highlighting any unusual observation.
 
-2.  Construct the correlation matrix of the eight quantitative variables. Which
-    pair has the strongest association?
+2.  Construct the correlation matrix of the eight quantitative variables: the
+    command `cor`, applied to a data frame of numerical variables, returns
+    the correlations of all the pairs. Which pair has the strongest
+    association?
 
 3.  Study the association between `CO2` and `GDP` through a scatterplot, the
-    correlation and the regression line. Show how the predicted CO$_2$ varies
-    as `GDP` goes from its minimum to its maximum value in this sample.
+    correlation and the least squares line, as in [Unit F](../un_F.html). Find
+    the predicted CO$_2$ for the smallest and for the largest `GDP` in this
+    sample.
 
 4.  The correlation between `GDP` and `Prison` is essentially zero. Does this
     mean that the two variables are unrelated? Look at the scatterplot, and

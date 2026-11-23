@@ -251,7 +251,7 @@ An estimator is [unbiased]{.blue} if its expected value equals the parameter.
 Let us check through simulation, with a short campaign of $n = 5$ days:
 
 ```{r}
-my_var <- function(x) mean(x^2) - mean(x)^2 # From Unit F: divides by n
+my_var <- function(x) mean(x^2) - mean(x)^2 # From Unit E: divides by n
 
 set.seed(123)
 n <- 5

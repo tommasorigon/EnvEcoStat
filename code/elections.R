@@ -24,30 +24,26 @@ table(elections$party)
 barplot(table(elections$party))
 
 # Percentage of votes (rounded)
-round(100 * table(elections$party) / nrow(elections), 2)
+round(100 * prop.table(table(elections$party)), 2)
 
 # 5 --------------------------------------------------------------------
 Gini <- function(x) {
-  freq <- as.numeric(table(x))
-  freq_rel <- freq / sum(freq)
+  freq_rel <- prop.table(table(x)) # Relative frequencies
   1 - sum(freq_rel^2)
 }
 
 # 6 --------------------------------------------------------------------
 Gini_norm <- function(x) {
-  freq <- as.numeric(table(x))
-  freq_rel <- freq / sum(freq)
-  k <- length(freq)
-  k / (k - 1) * (1 - sum(freq_rel^2))
+  k <- length(table(x)) # Number of categories
+  k / (k - 1) * Gini(x)
 }
 
 # 7 --------------------------------------------------------------------
 districts <- levels(elections$district)
-G <- numeric(length(districts))
-names(G) <- districts
+G <- rep(NA, length(districts)) # Empty vector, to be filled
 for (j in 1:length(districts)) {
   G[j] <- Gini_norm(elections$party[elections$district == districts[j]])
 }
-round(G, 4)
-names(which.max(G)) # District 9: the most fragmented
-names(which.min(G)) # District 1: the most concentrated (polarised)
+cbind(district = 1:length(districts), Gini = round(G, 4)) # Table of the results
+districts[which.max(G)] # District 9: the most fragmented
+districts[which.min(G)] # District 1: the most concentrated (polarised)
