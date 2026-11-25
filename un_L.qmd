@@ -161,10 +161,9 @@ an old one, and not $229$: a large part of the difference between the two
 groups is due to the size. The difference remains statistically significant
 (P-value $0.003$).
 
-This is the same phenomenon seen with the trees in [Unit K](un_K.html): the effect of a variable
-changes when another variable, related to both, enters the model. The size is
-a [confounding variable]{.orange} for the comparison between new and old
-houses.
+The effect of a variable can change a lot when another variable, related to
+both the explanatory variable and the response, enters the model. The size is a
+[confounding variable]{.orange} for the comparison between new and old houses.
 
 ::: callout-warning
 These are [observational]{.blue} data: association does not imply causation.

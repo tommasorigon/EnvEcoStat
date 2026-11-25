@@ -536,30 +536,6 @@ As for the simple model, the $95\%$ confidence intervals are obtained with
 confint(fit2)
 ```
 
-## Marginal and conditional effects
-
-What if we used the [height only]{.blue}?
-
-```{r}
-fit_height <- lm(volume ~ height, data = cherry)
-coef(fit_height)
-```
-
-Alone, one additional metre of height corresponds to $0.142$ m$^3$ of
-additional timber: almost [five times]{.orange} the value $0.031$ obtained at
-fixed diameter. Why?
-
-Taller trees also tend to have a larger diameter. The simple regression
-attributes to the height also the effect of the diameter, which is not in the
-model. The multiple regression, instead, compares trees with the same
-diameter.
-
-::: callout-warning
-The coefficient of a variable [depends on which other variables]{.orange} are
-in the model. Always interpret it together with the list of the other
-variables: "at fixed ...".
-:::
-
 ## Prediction with two variables
 
 Two standing trees have the same diameter, $40$ cm, but different heights,

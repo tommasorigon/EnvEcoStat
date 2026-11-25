@@ -158,7 +158,6 @@ window.Quarto = {
   <li><a href="#fitting-the-model-with-two-variables" id="toc-fitting-the-model-with-two-variables" class="nav-link" data-scroll-target="#fitting-the-model-with-two-variables">Fitting the model with two variables</a></li>
   <li><a href="#the-output-of-summary" id="toc-the-output-of-summary" class="nav-link" data-scroll-target="#the-output-of-summary">The output of <code>summary</code></a></li>
   <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">Confidence intervals</a></li>
-  <li><a href="#marginal-and-conditional-effects" id="toc-marginal-and-conditional-effects" class="nav-link" data-scroll-target="#marginal-and-conditional-effects">Marginal and conditional effects</a></li>
   <li><a href="#prediction-with-two-variables" id="toc-prediction-with-two-variables" class="nav-link" data-scroll-target="#prediction-with-two-variables">Prediction with two variables</a></li>
   <li><a href="#diagnostic-plots-again" id="toc-diagnostic-plots-again" class="nav-link" data-scroll-target="#diagnostic-plots-again">Diagnostic plots, again</a></li>
   </ul>
@@ -720,36 +719,12 @@ height       0.006355497  0.05580920</code></pre>
 </div>
 </div>
 </section>
-<section id="marginal-and-conditional-effects" class="level2">
-<h2 class="anchored" data-anchor-id="marginal-and-conditional-effects">Marginal and conditional effects</h2>
-<p>What if we used the <span class="blue">height only</span>?</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>fit_height <span class="ot">&lt;-</span> <span class="fu">lm</span>(volume <span class="sc">~</span> height, <span class="at">data =</span> cherry)</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit_height)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(Intercept)      height 
- -2.4469264   0.1424763 </code></pre>
-</div>
-</div>
-<p>Alone, one additional metre of height corresponds to <span class="math inline">0.142</span> m<span class="math inline">^3</span> of additional timber: almost <span class="orange">five times</span> the value <span class="math inline">0.031</span> obtained at fixed diameter. Why?</p>
-<p>Taller trees also tend to have a larger diameter. The simple regression attributes to the height also the effect of the diameter, which is not in the model. The multiple regression, instead, compares trees with the same diameter.</p>
-<div class="callout callout-style-simple callout-warning no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>The coefficient of a variable <span class="orange">depends on which other variables</span> are in the model. Always interpret it together with the list of the other variables: “at fixed …”.</p>
-</div>
-</div>
-</div>
-</section>
 <section id="prediction-with-two-variables" class="level2">
 <h2 class="anchored" data-anchor-id="prediction-with-two-variables">Prediction with two variables</h2>
 <p>Two standing trees have the same diameter, <span class="math inline">40</span> cm, but different heights, <span class="math inline">20</span> m and <span class="math inline">25</span> m. The data frame given to <code>predict</code> must now contain both variables:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>new_trees <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">diameter =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">40</span>), <span class="at">height =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">25</span>))</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit2, <span class="at">newdata =</span> new_trees, <span class="at">interval =</span> <span class="st">"prediction"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>new_trees <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">diameter =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">40</span>), <span class="at">height =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">25</span>))</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit2, <span class="at">newdata =</span> new_trees, <span class="at">interval =</span> <span class="st">"prediction"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       fit       lwr      upr
 1 1.089213 0.8375444 1.340881
@@ -761,16 +736,16 @@ height       0.006355497  0.05580920</code></pre>
 <section id="diagnostic-plots-again" class="level2">
 <h2 class="anchored" data-anchor-id="diagnostic-plots-again">Diagnostic plots, again</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit2, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit2, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="un_K_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="630"></p>
+<p><img src="un_K_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="630"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The residuals show the same <span class="orange">curvature</span> seen in the simple model: adding the height improves the predictions, but it does not fix this problem. The normal Q-Q plot, instead, does not show strong departures from normality. The model is useful, but it is only an approximation.</p>
 </section>
